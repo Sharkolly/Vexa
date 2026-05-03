@@ -1,0 +1,93 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [],
+  theme: {
+    extend: {
+      colors: {
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-secondary-container": "#5c647a",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#777587",
+                    "surface-dim": "#d8dadc",
+                    "error": "#ba1a1a",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-container": "#ccdcf7",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-surface-variant": "#464555",
+                    "secondary": "#565e74",
+                    "surface-bright": "#f7f9fb",
+                    "primary-container": "#4f46e5",
+                    "error-container": "#ffdad6",
+                    "background": "#f7f9fb",
+                    "tertiary": "#3a495f",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary-container": "#dae2fd",
+                    "primary-fixed": "#e2dfff",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "primary": "#3525cd",
+                    "tertiary-container": "#516177",
+                    "surface-container": "#eceef0",
+                    "outline-variant": "#c7c4d8",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "on-primary-fixed": "#0f0069",
+                    "secondary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "unit": "4px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-xl": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-xl": ["60px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0", "fontWeight": "400"}]
+            }
+    },
+  },
+  plugins: [],
+}
+
