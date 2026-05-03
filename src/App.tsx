@@ -12,6 +12,7 @@ import Delivery from "./pages/Delivery";
 import NotFound from "./pages/404";
 import Shop from "./pages/Shop";
 import Layout from "../components/ui/Layout";
+import ForgotPassword from "./pages/auth/forgot-password";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,6 +20,7 @@ function App() {
       <Route>
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/addtocart" element={<AddToCart />} />
