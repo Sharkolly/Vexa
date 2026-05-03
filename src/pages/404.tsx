@@ -1,93 +1,14 @@
-import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const NotFound = () => {
   return (
     <div>
       <div className="bg-background text-on-background min-h-screen flex flex-col overflow-x-hidden">
-        <header className="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-slate-100 dark:border-slate-800 shadow-[0_1px_0_0_rgba(0,0,0,0.05)]">
-          <div className="flex justify-between items-center max-w-[1440px] mx-auto px-16 h-24">
-            <div className="flex items-center gap-12">
-              <a
-                className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white transition-all duration-300 ease-out hover:opacity-80 active:scale-95 duration-200"
-                href="/"
-              >
-                Vexa
-              </a>
-              <nav className="hidden md:flex items-center gap-8">
-                <a
-                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 ease-out active:scale-95 duration-200"
-                  href="#"
-                >
-                  Tech
-                </a>
-                <a
-                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 ease-out active:scale-95 duration-200"
-                  href="#"
-                >
-                  Fashion
-                </a>
-                <a
-                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 ease-out active:scale-95 duration-200"
-                  href="#"
-                >
-                  Shoes
-                </a>
-                <a
-                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 ease-out active:scale-95 duration-200"
-                  href="#"
-                >
-                  Cars
-                </a>
-                <a
-                  className="text-slate-600 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 ease-out active:scale-95 duration-200"
-                  href="#"
-                >
-                  Services
-                </a>
-              </nav>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant">
-                <span
-                  className="material-symbols-outlined text-outline mr-2"
-                  data-icon="search"
-                >
-                  search
-                </span>
-                <input
-                  className="bg-transparent border-none focus:ring-0 text-sm w-48"
-                  placeholder="Search Vexa..."
-                  type="text"
-                />
-              </div>
-              <div className="flex items-center gap-4">
-                <button
-                  className="material-symbols-outlined text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-                  data-icon="favorite"
-                >
-                  favorite
-                </button>
-                <button
-                  className="material-symbols-outlined text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-                  data-icon="shopping_cart"
-                >
-                  shopping_cart
-                </button>
-                <button
-                  className="material-symbols-outlined text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-                  data-icon="person"
-                >
-                  person
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
         <main className="flex-grow pt-24">
           <section className="max-w-[1440px] mx-auto px-16 py-32 flex flex-col items-center justify-center text-center">
-            [03/05/2026 15:32] Fola 🖤:{" "}
-            <div className="relative mb-stack-lg">
-              <span className="text-[180px] font-black text-surface-container-high leading-none select-none tracking-tighter">
+            {" "}
+            <div className="relative mb-4">
+              <span className="text-[180px] font-black text-slate-200 leading-none select-none tracking-wide">
                 404
               </span>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -99,21 +20,21 @@ const NotFound = () => {
                 />
               </div>
             </div>
-            <h1 className="font-display-xl text-display-xl text-on-surface mb-stack-sm tracking-tighter">
+            <h1 className="font-bold text-4xl text-on-surface mt-10 mb-2 tracking-wid">
               Lost in the Digital World?
             </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-stack-lg">
+            <p className=" text-md text-slate-700 max-w-xl mx-auto mb-5 mt-3">
               The page you're looking for doesn't exist. It might have been
               moved, or perhaps it never arrived in this dimension.
             </p>
-            <div className="flex flex-col sm:flex-row gap-gutter justify-center mb-16">
-              <a
-                className="bg-primary text-on-primary px-10 py-4 rounded-xl font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200"
-                href="/"
+            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-3 mb-16">
+              <NavLink
+                className="bg-nav-blue-active text-white px-8 py-4 rounded-xl font-medium text-lg shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200"
+                to="/"
               >
                 Back to Home
-              </a>
-              <div className="flex items-center bg-surface-container px-6 py-4 rounded-xl border border-outline-variant focus-within:border-primary transition-colors">
+              </NavLink>
+              <div className="flex items-center bg-surface-container px-6 py-4 rounded-xl border border-slate-400 focus-within:border-primary transition-colors">
                 <span
                   className="material-symbols-outlined text-outline mr-3"
                   data-icon="search"
@@ -121,20 +42,20 @@ const NotFound = () => {
                   search
                 </span>
                 <input
-                  className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full sm:w-64"
+                  className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full sm:w-64 font-medium"
                   placeholder="Search products..."
                   type="text"
                 />
               </div>
             </div>
             <div className="w-full max-w-5xl mt-12">
-              <h3 className="font-headline-md text-headline-md text-on-surface mb-gutter text-left">
+              <h3 className="font-semibold text-2xl text-on-surface mb-4 text-left">
                 Popular Destinations
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-                <a
-                  className="group relative overflow-hidden rounded-xl h-64 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
-                  href="#"
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Link
+                  className="group relative overflow-hidden rounded-xl h-80 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
+                  to="#"
                 >
                   <img
                     alt="Tech Category"
@@ -144,38 +65,34 @@ const NotFound = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 text-left">
-                    <p className="text-white font-headline-md text-headline-md">
-                      Tech
-                    </p>
-                    <p className="text-slate-300 font-label-sm text-label-sm uppercase tracking-widest">
+                    <p className="text-white font-semibold text-2xl">Tech</p>
+                    <p className="text-slate-300 font-medium text-sm uppercase tracking-widest">
                       Innovation First
                     </p>
                   </div>
-                </a>
-                <a
-                  className="group relative overflow-hidden rounded-xl h-64 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
-                  href="#"
+                </Link>
+                <Link
+                  className="group relative overflow-hidden rounded-xl h-80 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
+                  to="#"
                 >
                   <img
                     alt="Fashion Category"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     data-alt="A high-fashion editorial shot featuring clean, architectural garment silhouettes in shades of cream and charcoal.
-[03/05/2026 15:32] Fola 🖤: The setting is a minimalist concrete studio with sharp, dramatic shadows and bright, direct lighting that highlights fabric textures. The overall mood is sophisticated, exclusive, and representative of a high-end fashion catalog."
+The setting is a minimalist concrete studio with sharp, dramatic shadows and bright, direct lighting that highlights fabric textures. The overall mood is sophisticated, exclusive, and representative of a high-end fashion catalog."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr6G611_N7U2Y5a4D7KSEIfrca2wgi_Rsptdk5gH-1T7Rgfd6RRnPFJMZvwcWJfW7ZYCphMAv9U2a70pVN4yP0dzBGTY50E5rCJ6sfIMXMd0fncjbGZ5Tiw06aUnswQ7bXcFvBISIzUcDB4y_EEzB2XMfsFs9V0kxw5B1JqZCYPqWhxmmOwjA4TkbQzjel1w9Zz2FOwYIjMbOzQ7B4NNtXul72SwqKdwhPza6VDsUAbG5gbeHX8rD35WrA0JhStxkM_SWfL46ECAc"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 text-left">
-                    <p className="text-white font-headline-md text-headline-md">
-                      Fashion
-                    </p>
-                    <p className="text-slate-300 font-label-sm text-label-sm uppercase tracking-widest">
+                    <p className="text-white font-semibold text-2xl">Fashion</p>
+                    <p className="text-slate-300 font-medium text-sm uppercase tracking-widest">
                       Timeless Design
                     </p>
                   </div>
-                </a>
-                <a
-                  className="group relative overflow-hidden rounded-xl h-64 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
-                  href="#"
+                </Link>
+                <Link
+                  className="group relative overflow-hidden rounded-xl h-8- bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
+                  to="#"
                 >
                   <img
                     alt="Shoes Category"
@@ -185,142 +102,16 @@ const NotFound = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 text-left">
-                    <p className="text-white font-headline-md text-headline-md">
-                      Shoes
-                    </p>
-                    <p className="text-slate-300 font-label-sm text-label-sm uppercase tracking-widest">
+                    <p className="text-white font-semibold text-2xl">Shoes</p>
+                    <p className="text-slate-300 font-medium text-sm uppercase tracking-widest">
                       Premium Comfort
                     </p>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </section>
         </main>
-
-        <footer className="bg-slate-50 dark:bg-slate-900/50 w-full mt-auto border-t border-slate-200 dark:border-slate-800">
-          <div className="max-w-[1440px] mx-auto px-16 py-24 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 font-inter text-sm tracking-wide">
-            <div className="lg:col-span-2">
-              <span className="text-xl font-bold text-slate-900 dark:text-white mb-6 block">
-                Vexa
-              </span>
-              <p className="text-slate-500 dark:text-slate-400 leading-loose max-w-xs mb-8">
-                The pinnacle of modern retail engineering. Bringing you
-                excellence through curated design and technical precision.
-              </p>
-              <div className="flex gap-4">
-                <a
-                  className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 hover:text-primary transition-colors cursor-pointer"
-                  href="#"
-                >
-                  <span
-                    className="material-symbols-outlined text-[20px]"
-                    data-icon="share"
-                  >
-                    share
-                  </span>
-                </a>
-                <a
-                  className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 hover:text-primary transition-colors cursor-pointer"
-                  href="#"
-                >
-                  <span
-                    className="material-symbols-outlined text-[20px]"
-                    data-icon="public"
-                  >
-                    public
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Company
-              </h4>
-              <ul className="space-y-4">
-                <li>
-                  <a
-                    className="text-slate-500 dark:text-slate-400 leading-loose hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                    href="#"
-                  >
-                    About Vexa
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-slate-500 dark:text-slate-400 leading-loose hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                    href="#"
-                  >
-                    Sustainability
-                  </a>
-                </li>
-                [03/05/2026 15:32] Fola 🖤:{" "}
-                <li>
-                  <a
-                    className="text-slate-500 dark:text-slate-400 leading-loose hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                    href="#"
-                  >
-                    Careers
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Support
-              </h4>
-              <ul className="space-y-4">
-                <li>
-                  <a
-                    className="text-slate-500 dark:text-slate-400 leading-loose hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                    href="#"
-                  >
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-slate-500 dark:text-slate-400 leading-loose hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                    href="#"
-                  >
-                    Order Status
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-slate-500 dark:text-slate-400 leading-loose hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                    href="#"
-                  >
-                    Returns
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Newsletter
-              </h4>
-              <p className="text-slate-500 dark:text-slate-400 mb-6">
-                Join the elite circle.
-              </p>
-              <div className="flex flex-col gap-4">
-                <input
-                  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 rounded-lg focus:ring-primary focus:border-primary"
-                  placeholder="Email Address"
-                  type="email"
-                />
-                <button className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                  Signup
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="max-w-[1440px] mx-auto px-16 py-8 border-t border-slate-200 dark:border-slate-800 text-center">
-            <p className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-[0.2em]">
-              © 2024 Vexa. Engineered for excellence.
-            </p>
-          </div>
-        </footer>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 
 const SignIn = () => {
   return (
@@ -100,12 +100,12 @@ const SignIn = () => {
                       Remember me
                     </span>
                   </label>
-                  <a
+                  <NavLink  
                     className="font-label-md text-label-md text-nav-blue-active font-medium hover:opacity-80 transition-opacity"
-                    href="#"
+                    to="/forgot-password"
                   >
                     Forgot password?
-                  </a>
+                  </NavLink>
                 </div>
                 <button
                   className="w-full py-3.5 bg-nav-blue-active text-white rounded-lg font-medium text-xl shadow-lg hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 mt-3"
@@ -116,12 +116,12 @@ const SignIn = () => {
               </form>
               <p className="text-center mt-5 font-body-md text-body-md text-slate-700">
                 Don't have an account?{" "}
-                <a
+                <NavLink
                   className="text-nav-blue-active font-semibold hover:underline"
-                  href="#"
+                  to="/signup"
                 >
                   Create an account
-                </a>
+                </NavLink>
               </p>
             </div>
           </section>
@@ -139,7 +139,7 @@ const SignIn = () => {
                 "Precision in every detail, luxury in every interaction."
               </blockquote>
               <div className="mt-stack-lg flex items-center gap-gutter">
-                [03/05/2026 15:31] Fola 🖤:{" "}
+                {" "}
                 <div className="flex -space-x-4">
                   <div className="w-12 h-12 rounded-full border-2 border-slate-900 bg-surface-container-high overflow-hidden">
                     <img

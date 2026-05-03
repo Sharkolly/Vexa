@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Trends = () => {
   return (
      <section className="py-10 overflow-hidden">

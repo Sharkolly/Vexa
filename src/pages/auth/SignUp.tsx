@@ -15,8 +15,8 @@ const SignUp = () => {
               />
             </div>
 
-            <div className="relative z-10 p-16 w-full h-full flex flex-col justify-between">
-              <div className="flex items-center gap-2">
+            <div className="relative z-10 p-16 max-lg:p-10 w-full h-full flex flex-col justify-between">
+              <div className="flex items-center gap-2 max-md:hidden">
                 <span className="text-5xl font-black tracking-tighter text-white">
                   VEXA
                 </span>
@@ -33,10 +33,10 @@ const SignUp = () => {
             </div>
           </section>
 
-          <section className="flex items-center justify-center p-margin-mobile md:p-margin-desktop bg-surface overflow-y-auto">
-            <div className="w-full max-w-md space-y-stack-lg py-12">
+          <section className="flex items-center justify-center p-margin-mobile md:p-margin-desktop bg-surface overflow-y-auto max-lg:w-[90%] max-lg:mx-auto">
+            <div className="w-full max-w-md space-y-stack-lg py-12 max-md:pt-5">
               <div className="md:hidden flex justify-center mb-stack-lg">
-                <span className="text-2xl font-black tracking-tighter text-primary">
+                <span className="text-2xl font-black tracking-tighter text-primary max-md:hidden">
                   Vexa
                 </span>
               </div>
@@ -149,7 +149,6 @@ const SignUp = () => {
                     </span>
                   </label>
                 </div>
-
                 <div className="pt-3">
                   <button
                     className="w-full py-4 mt-3 bg-nav-blue-active text-white font-label-md text-lg  rounded-lg shadow-lg hover:bg-primary-container active:scale-[0.98] transition-all duration-200 uppercase tracking-wider font-bold"
@@ -165,7 +164,7 @@ const SignUp = () => {
                   Already have an account?
                   <NavLink
                     className="text-nav-blue-active font-semibold hover:underline ml-1"
-                    to="/"
+                    to="/login"
                   >
                     Sign In
                   </NavLink>

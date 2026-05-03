@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Collections = () => {
   return (
            <section className="py-20 md:py-24 px-6 md:px-16 max-w-360 mx-auto">
