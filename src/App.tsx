@@ -14,7 +14,7 @@ import Shop from "./pages/Shop";
 import Layout from "../components/ui/Layout";
 import ForgotPassword from "./pages/auth/forgot-password";
 import Services from "./pages/Services";
-import ProtectedRoute from "../components/ProtectedRoute";
+// import ProtectedRoute from "../components/ProtectedRoute";
 import ProductDetails from "./pages/ProductDetails";
 
 function App() {
