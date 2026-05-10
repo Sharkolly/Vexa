@@ -3,27 +3,33 @@ const ProductDetails = () => {
     <div>
       Product Details
       <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
-        <main className="pt-32 pb-24 max-w-[1440px] mx-auto px-16">
+        <main className="pt-32 pb-24 max-w-[1440px] mx-auto px-16 max-md:px-6 max-xl:pt-20">
           <nav className="flex items-center gap-2 mb-12 text-label-sm text-outline">
-            <a className="hover:text-primary transition-colors" href="#">
+            <a
+              className="hover:text-nav-blue-active font-medium  transition-colors"
+              href="#"
+            >
               Products
             </a>
             <span className="material-symbols-outlined text-[14px]">
-              chevron_right
+              {/* chevron_right */} &gt;
             </span>
-            <a className="hover:text-primary transition-colors" href="#">
+            <a
+              className="hover:text-nav-blue-active font-medium  transition-colors"
+              href="#"
+            >
               Wearables
             </a>
             <span className="material-symbols-outlined text-[14px]">
-              chevron_right
+              {/* chevron_right */} &gt;
             </span>
-            <span className="text-on-surface">Vexa Elite Series 5</span>
+            <span className="font-medium">Vexa Elite Series 5</span>
           </nav>
-          <div className="grid grid-cols-12 gap-16">
+          <div className="grid grid-cols-12 max-xl:block gap-16">
             <div className="col-span-7 flex flex-col gap-6">
-              <div className="aspect-[4/5] bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm group">
+              <div className="aspect-[4/5] h-150 max-md:h-120 bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm group">
                 <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-150  rounded-sm object-cover group-hover:scale-105 transition-transform duration-700"
                   data-alt="A high-end Vexa Elite Series 5 smartwatch with a polished titanium casing and a deep sapphire glass screen, displayed on a clean white pedestal in a high-key studio environment. The lighting is soft and diffused, highlighting the intricate brushed textures of the metal. The watch face shows a minimalist indigo-themed digital display. The overall aesthetic is ultra-modern, professional, and luxurious, using a crisp light-mode palette with subtle indigo accents."
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyyuT5xXyx5HfLaqhB-AtMfpsaSlJ_N5M_5za8IOX7jaUUHqvrJaMM-zpnrdguWRb4I8KYtuZITAFBy3k5wDLIUJ91nL7lUtbcYHGmwPSoBOZJ_yOq-KwbHCbqM0edYRBPDn_LUhUUzxAJ4dLYq6ae2MCadULIqFrXj7dffC919jeiylNy_P-OgrPmVVI5cUnR240xDWH0ZvSdKwH5JNtWGIgIlkS3YM-D7opWqDBG1vFelabhzZbUFz7CASHy5ymrBYHzLtmQSPQ"
                 />
@@ -52,22 +58,22 @@ const ProductDetails = () => {
                 </div>
                 <div className="aspect-square bg-surface-container-lowest rounded-lg overflow-hidden border border-transparent cursor-pointer hover:border-primary transition-all flex items-center justify-center">
                   <span className="material-symbols-outlined text-outline text-3xl">
-                    play_circle
+                    {/* play_circle */}
                   </span>
                 </div>
               </div>
             </div>
-            <div className="col-span-5 flex flex-col">
+            <div className="col-span-5 flex flex-col mt-10 ">
               <div className="mb-4">
-                <span className="inline-block bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-sm uppercase tracking-widest font-bold">
+                <span className="inline-block bg-nav-blue-active text-white px-3 py-1 rounded-full text-sm uppercase tracking-widest font-bold">
                   New Release
                 </span>
               </div>
-              <h1 className="font-headline-lg text-headline-lg text-on-surface mb-2">
+              <h1 className="font-semibold text-3xl text-on-surface mb-2">
                 Vexa Elite Series 5 Smartwatch
               </h1>
               <div className="flex items-center gap-4 mb-8">
-                <div className="flex text-primary">
+                <div className="flex text-primary hidden">
                   <span className="material-symbols-outlined fill text-[18px]">
                     star
                   </span>
@@ -87,19 +93,19 @@ const ProductDetails = () => {
                 <span className="text-body-md text-outline">(128 Reviews)</span>
               </div>
               <div className="mb-10">
-                <span className="font-display-xl text-display-xl text-on-surface">
+                <span className="font-bold  text-4xl text-on-surface">
                   $599.00
                 </span>
-                <p className="text-body-md text-outline mt-2">
+                <p className="text-slate-600 text-outline mt-2">
                   Or $49.91/mo for 12 months with 0% interest
                 </p>
               </div>
-              <div className="space-y-8 mb-12">
+              <div className="space-y-10  mb-12">
                 <div>
-                  <h3 className="font-label-md text-label-md uppercase text-outline mb-4">
+                  <h3 className="font-medium text-slate-600 uppercase text-outline mb-4">
                     Description
                   </h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  <p className=" text-slate-900 text-on-surface-variant leading-relaxed">
                     Engineered for those who demand excellence. The Vexa Elite
                     Series 5 combines aerospace-grade titanium with an advanced
                     LTPO OLED display. Featuring 24/7 biometric tracking,
@@ -108,7 +114,7 @@ const ProductDetails = () => {
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-label-md text-label-md uppercase text-outline mb-4">
+                  <h3 className="font-medium text-slate-600  uppercase text-outline mb-4">
                     Select Finish
                   </h3>
                   <div className="flex gap-4">
@@ -118,43 +124,37 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-label-md text-label-md uppercase text-outline mb-4">
+                  <h3 className="font-medium text-slate-600 uppercase text-outline mb-4">
                     Specifications
                   </h3>
-                  <ul className="space-y-3">
-                    <li className="flex justify-between border-b border-outline-variant pb-2">
-                      <span className="text-on-surface-variant">
-                        Case Material
-                      </span>
+                  <ul className="space-y-4 ">
+                    <li className="flex justify-between border-b border-slate-300 pb-3">
+                      <span className="text-slate-800">Case Material</span>
                       <span className="font-semibold">Titanium Grade 5</span>
                     </li>
-                    <li className="flex justify-between border-b border-outline-variant pb-2">
-                      <span className="text-on-surface-variant">
-                        Water Resistance
-                      </span>
+                    <li className="flex justify-between border-b border-slate-300 pb-3">
+                      <span className="text-slate-800">Water Resistance</span>
                       <span className="font-semibold">100m (ISO 22810)</span>
                     </li>
-                    <li className="flex justify-between border-b border-outline-variant pb-2">
-                      <span className="text-on-surface-variant">
-                        Battery Life
-                      </span>
+                    <li className="flex justify-between border-b border-slate-300 pb-3">
+                      <span className="text-slate-800">Battery Life</span>
                       <span className="font-semibold">72 Hours (Normal)</span>
                     </li>
                   </ul>
                 </div>
               </div>
               <div className="flex flex-col gap-4 mb-10">
-                <button className="w-full bg-primary-container text-on-primary text-headline-md font-headline-md py-6 rounded-xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/20">
+                <button className="w-full text-lg bg-nav-blue-active text-white font-medium py-5 rounded-xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/20">
                   Add to Cart
                 </button>
-                <button className="w-full bg-surface-container border border-outline-variant text-on-surface font-headline-md py-6 rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]">
+                <button className="w-full bg-black/10  border border-outline-variant text-on-surface font-medium py-5 rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]">
                   Buy Now
                 </button>
               </div>
               <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant">
                 <div className="flex items-center gap-4 mb-4">
                   <span className="material-symbols-outlined text-primary">
-                    local_shipping
+                    {/* local_shipping */}
                   </span>
                   <div>
                     <p className="font-semibold">Free Express Shipping</p>
@@ -165,7 +165,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="material-symbols-outlined text-primary">
-                    verified_user
+                    {/* verified_user */}
                   </span>
                   <div>
                     <p className="font-semibold">2-Year Vexa Warranty</p>
@@ -177,27 +177,27 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-          <section className="mt-32 border-t border-outline-variant pt-24">
+          <section className="mt-30 border-t border-outline-variant pt-20 max-md:mt-20 max-md:pt-13">
             <div className="flex justify-between mb-16 flex-col md:flex-row items-start md:items-end gap-6">
               <div>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2">
+                <h2 className="font-medium text-3xl text-on-surface mb-2">
                   Reviews &amp; Ratings
                 </h2>
-                <p className="text-body-md text-outline">
+                <p className="text-slate-500 max-md:text-sm">
                   What our community is saying about Elite Series 5
                 </p>
               </div>
-              <button className="font-label-md text-label-md text-primary border border-primary px-8 py-3 rounded-full hover:bg-primary-container hover:text-white transition-all">
+              <button className="font-label-md text-label-md text-nav-blue-active border border-nav-blue-active px-8 py-3 rounded-full hover:bg-primary-container hover:text-white transition-all">
                 Write a Review
               </button>
             </div>
-            <div className="grid grid-cols-12 gap-16">
-              <div className="col-span-4">
+            <div className="grid grid-cols-12 gap-16 max-xl:block">
+              <div className="col-span-4 max-xl:mb-12">
                 <div className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant flex flex-col items-center text-center">
                   <span className="text-[80px] font-black leading-none text-on-surface">
                     4.8
                   </span>
-                  <div className="flex text-primary my-4">
+                  <div className="flex text-primary my-4 hidden">
                     <span className="material-symbols-outlined text-3xl">
                       star
                     </span>
@@ -214,42 +214,42 @@ const ProductDetails = () => {
                       star
                     </span>
                   </div>
-                  <p className="text-body-md text-outline">
+                  <p className="text-sm text-slate-500 ">
                     Based on 128 verified purchases
                   </p>
                   <div className="w-full mt-8 space-y-3">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm w-4">5</span>
-                      <div className="flex-1 h-2 bg-surface-container-high rounded-full overflow-hidden">
-                        <div className="bg-primary h-full w-[85%]"></div>
+                      <span className="text-sm w-4 font-medium ">5</span>
+                      <div className="flex-1 h-2 bg-slate-300 rounded-full overflow-hidden">
+                        <div className="bg-nav-blue-active  h-full w-[85%]"></div>
                       </div>
                       <span className="text-sm text-outline">85%</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-sm w-4">4</span>
-                      <div className="flex-1 h-2 bg-surface-container-high rounded-full overflow-hidden">
-                        <div className="bg-primary h-full w-[10%]"></div>
+                      <span className="text-sm w-4 font-medium ">4</span>
+                      <div className="flex-1 h-2 bg-slate-300 rounded-full overflow-hidden">
+                        <div className="bg-nav-blue-active  h-full w-[10%]"></div>
                       </div>
                       <span className="text-sm text-outline">10%</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-sm w-4">3</span>
-                      <div className="flex-1 h-2 bg-surface-container-high rounded-full overflow-hidden">
-                        <div className="bg-primary h-full w-[3%]"></div>
+                      <span className="text-sm w-4 font-medium ">3</span>
+                      <div className="flex-1 h-2 bg-slate-300 rounded-full overflow-hidden">
+                        <div className="bg-nav-blue-active  h-full w-[3%]"></div>
                       </div>
                       <span className="text-sm text-outline">3%</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-sm w-4">2</span>
-                      <div className="flex-1 h-2 bg-surface-container-high rounded-full overflow-hidden">
-                        <div className="bg-primary h-full w-[1%]"></div>
+                      <span className="text-sm w-4 font-medium ">2</span>
+                      <div className="flex-1 h-2 bg-slate-300 rounded-full overflow-hidden">
+                        <div className="bg-nav-blue-active  h-full w-[1%]"></div>
                       </div>
                       <span className="text-sm text-outline">1%</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-sm w-4">1</span>
-                      <div className="flex-1 h-2 bg-surface-container-high rounded-full overflow-hidden">
-                        <div className="bg-primary h-full w-[1%]"></div>
+                      <span className="text-sm w-4 font-medium ">1</span>
+                      <div className="flex-1 h-2 bg-slate-300 rounded-full overflow-hidden">
+                        <div className="bg-nav-blue-active  h-full w-[1%]"></div>
                       </div>
                       <span className="text-sm text-outline">1%</span>
                     </div>
@@ -257,21 +257,21 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="col-span-8 space-y-12">
-                <div className="pb-12 border-b border-outline-variant">
+                <div className="pb-12 border-b border-slate-300 max-md:pb-8">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">
+                      <div className="w-12 h-12 rounded-full bg-nav-blue-active/30 flex items-center justify-center font-bold text-nav-blue-active">
                         JD
                       </div>
                       <div>
                         <p className="font-bold">Julian Deveraux</p>
-                        <p className="text-sm text-outline">
+                        <p className="text-sm text-slate-500">
                           Verified Buyer • 2 days ago
                         </p>
                       </div>
                     </div>
-                    <div className="flex text-primary">
-                      <span className="material-symbols-outlined text-[18px]">
+                    <div className="flex text-primary hidden">
+                      <span className="material-symbols-outlined text-[18px] hidden">
                         star
                       </span>
                       <span className="material-symbols-outlined text-[18px]">
@@ -288,10 +288,10 @@ const ProductDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <h4 className="font-headline-md text-on-surface mb-2">
+                  <h4 className="font-medium text-on-surface mb-2">
                     Unparalleled build quality
                   </h4>
-                  <p className="text-body-md text-on-surface-variant leading-relaxed">
+                  <p className="text-slate-900  leading-relaxed">
                     The titanium finish on the Series 5 is leagues ahead of
                     anything else on the market. It feels substantial without
                     being heavy on the wrist. The display brightness in direct
@@ -299,20 +299,20 @@ const ProductDetails = () => {
                     my midday runs.
                   </p>
                 </div>
-                <div className="pb-12 border-b border-outline-variant">
+                <div className="pb-12 border-b border-slate-300 max-md:pb-8">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center font-bold text-on-primary-fixed">
+                      <div className="w-12 h-12 rounded-full bg-nav-blue-active/30 flex items-center justify-center font-bold text-nav-blue-active">
                         SC
                       </div>
                       <div>
                         <p className="font-bold">Sarah Chen</p>
-                        <p className="text-sm text-outline">
+                        <p className="text-sm text-slate-500">
                           Verified Buyer • 1 week ago
                         </p>
                       </div>
                     </div>
-                    <div className="flex text-primary">
+                    <div className="flex text-primary hidden">
                       <span className="material-symbols-outlined text-[18px]">
                         star
                       </span>
@@ -330,10 +330,10 @@ const ProductDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <h4 className="font-headline-md text-on-surface mb-2">
+                  <h4 className="font-medium text-on-surface mb-2">
                     Battery life is the real winner
                   </h4>
-                  <p className="text-body-md text-on-surface-variant leading-relaxed">
+                  <p className="text-slate-900  leading-relaxed">
                     Easily getting three days of charge even with the Always-On
                     display enabled. The sleep tracking metrics are more
                     detailed than my previous Oura ring. My only gripe is the
@@ -342,10 +342,10 @@ const ProductDetails = () => {
                   </p>
                 </div>
                 <div className="flex justify-center pt-8">
-                  <button className="font-label-md text-label-md text-outline hover:text-primary transition-colors flex items-center gap-2">
-                    Load More Reviews
+                  <button className="font-label-md text-label-md text-slate-500 hover:text-nav-blue-active  transition-colors flex items-center gap-2">
+                    Load More Reviews ...
                     <span className="material-symbols-outlined">
-                      expand_more
+                      {/* expand_more */}
                     </span>
                   </button>
                 </div>
@@ -353,114 +353,6 @@ const ProductDetails = () => {
             </div>
           </section>
         </main>
-        <footer className="bg-slate-50 dark:bg-slate-900/50 w-full mt-auto border-t border-slate-200 dark:border-slate-800 font-inter text-sm tracking-wide">
-          <div className="max-w-[1440px] mx-auto px-16 py-24 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-2">
-              <a
-                className="text-xl font-bold text-slate-900 dark:text-white mb-6 block"
-                href="#"
-              >
-                Vexa
-              </a>
-              <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-xs leading-relaxed">
-                Setting the standard for technical precision and minimalist
-                luxury in digital experiences.
-              </p>
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all cursor-pointer">
-                  <span className="material-symbols-outlined text-[20px]">
-                    public
-                  </span>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all cursor-pointer">
-                  <span className="material-symbols-outlined text-[20px]">
-                    send
-                  </span>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all cursor-pointer">
-                  <span className="material-symbols-outlined text-[20px]">
-                    podcasts
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Company
-              </h4>
-              <nav className="flex flex-col gap-4 text-slate-500 dark:text-slate-400">
-                <a
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  href="#"
-                >
-                  About Vexa
-                </a>
-                <a
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  href="#"
-                >
-                  Sustainability
-                </a>
-                <a
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  href="#"
-                >
-                  Careers
-                </a>
-              </nav>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Support
-              </h4>
-              <nav className="flex flex-col gap-4 text-slate-500 dark:text-slate-400">
-                <a
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  href="#"
-                >
-                  Help Center
-                </a>
-                <a
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  href="#"
-                >
-                  Order Status
-                </a>
-                <a
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  href="#"
-                >
-                  Returns
-                </a>
-              </nav>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Stay Updated
-              </h4>
-              <p className="text-slate-500 dark:text-slate-400 mb-6">
-                Receive early access to new collections and private events.
-              </p>
-              <a
-                className="text-primary font-semibold hover:underline cursor-pointer"
-                href="#"
-              >
-                Newsletter Signup
-              </a>
-            </div>
-          </div>
-          <div className="max-w-[1440px] mx-auto px-16 py-8 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-slate-400">
-            <p>© 2024 Vexa. Engineered for excellence.</p>
-            <div className="flex gap-8">
-              <a className="hover:text-slate-900 transition-colors" href="#">
-                Privacy Policy
-              </a>
-              <a className="hover:text-slate-900 transition-colors" href="#">
-                Terms of Service
-              </a>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );

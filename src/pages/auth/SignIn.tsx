@@ -1,6 +1,49 @@
-import { NavLink } from "react-router-dom";
+// import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthContextStore } from "../../../store/useAuthContext";
+import API from "../../../api/api";
+import { useState } from "react";
+import type { AxiosError } from "axios";
 
 const SignIn = () => {
+  const { emailOnChange, passwordOnChange, email, password } =
+    useAuthContextStore();
+  const [isFetching, setIsFetching] = useState(false);
+
+  // const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const submitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsFetching(true);
+    try {
+      const { data } = await API.post(
+        "/user/login",
+        { email, password },
+        {
+          withCredentials: true,
+        },
+      );
+
+      localStorage.setItem("token", data?.token);
+      setMessage(data?.message || "Account created successfully");
+      navigate("/shop");
+    } catch (error: unknown) {
+      const err = error as AxiosError<{
+        message: string;
+        status: boolean;
+      }>;
+      setMessage(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setIsFetching(false);
+      setTimeout(() => {
+        setMessage("");
+        // setError("");
+      }, 5000);
+    }
+  };
   return (
     <div>
       <div className="bg-background text-on-background min-h-screen flex items-center justify-center max-md:w-[91%] max-md:mx-auto max-md:my-8">
@@ -12,7 +55,8 @@ const SignIn = () => {
                   Vexa
                 </span> */}
                 <h1 className="font-semibold text-4xl max-lg:text-3xl pb-3  text-on-surface mt-stack-md">
-                  Welcome Back To  <span className="text-nav-blue-active">VEXA</span>
+                  Welcome Back To{" "}
+                  <span className="text-nav-blue-active">VEXA</span>
                 </h1>
                 <p className="font-body-md text-body-md pb-8 text-slate-600/90">
                   Please enter your details to access your account.
@@ -20,12 +64,8 @@ const SignIn = () => {
               </header>
 
               <div className="flex flex-col sm:flex-row gap-7">
-                <button className="flex-1 flex items-center justify-center gap-2 py-4 px-4 border border-slate-400 rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container transition-all duration-300">
-                  <svg
-                    className="w-5 h-5"
-                    // viewbox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                <button className="flex-1 flex items-center justify-center gap-2 py-4 px-4 border border-slate-400 rounded-lg cursor-pointer text-on-surface hover:bg-surface-container transition-all duration-300">
+                  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                       fill="#4285F4"
@@ -45,7 +85,7 @@ const SignIn = () => {
                   </svg>
                   <p className="font-medium text-slate-800">Google</p>
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 py-4 px-4 border border-slate-400 rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container transition-all duration-300">
+                <button className="flex-1 flex items-center justify-center gap-2 py-4 px-4 border border-slate-400 rounded-lg cursor-pointer text-label-md text-on-surface hover:bg-surface-container transition-all duration-300">
                   <svg
                     className="w-5 h-5 fill-current"
                     // viewbox="0 0 24 24"
@@ -53,23 +93,25 @@ const SignIn = () => {
                   >
                     <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.11.78.82-.04 2.11-.88 3.63-.73 1.44.14 2.52.68 3.16 1.64-2.88 1.74-2.39 5.86.51 7.05-.62 1.56-1.45 3.14-2.41 4.23zM12.03 7.25c-.02-2.6 2.13-4.7 4.67-4.74.06 2.67-2.45 4.91-4.67 4.74z"></path>
                   </svg>
-                <p className="font-medium text-slate-800">Apple</p>  
+                  <p className="font-medium text-slate-800">Apple</p>
                 </button>
               </div>
-              <div className="relative flex items-center py-8"  >
-                <div className="flex-grow border-t border-slate-400"></div>
-                <span className="flex-shrink mx-4 text-outline font-medium text-slate-600  tracking-wider text-sm">
+              <div className="relative flex items-center py-8">
+                <div className="grow border-t border-slate-400"></div>
+                <span className="shrink mx-4 text-outline font-medium text-slate-600  tracking-wider text-sm">
                   OR CONTINUE WITH EMAIL
                 </span>
-                <div className="flex-grow border-t border-slate-400  "></div>
+                <div className="grow border-t border-slate-400  "></div>
               </div>
 
-              <form className="flex flex-col gap-5">
+              <form
+                className="flex flex-col gap-5"
+                onSubmit={(e) => submitForm(e)}
+              >
                 <div className="flex flex-col gap-2">
-                  <label className="font-label-md">
-                    Email Address
-                  </label>
+                  <label className="font-label-md">Email Address</label>
                   <input
+                    onChange={(e) => emailOnChange(e)}
                     className="w-full px-4 py-3 bg-white border border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body-md text-body-md"
                     id="email"
                     placeholder="name@company.com"
@@ -84,6 +126,7 @@ const SignIn = () => {
                     Password
                   </label>
                   <input
+                    onChange={(e) => passwordOnChange(e)}
                     className="w-full px-4 py-3 bg-white border border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body-md text-body-md"
                     id="password"
                     placeholder="••••••••"
@@ -100,7 +143,7 @@ const SignIn = () => {
                       Remember me
                     </span>
                   </label>
-                  <NavLink  
+                  <NavLink
                     className="font-label-md text-label-md text-nav-blue-active font-medium hover:opacity-80 transition-opacity"
                     to="/forgot-password"
                   >
@@ -108,11 +151,18 @@ const SignIn = () => {
                   </NavLink>
                 </div>
                 <button
-                  className="w-full py-3.5 bg-nav-blue-active text-white rounded-lg font-medium text-xl shadow-lg hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 mt-3"
+                  disabled={isFetching}
+                  className={`w-full py-3.5 bg-nav-blue-active text-white rounded-lg font-medium text-xl shadow-lg hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 cursor-pointer mt-3 ${isFetching ? "opacity-70" : "opacity-100"} `}
                   type="submit"
                 >
-                  Sign In
+                  {isFetching ? "Please wait..." : "Sign In"}
                 </button>
+
+                <p
+                  className={` my-2 text-center font-medium ${message === "Login successful" ? " text-green-700 opacity-100" : "text-red-700"} transition-opacity`}
+                >
+                  {message}
+                </p>
               </form>
               <p className="text-center mt-5 font-body-md text-body-md text-slate-700">
                 Don't have an account?{" "}

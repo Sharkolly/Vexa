@@ -1,8 +1,11 @@
 import API from "./api";
 
-export const postProperty = async (formData: FormData) => {
-  const response = await API.post("/property/add-property", formData);
-  const data = response.data; // Safe, only runs if request succeeded
+export const postLoginForm = async (loginDetails: {
+  email: string;
+  password: string;
+}) => {
+  const response = await API.post("/login", loginDetails);
+  const data = response.data;
   return { message: data.message, success: true };
 };
 

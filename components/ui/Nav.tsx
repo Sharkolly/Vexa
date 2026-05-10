@@ -27,6 +27,12 @@ const Nav = () => {
           </NavLink>
           <NavLink
             className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
+            to="/services"
+          >
+            Services
+          </NavLink>
+          <NavLink
+            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
             to="/arrivals"
           >
             New Arrivals

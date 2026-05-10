@@ -19,8 +19,11 @@ const Collections = () => {
                   arrow_forward
                 </span>
               </button>
-            </div>
+            </div> 
+
+            
             <div className="flex flex-col md:grid md:grid-cols-12 md:grid-rows-2 gap-6 ">
+              
               <div className="col-span-8 row-span-1 group relative overflow-hidden rounded-xl bg-slate-900">
                 <img
                   className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"

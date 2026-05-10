@@ -4,7 +4,7 @@ const ForgotPassword = () => {
   return (
     <div className="bg-background text-on-background min-h-screen flex items-center justify-center max-md:w-[91%] max-md:mx-auto max-md:my-8">
       <main className="w-full min-h-screen flex flex-col md:flex-row max-md:w-[91%] max-md:mx-auto ">
-        <section className="flex-grow flex items-center justify-center px-margin-mobile py-stack-lg ">
+        <section className="grow flex items-center justify-center px-margin-mobile py-stack-lg ">
           <div className="w-full max-w-150  max-xl:w-[91%] max-lg:mx-auto">
             <div className="bg-white rounded-xl  p-stack-lg ">
               <div className="text-center space-y-stack-sm">

@@ -1,44 +1,44 @@
-
+import { Link } from "react-router-dom";
 
 const Delivery = () => {
   return (
     <div>
       Delivery
       <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased">
-        <main className="flex-grow pt-32 pb-24 px-16 max-w-[1440px] mx-auto w-full px-4 md:px-16">
+        <main className="flex-grow pt-32 pb-24 max-w-[1440px] mx-auto w-full md:px-16 max-md:pt-20 max-md:px-6 ">
           <div className="mb-12">
-            <h1 className="font-headline-lg text-headline-lg text-on-surface mb-2">
+            <h1 className="font-semibold text-4xl text-on-surface mb-4">
               Shopping Cart
             </h1>
-            <a
-              className="text-primary font-label-md flex items-center gap-2 hover:underline transition-all"
-              href="#"
+            <Link
+              className="text-nav-blue-active font-label-md flex items-center gap-2 hover:underline transition-all"
+              to="#"
             >
               <span
                 className="material-symbols-outlined text-sm"
                 data-icon="arrow_back"
               >
-                arrow_back
+                {/* arrow_back */}
               </span>
               Continue Shopping
-            </a>
+            </Link>
           </div>
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="flex-grow">
-              <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
-                <table className="w-full border-collapse hidden md:table">
+              <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden border border-slate-200">
+                <table className="w-full border-collapse  hidden md:table">
                   <thead>
-                    <tr className="border-b border-slate-100">
-                      <th className="text-left py-6 px-8 font-label-sm text-slate-500 uppercase tracking-widest">
+                    <tr className="border-b border-slate-200">
+                      <th className="text-left py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
                         Product
                       </th>
-                      <th className="text-center py-6 px-4 font-label-sm text-slate-500 uppercase tracking-widest">
+                      <th className="text-center py-6 px-4 font-label-sm text-nav-blue-active uppercase tracking-widest">
                         Price
                       </th>
-                      <th className="text-center py-6 px-4 font-label-sm text-slate-500 uppercase tracking-widest">
+                      <th className="text-center py-6 px-4 font-label-sm text-nav-blue-active uppercase tracking-widest">
                         Quantity
                       </th>
-                      <th className="text-right py-6 px-8 font-label-sm text-slate-500 uppercase tracking-widest">
+                      <th className="text-right py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
                         Total
                       </th>
                     </tr>
@@ -55,7 +55,7 @@ const Delivery = () => {
                             />
                           </div>
                           <div>
-                            <h3 className="font-headline-md text-body-lg text-slate-900 mb-1">
+                            <h3 className="font-semibold text-lg  text-slate-900 mb-1">
                               Acoustic Pro Headphones
                             </h3>
                             <p className="text-slate-500 text-label-md mb-2">
@@ -74,7 +74,7 @@ const Delivery = () => {
                         </div>
                       </td>
                       <td className="py-8 px-4 text-center">
-                        <span className="font-body-md text-slate-900">
+                        <span className="font-medium text-slate-900">
                           $299.00
                         </span>
                       </td>
@@ -94,7 +94,7 @@ const Delivery = () => {
                         </div>
                       </td>
                       <td className="py-8 px-8 text-right">
-                        <span className="font-headline-md text-body-lg text-slate-900">
+                        <span className="font-medium text-slate-900">
                           $299.00
                         </span>
                       </td>
@@ -111,7 +111,7 @@ const Delivery = () => {
                             />
                           </div>
                           <div>
-                            <h3 className="font-headline-md text-body-lg text-slate-900 mb-1">
+                            <h3 className="font-semibold text-lg text-slate-900 mb-1">
                               Chronos Minimalist Watch
                             </h3>
                             <p className="text-slate-500 text-label-md mb-2">
@@ -130,7 +130,7 @@ const Delivery = () => {
                         </div>
                       </td>
                       <td className="py-8 px-4 text-center">
-                        <span className="font-body-md text-slate-900">
+                        <span className="font-medium text-slate-900">
                           $185.00
                         </span>
                       </td>
@@ -150,7 +150,7 @@ const Delivery = () => {
                         </div>
                       </td>
                       <td className="py-8 px-8 text-right">
-                        <span className="font-headline-md text-body-lg text-slate-900">
+                        <span className="font-medium text-slate-900">
                           $185.00
                         </span>
                       </td>
@@ -246,8 +246,8 @@ const Delivery = () => {
               <div className="mt-8 flex justify-between items-center">
                 <div className="flex flex-col sm:flex-row gap-4 w-full">
                   <input
-                    className="flex-grow px-6 py-3 border border-slate-200 rounded-lg focus:ring-primary focus:border-primary bg-white text-body-md"
-                    placeholder="Promo code"
+                    className="flex-grow px-6 py-3 border border-slate-200 rounded-lg focus:ring-primary focus:border-primary bg-white outline-none "
+                    placeholder="Promo code "
                     type="text"
                   />
                   <button className="px-6 py-3 bg-slate-900 text-white font-label-md rounded-lg hover:bg-slate-800 transition-all active:scale-95">
@@ -257,9 +257,9 @@ const Delivery = () => {
               </div>
             </div>
 
-            <aside className="w-full lg:w-[400px] shrink-0">
-              <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-10 sticky top-32">
-                <h2 className="font-headline-md text-headline-md text-slate-900 mb-8">
+            <aside className="w-full lg:w-100 shrink-0">
+              <div className="bg-white rounded-xl border border-slate-200 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-6 sticky top-32">
+                <h2 className="font-semibold text-2xl text-slate-900 mb-8">
                   Order Summary
                 </h2>
                 <div className="space-y-4 mb-8">
@@ -284,15 +284,15 @@ const Delivery = () => {
                     </span>
                   </div>
                   <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                    <span className="text-slate-900 font-headline-md text-body-lg">
+                    <span className="text-slate-900 font-medium  text-body-lg">
                       Total
                     </span>
-                    <span className="text-primary font-display-xl text-headline-lg">
+                    <span className="text-nav-blue-active font-semibold  text-xl">
                       $522.72
                     </span>
                   </div>
                 </div>
-                <button className="w-full py-5 bg-primary text-white font-headline-md text-body-lg rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-container hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]">
+                <button className="w-full py-4 bg-nav-blue-active text-white font-headline-md text-body-lg rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-container hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer">
                   Proceed to Checkout
                 </button>
                 <div className="mt-8 pt-8 border-t border-slate-100 space-y-4">
@@ -301,7 +301,7 @@ const Delivery = () => {
                       className="material-symbols-outlined text-primary"
                       data-icon="verified"
                     >
-                      verified
+                      {/* verified */}
                     </span>
                     <span>Secure checkout powered by Stripe</span>
                   </div>
@@ -310,7 +310,7 @@ const Delivery = () => {
                       className="material-symbols-outlined text-primary"
                       data-icon="local_shipping"
                     >
-                      local_shipping
+                      {/* local_shipping */}
                     </span>
                     <span>Free shipping on orders over $150</span>
                   </div>
@@ -319,7 +319,7 @@ const Delivery = () => {
                       className="material-symbols-outlined text-primary"
                       data-icon="sync"
                     >
-                      sync
+                      {/* sync */}
                     </span>
                     <span>30-day hassle-free returns</span>
                   </div>
@@ -328,104 +328,6 @@ const Delivery = () => {
             </aside>
           </div>
         </main>
-
-        <footer className="bg-slate-50 dark:bg-slate-900/50 w-full mt-auto border-t border-slate-200 dark:border-slate-800">
-          <div className="max-w-[1440px] mx-auto px-16 py-24 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 font-inter text-sm tracking-wide px-4 md:px-16">
-            <div className="lg:col-span-2">
-              <span className="text-xl font-bold text-slate-900 dark:text-white mb-6 block">
-                Vexa
-              </span>
-              <p className="text-slate-500 dark:text-slate-400 max-w-xs leading-loose mb-8">
-                Redefining the digital shopping experience through technical
-                precision and luxury aesthetics.
-              </p>
-              <div className="flex gap-4">
-                <a
-                  className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-600 hover:text-primary transition-colors"
-                  href="#"
-                >
-                  <span className="material-symbols-outlined" data-icon="share">
-                    share
-                  </span>
-                </a>
-                <a
-                  className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-600 hover:text-primary transition-colors"
-                  href="#"
-                >
-                  <span className="material-symbols-outlined" data-icon="mail">
-                    mail
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Company
-              </h4>
-              <nav className="flex flex-col gap-4">
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  About Vexa
-                </a>
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  Sustainability
-                </a>
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  Careers
-                </a>
-              </nav>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Support
-              </h4>
-              <nav className="flex flex-col gap-4">
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  Help Center
-                </a>
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  Order Status
-                </a>
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  Returns
-                </a>
-              </nav>
-            </div>
-            <div>
-              <h4 className="text-slate-900 dark:text-white font-semibold mb-6">
-                Connect
-              </h4>
-              <nav className="flex flex-col gap-4">
-                <a
-                  className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  href="#"
-                >
-                  Newsletter Signup
-                </a>
-                <p className="text-slate-400 text-xs mt-2 italic">
-                  © 2024 Vexa. Engineered for excellence.
-                </p>
-              </nav>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );

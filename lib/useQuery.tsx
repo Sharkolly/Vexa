@@ -1,9 +1,10 @@
 import {
   useQuery,
-  // useMutation,
-  // useQueryClient,
+  useMutation,
+  useQueryClient,
   // useInfiniteQuery,
 } from "@tanstack/react-query";
+import { postLoginForm } from "../api/post";
 
 // import axios, { AxiosError } from "axios";
 // import Swal from "sweetalert2";
@@ -17,11 +18,13 @@ export const useQueryPropertyFunction = (url: string) => {
   return { data, error, isLoading };
 };
 
-// tailwind.config = {
-//   darkMode: "class",
-//   theme: {
-//     extend: {
-
-//     },
-//   },
-// }
+export const useMutationContactMessageFunction = (queryKey: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (loginDetails: { email: string; password: string }) =>
+      postLoginForm(loginDetails),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
+    },
+  });
+};

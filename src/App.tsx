@@ -13,6 +13,9 @@ import NotFound from "./pages/404";
 import Shop from "./pages/Shop";
 import Layout from "../components/ui/Layout";
 import ForgotPassword from "./pages/auth/forgot-password";
+import Services from "./pages/Services";
+import ProtectedRoute from "../components/ProtectedRoute";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const router = createBrowserRouter(
@@ -21,10 +24,27 @@ function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/addtocart" element={<AddToCart />} />
-          <Route path="/delivery" element={<Delivery />} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+
+          <Route
+            path="/add-to-cart"
+            element={
+              // <ProtectedRoute>
+                <AddToCart />
+              // </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/delivery"
+            element={
+              // <ProtectedRoute>
+                <Delivery />
+              // </ProtectedRoute>
+            }
+          />
+          <Route path="/services" element={<Services />} />
+          <Route path="/product-details" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="*" element={<NotFound />} />
         </Route>

@@ -1,6 +1,59 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthContextStore } from "../../../store/useAuthContext";
+import API from "../../../api/api";
+import { useState } from "react";
+import type { AxiosError } from "axios";
 
 const SignUp = () => {
+  const {
+    emailOnChange,
+    passwordOnChange,
+    firstNameOnChange,
+    lastNameOnChange,
+    email,
+    password,
+    firstName,
+    lastName,
+  } = useAuthContextStore();
+
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const submitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsFetching(true);
+    try {
+      const { data } = await API.post(
+        "/user/signup",
+        { email, password, firstName, lastName },
+        {
+          withCredentials: true,
+        },
+      );      
+      localStorage.setItem("token", data?.token);
+      setMessage(data?.message || "Account created successfully");
+      navigate("/login");
+    } catch (error: unknown) {
+      const err = error as AxiosError<{
+        message: string;
+        status: boolean;
+        type?: string;
+      }>;
+
+      // toast.error(message, { position: "top-center" });
+      setError(err.response?.data?.type || "");
+      setMessage(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setIsFetching(false);
+      setTimeout(() => {
+        setMessage("");
+        setError("");
+      }, 5000);
+    }
+  };
   return (
     <div>
       <div className="antialiased selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
@@ -49,21 +102,44 @@ const SignUp = () => {
                   early access.
                 </p>
               </header>
-              <form action="#" className="space-y-stack-md" method="POST">
+              <form
+                className="space-y-stack-md"
+                onSubmit={(e) => submitForm(e)}
+              >
                 <div className="space-y-1.5 mb-5">
                   {" "}
                   <label className="font-medium text-label-md text-slate-700 block">
-                    Full name
+                    First name
                   </label>
                   <div className="relative">
                     <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">
                       {/* person */}
                     </span>
                     <input
+                      onChange={(e) => firstNameOnChange(e)}
                       className="w-full pl-10 pr-4 py-3 bg-white border border-slate-400 rounded-lg font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
-                      id="full_name"
-                      name="full_name"
-                      placeholder="Enter your full name"
+                      id="first_name"
+                      name="first_name"
+                      placeholder="Enter your first name"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-1.5 mb-5">
+                  {" "}
+                  <label className="font-medium text-label-md text-slate-700 block">
+                    last name
+                  </label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+                      {/* person */}
+                    </span>
+                    <input
+                      onChange={(e) => lastNameOnChange(e)}
+                      className="w-full pl-10 pr-4 py-3 bg-white border border-slate-400 rounded-lg font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
+                      id="last_name"
+                      name="last_name"
+                      placeholder="Enter your last name"
                       type="text"
                     />
                   </div>
@@ -78,6 +154,7 @@ const SignUp = () => {
                       {/* mail */}
                     </span>
                     <input
+                      onChange={(e) => emailOnChange(e)}
                       className="w-full pl-10 pr-4 py-3 bg-white border border-slate-400  rounded-lg font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
                       id="email"
                       name="email"
@@ -85,6 +162,9 @@ const SignUp = () => {
                       type="email"
                     />
                   </div>
+                  <p className="text-slate-700 mt-2 font-medium">
+                    {error === "EMAIL" && message}
+                  </p>
                 </div>
 
                 <div className="space-y-1.5 mb-5">
@@ -96,6 +176,7 @@ const SignUp = () => {
                       {/* lock */}
                     </span>
                     <input
+                      onChange={(e) => passwordOnChange(e)}
                       className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
                       id="password"
                       name="password"
@@ -103,8 +184,10 @@ const SignUp = () => {
                       type="password"
                     />
                   </div>
-                  <p className="text-slate-700 mt-2 font-medium">
-                    Must be at least 8 characters.
+                  <p className="text-red-500 mt-2 font-medium">
+                    {/* Must be at least 8 characters. */}
+
+                    {error === "PASSWORD" && message}
                   </p>
                 </div>
 
@@ -115,6 +198,7 @@ const SignUp = () => {
                         className="peer h-5 w-5 rounded border-outline-variant text-primary focus:ring-primary transition-all"
                         name="newsletter"
                         type="checkbox"
+                        // checked={false}
                       />
                     </div>
                     <span className="font-body-md text-slate-700 select-none">
@@ -151,11 +235,16 @@ const SignUp = () => {
                 </div>
                 <div className="pt-3">
                   <button
-                    className="w-full py-4 mt-3 bg-nav-blue-active text-white font-label-md text-lg  rounded-lg shadow-lg hover:bg-primary-container active:scale-[0.98] transition-all duration-200 uppercase tracking-wider font-bold"
+                    disabled={isFetching}
+                    className={`w-full py-4 mt-3 bg-nav-blue-active text-white font-label-md text-lg  rounded-lg shadow-lg hover:bg-primary-container active:scale-[0.98] transition-all duration-200 uppercase tracking-wider font-bold ${isFetching ? "opacity-70" : "opacity-100"} `}
                     type="submit"
                   >
-                    Create Account
+                    {isFetching ? "Please wait..." : "Create Account"}
                   </button>
+
+                  <p className="text-green-700 mt-4 text-center font-medium">
+                    {message === "Account Created Successfully" && message}
+                  </p>
                 </div>
               </form>
 
@@ -180,7 +269,7 @@ const SignUp = () => {
                   <div className="grow border-t border-slate-400"></div>
                 </div>
                 <div className="grid grid-cols-2 gap-7 mt-5">
-                  <button className="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg bg-white hover:bg-surface-container-low transition-colors">
+                  <button className="flex items-center justify-center gap-2 py-3 px-4 border cursor pointer rounded-lg bg-white hover:bg-surface-container-low transition-colors">
                     <img
                       alt="Google"
                       className="w-5 h-5"
@@ -188,7 +277,7 @@ const SignUp = () => {
                     />
                     <span className="font-medium text-slate-800">Google</span>
                   </button>
-                  <button className="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg bg-white hover:bg-surface-container-low transition-colors">
+                  <button className="flex items-center justify-center gap-2 py-3 px-4 border cursor pointer rounded-lg bg-white hover:bg-surface-container-low transition-colors">
                     <span
                       className="material-symbols-outlined text-on-surface"
                       data-weight="fill"
@@ -208,3 +297,65 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+// <header className="bg-white/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-100 shadow-sm shadow-slate-200/50">
+//   <div className="flex items-center justify-between py-4 w-full px-4 md:px-margin-desktop">
+//     <div className="flex items-center gap-stack-lg">
+//       <button className="text-slate-500 hover:text-indigo-500 transition-colors active:opacity-70">
+//         <span className="material-symbols-outlined" data-icon="menu">
+//           menu
+//         </span>
+//       </button>
+//       <span className="text-2xl font-black tracking-tighter text-slate-900">
+//         VEXA
+//       </span>
+//     </div>
+//     <nav className="hidden md:flex items-center gap-stack-lg">
+//       <a
+//         className="font-label-md text-label-md text-indigo-600 font-semibold transition-colors"
+//         href="#"
+//       >
+//         Tech
+//       </a>
+//       <a
+//         className="font-label-md text-label-md text-slate-500 hover:text-indigo-500 transition-colors"
+//         href="#"
+//       >
+//         Fashion
+//       </a>
+//       <a
+//         className="font-label-md text-label-md text-slate-500 hover:text-indigo-500 transition-colors"
+//         href="#"
+//       >
+//         Shoes
+//       </a>
+//       <a
+//         className="font-label-md text-label-md text-slate-500 hover:text-indigo-500 transition-colors"
+//         href="#"
+//       >
+//         Cars
+//       </a>
+//       <a
+//         className="font-label-md text-label-md text-slate-500 hover:text-indigo-500 transition-colors"
+//         href="#"
+//       >
+//         Services
+//       </a>
+//     </nav>
+//     <div className="flex items-center gap-stack-md">
+//       <button className="text-slate-500 hover:text-indigo-500 transition-colors active:opacity-70">
+//         <span className="material-symbols-outlined" data-icon="search">
+//           search
+//         </span>
+//       </button>
+//       <button className="text-slate-500 hover:text-indigo-500 transition-colors active:opacity-70">
+//         <span
+//           className="material-symbols-outlined"
+//           data-icon="shopping_bag"
+//         >
+//           shopping_bag
+//         </span>
+//       </button>
+//     </div>
+//   </div>
+// </header>
