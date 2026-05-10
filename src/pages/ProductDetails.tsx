@@ -4,7 +4,7 @@ const ProductDetails = () => {
       Product Details
       <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
         <main className="pt-32 pb-24 max-w-[1440px] mx-auto px-16 max-md:px-6 max-xl:pt-20">
-          <nav className="flex items-center gap-2 mb-12 text-label-sm text-outline">
+          <nav className="flex items-center gap-2 mb-12 max-md:text-sm text-outline">
             <a
               className="hover:text-nav-blue-active font-medium  transition-colors"
               href="#"
