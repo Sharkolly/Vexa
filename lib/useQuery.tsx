@@ -5,6 +5,7 @@ import {
   // useInfiniteQuery,
 } from "@tanstack/react-query";
 import { postLoginForm } from "../api/post";
+import { getRequest } from "../api/get";
 
 // import axios, { AxiosError } from "axios";
 // import Swal from "sweetalert2";
@@ -17,6 +18,22 @@ export const useQueryPropertyFunction = (url: string) => {
   });
   return { data, error, isLoading };
 };
+//get all products
+export const useQueryProduct = (url: string) => {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["products", url],
+    queryFn: getRequest,
+  });
+  return { data, error, isLoading };
+};
+// // get single product
+// export const useQueryAllProduct = (url: string) => {
+//   const { data, error, isLoading } = useQuery({
+//     queryKey: ["products", url],
+//     queryFn: getRequest,
+//   });
+//   return { data, error, isLoading };
+// };
 
 export const useMutationContactMessageFunction = (queryKey: string) => {
   const queryClient = useQueryClient();

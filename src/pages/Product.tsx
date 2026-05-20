@@ -1,29 +1,42 @@
-const ProductDetails = () => {
-  return (
-    <div>
-      Product Details
+import { Link, useParams } from "react-router-dom";
+import { useQueryProduct } from "../../lib/useQuery";
+import BouncingLoader from "../../components/BouncingLoader";
+import type { ProductType } from "../../types/product.types";
+
+const Product = () => {
+  const { id } = useParams();
+
+  const { data, isLoading } = useQueryProduct(`/products/product/${id}`);
+
+  const product: ProductType | null = data?.data || null;
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-[80vh] ">
+        <BouncingLoader />
+      </div>
+    );
+  }
+
+  return (    
       <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
         <main className="pt-32 pb-24 max-w-[1440px] mx-auto px-16 max-md:px-6 max-xl:pt-20">
           <nav className="flex items-center gap-2 mb-12 max-md:text-sm text-outline">
-            <a
+            <Link
               className="hover:text-nav-blue-active font-medium  transition-colors"
-              href="#"
+              to={"/shop"}
             >
               Products
-            </a>
-            <span className="material-symbols-outlined text-[14px]">
-              {/* chevron_right */} &gt;
-            </span>
-            <a
+            </Link>
+            <span className="material-symbols-outlined text-[14px]">&gt;</span>
+            <Link
               className="hover:text-nav-blue-active font-medium  transition-colors"
-              href="#"
+              to={`/product/categories/${product?.category}`}
             >
-              Wearables
-            </a>
-            <span className="material-symbols-outlined text-[14px]">
-              {/* chevron_right */} &gt;
-            </span>
-            <span className="font-medium">Vexa Elite Series 5</span>
+              {product?.category}
+            </Link>
+            <span className="material-symbols-outlined text-[14px]">&gt;</span>
+            <span className="font-medium">{product?.title}</span>
           </nav>
           <div className="grid grid-cols-12 max-xl:block gap-16">
             <div className="col-span-7 flex flex-col gap-6">
@@ -31,7 +44,7 @@ const ProductDetails = () => {
                 <img
                   className="w-full h-150  rounded-sm object-cover group-hover:scale-105 transition-transform duration-700"
                   data-alt="A high-end Vexa Elite Series 5 smartwatch with a polished titanium casing and a deep sapphire glass screen, displayed on a clean white pedestal in a high-key studio environment. The lighting is soft and diffused, highlighting the intricate brushed textures of the metal. The watch face shows a minimalist indigo-themed digital display. The overall aesthetic is ultra-modern, professional, and luxurious, using a crisp light-mode palette with subtle indigo accents."
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyyuT5xXyx5HfLaqhB-AtMfpsaSlJ_N5M_5za8IOX7jaUUHqvrJaMM-zpnrdguWRb4I8KYtuZITAFBy3k5wDLIUJ91nL7lUtbcYHGmwPSoBOZJ_yOq-KwbHCbqM0edYRBPDn_LUhUUzxAJ4dLYq6ae2MCadULIqFrXj7dffC919jeiylNy_P-OgrPmVVI5cUnR240xDWH0ZvSdKwH5JNtWGIgIlkS3YM-D7opWqDBG1vFelabhzZbUFz7CASHy5ymrBYHzLtmQSPQ"
+                  src={product?.image}
                 />
               </div>
               <div className="grid grid-cols-4 gap-6">
@@ -53,7 +66,7 @@ const ProductDetails = () => {
                   <img
                     className="w-full h-full object-cover"
                     data-alt="Exploded view or artistic arrangement of the Vexa Elite Series 5 smartwatch showing the premium strap options including a fluoroelastomer band and a link bracelet. The items are neatly arranged on a flat surface with long, soft shadows, creating a gallery-like composition. The colors are muted and sophisticated, focusing on neutral tones and a singular indigo highlight."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVWBP3I8T5_nlwPGZhvKX5lKofdD8dd1oehezMqkWEluiabalSoGIMgiLtogBUGgt4VLQMqkZoy5yxSsigFn4bQb8H7Q_3ZqYy9RLIdWLr9k4HaP60jaYybcJ5X8skpxBOOVOuqupG4LcwoLL_N44fMJRg0oZJ2g_HG3_1t0YIo8XX9Gr0KMMrTTCJ7W7lFIoM9IU_bw6aQHZgskXGdojfkmu-JXMctJl7zl0ZDhVrI6afRsGkWCm8XOQeVirjcQdanUk886uCO0E"
+                    src={product?.image}
                   />
                 </div>
                 <div className="aspect-square bg-surface-container-lowest rounded-lg overflow-hidden border border-transparent cursor-pointer hover:border-primary transition-all flex items-center justify-center">
@@ -70,7 +83,8 @@ const ProductDetails = () => {
                 </span>
               </div>
               <h1 className="font-semibold text-3xl text-on-surface mb-2">
-                Vexa Elite Series 5 Smartwatch
+                {/* Vexa Elite Series 5 Smartwatch */}
+                {product?.title}
               </h1>
               <div className="flex items-center gap-4 mb-8">
                 <div className="flex text-primary hidden">
@@ -94,10 +108,11 @@ const ProductDetails = () => {
               </div>
               <div className="mb-10">
                 <span className="font-bold  text-4xl text-on-surface">
-                  $599.00
+                  ₦{product?.price.toLocaleString()}
                 </span>
                 <p className="text-slate-600 text-outline mt-2">
-                  Or $49.91/mo for 12 months with 0% interest
+                  Or ₦{Math.ceil(49.91 * 1390).toLocaleString()}/mo for 12
+                  months with 0% interest
                 </p>
               </div>
               <div className="space-y-10  mb-12">
@@ -106,11 +121,7 @@ const ProductDetails = () => {
                     Description
                   </h3>
                   <p className=" text-slate-900 text-on-surface-variant leading-relaxed">
-                    Engineered for those who demand excellence. The Vexa Elite
-                    Series 5 combines aerospace-grade titanium with an advanced
-                    LTPO OLED display. Featuring 24/7 biometric tracking,
-                    dual-band GPS, and up to 72 hours of battery life, it's more
-                    than a watch—it's your performance command center.
+                    {product?.description}
                   </p>
                 </div>
                 <div>
@@ -352,10 +363,9 @@ const ProductDetails = () => {
               </div>
             </div>
           </section>
-        </main>
-      </div>
+        </main>      
     </div>
   );
 };
 
-export default ProductDetails;
+export default Product;

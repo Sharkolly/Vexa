@@ -15,7 +15,7 @@ import Layout from "../components/ui/Layout";
 import ForgotPassword from "./pages/auth/forgot-password";
 import Services from "./pages/Services";
 // import ProtectedRoute from "../components/ProtectedRoute";
-import ProductDetails from "./pages/ProductDetails";
+import ProductDetails from "./pages/Product";
 
 function App() {
   const router = createBrowserRouter(
@@ -44,7 +44,7 @@ function App() {
             }
           />
           <Route path="/services" element={<Services />} />
-          <Route path="/product-details" element={<ProductDetails />} />
+          <Route path="/products/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="*" element={<NotFound />} />
         </Route>
