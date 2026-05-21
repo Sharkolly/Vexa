@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL:
-   'http://localhost:3001/api/',
+   'http://localhost:5001/api/',
     // 'https://foland-realty-server.onrender.com/api/foland-realty',
   withCredentials: true,
 });

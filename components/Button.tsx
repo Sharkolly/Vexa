@@ -1,0 +1,17 @@
+type ButtonProps = {
+    color?: string;
+    bg?: string;
+    content: string;
+    border?: string;
+    cursor?: string;
+}
+
+const Button = ({color, bg, content, border, cursor}: ButtonProps) => {
+    return (
+        <button className={`px-5 py-1.5 text-lg font rounded-lg ${bg || 'bg-navy-blue'} ${border} ${color || 'text-white'} ${cursor}`}> 
+            {content}
+        </button>
+    );
+}
+
+export default Button;

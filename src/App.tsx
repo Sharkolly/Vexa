@@ -14,33 +14,55 @@ import Shop from "./pages/Shop";
 import Layout from "../components/ui/Layout";
 import ForgotPassword from "./pages/auth/forgot-password";
 import Services from "./pages/Services";
-// import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "../components/ProtectedRoute";
 import ProductDetails from "./pages/Product";
+import RedirectRoute from "../components/RedirectRoute";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path='/' element={<Layout />}>
+        <Route
+          path="/login"
+          element={
+            <RedirectRoute>
+              <SignIn />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <RedirectRoute>
+              <SignUp />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <RedirectRoute>
+              <ForgotPassword />
+            </RedirectRoute>
+          }
+        />
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
 
           <Route
             path="/add-to-cart"
             element={
-              // <ProtectedRoute>
+              <ProtectedRoute>
                 <AddToCart />
-              // </ProtectedRoute>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/delivery"
             element={
-              // <ProtectedRoute>
+              <ProtectedRoute>
                 <Delivery />
-              // </ProtectedRoute>
+              </ProtectedRoute>
             }
           />
           <Route path="/services" element={<Services />} />

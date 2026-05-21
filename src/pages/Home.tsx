@@ -6,8 +6,7 @@ import Experience from "../../components/ui/Experience";
 
 const Home = () => {
   return (
-    <div>
-      <div className="font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+      <div className="font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
         <main className="pt-10">
           <LandingPage />
           <Collections />
@@ -15,8 +14,7 @@ const Home = () => {
           <Trends />
           <Experience />
         </main>
-      </div>
-    </div>
+      </div>    
   );
 };
 

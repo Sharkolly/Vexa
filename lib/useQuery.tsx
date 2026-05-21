@@ -7,18 +7,39 @@ import {
 import { postLoginForm } from "../api/post";
 import { getRequest } from "../api/get";
 
-// import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import API from "../api/api";
 // import Swal from "sweetalert2";
 
-//get all properties
-export const useQueryPropertyFunction = (url: string) => {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["properties", url],
-    // queryFn: getRequest,
+//get user
+export const useQueryUserFunction = () => {  
+  const pathname = window.location.pathname;
+
+  // Disable fetching for auth routes
+  const enabled = !["/login", "/signup", "/forgot-password"].includes(pathname);
+  const { data, error, isLoading, refetch } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      try {
+        const response = await API.get("/user", {
+          withCredentials: true,
+          headers: { "Cache-Control": "no-cache" },
+        });        
+        return response.data;
+      } catch (error) {
+        const axiosError = error as AxiosError<{ message?: string }>;
+        // throw new Error(
+        //   axiosError.response?.data?.message || "An unexpected error occurred.",
+        // );
+        console.log(axiosError);
+      }
+    },
+    enabled, // 👈 automatically disabled for those paths
+    retry: 3,
   });
-  return { data, error, isLoading };
+  return { data, error, isLoading, refetch };
 };
-//get all products
+
 export const useQueryProduct = (url: string) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["products", url],

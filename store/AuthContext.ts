@@ -1,6 +1,8 @@
 import React, { createContext } from "react";
+import type { UserType } from "../types/user.types";
 
 type USERAUTHCONTEXT_TYPES = {
+  user: UserType | null
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;

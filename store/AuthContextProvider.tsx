@@ -1,5 +1,8 @@
 import { useState } from "react";
+import Loader from "../components/Loader";
+import { useQueryUserFunction } from "../lib/useQuery";
 import { UserAuthContext } from "./AuthContext";
+import type { UserType } from "../types/user.types";
 
 const AuthContext = ({ children }: { children: React.ReactNode }) => {
   const [email, setEmail] = useState("");
@@ -20,17 +23,16 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
   ) => setLastName(e.target.value);
 
-    // const { data, isLoading, refetch } = useQueryUserFunction();
-  
-    // useEffect(() => {
-    //   if (!isLoading && data) {
-    //     setUser(data);
-    //   }
-    // }, [user, data, isLoading]);
+  const { data, isLoading } = useQueryUserFunction();
+
+  if (isLoading) return <Loader  height='h-[100vh]' />;
+
+  const user: UserType | null = data?.message || null;
 
   return (
     <UserAuthContext
       value={{
+        user,
         email,
         setEmail,
         password,

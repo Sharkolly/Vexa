@@ -1,12 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
+import Button from "../../components/Button";
 import { IoPersonSharp } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useState } from "react";
+import { useAuthContextStore } from "../../store/useAuthContext";
 
 const Nav = () => {
   const [menu, setMenu] = useState(false);
+  const { user } = useAuthContextStore();
 
   const toggleMenu = () => setMenu(!menu);
   const [open, setOpen] = useState(false);
@@ -47,7 +50,9 @@ const Nav = () => {
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
           >
-            <NavLink to='/shop' className="hover:text-blue-600">Shop ▾</NavLink>
+            <NavLink to="/shop" className="hover:text-blue-600">
+              Shop ▾
+            </NavLink>
 
             {/* Dropdown */}
             {open && (
@@ -79,12 +84,6 @@ const Nav = () => {
           >
             Delivery
           </NavLink>
-          {/* <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
-            to="/arrivals"
-          >
-            New Arrivals
-          </NavLink> */}
         </nav>
         <div className="flex items-center gap-6">
           <button
@@ -100,14 +99,42 @@ const Nav = () => {
           >
             <AiOutlineShoppingCart />
 
-            <span className='absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 -z-10 flex justify-center items-center  p-2  rounded-full '>1</span>
+            <span className="absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 -z-10 flex justify-center items-center  p-2  rounded-full ">
+              1
+            </span>
           </button>
-          <Link to="/login"
-            className="text-xl bg-slate-100 p-2 rounded-full text-slate-500"
-            data-icon="shopping_bag"
-          >
-            <IoPersonSharp /> 
-          </Link>
+
+          {user?.email && user ? (
+            <Link
+              to="/login"
+              className="text-xl bg-slate-100 p-2 rounded-full text-slate-500"
+              title={`${user?.firstName} ${user?.lastName}`}
+            >
+              <IoPersonSharp />
+            </Link>
+          ) : (
+            <div className="flex gap-3">
+              <Link to="/login" className="cursor-pointer">
+                <Button
+                  color="text-white"
+                  content="Login"
+                  bg="bg-navy-blue"
+                  cursor="cursor-pointer"
+                />
+              </Link>
+
+              <Link to="/signup" className="">
+                <Button
+                  color="text-nav-blue-active"
+                  content="Sign Up"
+                  bg="bg-transparent"
+                  cursor="cursor-pointer"
+                  border="border-1 border-slate-200 shadow-md"
+                />
+              </Link>
+            </div>
+          )}
+
           <div onClick={toggleMenu} className="md:hidden cursor-pointer">
             <GiHamburgerMenu className="text-2xl rounded-lg " />
           </div>
