@@ -1,5 +1,3 @@
-import React from 'react'
-
 const ShopFilter = () => {
   return (
        <aside className="flex-shrink- sticky top-24 h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar pr-5 max-lg:hidden  lg:w-72 ">
