@@ -18,6 +18,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import ProductDetails from "./pages/Product";
 import RedirectRoute from "../components/RedirectRoute";
 
+
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(

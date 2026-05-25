@@ -12,11 +12,13 @@ import API from "../api/api";
 // import Swal from "sweetalert2";
 
 //get user
-export const useQueryUserFunction = () => {  
+export const useQueryUserFunction = () => {
   const pathname = window.location.pathname;
 
   // Disable fetching for auth routes
-  const enabled = !["/login", "/signup", "/forgot-password"].includes(pathname);
+  // console.log(pathname);
+
+  const enabled = !["/login", "/signup", "/forgot-password", '/shop'].includes(pathname);
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -24,18 +26,21 @@ export const useQueryUserFunction = () => {
         const response = await API.get("/user", {
           withCredentials: true,
           headers: { "Cache-Control": "no-cache" },
-        });        
+        });
         return response.data;
       } catch (error) {
         const axiosError = error as AxiosError<{ message?: string }>;
         // throw new Error(
         //   axiosError.response?.data?.message || "An unexpected error occurred.",
         // );
+        if (axiosError) {
+          window.location.href = "/login";
+        }
         console.log(axiosError);
       }
     },
     enabled, // 👈 automatically disabled for those paths
-    retry: 3,
+    retry: 4,
   });
   return { data, error, isLoading, refetch };
 };

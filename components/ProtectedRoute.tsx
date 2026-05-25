@@ -33,19 +33,20 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     checkToken();
   }, [navigate]);
 
-  if (loading) {
-    return (
-      <div className="fixed top-0 left-0 w-full h-[95vh] bg-white flex justify-center items-center z-150">
-        <img
-          width={200}
-          height={140}
-          src="/loading3.gif"
-          alt="Loading..."
-          className=" w-full"
-        />
-      </div>
-    );
-  }
+  // if (loading) {
+  if (loading) return
+  //   return (
+  //     <div className="fixed top-0 left-0 w-full h-[95vh] bg-white flex justify-center items-center z-150">
+  //       <img
+  //         width={200}
+  //         height={140}
+  //         src="/loading3.gif"
+  //         alt="Loading..."
+  //         className=" w-full"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return <>{children}</>;
 };

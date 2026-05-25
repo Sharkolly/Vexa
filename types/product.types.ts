@@ -4,7 +4,9 @@ title: string,
 description: string, 
 price: number,
 image: string,
+id?: string,
 category: string
 brand: string
-id: number
+quantity: number;
+new_price: number
 }

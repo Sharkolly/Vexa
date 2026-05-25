@@ -10,6 +10,10 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  const { data, isLoading, refetch } = useQueryUserFunction();
+
+  const user: UserType | null = data?.message || null;
+
   const emailOnChange = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
   ) => setEmail(e.target.value);
@@ -23,11 +27,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
   ) => setLastName(e.target.value);
 
-  const { data, isLoading } = useQueryUserFunction();
-
-  if (isLoading) return <Loader  height='h-[100vh]' />;
-
-  const user: UserType | null = data?.message || null;
+  if (isLoading) return <Loader height='h-[100vh]' />;
 
   return (
     <UserAuthContext
@@ -45,6 +45,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
         passwordOnChange,
         firstNameOnChange,
         lastNameOnChange,
+        refetch,
       }}
     >
       {children}

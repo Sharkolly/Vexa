@@ -4,12 +4,28 @@ import { IoPersonSharp } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContextStore } from "../../store/useAuthContext";
+import { useSelector } from "react-redux";
+import type { ProductType } from "../../types/product.types";
+
+type RootState = {
+  product: {
+    addToCart: ProductType[];
+  };
+};
 
 const Nav = () => {
   const [menu, setMenu] = useState(false);
-  const { user } = useAuthContextStore();
+  const { user, refetch } = useAuthContextStore();
+
+    const CartedProduct = useSelector(
+      (state: RootState) => state.product.addToCart,
+    );
+
+  useEffect(() => {
+    refetch();
+  }, [user, refetch])
 
   const toggleMenu = () => setMenu(!menu);
   const [open, setOpen] = useState(false);
@@ -25,7 +41,7 @@ const Nav = () => {
           </h1>
         </div>
         <nav
-          className={`flex  gap-6 max-md:flex-col  max-md:fixed max-md:top-0 max-md:pt-10 max-md:h-screen  max-md:bg-navy-blue max-md:right-0 max-md:backdrop-blur-md max-md:w-[55%] max-md:px-10 max-md:gap-12 ${!menu && "max-md:hidden font-semibold"} `}
+          className={`flex  gap-6 max-md:flex-col  max-md:fixed max-md:top-0 max-md:pt-10 max-md:h-screen  max-md:bg-navy-blue max-md:right-0 max-md:backdrop-blur-md max-md:w-[55%] max-md:px-10 max-md:gap-12 ${!menu && "max-md:hidden font-semibold z-10 "} `}
         >
           <div
             className="absolute top-5 right-4 cursor-pointer md:hidden"
@@ -39,12 +55,6 @@ const Nav = () => {
           >
             Home
           </NavLink>
-          {/* <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
-            to="/shop"
-          >
-            Shop
-          </NavLink> */}
           <span
             className="relative text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest cursor-pointer"
             onMouseEnter={() => setOpen(true)}
@@ -84,6 +94,16 @@ const Nav = () => {
           >
             Delivery
           </NavLink>
+          {!user && (
+            <>
+              <Link to="/login" className="md:hidden text-slate-500 text-[14px]  tracking-widest dark:text-slate-400">
+                LOGIN
+              </Link>
+              <Link to="/signup" className="md:hidden text-[14px] tracking-widest text-slate-500 dark:text-slate-400">
+                SIGNUP
+              </Link>
+            </>
+          )}
         </nav>
         <div className="flex items-center gap-6">
           <button
@@ -92,17 +112,17 @@ const Nav = () => {
           >
             search
           </button>
-          <button
-            className="text-2xl relative"
-            // className=" text-indigo-600 text-2xl  dark:text-indigo-400"
-            data-icon="shopping_bag"
+          <Link
+          to='/delivery'
+            className="text-2xl relative z-1 text-slate-500"
+            data-icon="shopping_bag" 
           >
             <AiOutlineShoppingCart />
 
             <span className="absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 -z-10 flex justify-center items-center  p-2  rounded-full ">
-              1
+              {CartedProduct.length || 0}
             </span>
-          </button>
+          </Link>
 
           {user?.email && user ? (
             <Link
@@ -113,7 +133,7 @@ const Nav = () => {
               <IoPersonSharp />
             </Link>
           ) : (
-            <div className="flex gap-3">
+            <div className="flex gap-3 max-md:hidden">
               <Link to="/login" className="cursor-pointer">
                 <Button
                   color="text-white"
