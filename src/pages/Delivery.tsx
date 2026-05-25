@@ -88,8 +88,8 @@ const Delivery = () => {
                     {CartedProduct.map((product: ProductType) => (
                       <tr className="group hover:bg-slate-50/50 transition-colors">
                         <td className="py-8 px-8">
-                          <Link
-                            to={`/products/product/${product.id}`}
+                          <div
+                            
                             className="flex items-center gap-6"
                           >
                             <div className="w-24 h-24 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
@@ -100,12 +100,14 @@ const Delivery = () => {
                               />
                             </div>
                             <div>
-                              <h3 className="font-semibold text-lg  text-slate-900 mb-1">
-                                {product.title}
-                              </h3>
-                              <p className="text-slate-500 text-label-md mb-2">
-                                {product.category}
-                              </p>
+                              <Link to={`/products/product/${product.id}`}>
+                                <h3 className="font-semibold text-lg  text-slate-900 mb-1">
+                                  {product.title}
+                                </h3>
+                                <p className="text-slate-500 text-label-md mb-2">
+                                  {product.category}
+                                </p>
+                              </Link>
                               <button
                                 className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
                                 onClick={() =>
@@ -123,7 +125,7 @@ const Delivery = () => {
                                 {/* Remove */}
                               </button>
                             </div>
-                          </Link>
+                          </div>
                         </td>
 
                         <td className="py-8 px-4 text-center">
@@ -170,8 +172,7 @@ const Delivery = () => {
                 </table>
                 <div className="md:hidden divide-y divide-slate-100">
                   {CartedProduct.map((product: ProductType) => (
-                    <Link
-                      to={`/products/product/${product.id}`}
+                    <div
                       className="p-6 space-y-4"
                     >
                       <div className="flex gap-4">
@@ -183,12 +184,14 @@ const Delivery = () => {
                           />
                         </div>
                         <div className="flex-grow flex flex-col gap-2">
-                          <h3 className="font-medium text-slate-900">
-                            {product.title}
-                          </h3>
-                          <p className="text-slate-500 text-sm">
-                            {product.category}
-                          </p>
+                          <Link to={`/products/product/${product.id}`}>
+                            <h3 className="font-medium text-slate-900">
+                              {product.title}
+                            </h3>
+                            <p className="text-slate-500 text-sm">
+                              {product.category}
+                            </p>
+                          </Link>
                           <div className="flex justify-between items-center">
                             <p className=" font-semibold text-slate-600 ">
                               ₦{product.price.toLocaleString()}
@@ -245,7 +248,7 @@ const Delivery = () => {
                           {/* Remove */}
                         </button>
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>
