@@ -8,7 +8,7 @@ type FeaturedSlide = (typeof carouselProducts)[0];
 
 const LandingPage = () => {
   return (
-    <section className="relative h-[86vh] w-full overflow-hidden bg-surface-container-lowest pt-">
+    <section className="relative h-[86vh] max-md:h-[75vh] w-full overflow-hidden bg-surface-container-lowest pt-">
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{
@@ -27,14 +27,14 @@ const LandingPage = () => {
               <div className="absolute inset-0 "></div>
             </div> */}
               <div
-          className="bg-cover bg-center h-full relative h-[85vh] w-full overflow-hidden  pb- "
+          className="bg-cover bg-center relative h-[85vh] max-md:h-[75vh] w-full overflow-hidden  pb- "
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(${slide.image})`,
           }}
         >
 
-            <div className="relative z-10 flex flex-col justify-cente mt-50   h-full px-6 md:px-16 max-w-360 mx-auto">
-              <span className="font-sm text-slate-300  tracking-[0.3em] uppercase mb-4">
+            <div className="relative z-10 flex flex-col justify-center  h-full px-6 md:px-16 max-w-360 mx-auto">
+              <span className="font-sm text-slate-300   tracking-[0.3em] uppercase mb-4">
                 {slide.title}
               </span>
               <h2 className=" text-5xl  max-md:text-4xl font-extrabold mb-6  leading-[1.1] max-w-3xl text-white">
