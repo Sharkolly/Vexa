@@ -18,7 +18,7 @@ export const useQueryUserFunction = () => {
   // Disable fetching for auth routes
   // console.log(pathname);
 
-  const enabled = !["/login", "/signup", "/forgot-password", '/shop'].includes(pathname);
+  const enabled = !["/login", "/signup", "/forgot-password", '/shop', '/services', '/products/product'].includes(pathname);
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
