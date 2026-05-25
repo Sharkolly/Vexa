@@ -16,6 +16,11 @@ type RootState = {
 };
 
 const Nav = () => {
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login'
+  }
   const [menu, setMenu] = useState(false);
   const { user, refetch } = useAuthContextStore();
 
@@ -154,6 +159,10 @@ const Nav = () => {
               </Link>
             </div>
           )}
+
+          <button onClick={logout}>
+            Log out
+          </button>
 
           <div onClick={toggleMenu} className="md:hidden cursor-pointer">
             <GiHamburgerMenu className="text-2xl rounded-lg " />
