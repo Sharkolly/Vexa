@@ -81,8 +81,8 @@ const Product = () => {
   }
   return (
     <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
-      <main className="pt-32 pb-24 max-w-360 mx-auto px-16 max-md:px-6 max-xl:pt-20">
-        <nav className="flex items-center gap-2 mb-12 max-md:text-sm text-outline">
+      <main className="pt-32 pb-24 max-w-360 mx-auto px-16 max-md:px-6 max-xl:pt-28">
+        <nav className="flex items-center gap-2 mb-6  max-md:text-sm text-outline">
           <Link
             className="hover:text-nav-blue-active font-medium flex  items-center gap-1 transition-colors"
             to={"/shop"}

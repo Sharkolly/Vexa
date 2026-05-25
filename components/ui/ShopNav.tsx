@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import { RiShoppingBag4Fill } from "react-icons/ri";
+import { BiCategory } from "react-icons/bi";
+import { IoIosHome } from "react-icons/io";
+import { IoPersonSharp } from "react-icons/io5";
 
 const ShopNav = () => {
   return (
@@ -8,34 +12,45 @@ const ShopNav = () => {
         to="/"
       >
         <span className="material-symbols-outlined" data-icon="home_max">
-          home_max
+          <IoIosHome />
         </span>
         <span className="text-[11px] font-medium uppercase tracking-wider">
           Home
         </span>
       </Link>
-      <a
+      <Link
         className="flex flex-col items-center justify-center text-slate-400 gap-1 active:scale-95 duration-200"
-        href="#"
+        to="/shop"
       >
         <span className="material-symbols-outlined" data-icon="grid_view">
-          grid_view
+          <RiShoppingBag4Fill />
+        </span>
+        <span className="text-[11px] font-medium uppercase tracking-wider">
+          Shop
+        </span>
+      </Link>
+      <Link
+        className="flex flex-col items-center justify-center text-slate-400 gap-1 active:scale-95 duration-200"
+        to="/shop"
+      >
+        <span className="material-symbols-outlined" data-icon="grid_view">
+          <BiCategory />
         </span>
         <span className="text-[11px] font-medium uppercase tracking-wider">
           Categories
         </span>
-      </a>
-      <a
+      </Link>
+      <Link
         className="flex flex-col items-center justify-center text-slate-400 gap-1 active:scale-95 duration-200"
-        href="#"
+        to="#"
       >
         <span className="material-symbols-outlined" data-icon="person">
-          person
+          <IoPersonSharp />
         </span>
         <span className="text-[11px] font-medium uppercase tracking-wider">
           Account
         </span>
-      </a>
+      </Link>
     </nav>
   );
 };

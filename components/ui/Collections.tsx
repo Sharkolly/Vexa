@@ -1,6 +1,6 @@
 const Collections = () => {
   return (
-           <section className="py-20 md:py-24 px-6 md:px-16 max-w-360 mx-auto">
+           <section className="py-10 md:py-6 px-6 md:px-16 max-w-360 mx-auto">
             <div className="flex justify-between items-end mb-12">
               <div>
                 <h3 className="font-semibold text-4xl">
