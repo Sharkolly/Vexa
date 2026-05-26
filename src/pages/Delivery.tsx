@@ -1,349 +1,146 @@
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import type { ProductType } from "../../types/product.types";
-import {
-  decrementQuantity,
-  incrementQuantity,
-  removeCart,
-} from "../../store/product.slice";
-import type { AppDispatch } from "../../store/index";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { MdArrowRightAlt } from "react-icons/md";
-import { IoMdArrowBack } from "react-icons/io";
+import { useState } from "react";
 
-type RootState = {
-  product: {
-    addToCart: ProductType[];
-    total: {
-      totalPrice: number;
-      totalItems: number;
-      overallTotal: number;
-      totalDelivery?: number;
-    };
-  };
-};
+const DeliveryPage = () => {
+  const [deliveryMethod, setDeliveryMethod] = useState("standard");
 
-const Delivery = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart,
-  );
-  const total = useSelector((state: RootState) => state.product.total);
-
-  const incrementProductQuantity = (id: string = "") => {
-    dispatch(incrementQuantity({ id }));
-  };
-  const decrementProductQuantity = (id: string = "", quantity: number) => {
-    dispatch(decrementQuantity({ id }));
-
-    if (quantity - 1 <= 0) {
-      dispatch(removeCart({ id }));
-    }
-  };
-
-  console.log(total);
   return (
-    <div>
-      Delivery
-      <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased">
-        <main className="flex-grow pt-32 pb-24 max-w-[1440px] mx-auto w-full md:px-16 max-md:pt-20 max-md:px-6 ">
-          <div className="mb-12">
-            <h1 className="font-semibold text-4xl text-on-surface mb-4">
-              Shopping Cart
-            </h1>
-            <Link
-              className="text-nav-blue-active font-label-md flex items-center gap-2 hover:underline transition-all"
-              to="/shop"
-            >
-              <span
-                className="material-symbols-outlined text-sm"
-                data-icon="arrow_back"
-              >
-                <IoMdArrowBack />
-              </span>
-              Continue Shopping
-            </Link>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-12">
-            <div className="flex-grow">
-              <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden border border-slate-200">
-                <table className="w-full border-collapse  hidden md:table">
-                  <thead>
-                    <tr className="border-b border-slate-200">
-                      <th className="text-left py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                        Product
-                      </th>
-                      <th className="text-center py-6 px-4 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                        Price
-                      </th>
-                      <th className="text-center py-6 px-4 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                        Quantity
-                      </th>
-                      <th className="text-right py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                        Total
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-50">
-                    {CartedProduct.map((product: ProductType) => (
-                      <tr className="group hover:bg-slate-50/50 transition-colors">
-                        <td className="py-8 px-8">
-                          <div
-                            
-                            className="flex items-center gap-6"
-                          >
-                            <div className="w-24 h-24 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
-                              <img
-                                className="w-full h-full object-cover"
-                                data-alt="A high-end, sleek matte black wireless headphone set resting on a minimalist white marble surface. The studio lighting is soft and directional, highlighting the premium metallic textures and smooth leather ear pads. The aesthetic is ultra-modern and professional, aligning with a luxury electronics catalog. Soft shadows ground the product in a bright, airy environment."
-                                src={product?.image}
-                              />
-                            </div>
-                            <div>
-                              <Link to={`/products/product/${product.id}`}>
-                                <h3 className="font-semibold text-lg  text-slate-900 mb-1">
-                                  {product.title}
-                                </h3>
-                                <p className="text-slate-500 text-label-md mb-2">
-                                  {product.category}
-                                </p>
-                              </Link>
-                              <button
-                                className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
-                                onClick={() =>
-                                  dispatch(
-                                    removeCart({ id: String(product.id) }),
-                                  )
-                                }
-                              >
-                                <span className="text-red-500 hover:text-red-600 flex items-center gap-2">
-                                  <span className="text-sm">Delete </span>{" "}
-                                  <span>
-                                    <RiDeleteBinLine />{" "}
-                                  </span>
-                                </span>
-                                {/* Remove */}
-                              </button>
-                            </div>
-                          </div>
-                        </td>
+    <div className="max-w-7xl mx-auto px-4 pt-28 pb-10">
+      <div className="grid lg:grid-cols-3 gap-8">
+        {/* Form Section */}
+        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow">
+          <h1 className="text-3xl text-nav-blue-active/80  font-bold mb-6">
+            Delivery Information
+          </h1>
 
-                        <td className="py-8 px-4 text-center">
-                          <span className="font-medium text-slate-900">
-                            ₦{product.price.toLocaleString()}
-                          </span>
-                        </td>
-                        <td className="py-8 px-4">
-                          <div className="flex items-center justify-center">
-                            <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden">
-                              <button
-                                className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                                onClick={() =>
-                                  decrementProductQuantity(
-                                    String(product.id),
-                                    product.quantity,
-                                  )
-                                }
-                              >
-                                -
-                              </button>
-                              <span className="px-4 py-1 font-medium text-slate-900 border-x border-slate-200">
-                                {product.quantity}
-                              </span>
-                              <button
-                                className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                                onClick={() =>
-                                  incrementProductQuantity(String(product.id))
-                                }
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="py-8 px-8 text-right">
-                          <span className="font-medium text-slate-900">
-                            ₦{product?.new_price.toLocaleString()}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="md:hidden divide-y divide-slate-100">
-                  {CartedProduct.map((product: ProductType) => (
-                    <div
-                      className="p-6 space-y-4"
-                    >
-                      <div className="flex gap-4">
-                        <div className="w-28 h-28 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
-                          <img
-                            alt="Acoustic Pro Headphones"
-                            className="w-full h-full object-cover"
-                            src={product.image}
-                          />
-                        </div>
-                        <div className="flex-grow flex flex-col gap-2">
-                          <Link to={`/products/product/${product.id}`}>
-                            <h3 className="font-medium text-slate-900">
-                              {product.title}
-                            </h3>
-                            <p className="text-slate-500 text-sm">
-                              {product.category}
-                            </p>
-                          </Link>
-                          <div className="flex justify-between items-center">
-                            <p className=" font-semibold text-slate-600 ">
-                              ₦{product.price.toLocaleString()}
-                            </p>
-                            <span className=" font-semibold text-blue-900 flex flex-col items-center">
-                              {/* <span>{product.quantity}</span> */}
-                              <span>
-                                <MdArrowRightAlt />
-                              </span>
-                            </span>
-                            <p className="font-semibold text-slate-900">
-                              ₦{product.new_price.toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden">
-                          <button
-                            className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                            onClick={() =>
-                              decrementProductQuantity(
-                                String(product.id),
-                                product.quantity,
-                              )
-                            }
-                          >
-                            -
-                          </button>
-                          <span className="px-4 py-1 font-medium text-slate-900 border-x border-slate-200">
-                            {product.quantity}
-                          </span>
-                          <button
-                            className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                            onClick={() =>
-                              incrementProductQuantity(String(product.id))
-                            }
-                          >
-                            +
-                          </button>
-                        </div>
-                        <button
-                          className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
-                          onClick={() =>
-                            dispatch(removeCart({ id: String(product.id) }))
-                          }
-                        >
-                          <span className="text-red-500 hover:text-red-600 flex items-center gap-2">
-                            <span className="text-sm">Delete </span>{" "}
-                            <span>
-                              <RiDeleteBinLine />{" "}
-                            </span>
-                          </span>
-                          {/* Remove */}
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-8 flex justify-between items-center">
-                <div className="flex flex-col sm:flex-row gap-4 w-full">
-                  <input
-                    className="flex-grow px-6 py-3 border border-slate-200 rounded-lg focus:ring-primary focus:border-primary bg-white outline-none "
-                    placeholder="Promo code "
-                    type="text"
-                  />
-                  <button className="px-6 py-3 bg-slate-900 text-white font-label-md rounded-lg hover:bg-slate-800 transition-all active:scale-95">
-                    Apply
-                  </button>
-                </div>
-              </div>
+          <div className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email Address"
+              className="w-full border rounded-lg p-3"
+            />
+
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="w-full border rounded-lg p-3"
+            />
+
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              className="w-full border rounded-lg p-3"
+            />
+
+            <div className="grid md:grid-cols-3 gap-4">
+              <input
+                type="text"
+                placeholder="Country"
+                className="border rounded-lg p-3"
+              />
+
+              <input
+                type="text"
+                placeholder="State"
+                className="border rounded-lg p-3"
+              />
+
+              <input
+                type="text"
+                placeholder="City"
+                className="border rounded-lg p-3"
+              />
             </div>
 
-            <aside className="w-full lg:w-100 shrink-0">
-              <div className="bg-white rounded-xl border border-slate-200 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-6 sticky top-32">
-                <h2 className="font-semibold text-2xl text-slate-900 mb-8">
-                  Order Summary
-                </h2>
-                <div className="space-y-4 mb-8">
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-body-md">
-                      Subtotal
-                    </span>
-                    <span className="text-slate-900 font-medium">
-                      ₦{total?.totalPrice.toLocaleString() || 0}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-body-md">
-                      Tax (8%)
-                    </span>
-                    <span className="text-slate-900 font-medium">
-                      ₦{(total?.totalPrice * 0.08).toLocaleString() || 0}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-body-md">
-                      Shipping
-                    </span>
-                    <span className="text-green-600 font-medium uppercase text-label-sm tracking-wider">
-                      Free
-                    </span>
-                  </div>
-                  <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                    <span className="text-slate-900 font-medium  text-body-lg">
-                      Total
-                    </span>
-                    <span className="text-nav-blue-active font-semibold  text-xl">
-                      ₦{(total?.totalPrice * 1.08).toLocaleString() || 0}
-                    </span>
-                  </div>
+            <input
+              type="text"
+              placeholder="Street Address"
+              className="w-full border rounded-lg p-3"
+            />
+
+            <input
+              type="text"
+              placeholder="Apartment, Landmark (Optional)"
+              className="w-full border rounded-lg p-3"
+            />
+
+            <div className="space-y-3 pt-4">
+              <h2 className="font-semibold text-lg text-nav-blue-active/80">
+                Delivery Method
+              </h2>
+
+              <label className="flex items-center justify-between border p-4 rounded-lg cursor-pointer">
+                <div>
+                  <p className="font-medium">
+                    Standard Delivery
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    3-5 Business Days
+                  </p>
                 </div>
-                <button className="w-full py-4 bg-nav-blue-active text-white font-headline-md text-body-lg rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-container hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer">
-                  Proceed to Checkout
-                </button>
-                <div className="mt-8 pt-8 border-t border-slate-100 space-y-4">
-                  <div className="flex items-center gap-3 text-slate-500 text-label-md">
-                    <span
-                      className="material-symbols-outlined text-primary"
-                      data-icon="verified"
-                    >
-                      {/* verified */}
-                    </span>
-                    <span>Secure checkout powered by Stripe</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-500 text-label-md">
-                    <span
-                      className="material-symbols-outlined text-primary"
-                      data-icon="local_shipping"
-                    >
-                      {/* local_shipping */}
-                    </span>
-                    <span>Free shipping on orders over $150</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-500 text-label-md">
-                    <span
-                      className="material-symbols-outlined text-primary"
-                      data-icon="sync"
-                    >
-                      {/* sync */}
-                    </span>
-                    <span>30-day hassle-free returns</span>
-                  </div>
+
+                <input
+                  type="radio"
+                  checked={deliveryMethod === "standard"}
+                  onChange={() =>
+                    setDeliveryMethod("standard")
+                  }
+                />
+              </label>
+
+              <label className="flex items-center justify-between border p-4 rounded-lg cursor-pointer">
+                <div>
+                  <p className="font-medium">
+                    Express Delivery
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    1-2 Business Days
+                  </p>
                 </div>
-              </div>
-            </aside>
+
+                <input
+                  type="radio"
+                  checked={deliveryMethod === "express"}
+                  onChange={() =>
+                    setDeliveryMethod("express")
+                  }
+                />
+              </label>
+            </div>
           </div>
-        </main>
+        </div>
+
+        {/* Summary Section */}
+        <div className="bg-white p-6 rounded-xl shadow h-fit sticky top-4">
+          <h2 className="text-xl font-bold mb-4 text-nav-blue-active/80">
+            Order Summary
+          </h2>
+
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>₦40,000</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>Shipping</span>
+              <span>₦2,500</span>
+            </div>
+
+            <hr />
+
+            <div className="flex justify-between text-lg font-bold">
+              <span className='text-nav-blue-active/80'>Total</span>
+              <span className='text-nav-blue-active/80'>₦42,500</span>
+            </div>
+          </div>
+
+          <button className="w-full mt-6 bg-nav-blue-active text-white py-3 rounded-lg">
+            Continue To Payment
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Delivery;
+export default DeliveryPage;

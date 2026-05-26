@@ -16,21 +16,20 @@ type RootState = {
 };
 
 const Nav = () => {
-
   const logout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login'
-  }
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
   const [menu, setMenu] = useState(false);
   const { user, refetch } = useAuthContextStore();
 
-    const CartedProduct = useSelector(
-      (state: RootState) => state.product.addToCart,
-    );
+  const CartedProduct = useSelector(
+    (state: RootState) => state.product.addToCart,
+  );
 
   useEffect(() => {
     refetch();
-  }, [user, refetch])
+  }, [user, refetch]);
 
   const toggleMenu = () => setMenu(!menu);
   const [open, setOpen] = useState(false);
@@ -95,21 +94,36 @@ const Nav = () => {
           </NavLink>
           <NavLink
             className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
+            to="/cart"
+          >
+            Cart
+          </NavLink>
+          <NavLink
+            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
             to="/delivery"
           >
             Delivery
           </NavLink>
           {!user && (
             <>
-              <Link to="/login" className="md:hidden text-slate-500 text-[14px]  tracking-widest dark:text-slate-400">
+              <Link
+                to="/login"
+                className="md:hidden text-slate-500 text-[14px]  tracking-widest dark:text-slate-400"
+              >
                 LOGIN
               </Link>
-              <Link to="/signup" className="md:hidden text-[14px] tracking-widest text-slate-500 dark:text-slate-400">
+              <Link
+                to="/signup"
+                className="md:hidden text-[14px] tracking-widest text-slate-500 dark:text-slate-400"
+              >
                 SIGNUP
               </Link>
             </>
           )}
-<button onClick={logout} className='md:hidden cursor-pointer text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest'>
+          <button
+            onClick={logout}
+            className="md:hidden cursor-pointer text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 uppercase tracking-widest "
+          >
             Log out
           </button>
         </nav>
@@ -121,9 +135,9 @@ const Nav = () => {
             search
           </button>
           <Link
-          to='/delivery'
+            to="/delivery"
             className="text-2xl relative z-1 text-slate-500"
-            data-icon="shopping_bag" 
+            data-icon="shopping_bag"
           >
             <AiOutlineShoppingCart />
 
@@ -163,8 +177,8 @@ const Nav = () => {
             </div>
           )}
 
-          <button onClick={logout} className='max-md:hidden'>
-            Log out
+          <button onClick={logout} className="max-md:hidden px-4 py-1.5 bg-red-600 text-white rounded-lg shadow-md active:scale-95 transition-transform font-semibold cursor-pointer">
+            Logout
           </button>
 
           <div onClick={toggleMenu} className="md:hidden cursor-pointer">

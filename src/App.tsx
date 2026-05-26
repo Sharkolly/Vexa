@@ -17,6 +17,8 @@ const ForgotPassword = lazy(() => import("./pages/auth/forgot-password"));
 const Services = lazy(() => import("./pages/Services"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const ProductDetails = lazy(() => import("./pages/Product"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 const RedirectRoute = lazy(() => import("../components/RedirectRoute"));
 import Loader from "../components/Loader";
 
@@ -70,6 +72,8 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/products/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Route>,
