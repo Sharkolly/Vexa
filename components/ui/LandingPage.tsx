@@ -33,7 +33,7 @@ const LandingPage = () => {
           }}
         >
 
-            <div className="relative z-10 flex flex-col justify-center  h-full px-6 md:px-16 max-w-360 mx-auto">
+            <div className="relative z-10 flex flex-col justify-center   h-full px-6 md:px-16 max-w-360 mx-auto">
               <span className="font-sm text-slate-300   tracking-[0.3em] uppercase mb-4">
                 {slide.title}
               </span>

@@ -1,23 +1,24 @@
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./pages/Home";
-import AddToCart from "./pages/AddToCart";
-import SignIn from "./pages/auth/SignIn";
-import SignUp from "./pages/auth/SignUp";
-import Delivery from "./pages/Delivery";
-import NotFound from "./pages/404";
-import Shop from "./pages/Shop";
-import Layout from "../components/ui/Layout";
-import ForgotPassword from "./pages/auth/forgot-password";
-import Services from "./pages/Services";
-import ProtectedRoute from "../components/ProtectedRoute";
-import ProductDetails from "./pages/Product";
-import RedirectRoute from "../components/RedirectRoute";
-
+const Home = lazy(() => import("./pages/Home"));
+const AddToCart = lazy(() => import("./pages/AddToCart"));
+const SignIn = lazy(() => import("./pages/auth/SignIn"));
+const SignUp = lazy(() => import("./pages/auth/SignUp"));
+const Delivery = lazy(() => import("./pages/Delivery"));
+const NotFound = lazy(() => import("./pages/404"));
+const Shop = lazy(() => import("./pages/Shop"));
+const Layout = lazy(() => import("../components/ui/Layout"));
+const ForgotPassword = lazy(() => import("./pages/auth/forgot-password"));
+const Services = lazy(() => import("./pages/Services"));
+const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
+const ProductDetails = lazy(() => import("./pages/Product"));
+const RedirectRoute = lazy(() => import("../components/RedirectRoute"));
+import Loader from "../components/Loader";
 
 function App() {
   const router = createBrowserRouter(
@@ -76,9 +77,9 @@ function App() {
   );
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <RouterProvider router={router} />
-    </>
+    </Suspense>
   );
 }
 
