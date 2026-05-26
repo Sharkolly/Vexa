@@ -109,6 +109,9 @@ const Nav = () => {
               </Link>
             </>
           )}
+<button onClick={logout} className='md:hidden cursor-pointer text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest'>
+            Log out
+          </button>
         </nav>
         <div className="flex items-center gap-6">
           <button
@@ -160,7 +163,7 @@ const Nav = () => {
             </div>
           )}
 
-          <button onClick={logout}>
+          <button onClick={logout} className='max-md:hidden'>
             Log out
           </button>
 
