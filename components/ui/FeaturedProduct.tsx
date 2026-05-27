@@ -2,14 +2,14 @@ import { product_data } from "../../data/product";
 
 const FeaturedProduct = () => {
   return (
-      <section className="max-w-7xl mx-auto px-4 pb-20">
+      <section className="w-[90%] max-md:w-[95%] mx-auto px-4 pb-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl text-nav-blue-active/90  font-bold">Featured Products</h2>
 
           <button className="text-blue-700 font-semibold">View More</button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid  sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {product_data.map((product) => (
             <div
               key={product.id}

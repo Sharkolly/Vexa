@@ -2,7 +2,7 @@
 
 const CountUp = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
+    <section className="w-[90%] max-md:w-[95%] mx-auto px-4 py-16">
       {/* <Marquee play={true}>
         🚚 Free Delivery On Orders Above ₦100,000
       </Marquee>

@@ -2,18 +2,18 @@ import { categories_data } from "../../data/categories";
 
 const Categories = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 pb-16">
+    <section className="w-[90%]  max-md:w-[95%] mx-auto px-4 pb-16">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl text-nav-blue-active/90  font-bold">Shop By Category</h2>
 
         <button className="text-blue-700 font-semibold">View All</button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {categories_data.map((item) => (
           <div
             key={item.title}
-            className="relative rounded-3xl overflow-hidden group cursor-pointer"
+            className="relative rounded-xl overflow-hidden group cursor-pointer"
           >
             <img
               src={item.image}

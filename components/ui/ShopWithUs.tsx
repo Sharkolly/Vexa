@@ -23,7 +23,7 @@ const ShopWithUs = () => {
   ];
   return (
           <section className="bg-white py-12 max-md:py-12">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="w-[90%] max-md:w-[95%] mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl text-nav-blue-active/90  font-bold">Why Shop With Us?</h2>
 

@@ -26,7 +26,7 @@ const Home = () => {
         />
 
         <div className="absolute inset-0 z-20 flex items-center ">
-          <div className="w-[87%] max-md:w-[95%] mx-auto px-4 text-white">
+          <div className="w-[90%] max-md:w-[95%] mx-auto px-4 text-white">
             <span className="bg-red-500 px-4 py-2 rounded-full text-sm font-semibold">
               UP TO 70% OFF
             </span>
