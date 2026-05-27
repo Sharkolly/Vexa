@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.2.4",
     "@tanstack/react-query": "^5.100.8",
+    "@vercel/analytics": "^2.0.1",
     "axios": "^1.16.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

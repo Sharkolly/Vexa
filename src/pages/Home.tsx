@@ -1,5 +1,6 @@
+import Marquee from "react-fast-marquee";
 // import LandingPage from "../../components/ui/LandingPage";
-import CountUp from "../../components/ui/Countup";
+import CountUp from "../../components/ui/CountUp";
 
 import Categories from "../../components/ui/Categories";
 import ShopWithUs from "../../components/ui/ShopWithUs";
@@ -14,7 +15,16 @@ const Home = () => {
       <div className="bg-green-800 text-white text-center text-sm py-2 px-4">
         🚚 Free Delivery On Orders Above ₦100,000
       </div>
-      {/* <Marquee >🚚 Free Delivery On Orders Above ₦100,000</Marquee> */}
+      {/* <Marquee >🚚 Free Delivery On Orders Above ₦100,000</Marquee>  */}
+         <Marquee play={true}>
+        🚚 Free Delivery On Orders Above ₦100,000
+      </Marquee>
+       <Marquee speed={60} pauseOnHover gradient={false}>
+        <span className="mx-6">🔥 Flash Sale — Up to 70% OFF</span>
+        <span className="mx-6">🚚 Free Delivery on Orders Above ₦100k</span>
+        <span className="mx-6">⚡ New Arrivals Every Week</span>
+        <span className="mx-6">💳 Secure Payments Available</span>
+      </Marquee>
 
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-black/60 z-10" />
