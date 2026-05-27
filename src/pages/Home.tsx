@@ -1,85 +1,68 @@
-import LandingPage from "../../components/ui/LandingPage";
-import Collections from "../../components/ui/Collections";
+// import LandingPage from "../../components/ui/LandingPage";
+import CountUp from "../../components/ui/Countup";
+
 import Categories from "../../components/ui/Categories";
-import Trends from "../../components/ui/Trends";
-import Experience from "../../components/ui/Experience";
+import ShopWithUs from "../../components/ui/ShopWithUs";
+// import NewsLetter from "../../components/ui/NewsLetter";
+// import Testimonials from "../../components/ui/Testimonials";
+import FeaturedProduct from "../../components/ui/FeaturedProduct";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-      <div className="font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
-        <main className="pt-10">
-          <LandingPage />
-          <Collections />
-          <Categories />
-          <Trends />
-          <Experience />
-        </main>
-      </div>    
+    <div className=" min-h-screen text-gray-900 pt-16 ">
+      <div className="bg-green-800 text-white text-center text-sm py-2 px-4">
+        🚚 Free Delivery On Orders Above ₦100,000
+      </div>
+      {/* <Marquee >🚚 Free Delivery On Orders Above ₦100,000</Marquee> */}
+
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/60 z-10" />
+
+        <img
+          src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1600&auto=format&fit=crop"
+          alt="hero"
+          className="w-full h-[600px] object-cover"
+        />
+
+        <div className="absolute inset-0 z-20 flex items-center ">
+          <div className="w-[87%] max-md:w-[95%] mx-auto px-4 text-white">
+            <span className="bg-red-500 px-4 py-2 rounded-full text-sm font-semibold">
+              UP TO 70% OFF
+            </span>
+
+            <h2 className="text-4xl md:text-6xl font-black mt-6 leading-tight max-w-3xl">
+              Discover The Best Deals On Premium Products
+            </h2>
+
+            <p className="mt-4 text-lg text-gray-200 max-w-2xl">
+              Shop trending products with secure payments, fast delivery, and
+              amazing discounts.
+            </p>
+
+            <div className="flex flex-wrap gap-4 mt-8">
+              <Link to="/shop">
+              <button className="bg-blue-800 cursor-pointer hover:bg-blue-800 px-6 py-3.5 rounded-xl font-semibold transition">
+                Shop Now
+              </button>
+              </Link>
+
+              <button className="bg-white cursor-pointer text-black px-6 py-3.5 rounded-xl font-semibold">
+                Explore Deals
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <CountUp />
+      <Categories />
+      <FeaturedProduct />
+      <ShopWithUs />
+      {/* <Testimonials /> */}
+      {/* <NewsLetter /> */}
+    </div>
   );
 };
 
 export default Home;
-//    <div className="hidden fixed inset-0 z-60" id="drawer">
-//           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-//           <aside className="absolute left-0 top-0 h-full w-80 bg-white dark:bg-slate-900 rounded-r-3xl shadow-2xl flex flex-col py-8 overflow-y-auto">
-//             <h2 className="text-xl font-bold text-slate-900 dark:text-white px-6 py-4">
-//               Explore Vexa
-//             </h2>
-//             <nav className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
-//               <a
-//                 className="px-6 py-4 flex items-center gap-4 text-indigo-600 bg-indigo-50 font-bold hover:pl-8 transition-all duration-300"
-//                 href="#"
-//               >
-//                 <span
-//                   className="material-symbols-outlined"
-//                   data-icon="smart_toy"
-//                 >
-//                   smart_toy
-//                 </span>{" "}
-//                 Tech
-//               </a>
-//               <a
-//                 className="px-6 py-4 flex items-center gap-4 text-slate-600 hover:pl-8 transition-all duration-300"
-//                 href="#"
-//               >
-//                 <span
-//                   className="material-symbols-outlined"
-//                   data-icon="checkroom"
-//                 >
-//                   checkroom
-//                 </span>{" "}
-//                 Fashion
-//               </a>
-//               <a
-//                 className="px-6 py-4 flex items-center gap-4 text-slate-600 hover:pl-8 transition-all duration-300"
-//                 href="#"
-//               >
-//                 <span className="material-symbols-outlined" data-icon="Steps">
-//                   steps
-//                 </span>{" "}
-//                 Shoes
-//               </a>
-//               <a
-//                 className="px-6 py-4 flex items-center gap-4 text-slate-600 hover:pl-8 transition-all duration-300"
-//                 href="#"
-//               >
-//                 <span
-//                   className="material-symbols-outlined"
-//                   data-icon="directions_car"
-//                 >
-//                   directions_car
-//                 </span>{" "}
-//                 Cars
-//               </a>
-//               <a
-//                 className="px-6 py-4 flex items-center gap-4 text-slate-600 hover:pl-8 transition-all duration-300"
-//                 href="#"
-//               >
-//                 <span className="material-symbols-outlined" data-icon="build">
-//                   build
-//                 </span>{" "}
-//                 Services
-//               </a>
-//             </nav>
-//           </aside>
-//         </div>

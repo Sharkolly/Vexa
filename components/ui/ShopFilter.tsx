@@ -11,15 +11,12 @@ const FilterSidebar = () => {
     <aside className="w-full md:w-72 bg-white p-4 rounded-xl shadow h-fit">
       <h2 className="text-lg font-bold mb-4">Filters</h2>
 
-      {/* SEARCH */}
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search products..."
         className="w-full border p-2 rounded-lg mb-4"
-      />
-
-      {/* CATEGORY */}
+      />      
       <div className="mb-4">
         <p className="font-semibold mb-2">Category</p>
 
@@ -28,15 +25,14 @@ const FilterSidebar = () => {
             key={c}
             onClick={() => setCategory(c)}
             className={`block w-full text-left px-3 py-2 rounded-lg mb-1 ${
-              category === c ? "bg-black text-white" : "hover:bg-gray-100"
+              category === c ? "bg-nav-blue-active/80  text-white" : "hover:bg-gray-100"
             }`}
           >
             {c}
           </button>
         ))}
       </div>
-
-      {/* PRICE */}
+      
       <div className="mb-4">
         <p className="font-semibold mb-2">Price Range</p>
 
@@ -56,8 +52,6 @@ const FilterSidebar = () => {
           className="w-full border p-2 rounded-lg"
         />
       </div>
-
-      {/* RATING */}
       <div className="mb-4">
         <p className="font-semibold mb-2">Minimum Rating</p>
 
@@ -65,8 +59,8 @@ const FilterSidebar = () => {
           <button
             key={r}
             onClick={() => setMinRating(r)}
-            className={`block w-full text-left px-3 py-2 rounded-lg mb-1 ${
-              minRating === r ? "bg-black text-white" : "hover:bg-gray-100"
+            className={`block  w-full text-left px-3 py-2 rounded-lg mb-1 ${
+              minRating === r ? "bg-nav-blue-active/80 text-white" : "hover:bg-gray-100"
             }`}
           >
             ⭐ {r}+ Stars
@@ -74,7 +68,6 @@ const FilterSidebar = () => {
         ))}
       </div>
 
-      {/* RESET */}
       <button
         onClick={() => {
           setCategory("All");

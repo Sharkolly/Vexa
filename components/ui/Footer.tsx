@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { MdEmail, MdPublic } from "react-icons/md";
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter mb-20">
           <div className="col-span-full md:col-span-4">
             <h2 className="text-3xl font-black tracking-tighter mb-6">VEXA</h2>
-            <p className="text-slate-400 font-body-md max-w-sm mb-8">
+            <p className="text-slate-200 font-body-md max-w-sm mb-8">
               Redefining luxury through technical precision and editorial style.
               Your destination for the finest curated tech, fashion, and
               services.
@@ -18,7 +19,8 @@ const Footer = () => {
                   className="material-symbols-outlined text-[18px]"
                   data-icon="public"
                 >
-                  public
+                <MdPublic />
+                  
                 </span>
               </button>
               <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors">
@@ -26,7 +28,7 @@ const Footer = () => {
                   className="material-symbols-outlined text-[18px]"
                   data-icon="alternate_email"
                 >
-                  alternate_email
+                <MdEmail />
                 </span>
               </button>
             </div>
@@ -80,7 +82,7 @@ const Footer = () => {
                   className="text-slate-300 hover:text-white transition-colors"
                   to="#"
                 >
-                  Automotive Concierge
+                  Graphics Design
                 </NavLink>
               </li>
               <li>
@@ -88,7 +90,15 @@ const Footer = () => {
                   className="text-slate-300 hover:text-white transition-colors"
                   to="#"
                 >
-                  Styling Lab
+                  Web Development
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className="text-slate-300 hover:text-white transition-colors"
+                  to="#"
+                >
+                  Copywriting
                 </NavLink>
               </li>
               <li>
@@ -148,3 +158,52 @@ const Footer = () => {
 };
 
 export default Footer;
+
+// <footer className="bg-black text-white py-16">
+//   <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10">
+//     <div>
+//       <h3 className="text-2xl font-black text-blue-400">Foland Store</h3>
+
+//       <p className="text-gray-400 mt-4 leading-7">
+//         Premium ecommerce experience with secure checkout and fast
+//         delivery.
+//       </p>
+//     </div>
+
+//     <div>
+//       <h4 className="font-bold text-lg mb-4">Shop</h4>
+
+//       <div className="space-y-3 text-gray-400">
+//         <p>Electronics</p>
+//         <p>Fashion</p>
+//         <p>Gaming</p>
+//         <p>Accessories</p>
+//       </div>
+//     </div>
+
+//     <div>
+//       <h4 className="font-bold text-lg mb-4">Support</h4>
+
+//       <div className="space-y-3 text-gray-400">
+//         <p>Help Center</p>
+//         <p>Shipping</p>
+//         <p>Returns</p>
+//         <p>Contact</p>
+//       </div>
+//     </div>
+
+//     <div>
+//       <h4 className="font-bold text-lg mb-4">Contact</h4>
+
+//       <div className="space-y-3 text-gray-400">
+//         <p>Lagos, Nigeria</p>
+//         <p>support@folandstore.com</p>
+//         <p>+234 000 000 0000</p>
+//       </div>
+//     </div>
+//   </div>
+
+//   <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-500 text-sm px-4">
+//     © 2026 Foland Store. All rights reserved.
+//   </div>
+// </footer>

@@ -124,12 +124,11 @@ const Shop = () => {
                     <option>Best Rating</option>
                   </select>
 
-                  {/* VIEW TOGGLE */}
                   <div className="flex border rounded-xl overflow-hidden">
                     <button
                       onClick={() => setView("grid")}
                       className={`p-2 ${
-                        view === "grid" ? "bg-black text-white" : "bg-white"
+                        view === "grid" ? "bg-nav-blue-active/80 text-white" : "bg-white"
                       }`}
                     >
                       <Grid3X3 size={18} />
