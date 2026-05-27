@@ -65,8 +65,8 @@ const Shop = () => {
 
   return (
     <div>
-      <div className="bg-background text-on-background min-h-screen pb-24 md:pb-0">
-        <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 px-2  md:px-12 max-md:flex-col">
+      <div className="bg-background text-on-background min-h-screen pb-24  md:pb-0">
+        <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20   px-2  md:px-12 max-md:flex-col">
           <ShopFilter />
           <main className="flex-1 z-25 bg-white">
             {/* <div className="flex items-center justify-between gap-4 mb-10 flex-row  items-center">

@@ -1,117 +1,94 @@
-const ShopFilter = () => {
+import { useState } from "react";
+
+const FilterSidebar = () => {
+  const [category, setCategory] = useState("All");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000000);
+  const [minRating, setMinRating] = useState(0);
+  const [search, setSearch] = useState("");
+
   return (
-       <aside className="flex-shrink- sticky top-24 h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar pr-5 max-lg:hidden  lg:w-72 ">
-            <div className="mb-8">
-              <h1 className="font-semibold  text-2xl mb-2">Tech Gadgets</h1>
-              <p className="font-light text-black/70  -variant">
-                428 items found
-              </p>
-            </div>
-            <div className="space-y-7">
-              <div>
-                <h3 className="font-semibold  text-label-md  uppercase tracking-wider mb-2">
-                  Brand
-                </h3>
-                <div className="space-y-3 ">
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input
-                      className="w-5 h-5 rounded border-outline-variant text-nav-blue-active focus:ring-primary"
-                      type="checkbox"
-                    />
-                    <span className="font-body-md text-body-md -variant group-hover:text-nav-blue-active transition-colors">
-                      Vexa Core
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input
-                      checked={false}
-                      className="w-5 h-5 rounded border-outline-variant text-nav-blue-active focus:ring-primary"
-                      type="checkbox"
-                    />
-                    <span className="font-body-md text-body-md -variant group-hover:text-nav-blue-active transition-colors">
-                      AeroTech
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input
-                      className="w-5 h-5 rounded border-outline-variant text-nav-blue-active focus:ring-primary"
-                      type="checkbox"
-                    />
-                    <span className="font-body-md text-body-md -variant group-hover:text-nav-blue-active transition-colors">
-                      Nova Dynamics
-                    </span>
-                  </label>
-                </div>
-              </div>
+    <aside className="w-full md:w-72 bg-white p-4 rounded-xl shadow h-fit">
+      <h2 className="text-lg font-bold mb-4">Filters</h2>
 
-              <div>
-                <h3 className="font-semibold text-label-md  uppercase tracking-wider mb-4">
-                  Price Range
-                </h3>
-                <input
-                  className="w-full h-1.5 cursor-pointer accent-nav-blue-active"
-                  min={0}
-                  max={5000}
-                  value={2100}
-                  type="range"
-                />
-                <div className="flex justify-between mt-2 font-label-sm text-label-sm -variant">
-                  <span>$0</span>
-                  <span>$5000+</span>
-                </div>
-              </div>
+      {/* SEARCH */}
+      <input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search products..."
+        className="w-full border p-2 rounded-lg mb-4"
+      />
 
-              <div>
-                <h3 className="font-semibold text-label-md  uppercase tracking-wider mb-4">
-                  Rating
-                </h3>
-                <div className="space-y-3">
-                  <button className="flex items-center gap-2 -variant hover:text-nav-blue-active transition-colors">
-                    <div className="flex text-amber-400 hidden">
-                      <span className="material-symbols-outlined text-[18px]">
-                        star
-                      </span>
-                      <span className="material-symbols-outlined text-[18px]">
-                        star
-                      </span>
-                      <span className="material-symbols-outlined text-[18px]">
-                        star
-                      </span>
-                      <span className="material-symbols-outlined text-[18px]">
-                        star
-                      </span>
-                      <span className="material-symbols-outlined text-[18px]">
-                        star
-                      </span>
-                    </div>
-                    <span className="font-body-md text-body-md">&amp; Up</span>
-                  </button>
-                </div>
-              </div>
+      {/* CATEGORY */}
+      <div className="mb-4">
+        <p className="font-semibold mb-2">Category</p>
 
-              <div>
-                <h3 className="font-semibold uppercase tracking-wider mb-4">
-                  Specifications
-                </h3>
-                <div className="flex flex-wrap gap-2 ">
-                  <span className="px-3 py-1 bg-yellow-700 text-white border border-outline-variant rounded-full font-label-sm text-label-sm -variant hover:border-primary hover:text-nav-blue-active cursor-pointer transition-colors">
-                    OLED
-                  </span>
-                  <span className="px-3 py-1 bg-green-700 text-white border border-outline-variant rounded-full font-label-sm text-label-sm -variant hover:border-primary hover:text-nav-blue-active cursor-pointer transition-colors">
-                    Wireless
-                  </span>
-                  <span className="px-3 py-1 bg-blue-700 text-white border border-outline-variant rounded-full font-label-sm text-label-sm -variant hover:border-primary hover:text-nav-blue-active cursor-pointer transition-colors">
-                    8K UHD
-                  </span>
-                  <span className="px-3 py-1 bg-cyan-800 text-white border border-outline-variant rounded-full font-label-sm text-label-sm -variant hover:border-primary hover:text-nav-blue-active cursor-pointer transition-colors">
-                    Thunderbolt 4
-                  </span>
-                </div>
-              </div>
-            </div>
-          </aside>
+        {["All", "Fashion", "Electronics", "Gaming"].map((c) => (
+          <button
+            key={c}
+            onClick={() => setCategory(c)}
+            className={`block w-full text-left px-3 py-2 rounded-lg mb-1 ${
+              category === c ? "bg-black text-white" : "hover:bg-gray-100"
+            }`}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
 
-  )
-}
+      {/* PRICE */}
+      <div className="mb-4">
+        <p className="font-semibold mb-2">Price Range</p>
 
-export default ShopFilter
+        <input
+          type="number"
+          placeholder="Min"
+          value={minPrice}
+          onChange={(e) => setMinPrice(Number(e.target.value))}
+          className="w-full border p-2 rounded-lg mb-2"
+        />
+
+        <input
+          type="number"
+          placeholder="Max"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
+          className="w-full border p-2 rounded-lg"
+        />
+      </div>
+
+      {/* RATING */}
+      <div className="mb-4">
+        <p className="font-semibold mb-2">Minimum Rating</p>
+
+        {[0, 3, 4, 4.5, 5].map((r) => (
+          <button
+            key={r}
+            onClick={() => setMinRating(r)}
+            className={`block w-full text-left px-3 py-2 rounded-lg mb-1 ${
+              minRating === r ? "bg-black text-white" : "hover:bg-gray-100"
+            }`}
+          >
+            ⭐ {r}+ Stars
+          </button>
+        ))}
+      </div>
+
+      {/* RESET */}
+      <button
+        onClick={() => {
+          setCategory("All");
+          setMinPrice(0);
+          setMaxPrice(1000000);
+          setMinRating(0);
+          setSearch("");
+        }}
+        className="w-full bg-red-500 text-white py-2 rounded-lg"
+      >
+        Reset Filters
+      </button>
+    </aside>
+  );
+};
+
+export default FilterSidebar;
