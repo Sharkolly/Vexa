@@ -177,7 +177,7 @@ const Nav = () => {
             </div>
           )}
 
-          <button onClick={logout} className="max-md:hidden px-4 py-1.5 bg-red-600 text-white rounded-lg shadow-md active:scale-95 transition-transform font-semibold cursor-pointer">
+          <button onClick={logout} className="max-md:hidden px-4 py-1.5 bg-red-600 text-white rounded-md shadow-md active:scale-95 transition-transform font-semibold cursor-pointer">
             Logout
           </button>
 
