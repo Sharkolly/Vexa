@@ -14,7 +14,7 @@ const NotFound = lazy(() => import("./pages/404"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Layout = lazy(() => import("../components/ui/Layout"));
 const ForgotPassword = lazy(() => import("./pages/auth/forgot-password"));
-const Services = lazy(() => import("./pages/Services"));
+const Services = lazy(() => import("./pages/services"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const ProductDetails = lazy(() => import("./pages/Product"));
 const Cart = lazy(() => import("./pages/Cart"));
