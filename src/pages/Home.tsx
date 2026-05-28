@@ -1,6 +1,6 @@
 // import Marquee from "react-fast-marquee";
 // import LandingPage from "../../components/ui/LandingPage";
-import CountUp from "../../components/ui/CountUp";
+import CountUpPage from "../../components/ui/CountUp";
 
 import Categories from "../../components/ui/Categories";
 import ShopWithUs from "../../components/ui/ShopWithUs";
@@ -32,7 +32,7 @@ const Home = () => {
         <img
           src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1600&auto=format&fit=crop"
           alt="hero"
-          className="w-full h-[600px] object-cover"
+          className="w-full h-170  object-cover"
         />
 
         <div className="absolute inset-0 z-20 flex items-center ">
@@ -65,7 +65,7 @@ const Home = () => {
         </div>
       </section>
 
-      <CountUp />
+      <CountUpPage />
       <Categories />
       <FeaturedProduct />
       <ShopWithUs />

@@ -1,6 +1,7 @@
 // import Marquee from "react-fast-marquee";
+// import CountUp from "react-countup";
 
-const CountUp = () => {
+const CountUpPage = () => {
   return (
     <section className="w-[90%] max-md:w-[95%] mx-auto px-4 py-16">
       {/* <Marquee play={true}>
@@ -27,6 +28,14 @@ const CountUp = () => {
               {item.value}
             </h3>
 
+            {/* <CountUp
+              start={0}
+              end={parseInt(item.value)}
+              duration={2.5}
+              separator=","
+              className={`text-2xl md:text-3xl font-semibold  text-${item.color}`}
+            /> */}
+
             <p className="mt-2 text-gray-500 font-medium">{item.label}</p>
           </div>
         ))}
@@ -35,4 +44,4 @@ const CountUp = () => {
   );
 };
 
-export default CountUp;
+export default CountUpPage;

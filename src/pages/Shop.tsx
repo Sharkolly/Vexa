@@ -36,6 +36,7 @@ const Shop = () => {
   );
 
   const [view, setView] = useState<"grid" | "list">("grid");
+  const [category, setCategory ] = useState('All');
 
   const searchOnChange = async (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -54,6 +55,16 @@ const Shop = () => {
       console.error(errorMessage.message);
     }
   };
+  
+  
+  const categorySearch = async (category: string) => {
+    setCategory(category);
+    const res = await API(`/products/category?search=${category}`);
+     const { data } = await res.data;
+      setShopData(data);
+
+      // console.log(shopData);
+    }
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -61,7 +72,7 @@ const Shop = () => {
     }, 700);
 
     return () => clearTimeout(timeout);
-  }, [query]);
+  }, [query,]);
 
   return (
     <div>
@@ -124,7 +135,7 @@ const Shop = () => {
                     <option>Best Rating</option>
                   </select>
 
-                  <div className="flex border rounded-xl overflow-hidden">
+                  <div className="flex border-2  border-nav-blue-active/80 rounded-xl overflow-hidden">
                     <button
                       onClick={() => setView("grid")}
                       className={`p-2 ${
@@ -137,7 +148,7 @@ const Shop = () => {
                     <button
                       onClick={() => setView("list")}
                       className={`p-2 ${
-                        view === "list" ? "bg-black text-white" : "bg-white"
+                        view === "list" ? "bg-nav-blue-active/80 text-white" : "bg-white"
                       }`}
                     >
                       <ListIcon size={18} />
@@ -152,6 +163,7 @@ const Shop = () => {
 
               <div className="hidden md:flex gap-3 mt-4 flex-wrap">
                 {[
+                  'All',
                   "Electronics",
                   "Fashion",
                   "Gaming",
@@ -160,7 +172,8 @@ const Shop = () => {
                 ].map((item) => (
                   <button
                     key={item}
-                    className="px-3 py-1 border rounded-full text-sm hover:bg-black hover:text-white transition"
+                    className={`px-3 py-1 border rounded-full text-sm hove:bg-blue-700  hove:text-white ${category == item && 'bg-black text-white '}`}
+                    onClick={() => categorySearch(item)}
                   >
                     {item}
                   </button>
@@ -168,9 +181,9 @@ const Shop = () => {
               </div>
             </div>
             {view === "grid" ? (
-              <Grid isLoading={isLoading} shopData={shopData} />
+              <Grid isLoading={isLoading} category={category} shopData={shopData} />
             ) : (
-              <List isLoading={isLoading} shopData={shopData} />
+              <List isLoading={isLoading} category={category} shopData={shopData} />
             )}
           </main>
         </div>
