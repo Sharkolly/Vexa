@@ -2,12 +2,14 @@ import type { ProductType } from "../../types/product.types";
 import NoProduct from "../../components/ui/NoProduct";
 import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
+import AddToCart from "../../components/ui/AddToCart";
 
 type ShopProductsType = {
   isLoading: boolean;
   shopData: ProductType[] | [];
   category?: string;
 };
+
 const List = ({ isLoading, shopData, category }: ShopProductsType) => {
   return (
     <>
@@ -74,10 +76,14 @@ const List = ({ isLoading, shopData, category }: ShopProductsType) => {
                       </div>
 
                       <div className="flex items-center gap-3 max-md:mt-2">
-                        <button className="mt- bg-blue-600  text-white hover:bg-blue-700 py-2 px-5 rounded-lg font-medium text-sm">
-                          Add To Cart
-                          {/* Buy */}
-                        </button>
+                        <AddToCart
+                        quantity={item?.quantity}
+                          id={item?._id}
+                          category={item?.category}
+                          price={item?.price}
+                          image={item?.image}
+                          title={item?.title}
+                        />
 
                         <button className="border px-4 py-2 rounded-lg hidden">
                           ❤️ Wishlist

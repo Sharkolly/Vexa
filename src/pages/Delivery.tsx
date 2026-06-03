@@ -1,14 +1,33 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { ProductType } from "../../types/product.types";
+import { IoBagCheckOutline } from "react-icons/io5";
+import { FaShoppingBag } from "react-icons/fa";
+
+type RootState = {
+  product: {
+    addToCart: ProductType[];
+    total: {
+      totalPrice: number;
+      totalItems: number;
+      overallTotal: number;
+      totalDelivery?: number;
+    };
+  };
+};
 
 const DeliveryPage = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("standard");
 
+  const total = useSelector((state: RootState) => state.product.total);
+
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-28 pb-10">
+    <div className="max-w-7xl mx-auto px-4 pt-28 pb-10 max-md:pt-24 max-md:mb-66 ">
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Form Section */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow">
-          <h1 className="text-3xl text-nav-blue-active/80  font-bold mb-6">
+        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow max-md:p-0 max-md:shadow-none">
+          <h1 className="text-3xl text-nav-blue-active/80 font-bold mb-6">
             Delivery Information
           </h1>
 
@@ -70,73 +89,76 @@ const DeliveryPage = () => {
 
               <label className="flex items-center justify-between border p-4 rounded-lg cursor-pointer">
                 <div>
-                  <p className="font-medium">
-                    Standard Delivery
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    3-5 Business Days
-                  </p>
+                  <p className="font-medium">Standard Delivery</p>
+                  <p className="text-sm text-gray-500">3-5 Business Days</p>
                 </div>
 
                 <input
                   type="radio"
                   checked={deliveryMethod === "standard"}
-                  onChange={() =>
-                    setDeliveryMethod("standard")
-                  }
+                  onChange={() => setDeliveryMethod("standard")}
                 />
               </label>
 
               <label className="flex items-center justify-between border p-4 rounded-lg cursor-pointer">
                 <div>
-                  <p className="font-medium">
-                    Express Delivery
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    1-2 Business Days
-                  </p>
+                  <p className="font-medium">Express Delivery</p>
+                  <p className="text-sm text-gray-500">1-2 Business Days</p>
                 </div>
 
                 <input
                   type="radio"
                   checked={deliveryMethod === "express"}
-                  onChange={() =>
-                    setDeliveryMethod("express")
-                  }
+                  onChange={() => setDeliveryMethod("express")}
                 />
               </label>
             </div>
           </div>
         </div>
 
-        {/* Summary Section */}
-        <div className="bg-white p-6 rounded-xl shadow h-fit sticky top-4">
-          <h2 className="text-xl font-bold mb-4 text-nav-blue-active/80">
+        <div className="bg-white md:p-6 rounded-xl shadow-lg md:h-fit md:sticky md:top-4 p-3 py-5 max-md:border-t-1 max-md:shadow-none fixed bottom-0 left-0 z-10  right-0 h-[280px] overflow-y-auto">
+          <h2 className="md:text-xl text-2xl  font-bold mb-4 text-nav-blue-active/80">
             Order Summary
           </h2>
 
-          <div className="space-y-3">
+          <div className="space-y-5">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>₦40,000</span>
+              <span>₦{total?.totalPrice?.toLocaleString() || 0}</span>
             </div>
 
             <div className="flex justify-between">
               <span>Shipping</span>
-              <span>₦2,500</span>
+              <span>₦{(total?.totalPrice * 0.03).toLocaleString() || 0}</span>
             </div>
 
             <hr />
 
             <div className="flex justify-between text-lg font-bold">
-              <span className='text-nav-blue-active/80'>Total</span>
-              <span className='text-nav-blue-active/80'>₦42,500</span>
+              <span className="text-nav-blue-active/80">Total</span>
+              <span className="text-nav-blue-active/80">
+                ₦{(total?.totalPrice * 1.03).toLocaleString() || 0}
+              </span>
             </div>
           </div>
 
-          <button className="w-full mt-6 bg-nav-blue-active text-white py-3 rounded-lg">
-            Continue To Payment
-          </button>
+          <Link to="/checkout" >
+
+            <button className="w-full py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">
+          <span>
+<IoBagCheckOutline className='text-white w-5 h-5' />
+            </span>
+              <p>Proceed to Checkout</p>
+            </button>
+          </Link>
+          <Link to="/shop" >
+            <button className="w-full border border-green-700  text-green-700 py-3 rounded-xl cursor-pointer flex items-center justify-center gap-2">
+          <span>
+<FaShoppingBag className='text-green-700 w-4 h-4' />
+            </span>
+              <p>Continue Shopping</p>
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -144,4 +166,3 @@ const DeliveryPage = () => {
 };
 
 export default DeliveryPage;
-

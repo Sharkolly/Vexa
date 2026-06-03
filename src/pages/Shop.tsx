@@ -36,7 +36,7 @@ const Shop = () => {
   );
 
   const [view, setView] = useState<"grid" | "list">("grid");
-  const [category, setCategory ] = useState('All');
+  const [category, setCategory] = useState("All");
 
   const searchOnChange = async (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -55,16 +55,15 @@ const Shop = () => {
       console.error(errorMessage.message);
     }
   };
-  
-  
+
   const categorySearch = async (category: string) => {
     setCategory(category);
     const res = await API(`/products/category?search=${category}`);
-     const { data } = await res.data;
-      setShopData(data);
+    const { data } = await res.data;
+    setShopData(data);
 
-      // console.log(shopData);
-    }
+    // console.log(shopData);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -72,7 +71,7 @@ const Shop = () => {
     }, 700);
 
     return () => clearTimeout(timeout);
-  }, [query,]);
+  }, [query]);
 
   return (
     <div>
@@ -80,43 +79,8 @@ const Shop = () => {
         <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20   px-2  md:px-12 max-md:flex-col">
           <ShopFilter />
           <main className="flex-1 z-25 bg-white">
-            {/* <div className="flex items-center justify-between gap-4 mb-10 flex-row  items-center">
-               <button className=" flex items-center justify-center gap-2 px-4 py-4 bg-white ring-1 ring-slate-100 rounded-xl font-label-md  hover:bg-slate-50 transition-colors">
-                <span className="material-symbols-outlined text-[20px]">
-                  filter_list
-                </span>
-                Filters
-              </button>  
-              <div className="flex- relative group w-[60%] max-md:w-ful">
-                <span
-                  className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-nav-blue-active transition-colors text-xlgithub"
-                  data-icon="search"
-                >
-                  <CiSearch />
-                </span>
-                <input
-                  className="w-full pl-12 pr-6 py-4 bg-white border-0 ring-1 ring-slate-100 focus:ring-2 focus:ring-primary outline-none  rounded-xl font-body-md text-body-md transition-all shadow-sm max-md:w-full"
-                  placeholder="Search..."
-                  type="search"
-                  value={query}
-                  onChange={(e) => searchOnChange(e)}
-                />
-              </div>
-              <div className="flex items-center gap-3 justify-between sm:justify-end">
-                <span className="font-label-md text-label-md -variant hidden">
-                  Sort by:
-                </span>
-                <select className="border-0 bg-transparent font-label-md text-label-md  focus:ring-0 cursor-pointer px-2 outline-none">
-                  <option>Newest Arrivals</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Most Popular</option>
-                </select>
-              </div>
-            </div> */}
-
-            <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
-              <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+            <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+              <div className="flex flex-col md:flex-row md:items-center justify-between  gap-4">
                 <div className="flex items-center border rounded-xl px-3 py-2 w-full md:w-96">
                   <Search size={18} className="text-gray-500" />
                   <input
@@ -127,7 +91,8 @@ const Shop = () => {
                     onChange={(e) => searchOnChange(e)}
                   />
                 </div>
-                <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center  gap-3 flex-">
+                {/* <div className="flex items-start  gap-3 flex-"> */}
                   <select className="border rounded-xl px-3 py-2 text-sm outline-none">
                     <option>Sort: Newest</option>
                     <option>Price: Low to High</option>
@@ -135,25 +100,38 @@ const Shop = () => {
                     <option>Best Rating</option>
                   </select>
 
-                  <div className="flex border-2  border-nav-blue-active/80 rounded-xl overflow-hidden">
-                    <button
-                      onClick={() => setView("grid")}
-                      className={`p-2 ${
-                        view === "grid" ? "bg-nav-blue-active/80 text-white" : "bg-white"
-                      }`}
-                    >
-                      <Grid3X3 size={18} />
-                    </button>
+                  {/* <div className='flex gap-4'> */}
+                    <div className="flex border-2  border-nav-blue-active/80 rounded-xl overflow-hidden w-full ">                      
+                        <button
+                          onClick={() => setView("grid")}
+                          className={`p-2 ${
+                            view === "grid"
+                              ? "bg-nav-blue-active/80 text-white"
+                              : "bg-white"
+                          }`}
+                        >
+                          <Grid3X3 size={18} />
+                        </button>
 
-                    <button
-                      onClick={() => setView("list")}
-                      className={`p-2 ${
-                        view === "list" ? "bg-nav-blue-active/80 text-white" : "bg-white"
-                      }`}
-                    >
-                      <ListIcon size={18} />
-                    </button>
-                  </div>
+                      <button
+                        onClick={() => setView("list")}
+                        className={`p-2 ${
+                          view === "list"
+                            ? "bg-nav-blue-active/80 text-white"
+                            : "bg-white"
+                        }`}
+                      >
+                        <ListIcon size={18} />
+                      </button>
+                    </div>
+
+                  {/* <div className="flex flex-col  gap-1 w-full text-black  rounded ">
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                  </div> */}
+                  {/* </div> */}
+
 
                   <button className="bg-gray-100 px-4 py-2 rounded-xl text-sm md:hidden">
                     Filters
@@ -163,7 +141,7 @@ const Shop = () => {
 
               <div className="hidden md:flex gap-3 mt-4 flex-wrap">
                 {[
-                  'All',
+                  "All",
                   "Electronics",
                   "Fashion",
                   "Gaming",
@@ -172,7 +150,7 @@ const Shop = () => {
                 ].map((item) => (
                   <button
                     key={item}
-                    className={`px-3 py-1 border rounded-full text-sm hove:bg-blue-700  hove:text-white ${category == item && 'bg-black text-white '}`}
+                    className={`px-3 py-1 border rounded-full text-sm hove:bg-blue-700  hove:text-white ${category == item && "bg-black text-white "}`}
                     onClick={() => categorySearch(item)}
                   >
                     {item}
@@ -181,9 +159,17 @@ const Shop = () => {
               </div>
             </div>
             {view === "grid" ? (
-              <Grid isLoading={isLoading} category={category} shopData={shopData} />
+              <Grid
+                isLoading={isLoading}
+                category={category}
+                shopData={shopData}
+              />
             ) : (
-              <List isLoading={isLoading} category={category} shopData={shopData} />
+              <List
+                isLoading={isLoading}
+                category={category}
+                shopData={shopData}
+              />
             )}
           </main>
         </div>

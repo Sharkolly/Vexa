@@ -6,13 +6,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 const Home = lazy(() => import("./pages/Home"));
-const AddToCart = lazy(() => import("./pages/AddToCart"));
+// const AddToCart = lazy(() => import("./pages/AddToCart"));
 const SignIn = lazy(() => import("./pages/auth/SignIn"));
 const SignUp = lazy(() => import("./pages/auth/SignUp"));
 const Delivery = lazy(() => import("./pages/Delivery"));
 const NotFound = lazy(() => import("./pages/404"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Layout = lazy(() => import("../components/ui/Layout"));
+const LayoutNoFooter = lazy(() => import("../components/ui/LayoutNoFooter"));
 const ForgotPassword = lazy(() => import("./pages/auth/forgot-password"));
 const Services = lazy(() => import("./pages/Services"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
@@ -53,14 +54,13 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
 
-          <Route
-            path="/add-to-cart"
-            element={
-              <ProtectedRoute>
-                <AddToCart />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/services" element={<Services />} />
+          <Route path="/products/product/:id" element={<ProductDetails />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/" element={<LayoutNoFooter />}>
+          <Route path="/checkout" element={<Checkout />} />
           <Route
             path="/delivery"
             element={
@@ -69,12 +69,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/services" element={<Services />} />
-          <Route path="/products/product/:id" element={<ProductDetails />} />
-          <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Route>,
     ),

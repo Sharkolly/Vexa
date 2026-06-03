@@ -66,7 +66,7 @@ const Product = () => {
   const decrementProductQuantity = (id: string = "") => {
     dispatch(decrementQuantity({ id }));
 
-    if (single_product && single_product?.quantity - 1 <= 0) {
+    if (single_product && single_product?.quantity && single_product?.quantity - 1 <= 0) {
       dispatch(removeCart({ id }));
       setToggleAddToCart(false);
     }
@@ -232,8 +232,7 @@ const Product = () => {
                       {single_product?.quantity}
                     </span>
                     <button
-                      onClick={() => incrementProductQuantity(product?._id)}
-                      // onClick={addToCartBtn}
+                      onClick={() => incrementProductQuantity(product?._id)}                      
                       className="bg-nav-blue-active text-white  text-center flex items-center justify-center rounded-md w-7 h-7 cursor-pointer"
                     >
                       +
@@ -252,10 +251,6 @@ const Product = () => {
                       product?.price,
                     )
                   }
-
-                  // onClick={toggleAddToCartBtn}
-
-                  // onClick={addToCartBtn}
                 >
                   Add to Cart
                 </button>

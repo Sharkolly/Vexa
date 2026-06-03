@@ -1,11 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import {Search } from 'lucide-react';
 
 const NotFound = () => {
   return (
     <div>
       <div className="bg-background text-on-background min-h-screen flex flex-col overflow-x-hidden">
         <main className="flex-grow pt-24">
-          <section className="max-w-[1440px] mx-auto px-16 py-32 flex flex-col items-center justify-center text-center">
+          <section className="max-w-[1440px] mx-auto px-16 py-32 flex flex-col items-center justify-center text-center max-md:px-5 ">
             {" "}
             <div className="relative mb-4">
               <span className="text-[180px] font-black text-slate-200 leading-none select-none tracking-wide">
@@ -20,26 +22,34 @@ const NotFound = () => {
                 />
               </div>
             </div>
-            <h1 className="font-bold text-4xl text-on-surface mt-10 mb-2 tracking-wid">
+            <h1 className="font-bold text-4xl max-md:text-3xl text-on-surface mt-10 mb-2 tracking-wid">
               Lost in the Digital World?
             </h1>
-            <p className=" text-md text-slate-700 max-w-xl mx-auto mb-5 mt-3">
+            <p className=" text-md text-slate-700 max-w-xl mx-auto mb-5 mt-3  ">
               The page you're looking for doesn't exist. It might have been
               moved, or perhaps it never arrived in this dimension.
             </p>
-            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-3 mb-16">
+            <div className="max-md:w-11/12 flex flex-col sm:flex-row gap-5 justify-center mt-3 mb-16">
               <NavLink
-                className="bg-nav-blue-active text-white px-8 py-4 rounded-xl font-medium text-lg shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200"
+                className="bg-nav-blue-active text-white px-7 py-3 rounded-xl font-medium text-lg shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200 flex items-center justify-center gap-2"
                 to="/"
               >
+                <span>
+                  <FaHome />
+                  </span>
+
+                  <p>
                 Back to Home
+                    </p>
+
+
               </NavLink>
               <div className="flex items-center bg-surface-container px-6 py-4 rounded-xl border border-slate-400 focus-within:border-primary transition-colors">
                 <span
                   className="material-symbols-outlined text-outline mr-3"
                   data-icon="search"
                 >
-                  search
+                  <Search size={18} className='text-gray-500' />
                 </span>
                 <input
                   className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full sm:w-64 font-medium"
@@ -48,7 +58,7 @@ const NotFound = () => {
                 />
               </div>
             </div>
-            <div className="w-full max-w-5xl mt-12">
+            <div className="w-full max-w-5xl mt-12 max-md:mt-5">
               <h3 className="font-semibold text-2xl text-on-surface mb-4 text-left">
                 Popular Destinations
               </h3>

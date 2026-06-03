@@ -135,7 +135,7 @@ const Nav = () => {
             search
           </button>
           <Link
-            to="/delivery"
+            to="/cart"
             className="text-2xl relative z-1 text-slate-500"
             data-icon="shopping_bag"
           >

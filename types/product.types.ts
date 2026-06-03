@@ -1,12 +1,12 @@
 export type ProductType = {
-_id: string,
-title: string,
-description: string, 
+_id?: string,
+title?: string,
+description?: string, 
 price: number,
-image: string,
+image?: string,
 id?: string,
-category: string
-brand: string
-quantity: number;
-new_price: number
+category?: string
+brand?: string
+quantity: number | 0;
+new_price?: number
 }
