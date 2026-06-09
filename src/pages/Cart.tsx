@@ -43,7 +43,8 @@ const Cart = () => {
     }
   };
   return (
-    <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased mb-50">
+    <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased ">
+    {/* <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased mb-50"> */}
       {CartedProduct.length > 0 ? (
         <main className="flex-grow pt-32  pb-24 max-w-[1440px] mx-auto w-full md:px-16 max-md:pt-24 max-md:px-2.5 ">
           <>
@@ -265,7 +266,8 @@ const Cart = () => {
               </div>
 
               <aside className="w-full lg:w-100 shrink-0 ">
-                <div className="bg-white rounded-xl md:border md:border-slate-200 md:shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-4   md:sticky md:top-32 fixed bottom-0 left-0 right-0 z-10 border-t-1 h-[250px] overflow-y-auto">
+                <div className="bg-white rounded-xl border border-slate-200 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-7  max-md:p-6   md:sticky md:top-32 ">
+                {/* <div className="bg-white rounded-xl md:border md:border-slate-200 md:shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-4   md:sticky md:top-32 fixed bottom-0 left-0 right-0 z-10 border-t-1 h-[250px] overflow-y-auto"> */}
                   <h2 className="font-semibold text-2xl text-slate-900 mb-8">
                     Order Summary
                   </h2>
@@ -295,7 +297,7 @@ const Cart = () => {
                       </span>
                     </div>
                     <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                      <span className="text-slate-900 font-medium  text-body-lg">
+                      <span className="text-slate-900 font-medium  text-lg">
                         Total
                       </span>
                       <span className="text-nav-blue-active font-semibold  text-xl">

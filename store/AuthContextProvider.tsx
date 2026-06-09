@@ -12,6 +12,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 
   const { data, isLoading, refetch } = useQueryUserFunction();
 
+
   const user: UserType | null = data?.message || null;
 
   const emailOnChange = (

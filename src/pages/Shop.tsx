@@ -101,13 +101,13 @@ const Shop = () => {
                   </select>
 
                   {/* <div className='flex gap-4'> */}
-                    <div className="flex border-2  border-nav-blue-active/80 rounded-xl overflow-hidden w-full ">                      
+                    <div className="flex border-2  border-nav-blue-active/80 rounded-xl overflow-hidden ">                      
                         <button
                           onClick={() => setView("grid")}
                           className={`p-2 ${
                             view === "grid"
                               ? "bg-nav-blue-active/80 text-white"
-                              : "bg-white"
+                              : "bg-white text-nav-blue-active/80" 
                           }`}
                         >
                           <Grid3X3 size={18} />
@@ -118,7 +118,7 @@ const Shop = () => {
                         className={`p-2 ${
                           view === "list"
                             ? "bg-nav-blue-active/80 text-white"
-                            : "bg-white"
+                            : "bg-white text-nav-blue-active/80"
                         }`}
                       >
                         <ListIcon size={18} />

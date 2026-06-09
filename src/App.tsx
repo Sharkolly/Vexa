@@ -19,6 +19,7 @@ const Services = lazy(() => import("./pages/Services"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const ProductDetails = lazy(() => import("./pages/Product"));
 const Cart = lazy(() => import("./pages/Cart"));
+const Random = lazy(() => import("./pages/Random"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const RedirectRoute = lazy(() => import("../components/RedirectRoute"));
 import Loader from "../components/Loader";
@@ -57,6 +58,8 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/products/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/search" element={<Shop />} />
+          <Route path="/random" element={<Random />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/" element={<LayoutNoFooter />}>

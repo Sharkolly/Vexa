@@ -98,11 +98,17 @@ const Nav = () => {
           >
             Cart
           </NavLink>
-          <NavLink
+          {/* <NavLink
             className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
             to="/delivery"
           >
             Delivery
+          </NavLink> */}
+          <NavLink
+            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors md:hidden uppercase tracking-widest"
+            to="/random"
+          >
+            Random
           </NavLink>
           {!user && (
             <>
@@ -147,39 +153,45 @@ const Nav = () => {
           </Link>
 
           {user?.email && user ? (
-            <Link
-              to="/login"
-              className="text-xl bg-slate-100 p-2 rounded-full text-slate-500"
-              title={`${user?.firstName} ${user?.lastName}`}
-            >
-              <IoPersonSharp />
-            </Link>
+            <>
+              <Link
+                to="/login"
+                className="text-xl bg-slate-100 p-2 rounded-full text-slate-500"
+                title={`${user?.firstName} ${user?.lastName}`}
+              >
+                <IoPersonSharp />
+              </Link>
+
+              <button
+                onClick={logout}
+                className="max-md:hidden px-4 py-1.5 bg-red-600 text-white rounded-md shadow-md active:scale-95 transition-transform font-semibold cursor-pointer"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <div className="flex gap-3 max-md:hidden">
               <Link to="/login" className="cursor-pointer">
                 <Button
                   color="text-white"
                   content="Login"
-                  bg="bg-navy-blue"
+                  bg="bg-blue-800"
                   cursor="cursor-pointer"
+                  border="border-2 border-blue-800 shadow-md"
                 />
               </Link>
 
               <Link to="/signup" className="">
                 <Button
-                  color="text-nav-blue-active"
+                  color="text-blue-800"
                   content="Sign Up"
                   bg="bg-transparent"
                   cursor="cursor-pointer"
-                  border="border-1 border-slate-200 shadow-md"
+                  border="border-2 border-blue-800 shadow-md"
                 />
               </Link>
             </div>
           )}
-
-          <button onClick={logout} className="max-md:hidden px-4 py-1.5 bg-red-600 text-white rounded-md shadow-md active:scale-95 transition-transform font-semibold cursor-pointer">
-            Logout
-          </button>
 
           <div onClick={toggleMenu} className="md:hidden cursor-pointer">
             <GiHamburgerMenu className="text-2xl rounded-lg " />

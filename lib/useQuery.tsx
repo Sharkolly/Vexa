@@ -12,13 +12,50 @@ import API from "../api/api";
 // import Swal from "sweetalert2";
 
 //get user
+// export const useQueryUserFunction = () => {
+//   const pathname = window.location.pathname;
+
+//   // Disable fetching for auth routes
+//   // console.log(pathname);
+
+//   const enabled = !['/shop', '/services', '/products/product',].includes(pathname);
+
+//   console.log(enabled);
+//   const { data, error, isLoading, refetch } = useQuery({
+//     queryKey: ["user"],
+//     queryFn: async () => {
+//       try {
+//         const response = await API.get("/user", {
+//           withCredentials: true,
+//           headers: { "Cache-Control": "no-cache" },
+//         });
+//         return response.data;
+//       } catch (error) {
+//         const axiosError = error as AxiosError<{ message?: string }>;
+//         // throw new Error(
+//         //   axiosError.response?.data?.message || "An unexpected error occurred.",
+//         // );
+//         console.log('Redirecting');
+//         if (axiosError) {
+//           window.location.href = "/login";
+//         }
+//         console.log('Redirecting');
+//         console.log(axiosError);
+//       }
+//     },
+//     enabled,
+//     retry: 4,
+//   });
+//   return { data, error, isLoading, refetch };
+// };
+
 export const useQueryUserFunction = () => {
   const pathname = window.location.pathname;
 
-  // Disable fetching for auth routes
-  // console.log(pathname);
+  const disabledRoutes = ["/login", "/signup"];
+  
+  const enabled = !disabledRoutes.includes(pathname);  
 
-  const enabled = !["/login", "/signup", "/forgot-password", '/shop', '/services', '/products/product'].includes(pathname);
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -29,19 +66,16 @@ export const useQueryUserFunction = () => {
         });
         return response.data;
       } catch (error) {
-        const axiosError = error as AxiosError<{ message?: string }>;
-        // throw new Error(
-        //   axiosError.response?.data?.message || "An unexpected error occurred.",
-        // );
-        if (axiosError) {
-          window.location.href = "/login";
+        if (error) {
+          const axiosError = error as AxiosError<{ message?: string }>;
+          return axiosError;
         }
-        console.log(axiosError);
       }
     },
-    enabled, // 👈 automatically disabled for those paths
+    enabled,
     retry: 4,
   });
+
   return { data, error, isLoading, refetch };
 };
 

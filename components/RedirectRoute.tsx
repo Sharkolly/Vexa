@@ -18,15 +18,14 @@ const RedirectRoute = ({
       try {
         const res = await API.get("/user/token-verify", {
           withCredentials: true,
-        });
-        console.log(res)
+        });        
 
         if (res.status === 201) {
           navigate("/shop");
         }
       } catch (err) {
-        console.log(err)
-        if (err) return;
+        
+        if (err) navigate("/login");
       } finally {
         setLoading(false);
       }
