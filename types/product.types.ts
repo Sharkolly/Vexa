@@ -9,4 +9,5 @@ category?: string
 brand?: string
 quantity: number | 0;
 new_price?: number
+discount?: number
 }

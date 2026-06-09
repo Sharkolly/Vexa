@@ -21,8 +21,6 @@ const AddToCart = ({ title, category, image, id, price }: ProductType) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  // const [toggleAddToCart, setToggleAddToCart] = useState(false);
-
   const addToCartBtn = (
     title: string = "",
     category: string = "",

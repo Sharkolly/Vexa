@@ -1,27 +1,27 @@
 import type { ProductType } from "../../types/product.types";
-import NoProduct from "../../components/ui/NoProduct";
-import Loader from "../../components/Loader";
+import NoProduct from "./NoProduct";
+import Loader from "../Loader";
 import { Link } from "react-router-dom";
-import AddToCart from "../../components/ui/AddToCart";
+import AddToCart from "./AddToCart";
 
-type ShopProductsType = {
+type SearchProductsType = {
   isLoading: boolean;
-  shopData: ProductType[] | [];
+  searchData: ProductType[] | [];
   category?: string;
 };
 
-const List = ({ isLoading, shopData, category }: ShopProductsType) => {
+const List = ({ isLoading, searchData, category }: SearchProductsType) => {
   return (
     <>
-      {isLoading && !shopData ? (
+      {isLoading && !searchData ? (
         <Loader />
       ) : (
         <>
-          {shopData.length > 0 ? (
+          {searchData.length > 0 ? (
             <>
               <div className="flex flex-col gap-5">
                 {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
-                {shopData.map((item: ProductType) => (
+                {searchData.map((item: ProductType) => (
                   // <></>
                   <div
                     className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md md:p-5 p-2 py-4"

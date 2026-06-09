@@ -1,86 +1,28 @@
 import { Link } from "react-router-dom";
 // import { IoMdHeartEmpty } from "react-icons/io";
-import Loader from "../../components/Loader";
-import ShopNav from "../../components/ui/ShopNav";
-import NoProduct from "../../components/ui/NoProduct";
+import Loader from "../Loader";
+import SearchNav from "./SearchNav";
+import NoProduct from "./NoProduct";
 import type { ProductType } from "../../types/product.types";
-// import {
-//   addToCart,
-//   decrementQuantity,
-//   incrementQuantity,
-//   removeCart,
-// } from "../../store/product.slice";
-// import { useDispatch, useSelector } from "react-redux";
-// import type { AppDispatch } from "../../store/index";
-import AddToCart from "../../components/ui/AddToCart";
-// import { useState } from "react";
+import AddToCart from "./AddToCart";
 
-type ShopProductsType = {
+type SearchProductsType = {
   isLoading: boolean;
-  shopData: ProductType[] | [];
+  searchData: ProductType[] | [];
   category?: string;
 };
 
-// type RootState = {
-//   product: {
-//     addToCart: ProductType[];
-//   };
-// };
-
-const Grid = ({ isLoading, shopData, category }: ShopProductsType) => {
-  // const CartedProduct = useSelector(
-  //   (state: RootState) => state.product.addToCart,
-  // );
-
-  // console.log(CartedProduct);
-
-  // const dispatch = useDispatch<AppDispatch>();
-
-  // const [toggleAddToCart, setToggleAddToCart] = useState(false);
-
-  // const addToCartBtn = (
-  //   title: string = "",
-  //   category: string = "",
-  //   id: string = "",
-  //   image: string = "",
-  //   price: number = 0,
-  // ) => {
-  //   // setToggleAddToCart(true);
-  //   dispatch(
-  //     addToCart({
-  //       id,
-  //       title,
-  //       quantity: 1,
-  //       image,
-  //       price,
-  //       category,
-  //     }),
-  //   );
-  // };
-
-  // const incrementProductQuantity = (id: string = "") => {
-  //   dispatch(incrementQuantity({ id }));
-  // };
-  // const decrementProductQuantity = (id: string = "") => {
-  //   dispatch(decrementQuantity({ id }));
-
-  //   const single_product = CartedProduct.find((product) => product.id === id);
-  //   if (single_product && single_product?.quantity - 1 <= 0) {
-  //     dispatch(removeCart({ id }));
-  //     // setToggleAddToCart(false);
-  //   }
-  // };
-
+const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          {shopData.length > 0 ? (
+          {searchData.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4 ">
-                {shopData.map((item: ProductType) => (
+                {searchData.map((item: ProductType) => (
                   <>
                     <div className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md">
                       <div className="bg-white p-4 rounded-md hover:shadow-lg transition">
@@ -140,7 +82,7 @@ const Grid = ({ isLoading, shopData, category }: ShopProductsType) => {
                             </div>
 
                             <AddToCart
-                            quantity={item?.quantity}
+                              quantity={item?.quantity}
                               id={item?._id}
                               category={item?.category}
                               price={item?.price}
@@ -191,7 +133,7 @@ const Grid = ({ isLoading, shopData, category }: ShopProductsType) => {
           ) : (
             <NoProduct category={category} />
           )}
-          <ShopNav />
+          <SearchNav />
         </>
       )}
     </>

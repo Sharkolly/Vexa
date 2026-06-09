@@ -11,7 +11,7 @@ const SignIn = lazy(() => import("./pages/auth/SignIn"));
 const SignUp = lazy(() => import("./pages/auth/SignUp"));
 const Delivery = lazy(() => import("./pages/Delivery"));
 const NotFound = lazy(() => import("./pages/404"));
-const Shop = lazy(() => import("./pages/Shop"));
+const Search = lazy(() => import("./pages/Search"));
 const Layout = lazy(() => import("../components/ui/Layout"));
 const LayoutNoFooter = lazy(() => import("../components/ui/LayoutNoFooter"));
 const ForgotPassword = lazy(() => import("./pages/auth/forgot-password"));
@@ -19,7 +19,7 @@ const Services = lazy(() => import("./pages/Services"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const ProductDetails = lazy(() => import("./pages/Product"));
 const Cart = lazy(() => import("./pages/Cart"));
-const Random = lazy(() => import("./pages/Random"));
+const Shop = lazy(() => import("./pages/Shop"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const RedirectRoute = lazy(() => import("../components/RedirectRoute"));
 import Loader from "../components/Loader";
@@ -58,8 +58,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/products/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/search" element={<Shop />} />
-          <Route path="/random" element={<Random />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/" element={<LayoutNoFooter />}>

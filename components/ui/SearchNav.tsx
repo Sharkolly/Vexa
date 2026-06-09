@@ -4,7 +4,7 @@ import { BiCategory } from "react-icons/bi";
 import { IoIosHome } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 
-const ShopNav = () => {
+const SearchNav = () => {
   return (
     <nav className="md:hidden fixed bottom-0 w-full z-50 bg-white border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] h-20 px-4 pb-4 flex justify-around items-center">
       <Link
@@ -55,4 +55,4 @@ const ShopNav = () => {
   );
 };
 
-export default ShopNav;
+export default SearchNav;

@@ -1,181 +1,170 @@
-// import { CiSearch } from "react-icons/ci";
-import { Search, Grid3X3, List as ListIcon } from "lucide-react";
+import {
+  Search,
+  ShoppingCart,
+  // User,
+  // Menu,
+  ChevronRight,
+  Smartphone,
+  Monitor,
+  Home,
+  HeartPulse,
+  Shirt,
+  Gamepad2,
+  Baby,
+  Apple,
+} from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { ProductType } from "../../types/product.types";
-// import Loader from "../../components/Loader";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { useEffect, useState } from "react";
-import API from "../../api/api";
-import type { AxiosError } from "axios";
-import ShopFilter from "../../components/ui/ShopFilter";
-import Grid from "../../components/ui/ShopGridProduct";
-import List from "../../components/ui/ShopListProduct";
 
-export const PlaceholderCard = () => (
-  <div className="bg-white rounded-xl shadow-md overflow-hidden">
-    <Skeleton height={200} className="w-full" />
-    <div className="p-6">
-      <Skeleton height={24} width="70%" className="mb-2" />
-      <Skeleton height={16} width="50%" className="mb-4" />
-      <Skeleton height={20} width="40%" className="mb-4" />
-      <div className="flex justify-between">
-        <Skeleton height={16} width="20%" />
-        <Skeleton height={16} width="20%" />
-        <Skeleton height={16} width="20%" />
-      </div>
-    </div>
-  </div>
-);
+const categories = [
+  { name: "Supermarket", icon: <Apple size={18} /> },
+  { name: "Health & Beauty", icon: <HeartPulse size={18} /> },
+  { name: "Home & Office", icon: <Home size={18} /> },
+  { name: "Phones & Tablets", icon: <Smartphone size={18} /> },
+  { name: "Computing", icon: <Monitor size={18} /> },
+  { name: "Electronics", icon: <Gamepad2 size={18} /> },
+  { name: "Fashion", icon: <Shirt size={18} /> },
+  { name: "Baby Products", icon: <Baby size={18} /> },
+];
 
-const Shop = () => {
-  const { data, isLoading } = useQueryProduct(`/products`);
-  const [query, setQuery] = useState("");
-  const [shopData, setShopData] = useState<ProductType[] | []>(
-    data?.data || [],
-  );
-
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [category, setCategory] = useState("All");
-
-  const searchOnChange = async (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    const value = e.target.value;
-    setQuery(value);
-  };
-
-  const handleSearch = async () => {
-    try {
-      const res = await API(`/products?search=${query}`);
-      const { data } = await res.data;
-      setShopData(data);
-    } catch (error) {
-      const errorMessage = error as AxiosError<{ message: string }>;
-      console.error(errorMessage.message);
-    }
-  };
-
-  const categorySearch = async (category: string) => {
-    setCategory(category);
-    const res = await API(`/products/category?search=${category}`);
-    const { data } = await res.data;
-    setShopData(data);
-
-    // console.log(shopData);
-  };
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      handleSearch();
-    }, 700);
-
-    return () => clearTimeout(timeout);
-  }, [query]);
-
-  return (
-    <div>
-      <div className="bg-background text-on-background min-h-screen pb-24  md:pb-0">
-        <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20   px-2  md:px-12 max-md:flex-col">
-          <ShopFilter />
-          <main className="flex-1 z-25 bg-white">
-            <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between  gap-4">
-                <div className="flex items-center border rounded-xl px-3 py-2 w-full md:w-96">
-                  <Search size={18} className="text-gray-500" />
-                  <input
-                    placeholder="Search products..."
-                    className="w-full px-2 outline-none text-sm"
-                    type="search"
-                    value={query}
-                    onChange={(e) => searchOnChange(e)}
-                  />
-                </div>
-                <div className="flex items-center  gap-3 flex-">
-                {/* <div className="flex items-start  gap-3 flex-"> */}
-                  <select className="border rounded-xl px-3 py-2 text-sm outline-none">
-                    <option>Sort: Newest</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Best Rating</option>
-                  </select>
-
-                  {/* <div className='flex gap-4'> */}
-                    <div className="flex border-2  border-nav-blue-active/80 rounded-xl overflow-hidden ">                      
-                        <button
-                          onClick={() => setView("grid")}
-                          className={`p-2 ${
-                            view === "grid"
-                              ? "bg-nav-blue-active/80 text-white"
-                              : "bg-white text-nav-blue-active/80" 
-                          }`}
-                        >
-                          <Grid3X3 size={18} />
-                        </button>
-
-                      <button
-                        onClick={() => setView("list")}
-                        className={`p-2 ${
-                          view === "list"
-                            ? "bg-nav-blue-active/80 text-white"
-                            : "bg-white text-nav-blue-active/80"
-                        }`}
-                      >
-                        <ListIcon size={18} />
-                      </button>
-                    </div>
-
-                  {/* <div className="flex flex-col  gap-1 w-full text-black  rounded ">
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                  </div> */}
-                  {/* </div> */}
-
-
-                  <button className="bg-gray-100 px-4 py-2 rounded-xl text-sm md:hidden">
-                    Filters
-                  </button>
-                </div>
-              </div>
-
-              <div className="hidden md:flex gap-3 mt-4 flex-wrap">
-                {[
-                  "All",
-                  "Electronics",
-                  "Fashion",
-                  "Gaming",
-                  "Phones",
-                  "Accessories",
-                ].map((item) => (
-                  <button
-                    key={item}
-                    className={`px-3 py-1 border rounded-full text-sm hove:bg-blue-700  hove:text-white ${category == item && "bg-black text-white "}`}
-                    onClick={() => categorySearch(item)}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {view === "grid" ? (
-              <Grid
-                isLoading={isLoading}
-                category={category}
-                shopData={shopData}
-              />
-            ) : (
-              <List
-                isLoading={isLoading}
-                category={category}
-                shopData={shopData}
-              />
-            )}
-          </main>
-        </div>
-      </div>
-    </div>
-  );
+type PRODUCT_CATEGORY_TYPE = {
+  category: string;
+  products: ProductType[];
 };
 
-export default Shop;
+export default function Random() {
+  const { data } = useQueryProduct("/products/all");
+  console.log(data);
+  const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];
+  console.log(productData);
+
+  return (
+    <div className="min-h-screen bg-white/80  font-sans mt-20 max-md:mt-16 ">
+      <main className="max-w-7xl mx-auto px-2 lg:px-8 py-6">
+        {/* Hero Section */}
+        <div className="flex flex-col lg:flex-row gap-4 mb-8">
+          {/* Sidebar Categories (Desktop) */}
+          <aside className="hidden lg:block w-1/5 bg-white rounded-md shadow-sm py- h-[400px]">
+            <ul className="flex flex-col h-full text-sm text-gray-700">
+              {categories.map((cat, idx) => (
+                <li
+                  key={idx}
+                  className={`hover:text-blue-800 hover:bg-gray-50 cursor-pointer transition-colors px-4 py-3 flex items-center justify-between ${idx == 0 ? "rounded-t-md" : ""}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-500">{cat.icon}</span>
+                    <span>{cat.name}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </aside>
+
+          <div className="w-full lg:w-3/5 h-[280px] lg:h-[400px] bg-blue-900 rounded-md shadow-sm relative overflow-hidden flex items-center justify-center text-white">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-800 to-blue-600 opacity-90" />
+            <div className="relative z-10 text-center p-8">
+              <h2 className="text-3xl lg:text-5xl font-black mb-4">
+                TECH WEEK
+              </h2>
+              <p className="text-lg lg:text-xl mb-6">
+                Up to 40% off on premium devices
+              </p>
+              <button className="bg-white text-blue-800 font-bold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
+                SHOP NOW
+              </button>
+            </div>
+
+            {/* Slider Dots */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="w-2 h-2 rounded-full bg-white"></div>
+              <div className="w-2 h-2 rounded-full bg-white/50"></div>
+              <div className="w-2 h-2 rounded-full bg-white/50"></div>
+            </div>
+          </div>
+
+          {/* Right Promo Banners (Desktop) */}
+          <div className="hidden lg:flex w-1/5 flex-col gap-4 h-[400px]">
+            <div className="flex-1 bg-white rounded-md shadow-sm flex items-center justify-center border-2 border-blue-100 p-4 text-center hover:shadow-md transition">
+              <div>
+                <HeartPulse className="mx-auto text-blue-800 mb-2" size={32} />
+                <h3 className="font-bold text-gray-800">Health & Beauty</h3>
+                <p className="text-xs text-gray-500">Starting from ₦2,000</p>
+              </div>
+            </div>
+            <div className="flex-1 bg-white rounded-md shadow-sm flex items-center justify-center border-2 border-blue-100 p-4 text-center hover:shadow-md transition">
+              <div>
+                <Home className="mx-auto text-blue-800 mb-2" size={32} />
+                <h3 className="font-bold text-gray-800">Home Essentials</h3>
+                <p className="text-xs text-gray-500">Free delivery</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {productData?.map((product: PRODUCT_CATEGORY_TYPE) => (
+          <div
+            key={product.category}
+            className={`${product.products.length <= 0 ? "hidden" : ""}`}
+          >
+            <section className="bg-white rounded-md shadow-sm overflow-hidden mt-6">
+              <div className="bg-orange-700  text-white p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="bg-red-500 p-1 rounded hidden">
+                    <Search size={20} className="text-white" />
+                  </div>
+                  <h2 className="text-lg lg:text-xl font-bold">
+                    {product.category}
+                  </h2>
+                </div>
+                <a
+                  href="#"
+                  className="text-sm font-semibold flex items-center hover:underline"
+                >
+                  SEE ALL <ChevronRight size={16} />
+                </a>
+              </div>
+
+              <div className="p-4 overflow-x-auto max-md:px-0">
+                {/* <div className="flex gap-4 min-w-max lg:grid lg:grid-cols-6 lg:min-w-0"> */}
+                <div className="flex gap-4 min-w-max items-center">
+                  {product.products.map((product) => (
+                    <div
+                      key={product.id}
+                      className="basis-60 lg:basis-60 flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
+                    >
+                      <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-1.5 py-0.5 rounded z-10">
+                        {product.discount || Math.ceil(Math.random() * 60)}%
+                      </div>
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-full h-[160px] object-cover rounded mb-2 mix-blend-multiply"
+                      />
+                      <div className="px-3 py-1 pb-3 ">
+                        <h3 className="text-sm text-gray-600 line-clamp-2 font-medium">
+                          {product.category}
+                        </h3>
+                        <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-10 mt-1">
+                          {product.title}
+                        </h3>
+                        <div className="font-bold text-base">
+                          ₦{product.price?.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-gray-500 line-through">
+                          ₦{(product.price * 1.12).toLocaleString()}
+                        </div>
+                        <button className="w-full bg-orange-700 text-white font-semibold py-1.5 mt-4 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center">
+                          <ShoppingCart size={15} /> <span> ADD TO CART</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </div>
+        ))}
+      </main>
+    </div>
+  );
+}
