@@ -20,7 +20,7 @@ type RootState = {
 
 const DeliveryPage = () => {
 
-  const { user, refetch } = useAuthContextStore();
+  const { user } = useAuthContextStore();
   const [deliveryMethod, setDeliveryMethod] = useState("standard");
 
   const total = useSelector((state: RootState) => state.product.total);
