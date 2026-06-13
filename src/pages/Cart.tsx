@@ -90,7 +90,7 @@ const Cart = () => {
                         <tr className="group hover:bg-slate-50/50 transition-colors">
                           <td className="py-8 px-8">
                             <div className="flex items-center gap-6">
-                              <div className="w-32 h-32 rounded-sm   overflow-hidden bg-slate-100 flex-shrink-0">
+                              <div className="w-32 h-32     rounded-sm   overflow-hidden bg-slate-100 flex-shrink-0">
                                 <img
                                   className="w-full h-full object-cover"
                                   data-alt="A high-end, sleek matte black wireless headphone set resting on a minimalist white marble surface. The studio lighting is soft and directional, highlighting the premium metallic textures and smooth leather ear pads. The aesthetic is ultra-modern and professional, aligning with a luxury electronics catalog. Soft shadows ground the product in a bright, airy environment."
