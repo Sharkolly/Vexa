@@ -95,7 +95,7 @@ const Product = () => {
           <span className="material-symbols-outlined text-[14px]">&gt;</span>
           <Link
             className="hover:text-nav-blue-active font-medium  transition-colors"
-            to={`/product/categories/${product?.category}`}
+            to={`/search?categories=${product?.category}`}
           >
             {product?.category}
           </Link>

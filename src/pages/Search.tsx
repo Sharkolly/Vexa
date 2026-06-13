@@ -149,7 +149,7 @@ const Search = () => {
                 </div>
               </div>
 
-              <div className="hidden md:flex gap-3 mt-4 flex-wrap">
+              <div className="flex  md:gap-3 gap-2  mt-4 flex-wrap">
                 {categories.map((item: string) => (
                   <button
                     key={item}

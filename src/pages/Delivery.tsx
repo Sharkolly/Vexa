@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import type { ProductType } from "../../types/product.types";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
+import { useAuthContextStore } from "../../store/useAuthContext";
 
 type RootState = {
   product: {
@@ -18,6 +19,8 @@ type RootState = {
 };
 
 const DeliveryPage = () => {
+
+  const { user, refetch } = useAuthContextStore();
   const [deliveryMethod, setDeliveryMethod] = useState("standard");
 
   const total = useSelector((state: RootState) => state.product.total);
@@ -36,18 +39,24 @@ const DeliveryPage = () => {
               type="email"
               placeholder="Email Address"
               className="w-full border rounded-lg p-3"
+              value={user?.email || ""}
+              disabled
             />
 
             <input
               type="text"
               placeholder="Full Name"
               className="w-full border rounded-lg p-3"
+              value={`${user?.firstName} ${user?.lastName}`}
+              disabled
             />
 
             <input
               type="tel"
               placeholder="Phone Number"
               className="w-full border rounded-lg p-3"
+              value={""}
+              disabled
             />
 
             <div className="grid md:grid-cols-3 gap-4">
@@ -55,6 +64,8 @@ const DeliveryPage = () => {
                 type="text"
                 placeholder="Country"
                 className="border rounded-lg p-3"
+                value={"Nigeria"}
+                disabled
               />
 
               <input
@@ -142,20 +153,19 @@ const DeliveryPage = () => {
             </div>
           </div>
 
-          <Link to="/checkout" >
-
+          <Link to="/checkout">
             <button className="w-full py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">
-          <span>
-<IoBagCheckOutline className='text-white w-5 h-5' />
-            </span>
+              <span>
+                <IoBagCheckOutline className="text-white w-5 h-5" />
+              </span>
               <p>Proceed to Checkout</p>
             </button>
           </Link>
-          <Link to="/shop" >
+          <Link to="/shop">
             <button className="w-full border border-green-700  text-green-700 py-3 rounded-xl cursor-pointer flex items-center justify-center gap-2">
-          <span>
-<FaShoppingBag className='text-green-700 w-4 h-4' />
-            </span>
+              <span>
+                <FaShoppingBag className="text-green-700 w-4 h-4" />
+              </span>
               <p>Continue Shopping</p>
             </button>
           </Link>

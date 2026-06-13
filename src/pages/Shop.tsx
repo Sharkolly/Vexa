@@ -35,14 +35,12 @@ type PRODUCT_CATEGORY_TYPE = {
 export default function Random() {
   const { data } = useQueryProduct("/products/all");
   console.log(data);
-  const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];  
+  const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];
 
   return (
     <div className="min-h-screen bg-white/80  mt-20 max-md:mt-16 ">
-      <main className="max-w-7xl mx-auto px-2 lg:px-8 py-6">
-        {/* Hero Section */}
+      <main className="max-w-360  mx-auto px-2 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          {/* Sidebar Categories (Desktop) */}
           <aside className="hidden lg:block w-1/5 bg-white rounded-md shadow-sm py- h-[400px]">
             <ul className="flex flex-col h-full text-sm text-gray-700">
               {categories.map((cat, idx) => (
@@ -129,46 +127,45 @@ export default function Random() {
                   {product.products.map((product) => (
                     <div
                       key={product.id}
-                      className="basis-60 lg:basis-60 flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
+                      className="basis-60  lg:basis-70 flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
                     >
                       <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-1.5 py-0.5 rounded z-10">
                         {product.discount || Math.ceil(Math.random() * 60)}%
                       </div>
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="w-full h-[160px] object-cover rounded mb-2 mix-blend-multiply"
-                      />
+                      <Link
+                    to={`/products/product/${product._id}`}>
+                        <img
+                          src={product.image}
+                          alt={product.title}
+                          className="w-full md:h-60 h-55 object-cover rounded mb-2 mix-blend-multiply"
+                        />
+                      </Link>
                       <div className="px-3 py-1 pb-3 ">
-                        <h3 className="text-sm text-gray-600 line-clamp-2 font-medium">
-                          {product.category}
-                        </h3>
-                        <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-13  mt-1">
-                          {product.title}
-                        </h3>
-                        <div className="font-bold text-base">
-                          ₦{product.price?.toLocaleString()}
-                        </div>
-                        <div className="text-xs text-gray-500 line-through">
-                          ₦{(product.price * 1.12).toLocaleString()}
-                        </div>
-                        {/* <button className="w-full bg-orange-600 text-white font-semibold py-1.5 mt-4 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center">
-                          <ShoppingCart size={15} /> <span> ADD TO CART</span>
-                        </button>
-                         */}
-
-                              <AddToCart
-                              AddToCartClassName='w-full bg-orange-600  text-white font-semibold py-2 mt-5 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center'
-                              quantityNumberStyle='w-full flex justify-between   items-center  mt-5  borde-1 border-orange-00 rounded-md py-1'
-
-                              // quantityColorStyle='bg-orange-700 text-white lg:hover:bg-orange-800 rounded-xs w-7 h-7 flex justify-center items-center font-medium text-md cursor-pointer '
-                              quantity={product?.quantity}
-                              id={product?._id}
-                              category={product?.category}
-                              price={product?.price}
-                              image={product?.image}
-                              title={product?.title}
-                            />
+                        <Link to={`/products/product/${product._id}`}>
+                          <h3 className="text-sm text-gray-600 line-clamp-2 font-semibold ">
+                            {product.category}
+                          </h3>
+                          <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-13  mt-1">
+                            {product.title}
+                          </h3>
+                          <div className="font-bold text-base">
+                            ₦{product.price?.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-gray-500 line-through">
+                            ₦{(product.price * 1.12).toLocaleString()}
+                          </div>
+                        </Link>
+                        <AddToCart
+                          AddToCartClassName="w-full bg-orange-600  text-white font-semibold py-2 mt-5 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center"
+                          quantityNumberStyle="w-full flex justify-between   items-center  mt-5  borde-1 border-orange-00 rounded-md py-1"
+                          // quantityColorStyle='bg-orange-700 text-white lg:hover:bg-orange-800 rounded-xs w-7 h-7 flex justify-center items-center font-medium text-md cursor-pointer '
+                          quantity={product?.quantity}
+                          id={product?._id}
+                          category={product?.category}
+                          price={product?.price}
+                          image={product?.image}
+                          title={product?.title}
+                        />
                       </div>
                     </div>
                   ))}
