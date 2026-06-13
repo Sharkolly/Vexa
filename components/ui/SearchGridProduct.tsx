@@ -24,7 +24,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4 ">
                 {searchData.map((item: ProductType) => (
                   <>
-                    <div className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md">
+                    <div key={item?._id} className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md">
                       <div className="bg-white p-4 rounded-md hover:shadow-lg transition">
                         <Link
                           to={`/products/product/${item._id}`}

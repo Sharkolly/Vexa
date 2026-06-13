@@ -21,8 +21,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
             <>
               <div className="flex flex-col gap-5">
                 {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
-                {searchData.map((item: ProductType) => (
-                  // <></>
+                {searchData.map((item: ProductType) => (                  
                   <div
                     className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md md:p-5 p-2 py-4"
                     key={item._id}

@@ -11,6 +11,7 @@ import type { AxiosError } from "axios";
 import SearchFilter from "../../components/ui/SearchFilter";
 import Grid from "../../components/ui/SearchGridProduct";
 import List from "../../components/ui/SearchListProduct";
+import { useSearchParams } from 'react-router-dom';
 
 export const PlaceholderCard = () => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -35,8 +36,16 @@ const Search = () => {
     data?.data || [],
   );
 
+  const oldCategories = data?.categories || []
+  const categories = ['All', ...oldCategories]
+
   const [view, setView] = useState<"grid" | "list">("grid");
   const [category, setCategory] = useState("All");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const categoryFilter = searchParams.get('category');
+
 
   const searchOnChange = async (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -58,12 +67,13 @@ const Search = () => {
 
   const categorySearch = async (category: string) => {
     setCategory(category);
+    setSearchParams({ category});
     const res = await API(`/products/category?search=${category}`);
     const { data } = await res.data;
-    setSearchData(data);
-
-    // console.log(searchData);
+    setSearchData(data);    
   };
+  
+  if(categoryFilter) categorySearch(categoryFilter);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -71,7 +81,7 @@ const Search = () => {
     }, 700);
 
     return () => clearTimeout(timeout);
-  }, [query]);
+  }, [query ]);
 
   return (
     <div>
@@ -140,14 +150,7 @@ const Search = () => {
               </div>
 
               <div className="hidden md:flex gap-3 mt-4 flex-wrap">
-                {[
-                  "All",
-                  "Electronics",
-                  "Fashion",
-                  "Gaming",
-                  "Phones",
-                  "Accessories",
-                ].map((item) => (
+                {categories.map((item: string) => (
                   <button
                     key={item}
                     className={`px-3 py-1 border rounded-full text-sm hove:bg-blue-700  hove:text-white ${category == item && "bg-black text-white "}`}

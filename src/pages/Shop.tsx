@@ -1,8 +1,6 @@
 import {
   Search,
-  ShoppingCart,
-  // User,
-  // Menu,
+  // ShoppingCart,
   ChevronRight,
   Smartphone,
   Monitor,
@@ -15,6 +13,8 @@ import {
 } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { ProductType } from "../../types/product.types";
+import AddToCart from "../../components/ui/AddToCart";
+import { Link } from "react-router-dom";
 
 const categories = [
   { name: "Supermarket", icon: <Apple size={18} /> },
@@ -35,11 +35,10 @@ type PRODUCT_CATEGORY_TYPE = {
 export default function Random() {
   const { data } = useQueryProduct("/products/all");
   console.log(data);
-  const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];
-  console.log(productData);
+  const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];  
 
   return (
-    <div className="min-h-screen bg-white/80  font-sans mt-20 max-md:mt-16 ">
+    <div className="min-h-screen bg-white/80  mt-20 max-md:mt-16 ">
       <main className="max-w-7xl mx-auto px-2 lg:px-8 py-6">
         {/* Hero Section */}
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
@@ -107,7 +106,7 @@ export default function Random() {
             className={`${product.products.length <= 0 ? "hidden" : ""}`}
           >
             <section className="bg-white rounded-md shadow-sm overflow-hidden mt-6">
-              <div className="bg-orange-700  text-white p-4 flex items-center justify-between">
+              <div className="bg-blue-100  text-blue-800 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="bg-red-500 p-1 rounded hidden">
                     <Search size={20} className="text-white" />
@@ -116,12 +115,12 @@ export default function Random() {
                     {product.category}
                   </h2>
                 </div>
-                <a
-                  href="#"
+                <Link
+                  to={`/search?category=${product.category}`}
                   className="text-sm font-semibold flex items-center hover:underline"
                 >
                   SEE ALL <ChevronRight size={16} />
-                </a>
+                </Link>
               </div>
 
               <div className="p-4 overflow-x-auto max-md:px-0">
@@ -144,7 +143,7 @@ export default function Random() {
                         <h3 className="text-sm text-gray-600 line-clamp-2 font-medium">
                           {product.category}
                         </h3>
-                        <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-10 mt-1">
+                        <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-13  mt-1">
                           {product.title}
                         </h3>
                         <div className="font-bold text-base">
@@ -153,9 +152,23 @@ export default function Random() {
                         <div className="text-xs text-gray-500 line-through">
                           ₦{(product.price * 1.12).toLocaleString()}
                         </div>
-                        <button className="w-full bg-orange-700 text-white font-semibold py-1.5 mt-4 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center">
+                        {/* <button className="w-full bg-orange-600 text-white font-semibold py-1.5 mt-4 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center">
                           <ShoppingCart size={15} /> <span> ADD TO CART</span>
                         </button>
+                         */}
+
+                              <AddToCart
+                              AddToCartClassName='w-full bg-orange-600  text-white font-semibold py-2 mt-5 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center'
+                              quantityNumberStyle='w-full flex justify-between   items-center  mt-5  borde-1 border-orange-00 rounded-md py-1'
+
+                              // quantityColorStyle='bg-orange-700 text-white lg:hover:bg-orange-800 rounded-xs w-7 h-7 flex justify-center items-center font-medium text-md cursor-pointer '
+                              quantity={product?.quantity}
+                              id={product?._id}
+                              category={product?.category}
+                              price={product?.price}
+                              image={product?.image}
+                              title={product?.title}
+                            />
                       </div>
                     </div>
                   ))}
