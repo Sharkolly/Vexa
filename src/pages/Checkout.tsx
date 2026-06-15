@@ -16,8 +16,7 @@ type RootState = {
 };
 
 const CheckoutPage = () => {
-  const [payment, setPayment] = useState("card");
-  const { setDeliveryDetails, deliveryDetails } = useAuthContextStore();
+  const {  deliveryDetails } = useAuthContextStore();
   const total = useSelector((state: RootState) => state.product.total);
 
   return (

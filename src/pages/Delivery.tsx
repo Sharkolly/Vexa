@@ -20,8 +20,7 @@ type RootState = {
 };
 
 const DeliveryPage = () => {
-  const { user, setDeliveryDetails, deliveryDetails } = useAuthContextStore();
-  const [deliveryMethod, setDeliveryMethod] = useState("standard");
+  const { setDeliveryDetails, deliveryDetails } = useAuthContextStore();
 
   const total = useSelector((state: RootState) => state.product.total);
 
