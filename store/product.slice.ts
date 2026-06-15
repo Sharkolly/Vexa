@@ -51,6 +51,24 @@ const counterSlice = createSlice({
         new_price,
       });
 
+          const total: {
+        totalPrice: number;
+        totalItems: number;
+        overallTotal: number;
+        totalDelivery: number;
+      } = {
+        totalPrice: 0,
+        totalItems: 0,
+        overallTotal: 0,
+        totalDelivery: 0,
+      };
+      state.addToCart.forEach((item) => {
+        total.totalPrice += item.new_price || 0;
+        total.totalItems += item.quantity;
+        total.overallTotal = total.totalPrice + total.totalDelivery;
+      });
+
+      state.total = total;
       localStorage.setItem("cart", JSON.stringify(state.addToCart));
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
@@ -123,6 +141,24 @@ const counterSlice = createSlice({
     removeCart: (state, action: PayloadAction<{ id: string }>) => {
       const { id } = action.payload;
       state.addToCart = state.addToCart.filter((item) => item.id !== id);
+           const total: {
+        totalPrice: number;
+        totalItems: number;
+        overallTotal: number;
+        totalDelivery: number;
+      } = {
+        totalPrice: 0,
+        totalItems: 0,
+        overallTotal: 0,
+        totalDelivery: 0,
+      };
+      state.addToCart.forEach((item) => {
+        total.totalPrice += item.new_price || 0;
+        total.totalItems += item.quantity;
+        total.overallTotal = total.totalPrice + total.totalDelivery;
+      });
+
+      state.total = total;
       localStorage.setItem("cart", JSON.stringify(state.addToCart));
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },

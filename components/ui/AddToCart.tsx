@@ -70,7 +70,6 @@ const AddToCart = ({
       single_product?.quantity - 1 <= 0
     ) {
       dispatch(removeCart({ id }));
-      // setToggleAddToCart(false);
     }
   };
 

@@ -52,12 +52,12 @@ const Home = () => {
 
             <div className="flex flex-wrap gap-4 mt-8">
               <Link to="/shop">
-              <button className="bg-blue-800 cursor-pointer hover:bg-blue-800 px-6 py-3.5 rounded-xl font-semibold transition">
+              <button className="bg-blue-800 cursor-pointer hover:bg-blue-800 px-6 py-3.5 rounded-lg font-semibold transition">
                 Shop Now
               </button>
               </Link>
 
-              <button className="bg-white cursor-pointer text-black px-6 py-3.5 rounded-xl font-semibold">
+              <button className="bg-white cursor-pointer text-black px-6 py-3.5 rounded-lg  font-semibold">
                 Explore Deals
               </button>
             </div>

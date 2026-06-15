@@ -1,10 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import { useQueryProduct } from "../../lib/useQuery";
 import BouncingLoader from "../../components/BouncingLoader";
-// import ProductReview from "../../components/ui/Product-Review";
+import SearchNav from "../../components/ui/SearchNav";
 import type { ProductType } from "../../types/product.types";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/index";
+
 import {
   addToCart,
   decrementQuantity,
@@ -81,8 +82,8 @@ const Product = () => {
   }
   return (
     <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
-      <main className="pt-32 pb-24 max-w-360 mx-auto px-16 max-md:px-6 max-xl:pt-28">
-        <nav className="flex items-center gap-2 mb-6  max-md:text-sm text-outline">
+      <main className="pt-32 pb-24 max-w-360 mx-auto px-16 max-md:px-6 max-xl:pt-28 max-md:pt-24">
+        <nav className="flex items-center gap-2 mb-6 max-md:gap-1.5   max-md:text-[14px]  text-outline">
           <Link
             className="hover:text-nav-blue-active font-medium flex  items-center gap-1 transition-colors"
             to={"/shop"}
@@ -100,7 +101,7 @@ const Product = () => {
             {product?.category}
           </Link>
           <span className="material-symbols-outlined text-[14px]">&gt;</span>
-          <span className="font-medium">{product?.title}</span>
+          <span className="font-medium ">{product?.title}</span>
         </nav>
         <div className="grid grid-cols-12 max-xl:block gap-16">
           <div className="col-span-7 flex flex-col gap-6">
@@ -288,6 +289,8 @@ const Product = () => {
         </div>
 
         {/* <ProductReview /> */}
+
+        <SearchNav/>
       </main>
     </div>
   );

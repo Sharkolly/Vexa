@@ -45,7 +45,7 @@ const Nav = () => {
           </h1>
         </div>
         <nav
-          className={`flex gap-6 max-lg:gap-4 max-md:flex-col  max-md:fixed max-md:top-0 max-md:pt-10 max-md:h-screen  max-md:bg-navy-blue max-md:right-0 max-md:backdrop-blur-md max-md:w-[55%] max-md:px-10 max-md:gap-12 ${!menu && "max-md:hidden font-semibold z-10 "} `}
+          className={`flex gap-6 max-lg:gap-4 max-md:flex-col relative  max-md:fixed max-md:top-0 max-md:pt-10 max-md:h-screen  max-md:bg-navy-blue max-md:right-0 max-md:backdrop-blur-md max-md:w-[55%] max-md:px-10 z-15 max-md:gap-12 ${!menu && "max-md:hidden font-semibold z-10 "} `}
         >
           <div
             className="absolute top-5 right-4 cursor-pointer md:hidden"
@@ -98,14 +98,6 @@ const Nav = () => {
           >
             Services
           </NavLink>
-          {/* <NavLink
-            className={({ isActive }) =>
-              ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
-            }
-            to="/cart"
-          >
-            Cart
-          </NavLink> */}
           <NavLink
             className={({ isActive }) =>
               ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
@@ -147,14 +139,15 @@ const Nav = () => {
           </button>
           <Link
             to="/cart"
-            className="text-2xl relative z-1 text-slate-500"
+            className="text-2xl relative text-slate-500"
             data-icon="shopping_bag"
           >
-            <AiOutlineShoppingCart />
-
-            <span className="absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 -z-10 flex justify-center items-center  p-2  rounded-full ">
-              {CartedProduct.length || 0}
-            </span>
+            {/* <div className='relative z-[0] ' > */}
+              <AiOutlineShoppingCart />
+              <span className="absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 -z-10 flex justify-center items-center  p-2  rounded-full ">
+                {CartedProduct.length || 0}
+              </span>
+            {/* </div> */}
           </Link>
 
           {user?.email && user ? (

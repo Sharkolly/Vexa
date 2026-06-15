@@ -304,7 +304,7 @@ const Cart = () => {
                         Total
                       </span>
                       <span className="text-nav-blue-active font-semibold  text-xl">
-                        ₦{(total?.totalPrice * 1.08).toLocaleString() || 0}
+                        ₦{(total?.totalPrice * 1.03).toLocaleString() || 0}
                       </span>
                     </div>
                   </div>

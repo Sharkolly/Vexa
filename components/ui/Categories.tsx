@@ -5,14 +5,25 @@ const Categories = () => {
   return (
     <section className="w-[90%]  max-md:w-[95%] mx-auto px-4 pb-16">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl text-nav-blue-active/90  font-bold">Shop By Category</h2>
+        <h2 className="text-3xl text-nav-blue-active/90  font-bold">
+          Shop By Category
+        </h2>
 
-        <button className="text-blue-700 font-semibold">View All</button>
+        <Link to="/shop" className="text-blue-700 max-md:hidden font-semibold">
+          View More &gt;
+        </Link>
+        <Link
+          to="/shop"
+          className="text-blue-700 text-xl md:hidden font-semibold"
+        >
+          &gt;
+        </Link>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-6">
         {categories_data.map((item) => (
-          <Link             to={item.link}
+          <Link
+            to={item.link}
             key={item.title}
             className="relative rounded-xl overflow-hidden group cursor-pointer"
           >

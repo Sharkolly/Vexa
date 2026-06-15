@@ -43,7 +43,7 @@ export default function Random() {
       {isLoading && !productData ? (
         <Loader />
       ) : (
-        <div className="min-h-screen bg-white/80  mt-20 max-md:mt-16 ">
+        <div className="min-h-screen bg-white/80  mt-20 max-md:my-16 ">
           <main className="max-w-360  mx-auto px-2 lg:px-8 py-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-8">
               <aside className="hidden lg:block w-1/5 bg-white rounded-md shadow-sm py- h-[400px]">
@@ -137,7 +137,7 @@ export default function Random() {
                       {product.products.map((product) => (
                         <div
                           key={product.id}
-                          className="basis-60  lg:basis-70 flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
+                          className="basis-65  lg:basis-70 flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
                         >
                           <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-1.5 py-0.5 rounded z-10">
                             {product.discount || Math.ceil(Math.random() * 60)}%
