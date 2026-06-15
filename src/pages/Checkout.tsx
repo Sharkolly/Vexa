@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useAuthContextStore } from "../../store/useAuthContext";
 import { useSelector } from "react-redux";
 import SearchNav from "../../components/ui/SearchNav";
