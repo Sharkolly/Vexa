@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { categories_data } from "../../data/categories";
 
 const Categories = () => {
@@ -11,7 +12,7 @@ const Categories = () => {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {categories_data.map((item) => (
-          <div
+          <Link             to={item.link}
             key={item.title}
             className="relative rounded-xl overflow-hidden group cursor-pointer"
           >
@@ -24,7 +25,7 @@ const Categories = () => {
             <div className="absolute inset-0 bg-black/40 flex items-end p-6">
               <h3 className="text-white text-2xl font-bold">{item.title}</h3>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

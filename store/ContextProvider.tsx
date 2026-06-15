@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Loader from "../components/Loader";
 import { useQueryUserFunction } from "../lib/useQuery";
-import { UserAuthContext } from "./AuthContext";
+import { UserAuthContext } from "./Context";
 import type { UserType } from "../types/user.types";
 
-const AuthContext = ({ children }: { children: React.ReactNode }) => {
+const Context = ({ children }: { children: React.ReactNode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -12,6 +12,24 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 
   const { data, isLoading, refetch } = useQueryUserFunction();
 
+  // const [deliveryEmail, setDeliveryEmail] = useState("");
+  // const [deliveryFullName, setDeliveryFullName] = useState("");
+  // const [deliveryPhone, setDeliveryPhone] = useState("");
+  // const [deliveryAddress, setDeliveryAddress] = useState("");
+  // const [deliveryState, setDeliveryState] = useState("");
+  // const [deliveryCity, setDeliveryCity] = useState("");
+  // const [deliveryLandmark, setDeliveryLandmark] = useState("");
+
+
+  const [deliveryDetails, setDeliveryDetails] = useState({  
+    email: data?.message?.email || "",
+    fullName: data?.message?.firstName ? `${data.message.firstName} ${data.message.lastName}` : "",
+    phone: data?.message?.phone || "",
+    address: "",
+    state: "Lagos",
+    city: "Ikeja",
+    landmark: "",   
+  });
 
   const user: UserType | null = data?.message || null;
 
@@ -28,7 +46,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
   ) => setLastName(e.target.value);
 
-  if (isLoading) return <Loader height='h-[100vh]' />;
+  if (isLoading) return <Loader height="h-[100vh]" />;
 
   return (
     <UserAuthContext
@@ -47,6 +65,8 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
         firstNameOnChange,
         lastNameOnChange,
         refetch,
+        deliveryDetails,
+        setDeliveryDetails,
       }}
     >
       {children}
@@ -54,4 +74,4 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AuthContext;
+export default Context;

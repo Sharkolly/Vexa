@@ -12,6 +12,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { MdArrowRightAlt } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
 import NoCartItem from "../../components/ui/NoCartItem";
+import SearchNav from "../../components/ui/SearchNav";
 
 type RootState = {
   product: {
@@ -65,12 +66,12 @@ const Cart = () => {
                 Continue Shopping
               </Link>
             </div>
-            <div className="flex flex-col lg:flex-row gap-12">
-              <div className="flex-grow">
+            <div className="flex flex-col xl:flex-row gap-12">
+              <div className="flex-">
                 <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden border border-slate-200">
                   <table className="w-full border-collapse  hidden md:table">
                     <thead>
-                      <tr className="border-b border-slate-200">
+                      <tr className="border-b border-gray-300">
                         <th className="text-left py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
                           Product
                         </th>
@@ -85,7 +86,7 @@ const Cart = () => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-50">
+                    <tbody className="divide-y divide-gray-300">
                       {CartedProduct.map((product: ProductType) => (
                         <tr className="group hover:bg-slate-50/50 transition-colors">
                           <td className="py-8 px-8">
@@ -164,6 +165,8 @@ const Cart = () => {
                               ₦{product?.new_price?.toLocaleString()}
                             </span>
                           </td>
+
+                          {/* <hr />   */}
                         </tr>
                       ))}
                     </tbody>
@@ -265,7 +268,7 @@ const Cart = () => {
                 </div>
               </div>
 
-              <aside className="w-full lg:w-100 shrink-0 ">
+              <aside className="w-full xl:w-100 shrink-0 ">
                 <div className="bg-white rounded-xl border border-slate-200 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-7  max-md:p-6   md:sticky md:top-32 ">
                 {/* <div className="bg-white rounded-xl md:border md:border-slate-200 md:shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-4   md:sticky md:top-32 fixed bottom-0 left-0 right-0 z-10 border-t-1 h-[250px] overflow-y-auto"> */}
                   <h2 className="font-semibold text-2xl text-slate-900 mb-8">
@@ -359,6 +362,8 @@ const Cart = () => {
       ) : (
         <NoCartItem />
       )}
+
+      <SearchNav/>
     </div>
   );
 };

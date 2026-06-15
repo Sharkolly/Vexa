@@ -54,15 +54,22 @@ function App() {
         />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-
           <Route path="/services" element={<Services />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
+        <Route path="/" element={<LayoutNoFooter />}>
           <Route path="/products/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/search" element={<Search />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-        <Route path="/" element={<LayoutNoFooter />}>
-          <Route path="/checkout" element={<Checkout />} />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/delivery"
             element={

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className=" min-h-screen text-gray-900 pt-19 max-md:w-full ">
+    <div className=" min-h-screen text-gray-900 pt-17 max-md:w-full ">
       <div className="bg-blue-800 text-white text-center text-sm py-2 px-4">
         🚚 Free Delivery On Orders Above ₦100,000
       </div>

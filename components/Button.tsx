@@ -8,7 +8,7 @@ type ButtonProps = {
 
 const Button = ({color, bg, content, border, cursor}: ButtonProps) => {
     return (
-        <button className={`px-6 font-medium py-1.5 text-lg font rounded-lg ${bg || 'bg-navy-blue'} ${border} ${color || 'text-white'} ${cursor}`}> 
+        <button className={`px-6 font-medium py-1.5 font rounded-sm  ${bg || 'bg-navy-blue'} ${border} ${color || 'text-white'} ${cursor}`}> 
             {content}
         </button>
     );

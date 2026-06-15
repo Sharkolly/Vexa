@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
 // import { IoMdHeartEmpty } from "react-icons/io";
 import Loader from "../Loader";
-import SearchNav from "./SearchNav";
+
 import NoProduct from "./NoProduct";
 import type { ProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
 
 type SearchProductsType = {
-  isLoading: boolean;
+  isLoading?: boolean;
   searchData: ProductType[] | [];
   category?: string;
 };
 
 const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
+
+  // console.log(searchData);
   return (
     <>
       {isLoading ? (
@@ -133,7 +135,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
           ) : (
             <NoProduct category={category} />
           )}
-          <SearchNav />
+          
         </>
       )}
     </>

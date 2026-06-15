@@ -1,8 +1,23 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import {Search } from 'lucide-react';
+import { Search } from "lucide-react";
+import { useState } from "react";
 
 const NotFound = () => {
+  const navigate = useNavigate();
+
+  const [searchProduct, setSearchProduct] = useState("");
+
+  const changeSearchProduct = (
+    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => {
+    setSearchProduct(e.target.value);
+  };
+
+  const searchProductHandler = () => {
+    navigate(`/search?product=${searchProduct}`);
+  };
+
   return (
     <div>
       <div className="bg-background text-on-background min-h-screen flex flex-col overflow-x-hidden">
@@ -31,32 +46,38 @@ const NotFound = () => {
             </p>
             <div className="max-md:w-11/12 flex flex-col sm:flex-row gap-5 justify-center mt-3 mb-16">
               <NavLink
-                className="bg-nav-blue-active text-white px-7 py-3 rounded-xl font-medium text-lg shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200 flex items-center justify-center gap-2"
+                className="bg-nav-blue-active text-white px-4 py-2 rounded-xl font-medium text-lg shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200 flex items-center justify-center gap-2"
                 to="/"
               >
                 <span>
                   <FaHome />
-                  </span>
+                </span>
 
-                  <p>
-                Back to Home
-                    </p>
-
-
+                <p>Back to Home</p>
               </NavLink>
-              <div className="flex items-center bg-surface-container px-6 py-4 rounded-xl border border-slate-400 focus-within:border-primary transition-colors">
+              <div className="flex items-center bg-surface-container px-4 py-2 rounded-xl border border-slate-400 focus-within:border-primary transition-colors">
                 <span
                   className="material-symbols-outlined text-outline mr-3"
                   data-icon="search"
                 >
-                  <Search size={18} className='text-gray-500' />
+                  <Search size={18} className="text-gray-500" />
                 </span>
                 <input
-                  className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full sm:w-64 font-medium"
+                  className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full sm:w-64 font-medium outline-none"
                   placeholder="Search products..."
                   type="text"
+                  onChange={(e) => changeSearchProduct(e)}
                 />
               </div>
+
+              <button className="bg-orange-400 text-white px-4  py-2 rounded-xl font-medium text-lg shadow-lg  transition-all active:scale-95 duration-200 flex items-center justify-center gap-2 cursor-pointer" onClick={searchProductHandler}>
+                <span
+                  className="material-symbols-outlined text-outline"
+                >
+                  <Search size={18} className="text-white" />
+                </span>
+                <p>Search</p>
+              </button>
             </div>
             <div className="w-full max-w-5xl mt-12 max-md:mt-5">
               <h3 className="font-semibold text-2xl text-on-surface mb-4 text-left">
@@ -65,7 +86,7 @@ const NotFound = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Link
                   className="group relative overflow-hidden rounded-xl h-80 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
-                  to="#"
+                  to="/search?category=Electronics"
                 >
                   <img
                     alt="Tech Category"
@@ -83,7 +104,7 @@ const NotFound = () => {
                 </Link>
                 <Link
                   className="group relative overflow-hidden rounded-xl h-80 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
-                  to="#"
+                  to="/search?category=Fashion"
                 >
                   <img
                     alt="Fashion Category"
@@ -102,7 +123,7 @@ The setting is a minimalist concrete studio with sharp, dramatic shadows and bri
                 </Link>
                 <Link
                   className="group relative overflow-hidden rounded-xl h-8- bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
-                  to="#"
+                  to="/search?category=Beauty"
                 >
                   <img
                     alt="Shoes Category"

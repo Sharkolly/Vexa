@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import AddToCart from "./AddToCart";
 
 type SearchProductsType = {
-  isLoading: boolean;
+  isLoading?: boolean;
   searchData: ProductType[] | [];
   category?: string;
 };
 
 const List = ({ isLoading, searchData, category }: SearchProductsType) => {
+  console.log(searchData);
   return (
     <>
       {isLoading && !searchData ? (

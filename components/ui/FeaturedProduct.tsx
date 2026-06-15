@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { product_data } from "../../data/product";
 
 const FeaturedProduct = () => {
@@ -6,7 +7,7 @@ const FeaturedProduct = () => {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl text-nav-blue-active/90  font-bold">Featured Products</h2>
 
-          <button className="text-blue-700 font-semibold">View More</button>
+          <Link to='/shop' className="text-blue-700 font-semibold">View More</Link>
         </div>
 
         <div className="grid  sm:grid-cols-2 xl:grid-cols-4 gap-6">

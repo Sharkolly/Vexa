@@ -24,6 +24,26 @@ type USERAUTHCONTEXT_TYPES = {
   lastNameOnChange: (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
   ) => void;
+  deliveryDetails: {
+    email: string;
+    fullName: string;
+    phone: string;
+    address: string;
+    state: string;
+    city: string;
+    landmark: string;
+  };
+  setDeliveryDetails: React.Dispatch<
+    React.SetStateAction<{
+      email: string;
+      fullName: string;
+      phone: string;
+      address: string;
+      state: string;
+      city: string;
+      landmark: string;
+    }>
+  >;
 };
 
 export const UserAuthContext = createContext<USERAUTHCONTEXT_TYPES | null>(

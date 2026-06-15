@@ -45,20 +45,25 @@
       title: "Electronics",
       image:
         "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      title: "Fashion",
-      image:
+        link: "/search?category=Electronics"
+      },
+      {
+        title: "Fashion",
+        image:
         "https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1200&auto=format&fit=crop",
+        link: "/search?category=Fashion"
+
     },
     {
       title: "Gaming",
       image:
         "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1200&auto=format&fit=crop",
+        link: "/search?category=Gaming"
     },
     {
-      title: "Home",
+      title: "Beauty",
       image:
         "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop",
+        link: "/search?category=Beauty"
     },
   ];

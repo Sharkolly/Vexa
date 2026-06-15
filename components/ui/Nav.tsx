@@ -45,7 +45,7 @@ const Nav = () => {
           </h1>
         </div>
         <nav
-          className={`flex  gap-6 max-md:flex-col  max-md:fixed max-md:top-0 max-md:pt-10 max-md:h-screen  max-md:bg-navy-blue max-md:right-0 max-md:backdrop-blur-md max-md:w-[55%] max-md:px-10 max-md:gap-12 ${!menu && "max-md:hidden font-semibold z-10 "} `}
+          className={`flex gap-6 max-lg:gap-4 max-md:flex-col  max-md:fixed max-md:top-0 max-md:pt-10 max-md:h-screen  max-md:bg-navy-blue max-md:right-0 max-md:backdrop-blur-md max-md:w-[55%] max-md:px-10 max-md:gap-12 ${!menu && "max-md:hidden font-semibold z-10 "} `}
         >
           <div
             className="absolute top-5 right-4 cursor-pointer md:hidden"
@@ -54,7 +54,9 @@ const Nav = () => {
             <MdClose className="text-white text-3xl" />
           </div>
           <NavLink
-            className="text-indigo-600 dark:text-indigo-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8"
+            className={({ isActive }) =>
+              `  font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600 " : "text-slate-400"}`
+            }
             to="/"
           >
             Home
@@ -64,16 +66,18 @@ const Nav = () => {
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
           >
-            <NavLink to="/shop" className="hover:text-blue-600">
+            <NavLink
+              to="/shop"
+              className={({ isActive }) =>
+                ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
+              }
+            >
               Shop ▾
             </NavLink>
 
             {/* Dropdown */}
             {open && (
               <div className="absolute top-11 -z-20 -left-10 w-50 bg-slate-50 shadow-lg rounded-md py-2">
-                <a className="block px-7 py-2 hover:bg-gray-100" href="#">
-                  Tech
-                </a>
                 <a className="block px-7 py-2 hover:bg-gray-100" href="#">
                   Fashion
                 </a>
@@ -87,35 +91,30 @@ const Nav = () => {
             )}
           </span>
           <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
+            className={({ isActive }) =>
+              ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
+            }
             to="/services"
           >
             Services
           </NavLink>
-          <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
+          {/* <NavLink
+            className={({ isActive }) =>
+              ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
+            }
             to="/cart"
           >
             Cart
-          </NavLink>
+          </NavLink> */}
           <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
+            className={({ isActive }) =>
+              ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
+            }
             to="/search"
           >
             Search
           </NavLink>
-          {/* <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest"
-            to="/delivery"
-          >
-            Delivery
-          </NavLink> */}
-          <NavLink
-            className="text-slate-500 dark:text-slate-400 font-headline-md text-[14px] hover:text-indigo-500 transition-colors md:hidden uppercase tracking-widest"
-            to="/random"
-          >
-            Random
-          </NavLink>
+  
           {!user && (
             <>
               <Link
@@ -170,7 +169,7 @@ const Nav = () => {
 
               <button
                 onClick={logout}
-                className="max-md:hidden px-4 py-1.5 bg-red-600 text-white rounded-md shadow-md active:scale-95 transition-transform font-semibold cursor-pointer"
+                className="max-md:hidden px-5  py-1.5 bg-red-600 text-white rounded-xs  shadow-md active:scale-95 transition-transform font-semibold cursor-pointer"
               >
                 Logout
               </button>
