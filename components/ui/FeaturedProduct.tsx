@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { product_data } from "../../data/product";
+// import { product_data } from "../../data/product";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { ProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
 
 const FeaturedProduct = () => {
-  const { data, isLoading } = useQueryProduct("/products/min");
+  const { data } = useQueryProduct("/products/min");
 
   const productItem: ProductType[] = data?.data || [];
 
