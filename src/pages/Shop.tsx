@@ -39,6 +39,10 @@ export default function Random() {
   const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];
 
   return (
+    <> 
+    {isLoading && product.length == 0 ? (
+<Loader/>
+    ) : (
         <div className="min-h-screen bg-white/80  mt-20 max-md:my-16 ">
           <main className="max-w-360  mx-auto px-2 lg:px-8 py-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-8">
