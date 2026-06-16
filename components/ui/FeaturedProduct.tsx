@@ -57,7 +57,7 @@ const FeaturedProduct = () => {
 
                 <div className="p-5">
                   <Link to={`/products/product/${product?._id}`}>
-                    <p className="text-sm text-gray-500">Electronics</p>
+                    <p className="text-sm text-gray-500">{product?.category}</p>
                     <h3 className="font-medium h-14  text-lg mt-1 line-clamp-3">
                       {product.title}
                     </h3>
