@@ -25,7 +25,8 @@ const RedirectRoute = ({
         }
       } catch (err) {
         
-        if (err) navigate("/login");
+        // if (err) navigate("/login");
+        if (err) return;
       } finally {
         setLoading(false);
       }
