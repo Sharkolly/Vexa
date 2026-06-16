@@ -40,7 +40,7 @@ export default function Random() {
 
   return (
     <> 
-    {isLoading && product.length == 0 ? (
+    {isLoading && productData.length == 0 ? (
 <Loader/>
     ) : (
         <div className="min-h-screen bg-white/80  mt-20 max-md:my-16 ">
