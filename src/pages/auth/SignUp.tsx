@@ -33,8 +33,7 @@ const SignUp = () => {
           withCredentials: true,
         },
       );      
-      localStorage.setItem("token", data?.token);
-      setMessage(data?.message || "Account created successfully");
+      setMessage(data?.message || "Admin Account created successfully");
       navigate("/login");
     } catch (error: unknown) {
       const err = error as AxiosError<{

@@ -39,10 +39,10 @@ export default function Random() {
   const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];
 
   return (
-    <> 
-    {isLoading && productData.length == 0 ? (
-<Loader/>
-    ) : (
+    <>
+      {isLoading && productData.length == 0 ? (
+        <Loader />
+      ) : (
         <div className="min-h-screen bg-white/80  mt-20 max-md:my-16 ">
           <main className="max-w-360  mx-auto px-2 lg:px-8 py-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-8">
@@ -167,7 +167,6 @@ export default function Random() {
                             <AddToCart
                               AddToCartClassName="w-full bg-orange-600  text-white font-semibold py-2 mt-5 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center"
                               quantityNumberStyle="w-full flex justify-between   items-center  mt-5  borde-1 border-orange-00 rounded-md py-1"
-                              // quantityColorStyle='bg-orange-700 text-white lg:hover:bg-orange-800 rounded-xs w-7 h-7 flex justify-center items-center font-medium text-md cursor-pointer '
                               quantity={product?.quantity}
                               id={product?._id}
                               category={product?.category}
@@ -185,7 +184,7 @@ export default function Random() {
             ))}
           </main>
 
-          <SearchNav/>
+          <SearchNav />
         </div>
       )}
     </>

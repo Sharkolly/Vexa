@@ -29,7 +29,6 @@ const SignIn = () => {
 
       localStorage.setItem("token", data?.token);
       setMessage(data?.message || "Account created successfully");
-      navigate("/shop");
     } catch (error: unknown) {
       const err = error as AxiosError<{
         message: string;

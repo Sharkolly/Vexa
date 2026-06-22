@@ -17,7 +17,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
   // console.log(searchData);
   return (
     <>
-      {isLoading ? (
+      {isLoading && searchData.length == 0 ? (
         <Loader />
       ) : (
         <>

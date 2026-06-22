@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQueryProduct } from "../../lib/useQuery";
 import BouncingLoader from "../../components/BouncingLoader";
 import SearchNav from "../../components/ui/SearchNav";
+import RelatedProduct from "../../components/ui/RelatedProduct";
 import type { ProductType } from "../../types/product.types";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/index";
@@ -24,12 +25,16 @@ type RootState = {
 
 const Product = () => {
   const { id } = useParams();
+  // const { slug, category } = useParams();
 
   const [toggleAddToCart, setToggleAddToCart] = useState(false);
 
   const { data, isLoading } = useQueryProduct(`/products/product/${id}`);
+  // const { data: RelatedData, isLoading: isLoadingRelatedData } = useQueryProduct(`/products/category/${category}`);
+  const { data: RelatedData, isLoading: isLoadingRelatedData } = useQueryProduct(`/products/category/electronics`);
 
   const product: ProductType | null = data?.data || null;
+  const relatedData: ProductType[] | [] = RelatedData?.data || [];
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -83,7 +88,7 @@ const Product = () => {
   return (
     <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
       <main className="pt-32 pb-24 max-w-360 mx-auto px-16 max-md:px-6 max-xl:pt-28 max-md:pt-24">
-        <nav className="flex items-center gap-2 mb-6 max-md:gap-1.5   max-md:text-[14px]  text-outline">
+        <nav className="flex items-center gap-2 mb-6 max-md:gap-1.5   max-md:text-[13px]   text-outline">
           <Link
             className="hover:text-nav-blue-active font-medium flex  items-center gap-1 transition-colors"
             to={"/shop"}
@@ -179,7 +184,7 @@ const Product = () => {
                 with 0% interest
               </p>
             </div>
-            <div className="space-y-10  mb-12">
+            <div className="space-y-10  mb-">
               <div>
                 <h3 className="font-medium text-slate-600 uppercase text-outline mb-4">
                   Description
@@ -188,7 +193,7 @@ const Product = () => {
                   {product?.description}
                 </p>
               </div>
-              <div>
+              <div className="hidden">
                 <h3 className="font-medium text-slate-600  uppercase text-outline mb-4">
                   Select Finish
                 </h3>
@@ -198,7 +203,7 @@ const Product = () => {
                   <button className="w-12 h-12 rounded-full bg-[#D1D5DB] border-2 border-transparent hover:border-outline-variant"></button>
                 </div>
               </div>
-              <div>
+              <div className="hidden">
                 <h3 className="font-medium text-slate-600 uppercase text-outline mb-4">
                   Specifications
                 </h3>
@@ -218,14 +223,14 @@ const Product = () => {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-col gap-4 mb-10">
+            <div className="flex flex-col  mb-10">
               {toggleAddToCart || single_product ? (
                 <div className="flex items-center justify-between text-sm mb-5">
-                  <span className="text-xl">Order: </span>
+                  <span className="text-xl font-medium">Order: </span>
                   <div className="flex items-center justify-center gap-7">
                     <button
                       onClick={() => decrementProductQuantity(product?._id)}
-                      className="bg-nav-blue-active text-white text-center flex items-center justify-center rounded-md w-7 h-7 cursor-pointer"
+                      className="bg-nav-blue-active text-white text-center flex items-center justify-center rounded w-7 h-7 cursor-pointer"
                     >
                       -
                     </button>
@@ -234,7 +239,7 @@ const Product = () => {
                     </span>
                     <button
                       onClick={() => incrementProductQuantity(product?._id)}                      
-                      className="bg-nav-blue-active text-white  text-center flex items-center justify-center rounded-md w-7 h-7 cursor-pointer"
+                      className="bg-nav-blue-active text-white  text-center flex items-center justify-center rounded w-7 h-7 cursor-pointer"
                     >
                       +
                     </button>
@@ -242,7 +247,7 @@ const Product = () => {
                 </div>
               ) : (
                 <button
-                  className="hidd w-full text-lg bg-nav-blue-active text-white font-medium py-3.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/20 mb-5"
+                  className="hidd w-full text-lg bg-nav-blue-active text-white font-medium py-3 rounded-xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/20 mb-5"
                   onClick={() =>
                     addToCartBtn(
                       product?.title,
@@ -257,7 +262,7 @@ const Product = () => {
                 </button>
               )}
 
-              <button className="w-full bg-black/10  border border-outline-variant text-on-surface font-medium py-5 rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]">
+              <button className="w-full bg-black/10  border border-outline-variant text-on-surface font-medium py-3 rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]">
                 Buy Now
               </button>
             </div>
@@ -289,6 +294,8 @@ const Product = () => {
         </div>
 
         {/* <ProductReview /> */}
+
+        <RelatedProduct relatedData={relatedData} isLoadingRelatedData={isLoadingRelatedData} />
 
         <SearchNav/>
       </main>
