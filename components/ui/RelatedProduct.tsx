@@ -4,12 +4,12 @@ import AddToCart from "../../components/ui/AddToCart";
 
 type RELATEDPRODUCT_TYPE = {
   relatedData: ProductType[] | [];
-  isLoadingRelatedData: boolean;
+  isLoadingRelatedData?: boolean;
 };
 
 const RelatedProduct = ({
   relatedData,
-  isLoadingRelatedData,
+//   isLoadingRelatedData,
 }: RELATEDPRODUCT_TYPE) => {
   return (
     <section className="mt-12">

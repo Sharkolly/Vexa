@@ -13,7 +13,6 @@ const SignIn = () => {
   // const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const navigate = useNavigate();
 
   const submitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
