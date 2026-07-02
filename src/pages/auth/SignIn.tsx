@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { NavLink,  } from "react-router-dom";
+import { NavLink,  useNavigate} from "react-router-dom";
 import { useAuthContextStore } from "../../../store/useAuthContext";
 import API from "../../../api/api";
 import { useState } from "react";
@@ -12,7 +12,8 @@ const SignIn = () => {
 
   // const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-
+const navigate = useNavigate();
+  
 
   const submitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ const SignIn = () => {
 
       localStorage.setItem("token", data?.token);
       setMessage(data?.message || "Account created successfully");
+      navigate("/shop")
     } catch (error: unknown) {
       const err = error as AxiosError<{
         message: string;
