@@ -36,7 +36,7 @@ const RelatedProduct = ({
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="md:w-60 h-50 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="md:w-full h-50 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
 
                   <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
