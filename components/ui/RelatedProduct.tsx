@@ -25,7 +25,7 @@ const RelatedProduct = ({
       </div>
 
       <div className=" w-full max-md:overflow-x-auto  ">
-        <div className="max-md:flex gap-5  min-w-max  max-md:items-center w-full md:grid md:grid-cols-4 max-lg:grid-cols-2  ">
+        <div className="max-md:flex gap-5  min-w-max  max-md:items-center w-full   ">
           {relatedData &&
             relatedData.map((product, index) => (
               <div
@@ -36,7 +36,7 @@ const RelatedProduct = ({
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="md:w-full h-50 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-50 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
 
                   <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
