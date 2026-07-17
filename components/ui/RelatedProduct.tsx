@@ -14,7 +14,7 @@ const RelatedProduct = ({
   return (
     <section className="mt-12">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl mt-10 font-bold text-gray-900">You may also like</h2>
+        <h2 className="text-2xl font-bold text-gray-900">You may also like</h2>
 
         <Link
           to="/shop"
