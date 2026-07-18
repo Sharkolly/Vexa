@@ -16,9 +16,9 @@ const CountUpPage = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[
           { value: "20K+", label: "Happy Customers" , color: "green-600"},
+          { value: "99%", label: "Positive Reviews" , color: "red-600 "},
           { value: "10K+", label: "Products" , color: "blue-600"},
-          { value: "99%", label: "Positive Reviews" , color: "yellow-600"},
-          { value: "24/7", label: "Customer Support" , color: "purple-600"},
+          { value: "24/7", label: "Customer Support" , color: "indigo-700"},
         ].map((item) => (
           <div
             key={item.label}

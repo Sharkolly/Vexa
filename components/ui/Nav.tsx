@@ -100,7 +100,7 @@ const Nav = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              ` text-[14px] hover:text-indigo-500 transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
+              ` text-[14px] hover:text-indigo-500 max-lg:hidden max-md:inline transition-colors uppercase tracking-widest max-md:mt-8 ${isActive ? "text-indigo-600" : "text-slate-400 "}`
             }
             to="/search"
           >
