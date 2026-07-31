@@ -59,7 +59,7 @@ function App() {
         </Route>
 
         <Route path="/" element={<LayoutNoFooter />}>
-          <Route path="/products/product/:id" element={<ProductDetails />} />
+          <Route path="/products/:category/:subCategory/:slug" element={<ProductDetails />} />
           {/* <Route path="/products/product/:category/:slug" element={<ProductDetails />} /> */}
           <Route path="/shop" element={<Shop />} />
           <Route path="/search" element={<Search />} />

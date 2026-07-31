@@ -1,4 +1,4 @@
-import type { ProductType } from "../../types/product.types";
+import type { AllProductType, ProductType } from "../../types/product.types";
 import NoProduct from "./NoProduct";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";
@@ -6,12 +6,20 @@ import AddToCart from "./AddToCart";
 
 type SearchProductsType = {
   isLoading?: boolean;
-  searchData: ProductType[] | [];
+  searchData: AllProductType[] | [];
   category?: string;
 };
 
 const List = ({ isLoading, searchData, category }: SearchProductsType) => {
-  console.log(searchData);
+     const resolveImage = (
+    img: string | File | null | undefined,
+    fallback: string,
+  ) =>
+    typeof img === "string"
+      ? img
+      : img instanceof File
+        ? URL.createObjectURL(img)
+        : fallback;
   return (
     <>
       {isLoading && !searchData ? (
@@ -22,17 +30,17 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
             <>
               <div className="flex flex-col gap-5">
                 {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
-                {searchData.map((item: ProductType) => (                  
+                {searchData.map((item: AllProductType) => (                  
                   <div
                     className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md md:p-5 p-2 py-4"
                     key={item._id}
                   >
                     <Link
-                      to={`/products/product/${item._id}`}
+                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}    
                       className="relative"
                     >
                       <img
-                        src={item?.image}
+                        src={resolveImage(item?.images[0], '')}
                         alt="product"
                         className="h-64 md:w-64 max-md:w-52 object-cover rounded-md"
                       />
@@ -41,24 +49,24 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                         -25%
                       </span>
                     </Link>
-
+ 
                     <div className="flex-1 flex flex-col justify-between">
                       <div className="space-y-1 mt-4 max-md:mt-0">
                         <Link
-                          to={`/products/product/${item._id}`}
-                          className="text-sm text-gray-500 font-medium line-clamp-2"
+                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
+                          className="text-sm text-gray-500 font-medium capitalize line-clamp-2 capitalize"
                         >
-                          {item?.category}
+                           {item?.subCategory}
                         </Link>
                         <Link
-                          to={`/products/product/${item._id}`}
-                          className="font-medium line-clamp-2 max-lg:text-lg"
+                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
+                          className="font-medium line-clamp-2 max-lg:text-lg mb-"
                         >
-                          {item?.title}
+                          {item?.name}
                         </Link>
                         <Link
-                          to={`/products/product/${item._id}`}
-                          className="text-sm text-gray-500 mb-2 md:mb-4 w-8/12 max-md:w-full line-clamp-2 max-md:line-clamp-3"
+                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
+                          className="text-sm text-gray-500 mb-2 md:mb-4 w-8/12 max-md:w-full line-clamp-2 max-md:line-clamp-3 hidden"
                         >
                           {item?.description}
                         </Link>
@@ -80,9 +88,11 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                         quantity={item?.quantity}
                           id={item?._id}
                           category={item?.category}
+                          subCategory={item?.subCategory}
                           price={item?.price}
-                          image={item?.image}
-                          title={item?.title}
+                          image={resolveImage(item?.images[0], '')}
+                          name={item?.name}
+                          slug={item?.slug}
                         />
 
                         <button className="border px-4 py-2 rounded-lg hidden">

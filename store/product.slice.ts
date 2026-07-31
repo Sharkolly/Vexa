@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 interface CartItem {
-  id: string | number;
+  _id: string | number;
   category: string;
+  subCategory: string;
   image: string;
-  title: string;
+  name: string;
   price: number;
   quantity: number | 0;
   new_price?: number;
+  slug: string
   [key: string]: string | number | boolean | undefined;
 }
 
@@ -37,21 +39,23 @@ const counterSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
-      const { title, category, id, image, price, quantity } = action.payload;
+      const { name, category, _id, image, price, quantity, slug, subCategory, } = action.payload;
 
       const new_price = price * quantity;
 
       state.addToCart.push({
-        id,
+        _id,
         quantity,
         image,
-        title,
+        name,
         price,
         category,
+        subCategory,
         new_price,
+        slug,
       });
 
-          const total: {
+      const total: {
         totalPrice: number;
         totalItems: number;
         overallTotal: number;
@@ -73,10 +77,10 @@ const counterSlice = createSlice({
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
 
-    incrementQuantity: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
+    incrementQuantity: (state, action: PayloadAction<{ slug: string }>) => {
+      const { slug } = action.payload;
       const product = state.addToCart.find(
-        (item) => String(item.id) === String(id),
+        (item) => String(item.slug) === String(slug),
       );
 
       if (product) {
@@ -105,10 +109,11 @@ const counterSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.addToCart));
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
-    decrementQuantity: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
+    decrementQuantity: (state, action: PayloadAction<{slug: string }>) => {
+      // const { _id, slug } = action.payload;
+      const { slug } = action.payload;
       const product = state.addToCart.find(
-        (item) => String(item.id) === String(id),
+        (item) => String(item.slug) === String(slug),
       );
 
       if (product) {
@@ -138,10 +143,10 @@ const counterSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.addToCart));
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
-    removeCart: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
-      state.addToCart = state.addToCart.filter((item) => item.id !== id);
-           const total: {
+    removeCart: (state, action: PayloadAction<{ slug: string }>) => {
+      const { slug } = action.payload;
+      state.addToCart = state.addToCart.filter((item) => item.slug !== slug);
+      const total: {
         totalPrice: number;
         totalItems: number;
         overallTotal: number;

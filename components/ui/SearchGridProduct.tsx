@@ -3,18 +3,26 @@ import { Link } from "react-router-dom";
 import Loader from "../Loader";
 
 import NoProduct from "./NoProduct";
-import type { ProductType } from "../../types/product.types";
+import type { AllProductType, ProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
 
 type SearchProductsType = {
   isLoading?: boolean;
-  searchData: ProductType[] | [];
+  searchData: AllProductType[] | [];
   category?: string;
 };
 
 const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
 
-  // console.log(searchData);
+    const resolveImage = (
+    img: string | File | null | undefined,
+    fallback: string,
+  ) =>
+    typeof img === "string"
+      ? img
+      : img instanceof File
+        ? URL.createObjectURL(img)
+        : fallback;
   return (
     <>
       {isLoading && searchData.length == 0 ? (
@@ -24,16 +32,16 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
           {searchData.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4 ">
-                {searchData.map((item: ProductType) => (
+                {searchData.map((item: AllProductType) => (
                   <>
                     <div key={item?._id} className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md">
                       <div className="bg-white p-4 rounded-md hover:shadow-lg transition">
                         <Link
-                          to={`/products/product/${item._id}`}
+                          to={`/product/${item.slug}`}
                           className="relative"
                         >
                           <img
-                            src={item?.image}
+                            src={resolveImage(item?.images[0], '')}
                             alt="product"
                             className="w-full h-72  object-cover rounded-md"
                           />
@@ -45,21 +53,21 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
 
                         <div className="mt-4">
                           <div className="space-y-1">
-                            <Link
-                              to={`/products/product/${item._id}`}
-                              className="text-sm text-gray-500 font-medium mb-2 line-clamp-2"
+                              <Link
+                                to={`/products/${item.category}/${item.subCategory}/${item._id}`}
+                              className="text-sm text-gray-500 font-medium mb-2 line-clamp-2 capitalize"
                             >
-                              {item?.category}
+                              {item?.subCategory}
                             </Link>
                             <Link
-                              to={`/products/product/${item._id}`}
-                              className="font-medium line-clamp-2 max-lg:text-lg"
+                              to={`/products/${item.category}/${item.subCategory}/${item._id}`}
+                              className="font-medium line-clamp-2 max-lg:text-lg mb-10 "
                             >
-                              {item?.title}
+                              {item?.name}
                             </Link>
                             <Link
-                              to={`/products/product/${item._id}`}
-                              className="text-sm text-gray-500 mb-4 line-clamp-2 wrap-break-word"
+                              to={`/products/${item.category}/${item.subCategory}/${item._id}`}
+                              className="text-sm text-gray-500 mb-4 line-clamp-2 wrap-break-word hidden"
                             >
                               {item?.description}
                             </Link>
@@ -82,14 +90,16 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
                                 ₦{(item?.price * 1.12).toLocaleString()}
                               </p>
                             </div>
-
+ 
                             <AddToCart
                               quantity={item?.quantity}
                               id={item?._id}
                               category={item?.category}
                               price={item?.price}
-                              image={item?.image}
-                              title={item?.title}
+                              image={resolveImage(item?.images[0], '')}
+                              name={item?.name}
+                              slug={item?.slug}
+                              subCategory={item?.subCategory}
                             />
                           </div>
 

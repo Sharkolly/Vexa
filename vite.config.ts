@@ -10,4 +10,17 @@ export default defineConfig({
     tailwindcss(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  optimizeDeps: {
+    include: ['react-multi-carousel'],
+  },
+  resolve: {
+    // 1. Prevents duplicate React instances if external libraries bundle their own React
+    dedupe: ['react', 'react-dom'],
+  },
+  build: {
+    commonjsOptions: {
+      // 2. Forces Vite to convert mixed CJS/ESM modules into proper React components
+      transformMixedEsModules: true,
+    },
+  },
 })

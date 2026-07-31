@@ -13,6 +13,7 @@ import { MdArrowRightAlt } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
 import NoCartItem from "../../components/ui/NoCartItem";
 import SearchNav from "../../components/ui/SearchNav";
+// import {MultiCarouselExample} from '../../components/MediaCarousel'
 
 type RootState = {
   product: {
@@ -33,21 +34,34 @@ const Cart = () => {
   );
   const total = useSelector((state: RootState) => state.product.total);
 
-  const incrementProductQuantity = (id: string = "") => {
-    dispatch(incrementQuantity({ id }));
+  const incrementProductQuantity = (slug: string = "") => {
+    dispatch(incrementQuantity({ slug }));
   };
-  const decrementProductQuantity = (id: string = "", quantity: number) => {
-    dispatch(decrementQuantity({ id }));
+  const decrementProductQuantity = (slug: string = "", quantity: number) => {
+    dispatch(decrementQuantity({ slug }));
 
     if (quantity - 1 <= 0) {
-      dispatch(removeCart({ id }));
+      dispatch(removeCart({ slug }));
     }
   };
+
+  console.log(CartedProduct);
+  const resolveImage = (
+    img: string | File | null | undefined,
+    fallback: string,
+  ) =>
+    typeof img === "string"
+      ? img
+      : img instanceof File
+        ? URL.createObjectURL(img)
+        : fallback;
+
+        
   return (
     <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased ">
-    {/* <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased mb-50"> */}
+      {/* <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased mb-50"> */}
       {CartedProduct.length > 0 ? (
-        <main className="flex-grow pt-32  pb-24 max-w-[1440px] mx-auto w-full md:px-16 max-md:pt-24 max-md:px-2.5 ">
+        <main className="flex-grow pt-32  pb-24 max-w-[1440px] mx-auto w-full md:px-12 max-md:pt-24 max-md:px-2.5 ">
           <>
             <div className="mb-12 max-md:mb-7 px-2.5">
               <h1 className="font-semibold text-4xl text-on-surface mb-4">
@@ -95,23 +109,28 @@ const Cart = () => {
                                 <img
                                   className="w-full h-full object-cover"
                                   data-alt="A high-end, sleek matte black wireless headphone set resting on a minimalist white marble surface. The studio lighting is soft and directional, highlighting the premium metallic textures and smooth leather ear pads. The aesthetic is ultra-modern and professional, aligning with a luxury electronics catalog. Soft shadows ground the product in a bright, airy environment."
-                                  src={product?.image}
+                                  // src={resolveImage(product?.images[0], '/placeholder-image.jpg')}
+                                  src={product.image}
                                 />
                               </div>
                               <div>
-                                <Link to={`/products/product/${product.id}`}>
+                                <Link
+                                  to={`/products/${product.category}/${product.subCategory}/${product.slug}`}
+                                >
                                   <h3 className="font-semibold text-lg  text-slate-900 mb-1">
-                                    {product.title}
+                                    {product.name}
                                   </h3>
-                                  <p className="text-slate-500 text-label-md mb-2">
-                                    {product.category}
+                                  <p className="text-slate-500 capitalize text-label-md mb-2">
+                                    {product.category} / {product.subCategory}  
                                   </p>
                                 </Link>
                                 <button
                                   className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
                                   onClick={() =>
                                     dispatch(
-                                      removeCart({ id: String(product.id) }),
+                                      removeCart({
+                                        slug: product.slug,
+                                      }),
                                     )
                                   }
                                 >
@@ -139,7 +158,7 @@ const Cart = () => {
                                   className="px-3 py-1 hover:bg-slate-50 text-slate-400"
                                   onClick={() =>
                                     decrementProductQuantity(
-                                      String(product.id),
+                                      product.slug,
                                       product?.quantity,
                                     )
                                   }
@@ -152,7 +171,7 @@ const Cart = () => {
                                 <button
                                   className="px-3 py-1 hover:bg-slate-50 text-slate-400"
                                   onClick={() =>
-                                    incrementProductQuantity(String(product.id))
+                                    incrementProductQuantity(product.slug)
                                   }
                                 >
                                   +
@@ -183,9 +202,11 @@ const Cart = () => {
                             />
                           </div>
                           <div className="flex-grow flex flex-col gap-2">
-                            <Link to={`/products/product/${product?.id}`}>
+                            <Link
+                              to={`/products/${product.category}/${product.subCategory}/${product?.slug}`}
+                            >
                               <h3 className="font-medium text-slate-900">
-                                {product.title}
+                                {product.name}
                               </h3>
                               <p className="text-slate-500 text-sm">
                                 {product.category}
@@ -196,7 +217,7 @@ const Cart = () => {
                                 ₦{product.price.toLocaleString()}
                               </p>
                               <span className=" font-semibold text-blue-900 flex flex-col items-center">
-                                {/* <span>{product.quantity}</span> */}
+                                <span>{product.quantity}</span>
                                 <span>
                                   <MdArrowRightAlt />
                                 </span>
@@ -216,7 +237,7 @@ const Cart = () => {
                               className="px-3 py-1 hover:bg-slate-50 text-slate-400"
                               onClick={() =>
                                 decrementProductQuantity(
-                                  String(product.id),
+                                  product.slug,
                                   product.quantity,
                                 )
                               }
@@ -229,7 +250,7 @@ const Cart = () => {
                             <button
                               className="px-3 py-1 hover:bg-slate-50 text-slate-400"
                               onClick={() =>
-                                incrementProductQuantity(String(product.id))
+                                incrementProductQuantity(product.slug)
                               }
                             >
                               +
@@ -238,7 +259,7 @@ const Cart = () => {
                           <button
                             className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
                             onClick={() =>
-                              dispatch(removeCart({ id: String(product.id) }))
+                              dispatch(removeCart({ slug: product.slug }))
                             }
                           >
                             <span className="text-red-500 hover:text-red-600 flex items-center gap-2">
@@ -270,7 +291,7 @@ const Cart = () => {
 
               <aside className="w-full xl:w-100 shrink-0 ">
                 <div className="bg-white rounded-xl border border-slate-200 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-7  max-md:p-6   md:sticky md:top-32 ">
-                {/* <div className="bg-white rounded-xl md:border md:border-slate-200 md:shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-4   md:sticky md:top-32 fixed bottom-0 left-0 right-0 z-10 border-t-1 h-[250px] overflow-y-auto"> */}
+                  {/* <div className="bg-white rounded-xl md:border md:border-slate-200 md:shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-4   md:sticky md:top-32 fixed bottom-0 left-0 right-0 z-10 border-t-1 h-[250px] overflow-y-auto"> */}
                   <h2 className="font-semibold text-2xl text-slate-900 mb-8">
                     Order Summary
                   </h2>
@@ -363,7 +384,9 @@ const Cart = () => {
         <NoCartItem />
       )}
 
-      <SearchNav/>
+      <SearchNav />
+
+      {/* <MultiCarouselExample/> */}
     </div>
   );
 };

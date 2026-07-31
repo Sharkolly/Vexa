@@ -1,13 +1,25 @@
 import { Link } from "react-router-dom";
 import { useQueryProduct } from "../../lib/useQuery";
-import type { ProductType } from "../../types/product.types";
+import type { AllProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
 import Loader from "../Loader";
 
 const FeaturedProduct = () => {
   const { data, isLoading } = useQueryProduct("/products/min");
 
-  const productItem: ProductType[] = data?.data || [];
+  const productItem: AllProductType[] = data?.data || [];
+
+  const resolveImage = (
+    img: string | File | null | undefined,
+    fallback: string,
+  ) =>
+    typeof img === "string"
+      ? img
+      : img instanceof File
+        ? URL.createObjectURL(img)
+        : fallback;
+
+  console.log(productItem);
 
   return (
     <>
@@ -41,12 +53,12 @@ const FeaturedProduct = () => {
                 className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition"
               >
                 <Link
-                  to={`/products/product/${product?._id}`}
+                  to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
                   className="relative overflow-hidden"
                 >
                   <img
-                    src={product.image}
-                    alt={product.title}
+                    src={resolveImage(product?.images[0], "")}
+                    alt={product.name}
                     className="w-full h-72 object-cover hover:scale-105 transition duration-300"
                   />
 
@@ -56,10 +68,12 @@ const FeaturedProduct = () => {
                 </Link>
 
                 <div className="p-5">
-                  <Link to={`/products/product/${product?._id}`}>
-                    <p className="text-sm text-gray-500">{product?.category}</p>
+                   <Link to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}>
+                    <p className="text-sm text-gray-500 capitalize">
+                       {product?.subCategory}
+                    </p>
                     <h3 className="font-medium h-14  text-lg mt-1 line-clamp-3">
-                      {product.title}
+                      {product.name}
                     </h3>
                     <div className="flex items-center gap-2 mt-2 text-yellow-500 text-sm hidden">
                       ⭐⭐⭐⭐⭐
@@ -88,8 +102,9 @@ const FeaturedProduct = () => {
                       id={product?._id}
                       category={product?.category}
                       price={product?.price}
-                      image={product?.image}
-                      title={product?.title}
+                      image={resolveImage(product?.images[0], "")}
+                      name={product?.name}
+                      slug={product?.slug}
                     />
 
                     {/* <button className="border px-4 rounded-xl">❤️</button> */}

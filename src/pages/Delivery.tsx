@@ -5,6 +5,7 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
 import { useAuthContextStore } from "../../store/useAuthContext";
 import SearchNav from "../../components/ui/SearchNav";
+// import { useState } from "react";
 
 type RootState = {
   product: {
@@ -23,16 +24,58 @@ const DeliveryPage = () => {
 
   const total = useSelector((state: RootState) => state.product.total);
 
-  const changeDeliveryDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeDeliveryDetails = (e: React.ChangeEvent<
+      HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
+    > )  => {
     const { name, value } = e.target;
     setDeliveryDetails((prev) => ({
       ...prev,
       [name]: value,
     }));
-
-    // console.log(deliveryDetails)
   };
 
+  const nigeriaStates = [
+  "Abia",
+  "Adamawa",
+  "Akwa Ibom",
+  "Anambra",
+  "Bauchi",
+  "Bayelsa",
+  "Benue",
+  "Borno",
+  "Cross River",
+  "Delta",
+  "Ebonyi",
+  "Edo",
+  "Ekiti",
+  "Enugu",
+  "Federal Capital Territory (FCT)",
+  "Gombe",
+  "Imo",
+  "Jigawa",
+  "Kaduna",
+  "Kano",
+  "Katsina",
+  "Kebbi",
+  "Kogi",
+  "Kwara",
+  "Lagos",
+  "Nasarawa",
+  "Niger",
+  "Ogun",
+  "Ondo",
+  "Osun",
+  "Oyo",
+  "Plateau",
+  "Rivers",
+  "Sokoto",
+  "Taraba",
+  "Yobe",
+  "Zamfara",
+];
+
+
+// const [state, setState] = useState('')
   return (
     <div className="pt-24 pb-24 max-w-[1440px] mx-auto w-full md:px-10 xl:px-16 max-md:pt-24 max-md:px-2.5">
       <div className="grid xl:grid-cols-3 gap-8">
@@ -48,7 +91,7 @@ const DeliveryPage = () => {
                 <input
                   type="email"
                   placeholder="Email Address"
-                  className="w-full outline-none border border-gray-500  rounded-lg p-3"
+                  className="w-full outline-none border border-gray-500  rounded-sm  p-3"
                   value={deliveryDetails.email || ""}
                   name="email"
                   onChange={changeDeliveryDetails}
@@ -61,7 +104,7 @@ const DeliveryPage = () => {
                 <input
                   type="text"
                   placeholder="Full Name"
-                  className="w-full outline-none border border-gray-500  rounded-lg p-3"
+                  className="w-full outline-none border border-gray-500  rounded-sm  p-3"
                   value={deliveryDetails.fullName || ""}
                   name="fullName"
                   onChange={changeDeliveryDetails}
@@ -73,7 +116,7 @@ const DeliveryPage = () => {
             <input
               type="tel"
               placeholder="Phone Number"
-              className="w-full outline-none border border-gray-500  rounded-lg p-3"
+              className="w-full outline-none border border-gray-500  rounded-sm  p-3"
               value={deliveryDetails.phone || ""}
               name="phone"
               onChange={changeDeliveryDetails}
@@ -85,7 +128,7 @@ const DeliveryPage = () => {
                 <input
                   type="text"
                   placeholder="Country"
-                  className="border border-gray-500  rounded-lg p-3"
+                  className="border border-gray-500  rounded-sm  p-3"
                   value={"Nigeria"}
                   disabled
                 />
@@ -93,14 +136,29 @@ const DeliveryPage = () => {
 
               <div className="flex flex-col gap-1.5 flex-1">
                 <label className="font-medium text-gray-500">State </label>
-                <input
+                {/* <input
                   type="text"
                   placeholder="State"
-                  className="border border-gray-500  rounded-lg p-3"
+                  className="border border-gray-500  rounded-sm  p-3"
                   value={deliveryDetails.state || ""}
                   name="state"
                   onChange={changeDeliveryDetails}
-                />
+                /> */}
+
+                <select
+  name="state"
+  value={deliveryDetails.state}
+  onChange={changeDeliveryDetails}
+  className="w-full rounded-sm  border p-2"
+>
+  <option value="">Select State</option>
+
+  {nigeriaStates.map((state) => (
+    <option key={state} value={state}>
+      {state}
+    </option>
+  ))}
+</select>
               </div>
 
               <div className="flex flex-col gap-1.5 flex-1">
@@ -108,7 +166,7 @@ const DeliveryPage = () => {
                 <input
                   type="text"
                   placeholder="City"
-                  className="border border-gray-500  rounded-lg p-3"
+                  className="border border-gray-500  rounded-sm  p-3"
                   value={deliveryDetails.city || ""}
                   name="city"
                   onChange={changeDeliveryDetails}
@@ -123,7 +181,7 @@ const DeliveryPage = () => {
               <input
                 type="text"
                 placeholder="Street Address"
-                className="w-full outline-none border border-gray-500  rounded-lg p-3"
+                className="w-full outline-none border border-gray-500  rounded-sm  p-3"
                 name="address"
                 onChange={changeDeliveryDetails}
               />
@@ -134,7 +192,7 @@ const DeliveryPage = () => {
               <input
                 type="text"
                 placeholder="Apartment, Landmark (Optional)"
-                className="w-full outline-none border border-gray-500  rounded-lg p-3"
+                className="w-full outline-none border border-gray-500  rounded-sm  p-3"
                 name="landmark"
                 onChange={changeDeliveryDetails}
               />
@@ -146,7 +204,7 @@ const DeliveryPage = () => {
               Delivery Method
             </h2>
 
-            <label className="flex items-center justify-between border p-4 rounded-lg cursor-pointer">
+            <label className="flex items-center justify-between border p-4 rounded-sm  cursor-pointer">
               <div>
                 <p className="font-medium">Standard Delivery</p>
                 <p className="text-sm text-gray-500">3-5 Business Days</p>
@@ -159,7 +217,7 @@ const DeliveryPage = () => {
               />
             </label>
 
-            <label className="flex items-center justify-between border p-4 rounded-lg cursor-pointer">
+            <label className="flex items-center justify-between border p-4 rounded-sm  cursor-pointer">
               <div>
                 <p className="font-medium">Express Delivery</p>
                 <p className="text-sm text-gray-500">1-2 Business Days</p>
@@ -177,30 +235,31 @@ const DeliveryPage = () => {
 
         <div className="bg-white p-6 rounded-xl shadow-lg max-md:shadow-xl max-md:border max-md:border-gray-200 h-fit sticky top-4  overflow-y-auto mb-10">
           {/* <div className="bg-white md:p-6 rounded-xl shadow-lg md:h-fit md:sticky md:top-4 p-3 py-5 max-md:border-t-1 max-md:shadow-none fixed bottom-0 left-0 z-10  right-0 h-[280px] overflow-y-auto"> */}
-          <h2 className="md:text-xl text-2xl  font-bold mb-4 text-nav-blue-active/80">
+          <h2 className="md:text-2xl text-3xl  font-bold mb-4 text-nav-blue-active/80">
             Order Summary
           </h2>
 
           <div className="space-y-5">
             <div className="flex justify-between">
-              <span>Subtotal</span>
+              <span className='text-lg '>Subtotal</span>
               <span>₦{total?.totalPrice?.toLocaleString() || 0}</span>
             </div>
 
             <div className="flex justify-between">
-              <span>Shipping</span>
+              <span className='text-lg '>Shipping</span>
               <span>₦{(total?.totalPrice * 0.03).toLocaleString() || 0}</span>
             </div>
 
             <hr />
 
-            <div className="flex justify-between text-lg font-bold">
-              <span className="text-nav-blue-active/80">Total</span>
+            <div className="flex justify-between font-bold">
+              <span className="text-nav-blue-active/80 text-lg ">Total</span>
               <span className="text-nav-blue-active/80">
                 ₦{(total?.totalPrice * 1.03).toLocaleString() || 0}
               </span>
             </div>
           </div>
+
 
           <Link to="/checkout">
             <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">

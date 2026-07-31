@@ -1,6 +1,9 @@
 import { useAuthContextStore } from "../../store/useAuthContext";
 import { useSelector } from "react-redux";
 import SearchNav from "../../components/ui/SearchNav";
+import { Link } from "react-router-dom";
+import { BiPurchaseTagAlt } from "react-icons/bi";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 type RootState = {
   product: {
@@ -15,7 +18,7 @@ type RootState = {
 };
 
 const CheckoutPage = () => {
-  const {  deliveryDetails } = useAuthContextStore();
+  const { deliveryDetails } = useAuthContextStore();
   const total = useSelector((state: RootState) => state.product.total);
 
   return (
@@ -27,81 +30,86 @@ const CheckoutPage = () => {
               Shipping Details
             </h2>
 
-            <form className="space-y-4 ">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="input"
-                  value={deliveryDetails.fullName || ""}
-                  disabled
-                />
+            <form className="space-y-10 ">
+              <div className="flex max-md:flex-col justify-be  gap-">
+                <div className="flex gap-2 items-center w-full ">
+                  <label htmlFor="">Name:</label>
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    className="input w-full text-gray-600 "
+                    value={deliveryDetails.fullName || ""}
+                    disabled
+                  />
+                </div>
+                <div className="flex gap-2 items-center w-full  ">
+                  <label htmlFor="">Email:</label>
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="input text-gray-600 w-full"
+                    value={deliveryDetails.email || ""}
+                    disabled
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="input"
-                  value={deliveryDetails.email || ""}
-                  disabled
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  className="input"
-                  value={deliveryDetails.phone || ""}
-                  disabled
-                />
+              <div className="flex max-md:flex-col justify-be  gap-">
+                <div className="flex gap-2 items-center w-full  ">
+                  <label htmlFor="">Phone Number:</label>
+                  <input
+                    type="tel"
+                    placeholder="Phone Number"
+                    className="input text-gray-600"
+                    value={deliveryDetails.phone || ""}
+                    disabled
+                  />
+                </div>
+                <div className="flex gap-2 items-center w-full  ">
+                  <label htmlFor="">Landmark:</label>
+                  <input
+                    type="tel"
+                    className="input text-gray-600 w-full"
+                    placeholder="Apartment, Suite, Landmark (optional)"
+                    value={deliveryDetails.landmark || ""}
+                    disabled
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Street Address"
-                  className="input"
-                  value={deliveryDetails.address || ""}
-                  disabled
-                />
-                <input
-                  type="text"
-                  placeholder="Apartment, Suite, Landmark (optional)"
-                  className="input"
-                  value={deliveryDetails.landmark || ""}
-                  disabled
-                />
+              <div className="flex max-md:flex-col justify-be  gap-">
+                <div className="flex gap-2 items-center w-full  ">
+                  <label htmlFor="">City:</label>
+                  <input
+                    type="text"
+                    disabled
+                    placeholder="City"
+                    className="input text-gray-600 w-full"
+                    value={deliveryDetails.city || ""}
+                  />
+                </div>
+                <div className="flex gap-2 items-center w-full  ">
+                  <label htmlFor="">State:</label>
+                  <input
+                    type="text"
+                    placeholder="State"
+                    className="input text-gray-600 w-full"
+                    value={deliveryDetails.state || ""}
+                    disabled
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input
-                  type="text"
-                  placeholder="City"
-                  className="input"
-                  value={deliveryDetails.city || ""}
-                  disabled
-                />
-                <input
-                  type="text"
-                  placeholder="State"
-                  className="input"
-                  value={deliveryDetails.state || ""}
-                  disabled
-                />
-                {/* <input
-            type="text"
-            placeholder="ZIP Code"
-            className="input"
-            disabled
-          /> */}
+              <div className="flex gap-2 items-center w-full  ">
+                <label htmlFor="">Country:</label>
+                <select className="input text-gray-600 w-full" disabled>
+                  <option>Nigeria</option>
+                  <option>Ghana</option>
+                  <option>Kenya</option>
+                  <option>South Africa</option>
+                  <option>United Kingdom</option>
+                </select>
               </div>
-
-              <select className="input" disabled>
-                <option>Nigeria</option>
-                <option>Ghana</option>
-                <option>Kenya</option>
-                <option>South Africa</option>
-                <option>United Kingdom</option>
-              </select>
 
               <label className="flex items-center gap-2 text-sm text-gray-600">
                 <input type="checkbox" />
@@ -118,34 +126,52 @@ const CheckoutPage = () => {
 
           <div className="space-y-5">
             <div className="flex justify-between">
-              <span>Subtotal</span>
+              <span className="text-lg">Subtotal</span>
               <span>₦{total?.totalPrice?.toLocaleString() || 0}</span>
             </div>
 
             <div className="flex justify-between">
-              <span>Shipping</span>
+              <span className="text-lg">Shipping</span>
               <span>₦{(total?.totalPrice * 0.03).toLocaleString() || 0}</span>
             </div>
 
-            <hr className='text-gray-300'/>
+            <hr className="text-gray-300" />
 
             <div className="flex justify-between text-lg font-bold">
-              <span className="text-nav-blue-active/80">Total</span>
-              <span className="text-nav-blue-active/80">₦{total?.totalPrice ? (total.totalPrice + (total.totalPrice * 0.03)).toLocaleString() : 0}</span>
+              <span className="text-nav-blue-active/80 text-lg">Total</span>
+              <span className="text-nav-blue-active/80">
+                ₦
+                {total?.totalPrice
+                  ? (
+                      total.totalPrice +
+                      total.totalPrice * 0.03
+                    ).toLocaleString()
+                  : 0}
+              </span>
             </div>
           </div>
 
-       
-          <button className="w-full mt-6 bg-green-800/90  text-white py-3 rounded-xl hover:opacity-90 transition">
-            Place Order
+          <button className="w-full mt-6 bg-green-700/90 text-white py-3 rounded-xl hover:opacity-90 transition flex items-center gap-2 justify-center">
+            <span>
+              <BiPurchaseTagAlt className="w-4 h-4 " />
+            </span>
+            <span>Place Order</span>
           </button>
+          <Link to="/delivery">
+            <button className="w-full mt-4  bg-red-700/90  text-white py-3 rounded-xl hover:opacity-90 transition flex items-center gap-2 justify-center">
+              <span>
+                <IoIosArrowRoundBack className="w-6 h-6 " />
+              </span>
+              <span>Go Back</span>
+            </button>
+          </Link>
 
           <p className="text-xs text-gray-500 text-center mt-6">
             Secure checkout • Encrypted payment
           </p>
         </div>
       </div>
-      <SearchNav/>
+      <SearchNav />
     </div>
   );
 };

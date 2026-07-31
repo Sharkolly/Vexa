@@ -12,7 +12,7 @@ import {
   Apple,
 } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
-import type { ProductType } from "../../types/product.types";
+import type { AllProductType, ProductType } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
@@ -29,9 +29,19 @@ const categories = [
   { name: "Baby Products", icon: <Baby size={18} /> },
 ];
 
+   const resolveImage = (
+    img: string | File | null | undefined,
+    fallback: string,
+  ) =>
+    typeof img === "string"
+      ? img
+      : img instanceof File
+        ? URL.createObjectURL(img)
+        : fallback;
+
 type PRODUCT_CATEGORY_TYPE = {
   category: string;
-  products: ProductType[];
+  products: AllProductType[];
 };
 
 export default function Random() {
@@ -160,9 +170,9 @@ export default function Random() {
                     </p>
 
                     {/* CTA & Trust Elements Row */}
-                    <div className="flex items-center  sm:flex-row items-star sm:items-center gap-4 sm:gap-6 mt-2">
+                    <div className="flex items-center max-md:flex-col max-md:items-start   md:flex-row items-star sm:items-center gap-4 sm:gap-6 mt-2">
                       {/* Main Shop Button */}
-                      <button className="group flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-bold text-sm sm:text-base py-3 px-6 rounded-2xl shadow-lg shadow-orange-600/20 transition-all duration-200">
+                      <button className="group flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-bold text-sm sm:text-base py-3 px-6 rounded-2xl shadow-lg shadow-orange-600/20 transition-all duration-200 max-md:w-full">
                         Shop Now
                         <svg
                           className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
@@ -180,6 +190,7 @@ export default function Random() {
                         </svg>
                       </button>
 
+                      <div className="flex justify-center">
                       <div className="flex items-center gap-2  text-white/90 text-xs sm:text-sm font-semibold tracking-wide">
                         <svg
                           className="w-4 h-4 text-orange-400 shrink-0"
@@ -190,6 +201,7 @@ export default function Random() {
                           <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
                         </svg>
                         Secure shopping experience
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -325,7 +337,7 @@ export default function Random() {
                       <div className="bg-red-500 p-1 rounded hidden">
                         <Search size={20} className="text-white" />
                       </div>
-                      <h2 className="text-lg lg:text-xl font-bold">
+                      <h2 className="text-lg lg:text-xl capitalize   font-bold">
                         {product.category}
                       </h2>
                     </div>
@@ -337,37 +349,37 @@ export default function Random() {
                     </Link>
                   </div>
 
-                  <div className="p-4 overflow-x-auto max-md:px-0">
+                  <div className="px-4 py-6 overflow-x-auto max-md:px-0">
                     {/* <div className="flex gap-4 min-w-max lg:grid lg:grid-cols-6 lg:min-w-0"> */}
                     <div className="flex gap-4 min-w-max items-center">
                       {product.products.map((product) => (
                         <div
                           key={product.id}
-                          className="basis-65  lg:basis-70 flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
+                          className="basis-65 lg:basis-80  flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
                         >
                           <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-1.5 py-0.5 rounded z-10">
                             {product.discount || Math.ceil(Math.random() * 60)}%
                           </div>
-                          <Link to={`/products/product/${product._id}`}>
+                          <Link to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}>
                             <img
-                              src={product.image}
-                              alt={product.title}
-                              className="w-full md:h-60 h-55 object-cover rounded mb-2 mix-blend-multiply"
+                              src={resolveImage(product?.images[0], '')}
+                              alt={product.name}
+                              className="w-full md:h-80  h-55 object-cover rounded mb-2 mix-blend-multiply"
                             />
                           </Link>
                           <div className="px-3 py-1 pb-3 ">
-                            <Link to={`/products/product/${product._id}`}>
-                              <h3 className="text-sm text-gray-600 line-clamp-2 font-semibold ">
-                                {product.category}
+                        <Link to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}>
+                              <h3 className="text-sm text-gray-600 capitalize line-clamp-2 font-medium ">
+                               {product.subCategory}
                               </h3>
                               <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-13  mt-1">
-                                {product.title}
+                                {product.name}
                               </h3>
                               <div className="font-bold text-base">
                                 ₦{product.price?.toLocaleString()}
                               </div>
                               <div className="text-xs text-gray-500 line-through">
-                                ₦{(product.price * 1.12).toLocaleString()}
+                                ₦{(product.price * 1.03 ).toLocaleString()}
                               </div>
                             </Link>
                             <AddToCart
@@ -376,9 +388,11 @@ export default function Random() {
                               quantity={product?.quantity}
                               id={product?._id}
                               category={product?.category}
+                              subCategory={product?.subCategory}
                               price={product?.price}
-                              image={product?.image}
-                              title={product?.title}
+                              image={resolveImage(product?.images[0], '')}
+                              name={product?.name}
+                              slug={product?.slug}
                             />
                           </div>
                         </div>
