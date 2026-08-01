@@ -60,7 +60,7 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
             {carouselNumber === mediaLength - 1 ? (
             //   <div className="w-full h-full rounded-xl overflow-hidden shadow-sm">
                 <video
-                  className="w-full h-160  object-cover"
+                  className="w-full h-160 max-md:h-105 object-cover"
                   controls
                 //   style={{ marginTop: "10px" }}
                 >
@@ -69,7 +69,7 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
             //   </div>
             ) : (
               <img
-                className="w-full h-160 max-md:h-90 object-center  object-cover"
+                className="w-full h-160 max-md:h-105 object-center  object-cover"
                 data-alt={product?.description}
                 src={resolveImage(
                 //   product?.images?.[carouselNumber] ?? undefined,
