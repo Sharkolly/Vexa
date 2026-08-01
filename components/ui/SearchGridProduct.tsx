@@ -43,7 +43,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
                           <img
                             src={resolveImage(item?.images[0], '')}
                             alt="product"
-                            className="w-full h-72  object-cover rounded-md"
+                            className="w-full h-74 max-md:h-82 object-cover rounded-md"
                           />
 
                           <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
