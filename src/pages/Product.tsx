@@ -7,7 +7,7 @@ import type { AllProductType, ProductType } from "../../types/product.types";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/index";
 import { MdFormatLineSpacing } from "react-icons/md";
-import Carousel from '../../components/ui/Carousel';
+import Carousel from "../../components/ui/Carousel";
 
 import {
   addToCart,
@@ -23,6 +23,17 @@ type RootState = {
   product: {
     addToCart: ProductType[];
   };
+};
+
+const getColorClassName = (color?: string) => {
+  switch (color?.toLowerCase()) {
+    case "black":
+      return "bg-black";
+    case "white":
+      return "bg-white";
+    default:
+      return `bg-${color}-700`;
+  }
 };
 
 const Product = () => {
@@ -105,13 +116,6 @@ const Product = () => {
         ? URL.createObjectURL(img)
         : fallback;
 
-  const resolveVideo = (video: string | File | null | undefined) =>
-    typeof video === "string"
-      ? video
-      : video instanceof File
-        ? URL.createObjectURL(video)
-        : undefined;
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center w-full h-[80vh] ">
@@ -121,7 +125,7 @@ const Product = () => {
   }
   return (
     <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
-      <main className="pt-32 pb-24 max-w-360 mx-auto px-12 max-md:px-5 max-xl:pt-28 max-md:pt-24">
+      <main className="pt-32 pb-24 max-w-360 mx-auto px-20 max-md:px-5 max-xl:pt-28 max-md:pt-24">
         <nav className="flex items-center gap-2 mb-6 max-md:gap-1.5   max-md:text-[13px]   text-outline">
           <Link
             className="hover:text-nav-blue-active font-medium flex  items-center gap-1 transition-colors"
@@ -143,61 +147,26 @@ const Product = () => {
           <span className="font-medium  truncate">{product?.name}</span>
         </nav>
         <div className="flex  max-lg:flex-col gap-10 max-md:gap-3">
-          {/* <div className="flex-1 "> 
-            <div className="w-full h-fit ">
-              <div className="aspect-square rounded-lg overflow-hidden border border-outline-variant cursor-pointer hover:border-primary  transition-all">
-                <img
-                  className="w-full h-full object-cover"
-                  data-alt={product?.description}
-                  src={resolveImage(
-                    product?.images?.[0] ?? undefined,
-                    "https://lh3.googleusercontent.com/aida-public/AB6AXuADpcuApAMNwgTNOJuk0lE8Missb02pVKQbFi3oA_cyXAssxt5GcreNbWEFuDdo4ZVW3LaDWWC7jxoT60kK6VSslKL8LcCDS7YHvcqfjYwISqnsTqT18kOpV-eGpJUAh3E_dpheOaKTQ9pFzN_beS7ZboTw9R6UnBBACBqu5Fdhs6dfAm5WVDV5yVjCh_6J6k5_7MlSNhMR2J9mqHBdTQ9DkQQ8E7sDsyt9yKEydvb0tcllN8Z9V7Cv7FkEhYz16yRcbeyPENlTjjY",
-                  )}
-                />
-              </div>
-            </div>
-          </div> */}
-
           <Carousel product={product} />
 
           <div className="col-span-5 flex flex-col mt-0 flex-1 ">
             <div className="mb-4">
-              <span className="inline-block bg-nav-blue-active text-white px-3 py-1 rounded-full text-sm uppercase tracking-widest font-bold">
-                New Release
+              <span className="inline-block bg-green-700 text-white px-3 py-1 rounded-full font-semibold uppercase tracking-widest font-bol">
+                {product?.condition}
               </span>
             </div>
-            <h1 className="font-semibold  leading-10 text-3xl text-on-surface mb-2 uppercase">
+            <h1 className="font-bold  leading-10 text-4xl max-md:text-3xl text-on-surface mb-2 uppercase">
               {product?.name}
             </h1>
-            <div className="flex items-center gap-4 mb-8">
-              <div className="flex text-primary hidden">
-                <span className="material-symbols-outlined fill text-[18px]">
-                  star
-                </span>
-                <span className="material-symbols-outlined fill text-[18px]">
-                  star
-                </span>
-                <span className="material-symbols-outlined fill text-[18px]">
-                  star
-                </span>
-                <span className="material-symbols-outlined fill text-[18px]">
-                  star
-                </span>
-                <span className="material-symbols-outlined text-[18px]">
-                  star_half
-                </span>
-              </div>
-              <span className="text-body-md text-outline">(128 Reviews)</span>
-            </div>
-            <div className="mb-10 hidden">
-              <span className="font-bold  text-4xl text-on-surface">
-                {/* ₦{product?.price.toLocaleString() || 0} */}
-              </span>
-              <p className="text-slate-600 text-outline mt-2">
-                {/* Or ₦{Math.ceil(49.91 * 1390).toLocaleString()}/mo for 12 months
-                with 0% interest */}
+
+            <div>
+              <p className="text-3xl max-md:text-2xl text-yellow-500 font-semibold  mt-4 mb-8 ">
+                ₦{product?.price.toLocaleString()}
               </p>
             </div>
+
+            
+    
             <div className="space-y-10  mb-">
               <div>
                 <div className="flex items-center justify-between font-semibold text-xl text-slate-800 underline  uppercase text-outline mb-4">
@@ -207,58 +176,39 @@ const Product = () => {
                   </span>
                 </div>
                 <p
-                  className={`${toggleFormat ? "whitespace-pre-line" : "whitespace-normal"} text-slate-900  max-h-60  overflow-y-auto text-on-surface-variant leading-relaxed`}
+                  className={`${toggleFormat ? "whitespace-pre-line" : "whitespace-normal"} text-slate-900  max-h-45   overflow-y-auto text-on-surface-variant leading-relaxed`}
                 >
                   {product?.description}
                 </p>
               </div>
-              <div className="hidden">
-                <h3 className="font-medium text-slate-600  uppercase text-outline mb-4">
-                  Select Finish
-                </h3>
-                <div className="flex gap-4">
-                  <button className="w-12 h-12 rounded-full bg-[#E5E7EB] border-2 border-primary ring-2 ring-white ring-offset-0"></button>
-                  <button className="w-12 h-12 rounded-full bg-[#1F2937] border-2 border-transparent hover:border-outline-variant"></button>
-                  <button className="w-12 h-12 rounded-full bg-[#D1D5DB] border-2 border-transparent hover:border-outline-variant"></button>
-                </div>
-              </div>
-              <div className="hidden">
-                <h3 className="font-medium text-slate-600 uppercase text-outline mb-4">
-                  Specifications
-                </h3>
-                <ul className="space-y-4 ">
-                  <li className="flex justify-between border-b border-slate-300 pb-3">
-                    <span className="text-slate-800">Case Material</span>
-                    <span className="font-semibold">Titanium Grade 5</span>
-                  </li>
-                  <li className="flex justify-between border-b border-slate-300 pb-3">
-                    <span className="text-slate-800">Water Resistance</span>
-                    <span className="font-semibold">100m (ISO 22810)</span>
-                  </li>
-                  <li className="flex justify-between border-b border-slate-300 pb-3">
-                    <span className="text-slate-800">Battery Life</span>
-                    <span className="font-semibold">72 Hours (Normal)</span>
-                  </li>
-                </ul>
-              </div>
             </div>
-            <div className="flex items-center mb-5  gap-5  ">
+              <div className='flex  items-center   justify-between gap-3 mt-4 '>
+              <p className='text-lg font-semibold  '>Color:</p>
+
+              <div className="flex items-center gap-2">
+                <span
+                  className={`inline-block h-5 w-5 rounded-full border border-slate-300 ${getColorClassName(product?.color)}`}
+                />
+                <span className="capitalize">{product?.color}</span>
+              </div>
+            </div> 
+            <div className="flex items-center mb-5 mt-7 gap-5  justify-between ">
               {toggleAddToCart || single_product ? (
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-xl font-medium">Order: </span>
-                  <div className="flex items-center justify-center gap-7">
+                <div className="flex items-center gap-5  text-sm">
+                  <span className="text-2xl font-medium hidden">Order: </span>
+                  <div className="flex items-center justify-center gap-13">
                     <button
                       onClick={() => decrementProductQuantity(product?.slug)}
-                      className="bg-nav-blue-active text-white text-center flex items-center justify-center rounded w-7 h-7 cursor-pointer"
+                      className="bg-red-600 text-white text-center flex items-center justify-center rounded w-7 h-7 cursor-pointer"
                     >
                       -
                     </button>
-                    <span className="text-lg font-medium">
+                    <span className="text-xl font-medium">
                       {single_product?.quantity}
                     </span>
                     <button
                       onClick={() => incrementProductQuantity(product?.slug)}
-                      className="bg-nav-blue-active text-white  text-center flex items-center justify-center rounded w-7 h-7 cursor-pointer"
+                      className="bg-green-600 text-white  text-center flex items-center justify-center rounded w-7 h-7 cursor-pointer"
                     >
                       +
                     </button>
@@ -266,7 +216,7 @@ const Product = () => {
                 </div>
               ) : (
                 <button
-                  className="hidd w-full text-lg bg-nav-blue-active text-white font-medium py-3 rounded-xl hover:opacity-90 transition-all active:scale-[0.98] shadow-sm  shadow-primary/20"
+                  className="hidd w-5/12 text-lg bg-yellow-600 text-white font-medium py-3 rounded-xl hover:opacity-90 transition-all active:scale-[0.98] shadow-sm  shadow-primary/20"
                   onClick={() =>
                     addToCartBtn(
                       product?.name,
@@ -282,16 +232,14 @@ const Product = () => {
                   Add to Cart
                 </button>
               )}
-
-              <button className="w-full bg-black/10  border border-outline-variant text-on-surface font-medium py-3 rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]">
-                Buy Now
-              </button>
+              <Link to="/cart" className='w-5/12 '>
+                <button className="w-full bg-green-700 text-white cursor-pointer font-medium py-3 text-lg rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]">
+                  Buy Now
+                </button>
+              </Link>
             </div>
             <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant">
-              <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-primary">
-                  {/* verified_user */}
-                </span>
+              <div className="flex items-center">
                 <div>
                   <p className="font-semibold">14 days Fexa Warranty</p>
                   <p className="text-sm text-outline">

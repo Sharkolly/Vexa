@@ -1,6 +1,6 @@
 import { Search as SearchIcon, Grid3X3, List as ListIcon } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
-import type { AllProductType, ProductType } from "../../types/product.types";
+import type { AllProductType } from "../../types/product.types";
 import Loader from "../../components/Loader";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";

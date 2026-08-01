@@ -46,15 +46,15 @@ const Cart = () => {
   };
 
   console.log(CartedProduct);
-  const resolveImage = (
-    img: string | File | null | undefined,
-    fallback: string,
-  ) =>
-    typeof img === "string"
-      ? img
-      : img instanceof File
-        ? URL.createObjectURL(img)
-        : fallback;
+  // const resolveImage = (
+  //   img: string | File | null | undefined,
+  //   fallback: string,
+  // ) =>
+  //   typeof img === "string"
+  //     ? img
+  //     : img instanceof File
+  //       ? URL.createObjectURL(img)
+  //       : fallback;
 
         
   return (

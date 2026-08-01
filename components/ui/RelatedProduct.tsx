@@ -66,7 +66,7 @@ const RelatedProduct = ({
                     to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
                   >
                     <p className="text-xs text-gray-500 mb-1 capitalize">
-                      {product.category}
+                      {product.subCategory}
                     </p>
 
                     <h3 className="font-medium text-sm line-clamp-2 h-10">

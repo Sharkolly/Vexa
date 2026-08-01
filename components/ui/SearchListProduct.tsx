@@ -1,4 +1,4 @@
-import type { AllProductType, ProductType } from "../../types/product.types";
+import type { AllProductType} from "../../types/product.types";
 import NoProduct from "./NoProduct";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";

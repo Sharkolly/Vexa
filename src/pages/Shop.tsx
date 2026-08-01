@@ -12,7 +12,7 @@ import {
   Apple,
 } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
-import type { AllProductType, ProductType } from "../../types/product.types";
+import type { AllProductType,} from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";

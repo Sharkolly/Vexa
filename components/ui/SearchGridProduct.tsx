@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Loader from "../Loader";
 
 import NoProduct from "./NoProduct";
-import type { AllProductType, ProductType } from "../../types/product.types";
+import type { AllProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
 
 type SearchProductsType = {
