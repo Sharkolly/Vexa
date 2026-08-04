@@ -26,7 +26,6 @@ type RootState = {
 };
 
 const getColorClassName = (color?: string) => {
-  console.log(color); 
   switch (color?.toLowerCase()) {
     case "black":
       return "bg-black";
@@ -124,8 +123,6 @@ const Product = () => {
       </div>
     );
   }
-
-  console.log(product);
   return (
     <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
       <main className="pt-32 pb-24 max-w-360 mx-auto px-20 max-md:px-5 max-xl:pt-28 max-md:pt-24">
