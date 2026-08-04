@@ -59,7 +59,7 @@ const FeaturedProduct = () => {
                   <img
                     src={resolveImage(product?.images[0], "")}
                     alt={product.name}
-                    className="w-full h-74 max-md:h-85 object-cover hover:scale-105 transition duration-300"
+                    className="w-full h-80 max-md:h-110 object-cover hover:scale-105 transition duration-300"
                   />
 
                   <span className="absolute top-4 left-4 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-bold">
