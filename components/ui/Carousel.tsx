@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { AllProductType } from "../../types/product.types";
 
 const Carousel = ({ product }: { product: AllProductType | null }) => {
- const fallback = product?.images[0] || undefined
+ const fallback = URL.createObjectURL(product?.images[0]) || undefined
   const resolveImage = (
     img: string | File | null | undefined,
     //fallback: string | undefined
