@@ -13,8 +13,7 @@ type SearchProductsType = {
 };
 
 const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
-
-    const resolveImage = (
+  const resolveImage = (
     img: string | File | null | undefined,
     fallback: string,
   ) =>
@@ -34,16 +33,19 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4 ">
                 {searchData.map((item: AllProductType) => (
                   <>
-                    <div key={item?._id} className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md">
+                    <div
+                      key={item?._id}
+                      className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md"
+                    >
                       <div className="bg-white p-4 rounded-md hover:shadow-lg transition">
                         <Link
-                          to={`/product/${item.slug}`}
+                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
                           className="relative"
                         >
                           <img
-                            src={resolveImage(item?.images[0], '')}
+                            src={resolveImage(item?.images[0], "")}
                             alt="product"
-                            className="w-full h-72  object-cover rounded-md"
+                            className="w-full h-74 max-md:h-85  object-cover rounded-md"
                           />
 
                           <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
@@ -53,20 +55,20 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
 
                         <div className="mt-4">
                           <div className="space-y-1">
-                              <Link
-                                to={`/products/${item.category}/${item.subCategory}/${item._id}`}
+                            <Link
+                              to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
                               className="text-sm text-gray-500 font-medium mb-2 line-clamp-2 capitalize"
                             >
                               {item?.subCategory}
                             </Link>
                             <Link
-                              to={`/products/${item.category}/${item.subCategory}/${item._id}`}
+                              to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
                               className="font-medium line-clamp-2 max-lg:text-lg mb-10 "
                             >
                               {item?.name}
                             </Link>
                             <Link
-                              to={`/products/${item.category}/${item.subCategory}/${item._id}`}
+                              to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
                               className="text-sm text-gray-500 mb-4 line-clamp-2 wrap-break-word hidden"
                             >
                               {item?.description}
@@ -90,20 +92,18 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
                                 ₦{(item?.price * 1.12).toLocaleString()}
                               </p>
                             </div>
- 
+
                             <AddToCart
                               quantity={item?.quantity}
                               id={item?._id}
                               category={item?.category}
                               price={item?.price}
-                              image={resolveImage(item?.images[0], '')}
+                              image={resolveImage(item?.images[0], "")}
                               name={item?.name}
                               slug={item?.slug}
                               subCategory={item?.subCategory}
                             />
                           </div>
-
-                          {/* BUTTON */}
                         </div>
                       </div>
                     </div>
@@ -145,7 +145,6 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
           ) : (
             <NoProduct category={category} />
           )}
-          
         </>
       )}
     </>

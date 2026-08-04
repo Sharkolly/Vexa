@@ -1,4 +1,4 @@
-import type { AllProductType} from "../../types/product.types";
+import type { AllProductType } from "../../types/product.types";
 import NoProduct from "./NoProduct";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ type SearchProductsType = {
 };
 
 const List = ({ isLoading, searchData, category }: SearchProductsType) => {
-     const resolveImage = (
+  const resolveImage = (
     img: string | File | null | undefined,
     fallback: string,
   ) =>
@@ -20,6 +20,8 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
       : img instanceof File
         ? URL.createObjectURL(img)
         : fallback;
+
+  console.log(searchData);
   return (
     <>
       {isLoading && !searchData ? (
@@ -30,17 +32,17 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
             <>
               <div className="flex flex-col gap-5">
                 {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
-                {searchData.map((item: AllProductType) => (                  
+                {searchData.map((item: AllProductType) => (
                   <div
                     className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md md:p-5 p-2 py-4"
                     key={item._id}
                   >
                     <Link
-                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}    
+                      to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
                       className="relative"
                     >
                       <img
-                        src={resolveImage(item?.images[0], '')}
+                        src={resolveImage(item?.images[0], "")}
                         alt="product"
                         className="h-64 md:w-64 max-md:w-52 object-cover rounded-md"
                       />
@@ -49,14 +51,14 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                         -25%
                       </span>
                     </Link>
- 
+
                     <div className="flex-1 flex flex-col justify-between">
                       <div className="space-y-1 mt-4 max-md:mt-0">
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
                           className="text-sm text-gray-500 font-medium capitalize line-clamp-2 capitalize"
                         >
-                           {item?.subCategory}
+                          {item?.subCategory}
                         </Link>
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
@@ -85,12 +87,12 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
 
                       <div className="flex items-center gap-3 max-md:mt-2">
                         <AddToCart
-                        quantity={item?.quantity}
+                          quantity={item?.quantity}
                           id={item?._id}
                           category={item?.category}
                           subCategory={item?.subCategory}
                           price={item?.price}
-                          image={resolveImage(item?.images[0], '')}
+                          image={resolveImage(item?.images[0], "")}
                           name={item?.name}
                           slug={item?.slug}
                         />

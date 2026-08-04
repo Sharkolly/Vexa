@@ -26,13 +26,14 @@ type RootState = {
 };
 
 const getColorClassName = (color?: string) => {
+  console.log(color); 
   switch (color?.toLowerCase()) {
     case "black":
       return "bg-black";
     case "white":
       return "bg-white";
     default:
-      return `bg-${color}-700`;
+      return `bg-${color?.toLowerCase()}-700`;
   }
 };
 
@@ -123,6 +124,8 @@ const Product = () => {
       </div>
     );
   }
+
+  console.log(product);
   return (
     <div className="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
       <main className="pt-32 pb-24 max-w-360 mx-auto px-20 max-md:px-5 max-xl:pt-28 max-md:pt-24">
@@ -176,7 +179,7 @@ const Product = () => {
                   </span>
                 </div>
                 <p
-                  className={`${toggleFormat ? "whitespace-pre-line" : "whitespace-normal"} text-slate-900  max-h-45   overflow-y-auto text-on-surface-variant leading-relaxed`}
+                  className={`${toggleFormat ? "whitespace-pre-line" : "whitespace-normal"} text-slate-900  max-h-45  max-md:max-h-65  overflow-y-auto text-on-surface-variant leading-relaxed`}
                 >
                   {product?.description}
                 </p>
@@ -187,7 +190,7 @@ const Product = () => {
 
               <div className="flex items-center gap-2">
                 <span
-                  className={`inline-block h-5 w-5 rounded-full border border-slate-300 ${getColorClassName(product?.color)}`}
+                  className={`inline-block h-5 w-5 rounded-full border border-slate-300 ${getColorClassName(product?.color?.toLocaleLowerCase())}`}
                 />
                 <span className="capitalize">{product?.color}</span>
               </div>
