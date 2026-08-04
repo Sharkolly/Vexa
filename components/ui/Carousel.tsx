@@ -68,7 +68,7 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
             {carouselNumber === mediaLength - 1 && media[carouselNumber] ? (
               //   <div className="w-full h-full rounded-xl overflow-hidden shadow-sm">
               <video
-                className="w-full h-160 max-md:h-105 object-cover"
+                className="w-full h-160 max-md:h-105max-md:h-105 object-cover"
                 controls
                 //   style={{ marginTop: "10px" }}
               >
