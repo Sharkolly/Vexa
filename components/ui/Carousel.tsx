@@ -14,13 +14,6 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
        : fallback;
     : undefined;
 
-  // typeof img === "string"
-    //  && img
-  //    && img instanceof File
-   //     && URL.createObjectURL(img)
-      //  : fallback;
-  //  : undefined;
-
   const resolveVideo = (video: string | File | null | undefined) =>
     typeof video === "string"
       ? video
@@ -90,7 +83,8 @@ const media = [...(product?.images ?? []), product?.video ?? null]
                 data-alt={product?.description}
                 src={resolveImage(
                   //   product?.images?.[carouselNumber] ?? undefined,
-                  media[carouselNumber], media[0]
+                  media[carouselNumber] ?? undefined, media[0]
+                  
                   // updatedMedia[carouselNumber] ?? undefined,
                    )}
               />
