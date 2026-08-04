@@ -66,12 +66,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                         >
                           {item?.name}
                         </Link>
-                        <Link
-                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                          className="text-sm hidden text-gray-500 mb-2 md:mb-4 w-8/12 max-md:w-full line-clamp-2 max-md:line-clamp-3 hidden"
-                        >
-                          {item?.description}
-                        </Link>
+                       
 
                         <p className="text-sm text-yellow-500 mt-1 hidden">
                           ⭐⭐⭐⭐☆ (4.5)
