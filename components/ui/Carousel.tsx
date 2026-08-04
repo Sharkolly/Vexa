@@ -5,7 +5,7 @@ import type { AllProductType } from "../../types/product.types";
 const Carousel = ({ product }: { product: AllProductType | null }) => {
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string |  undefined,
+    fallback: string | File | null |  undefined,
   ) =>
      typeof img === "string"
     ? img
@@ -83,7 +83,7 @@ const media = [...(product?.images ?? []), product?.video ?? null]
                 data-alt={product?.description}
                 src={resolveImage(
                   //   product?.images?.[carouselNumber] ?? undefined,
-                  media[carouselNumber] ?? undefined, media[0]
+                  media[carouselNumber], media[0]
                   
                   // updatedMedia[carouselNumber] ?? undefined,
                    )}
