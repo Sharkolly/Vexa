@@ -12,7 +12,7 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
    //   : img instanceof File
      //   ? URL.createObjectURL(img)
       //  : fallback;
-    : undefined;
+   // : undefined;
 
   typeof img === "string"
       && img
