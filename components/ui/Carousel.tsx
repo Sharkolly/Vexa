@@ -7,12 +7,19 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
     img: string | File | null | undefined,
    // fallback: string,
   ) =>
-    typeof img === "string"
-      ? img
-      : img instanceof File
-        ? URL.createObjectURL(img)
+    // typeof img === "string"
+   //   ? img
+   //   : img instanceof File
+     //   ? URL.createObjectURL(img)
       //  : fallback;
     : undefined;
+
+  typeof img === "string"
+      && img
+      && img instanceof File
+        && URL.createObjectURL(img)
+      //  : fallback;
+  //  : undefined;
 
   const resolveVideo = (video: string | File | null | undefined) =>
     typeof video === "string"
@@ -83,7 +90,7 @@ const media = [...(product?.images ?? []), product?.video ?? null]
                 data-alt={product?.description}
                 src={resolveImage(
                   //   product?.images?.[carouselNumber] ?? undefined,
-                  media[carouselNumber] ?? undefined
+                  media[carouselNumber]
                   // updatedMedia[carouselNumber] ?? undefined,
                    )}
               />
