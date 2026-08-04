@@ -39,7 +39,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   >
                     <Link
                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                      className="relative"
+                      className="relative w-full"
                     >
                       <img
                         src={resolveImage(item?.images[0], "")}
@@ -68,7 +68,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                         </Link>
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                          className="text-sm text-gray-500 mb-2 md:mb-4 w-8/12 max-md:w-full line-clamp-2 max-md:line-clamp-3 hidden"
+                          className="text-sm hidden text-gray-500 mb-2 md:mb-4 w-8/12 max-md:w-full line-clamp-2 max-md:line-clamp-3 hidden"
                         >
                           {item?.description}
                         </Link>
