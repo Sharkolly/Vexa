@@ -5,13 +5,14 @@ import type { AllProductType } from "../../types/product.types";
 const Carousel = ({ product }: { product: AllProductType | null }) => {
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string,
+   // fallback: string,
   ) =>
     typeof img === "string"
       ? img
       : img instanceof File
         ? URL.createObjectURL(img)
-        : fallback;
+      //  : fallback;
+    : undefined;
 
   const resolveVideo = (video: string | File | null | undefined) =>
     typeof video === "string"
@@ -82,10 +83,9 @@ const media = [...(product?.images ?? []), product?.video ?? null]
                 data-alt={product?.description}
                 src={resolveImage(
                   //   product?.images?.[carouselNumber] ?? undefined,
-                  media[carouselNumber] ?? undefined,
+                  media[carouselNumber] ?? undefined
                   // updatedMedia[carouselNumber] ?? undefined,
-                  "https://lh3.googleusercontent.com/aida-public/AB6AXuADpcuApAMNwgTNOJuk0lE8Missb02pVKQbFi3oA_cyXAssxt5GcreNbWEFuDdo4ZVW3LaDWWC7jxoT60kK6VSslKL8LcCDS7YHvcqfjYwISqnsTqT18kOpV-eGpJUAh3E_dpheOaKTQ9pFzN_beS7ZboTw9R6UnBBACBqu5Fdhs6dfAm5WVDV5yVjCh_6J6k5_7MlSNhMR2J9mqHBdTQ9DkQQ8E7sDsyt9yKEydvb0tcllN8Z9V7Cv7FkEhYz16yRcbeyPENlTjjY",
-                )}
+                   )}
               />
             )}
           </div>
