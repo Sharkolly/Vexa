@@ -5,7 +5,7 @@ import type { AllProductType } from "../../types/product.types";
 const Carousel = ({ product }: { product: AllProductType | null }) => {
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string,
+    fallback: string | File | null | undefined,
   ) =>
      typeof img === "string"
     ? img
