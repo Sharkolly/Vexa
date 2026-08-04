@@ -7,17 +7,17 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
     img: string | File | null | undefined,
    // fallback: string,
   ) =>
-    // typeof img === "string"
-   //   ? img
-   //   : img instanceof File
-     //   ? URL.createObjectURL(img)
-      //  : fallback;
-   // : undefined;
+     typeof img === "string"
+    ? img
+    : img instanceof File
+        ? URL.createObjectURL(img)
+       : fallback;
+    : undefined;
 
-  typeof img === "string"
-      && img
-      && img instanceof File
-        && URL.createObjectURL(img)
+  // typeof img === "string"
+    //  && img
+  //    && img instanceof File
+   //     && URL.createObjectURL(img)
       //  : fallback;
   //  : undefined;
 
