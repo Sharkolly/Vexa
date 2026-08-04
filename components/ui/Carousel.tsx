@@ -22,8 +22,8 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
 
   const [carouselNumber, setCarouselNumber] = useState(0);
 
-  const media = [...(product?.images ?? []), product?.video ?? null].filter((item) => item !== null && item !== undefined && item !== "");
-
+ // const media = [...(product?.images ?? []), product?.video ?? null].filter((item) => item !== null && item !== undefined && item !== "");
+const media = [...(product?.images ?? []), product?.video ?? null]
   const mediaLength = media.length ?? 0;
 
   const nextSlide = () => {
