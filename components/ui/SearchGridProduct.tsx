@@ -30,7 +30,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
         <>
           {searchData.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4 ">
+              <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3  gap-4 ">
                 {searchData.map((item: AllProductType) => (
                   <>
                     <div
