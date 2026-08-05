@@ -80,7 +80,7 @@ const Cart = () => {
                 Continue Shopping
               </Link>
             </div>
-            <div className="flex flex-col xl:flex-row gap-12">
+            <div className="flex flex-col xl:flex-row gap-9">
               <div className="flex-">
                 <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden border border-slate-200">
                   <table className="w-full border-collapse  hidden md:table">
