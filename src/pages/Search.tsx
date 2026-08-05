@@ -115,7 +115,7 @@ const Search = () => {
                     </div>
                     <div className="flex items-center  gap-3 flex-">
                       {/* <div className="flex items-start  gap-3 flex-"> */}
-                      <select className="border rounded-xl px-3 py-2 text-sm outline-none">
+                      <select className="border rounded-xl px-3 py-2 text-sm outline-none hidden">
                         <option>Sort: Newest</option>
                         <option>Price: Low to High</option>
                         <option>Price: High to Low</option>
@@ -147,7 +147,7 @@ const Search = () => {
                         </button>
                       </div>
 
-                      <button className="bg-gray-100 px-4 py-2 rounded-xl text-sm md:hidden">
+                      <button className="bg-gray-100 px-4 hidden py-2 rounded-xl text-sm md:hidden">
                         Filters
                       </button>
                     </div>
