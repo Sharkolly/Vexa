@@ -104,7 +104,7 @@ const Cart = () => {
                       {CartedProduct.map((product: ProductType) => (
                         <tr className="group hover:bg-slate-50/50 transition-colors">
                           <td className="py-8 pl-8 pr-4">
-                            <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-3.5">
                               <div className="w-32 h-32     rounded-sm   overflow-hidden bg-slate-100 flex-shrink-0">
                                 <img
                                   className="w-full h-full object-cover"
@@ -146,12 +146,12 @@ const Cart = () => {
                             </div>
                           </td>
 
-                          <td className="py-8 px-3 text-center">
+                          <td className="py-8 px-2 text-center">
                             <span className="font-medium text-slate-900">
                               ₦{product.price.toLocaleString()}
                             </span>
                           </td>
-                          <td className="py-8 px-3">
+                          <td className="py-8 px-0">
                             <div className="flex items-center justify-center">
                               <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden">
                                 <button
@@ -179,7 +179,7 @@ const Cart = () => {
                               </div>
                             </div>
                           </td>
-                          <td className="py-8 px-4 text-right">
+                          <td className="py-8 px-3 text-right">
                             <span className="font-medium text-slate-900">
                               ₦{product?.new_price?.toLocaleString()}
                             </span>
