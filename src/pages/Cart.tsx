@@ -179,7 +179,7 @@ const Cart = () => {
                               </div>
                             </div>
                           </td>
-                          <td className="py-8 px-3 text-right">
+                          <td className="py-8 px-3 text-center">
                             <span className="font-medium text-slate-900">
                               ₦{product?.new_price?.toLocaleString()}
                             </span>
