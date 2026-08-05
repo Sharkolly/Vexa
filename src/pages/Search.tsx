@@ -96,7 +96,7 @@ const Search = () => {
         <div>
           {/* <div className="bg-background text-on-background min-h-screen pb-24  md:pb-0"> */}
           <div className="bg-background text-on-background min-h-screen  md:pb-0">
-            <div className='pt-24 flex gap-5 flex-col md:px-12 px-3'>
+            <div className='pt-24 flex gap-5 max-md:flex-col md:px-12 px-3'>
             {/* <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20 max-md:pb-26  px-2  md:px-12 max-md:flex-col"> */}
               {/* <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20   px-2  md:px-12 max-md:flex-col"> */}
               <SearchFilter categories={categories} categorySearchBtn={categorySearch} category={category} setCategory={setCategory} />
