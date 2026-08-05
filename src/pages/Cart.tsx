@@ -208,8 +208,8 @@ const Cart = () => {
                               <h3 className="font-medium text-slate-900">
                                 {product.name}
                               </h3>
-                              <p className="text-slate-500 text-sm">
-                                {product.category}
+                              <p className="text-slate-500 text-sm capitalize">
+                                {product.category} / {product.subCategory}
                               </p>
                             </Link>
                             <div className="flex justify-between items-center">
