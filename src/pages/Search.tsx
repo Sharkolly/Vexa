@@ -60,7 +60,7 @@ const Search = () => {
     try {
       const res = await API(`/products?search=${query}`);
       const { data } = await res.data;
-      console.log(data)
+     // console.log(data)
       setSearchData(data);
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
@@ -100,7 +100,7 @@ const Search = () => {
             {/* <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20 max-md:pb-26  px-2  md:px-12 max-md:flex-col"> */}
               {/* <div className="pt-24 flex max-w-container-max mx-auto gap-5 pb-32 max-md:pt-20   px-2  md:px-12 max-md:flex-col"> */}
               <SearchFilter categories={categories} categorySearchBtn={categorySearch} category={category} setCategory={setCategory} />
-              <main className="flex-1 z-25 bg-white">
+              <main className="flex-1 z-25 mb-12 bg-white">
                 <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
                   <div className="flex flex-col md:flex-row md:items-center justify-between  gap-4">
                     <div className="flex items-center border rounded-xl px-3 py-2 w-full md:w-96">
