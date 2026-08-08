@@ -46,7 +46,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                       <img
                         src={resolveImage(item?.images[0], "")}
                         alt="product"
-                        className="sm:h-64 md:w-64 sm:w-56 w-full h-40 object-cover rounded-md"
+                        className="sm:h-64 md:w-64 sm:w-56 w-full h-45 object-cover rounded-md"
                       />
 
                       <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
