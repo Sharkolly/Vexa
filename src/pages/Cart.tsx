@@ -205,14 +205,14 @@ const Cart = () => {
                             <Link
                               to={`/products/${product.category}/${product.subCategory}/${product?.slug}`}
                             >
-                              <h3 className="font-medium text-slate-900 truncate">
+                              <h3 className="font-medium text-slate-900 w-11/12 truncate">
                                 {product.name}
                               </h3>
                               <p className="text-slate-500 text-sm capitalize">
                                 {product.category} / {product.subCategory}
                               </p>
                             </Link>
-                            <div className="flex justify-between pr-4 items-center">
+                            <div className="flex justify-between items-center">
                               <p className=" font-semibold max-md:text-sm text-slate-600 ">
                                 ₦{product.price.toLocaleString()}
                               </p>
