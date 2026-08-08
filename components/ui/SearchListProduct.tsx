@@ -21,7 +21,6 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
         ? URL.createObjectURL(img)
         : fallback;
 
-  console.log(searchData);
   return (
     <>
       {isLoading && !searchData ? (
@@ -44,7 +43,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                       <img
                         src={resolveImage(item?.images[0], "")}
                         alt="product"
-                        className="h-64 md:w-64 max-md:w-56 object-cover rounded-md"
+                        className="sm:h-64 md:w-64 sm:w-56 w-50 h-60 object-cover rounded-md"
                       />
 
                       <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
@@ -62,7 +61,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                         </Link>
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                          className="font-medium line-clamp-2 max-lg:text-lg mb-"
+                          className="font-medium line-clamp-2 max-lg:text-lg mb- truncate"
                         >
                           {item?.name}
                         </Link>
