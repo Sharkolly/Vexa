@@ -194,7 +194,7 @@ const Cart = () => {
                     {CartedProduct.map((product: ProductType) => (
                       <div className="py-5 px-3 space-y-4">
                         <div className="flex gap-4">
-                          <div className="sm:w-28 sm:h-28 w-23 h-23 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+                          <div className="w-28 h-28 max-[500px]:w-23 max-[500px]:h-23 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
                             <img
                               alt="Acoustic Pro Headphones"
                               className="w-full h-full object-cover"
@@ -216,13 +216,13 @@ const Cart = () => {
                               <p className=" font-semibold max-md:text-sm text-slate-600 ">
                                 ₦{product.price.toLocaleString()}
                               </p>
-                              <span className=" font-semibold text-blue-900 flex flex-col items-center max-sm:hidden">
+                              <span className=" font-semibold text-blue-900 flex flex-col items-center max-[500px]:hidden">
                                 <span>{product.quantity}</span>
                                 <span>
                                   <MdArrowRightAlt />
                                 </span>
                               </span>
-                              <p className="font-semibold text-slate-900 max-md:text-sm max-sm:hidden">
+                              <p className="font-semibold text-slate-900 max-md:text-sm max-[500px]:hidden">
                                 ₦
                                 {product.new_price
                                   ? product.new_price?.toLocaleString()
