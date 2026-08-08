@@ -222,7 +222,7 @@ const Cart = () => {
                                   <MdArrowRightAlt />
                                 </span>
                               </span>
-                              <p className="font-semibold text-slate-900 max-md:text-sm max-[500px]:hidden">
+                              <p className="font-semibold text-slate-900 pr-4 max-md:text-sm max-[500px]:hidden">
                                 ₦
                                 {product.new_price
                                   ? product.new_price?.toLocaleString()
