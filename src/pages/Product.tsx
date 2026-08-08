@@ -187,7 +187,7 @@ const Product = () => {
 
               <div className="flex items-center gap-2">
                 <span
-                  className={`inline-block h-5 w-5 rounded-full border-2 border-slate-600 ${getColorClassName(product?.color?.toLocaleLowerCase())}`}
+                  className={`inline-block h-5 w-5 rounded-full border-2 border-slate-600 ${getColorClassName(product?.color)}`}
                 />
                 <span className="capitalize">{product?.color}</span>
               </div>
