@@ -212,7 +212,7 @@ const Cart = () => {
                                 {product.category} / {product.subCategory}
                               </p>
                             </Link>
-                            <div className="flex justify-between items-center sm:flex-col sm:gap-2">
+                            <div className="flex justify-between items-center max-sm:flex-col max-sm:gap-2">
                               <p className=" font-semibold max-md:text-sm text-slate-600 ">
                                 ₦{product.price.toLocaleString()}
                               </p>
