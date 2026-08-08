@@ -216,13 +216,13 @@ const Cart = () => {
                               <p className=" font-semibold max-md:text-sm text-slate-600 ">
                                 ₦{product.price.toLocaleString()}
                               </p>
-                              <span className=" font-semibold text-blue-900 flex flex-col items-center max-xs:hidden">
+                              <span className=" font-semibold text-blue-900 flex flex-col items-center max-sm:hidden">
                                 <span>{product.quantity}</span>
                                 <span>
                                   <MdArrowRightAlt />
                                 </span>
                               </span>
-                              <p className="font-semibold text-slate-900 max-md:text-sm max-xs:hidden">
+                              <p className="font-semibold text-slate-900 max-md:text-sm max-sm:hidden">
                                 ₦
                                 {product.new_price
                                   ? product.new_price?.toLocaleString()
