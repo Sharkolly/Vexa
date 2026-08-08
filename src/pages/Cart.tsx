@@ -194,7 +194,7 @@ const Cart = () => {
                     {CartedProduct.map((product: ProductType) => (
                       <div className="p-6  space-y-4">
                         <div className="flex gap-4">
-                          <div className="w-28 h-28 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+                          <div className="sm:w-28 sm:h-28 w-22 h-22 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
                             <img
                               alt="Acoustic Pro Headphones"
                               className="w-full h-full object-cover"
@@ -205,7 +205,7 @@ const Cart = () => {
                             <Link
                               to={`/products/${product.category}/${product.subCategory}/${product?.slug}`}
                             >
-                              <h3 className="font-medium text-slate-900">
+                              <h3 className="font-medium text-slate-900 truncate">
                                 {product.name}
                               </h3>
                               <p className="text-slate-500 text-sm capitalize">
