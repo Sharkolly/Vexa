@@ -32,7 +32,7 @@ const getColorClassName = (color?: string) => {
     case "white":
       return "bg-white";
     default:
-      return `bg-${color?.toLowerCase()}-700`;
+      return `bg-${color?.trim().toLowerCase()}-700`;
   }
 };
 
