@@ -38,7 +38,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   >
                     <Link
                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                      className="relative flex-1"
+                      className="relative"
                     >
                       <img
                         src={resolveImage(item?.images[0], "")}
@@ -51,7 +51,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                       </span>
                     </Link>
 
-                    <div className="flex-1 flex flex-col justify-between">
+                    <div className="flex-1 flex flex-col justify-between sm:flex-0">
                       <div className="space-y-1 mt-4 max-md:mt-0">
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
