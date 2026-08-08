@@ -29,7 +29,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
         <>
           {searchData.length > 0 ? (
             <>
-              <div className="flex flex-col gap-5 overflow-x-hidden max-sm:overflow-x-hidden mb-10">
+              <div className="flex flex-col gap-5 overflow-x-hidden max-sm:overflow-x-hidden pb-12">
                 {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
                 {searchData.map((item: AllProductType) => (
                   <div
