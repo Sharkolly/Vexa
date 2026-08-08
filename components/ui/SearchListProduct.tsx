@@ -36,20 +36,24 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                     className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
                     key={item._id}
                   >
+                    <div className='max-md:w-6/12'>
                     <Link
                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                      className="relative max-md:flex-1 max-md:w-full"
+                      className="relative
+                      
+                      "
                     >
                       <img
                         src={resolveImage(item?.images[0], "")}
                         alt="product"
-                        className="sm:h-64 md:w-64 sm:w-56 w-6/12 h-60 object-cover rounded-md"
+                        className="sm:h-64 md:w-64 sm:w-56 w-full h-60 object-cover rounded-md"
                       />
 
                       <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
                         -25%
                       </span>
                     </Link>
+                  </div>
 
                     <div className="md:flex-1 flex flex-col justify-between flex-none max-md:w-6/12">
                       <div className="space-y-1 mt-4 max-md:mt-0">
