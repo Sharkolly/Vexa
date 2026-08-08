@@ -192,7 +192,7 @@ const Cart = () => {
                   </table>
                   <div className="md:hidden">
                     {CartedProduct.map((product: ProductType) => (
-                      <div className="p-6  space-y-4">
+                      <div className="py-5 px-3 space-y-4">
                         <div className="flex gap-4">
                           <div className="sm:w-28 sm:h-28 w-22 h-22 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
                             <img
