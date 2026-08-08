@@ -51,7 +51,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                       </span>
                     </Link>
 
-                    <div className="flex-1 flex flex-col justify-between sm:flex-0">
+                    <div className="sm:flex-1 flex flex-col justify-between flex-none">
                       <div className="space-y-1 mt-4 max-md:mt-0">
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
