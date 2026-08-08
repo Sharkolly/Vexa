@@ -144,7 +144,7 @@ const Nav = () => {
           >
             {/* <div className='relative z-[0] ' > */}
               <AiOutlineShoppingCart />
-              <span className="absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 -z-10 flex justify-center items-center  p-2  rounded-full ">
+              <span className="absolute -top-2 bg-red-600 text-white text-xs w-1 h-1  -right-2 z-15 flex justify-center items-center  p-2  rounded-full ">
                 {CartedProduct.length || 0}
               </span>
             {/* </div> */}
