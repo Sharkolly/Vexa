@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 const Layout = () => {
   return (
-    <div className='w-full max-lg:w-full'>
+    <div>
       <Nav />
       <Outlet />
       <Footer />
