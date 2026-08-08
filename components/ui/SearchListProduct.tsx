@@ -38,7 +38,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   >
                     <Link
                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                      className="relative"
+                      className="relative flex-1"
                     >
                       <img
                         src={resolveImage(item?.images[0], "")}
