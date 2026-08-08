@@ -33,12 +33,12 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                 {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
                 {searchData.map((item: AllProductType) => (
                   <div
-                    className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md md:p-5 p-2 py-4"
+                    className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
                     key={item._id}
                   >
                     <Link
                       to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                      className="relative max-md:flex-1"
+                      className="relative max-md:flex-1 max-md:w-full"
                     >
                       <img
                         src={resolveImage(item?.images[0], "")}
