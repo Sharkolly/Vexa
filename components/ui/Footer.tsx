@@ -4,7 +4,7 @@ import { MdEmail, MdPublic } from "react-icons/md";
 const Footer = () => {
   return (
     <footer className="bg-slate-950 text-white pt-24 pb-12 max-md:pt-12 max-md:pb-8">
-      <div className="max-w-360 mx-auto px-6 md:px-16">
+      <div className="sm:w-10/12  w-full mx-auto px-6 md:px-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter mb-20">
           <div className="col-span-full md:col-span-4">
             <h2 className="text-3xl font-black tracking-tighter mb-6">VEXA</h2>
@@ -128,7 +128,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-2">
               <input
-                className="flex-grow bg-slate-900 border-none rounded-lg px-4 text-white focus:ring-1 focus:ring-primary"
+                className=" bg-slate-900 border-none rounded-lg px-4 text-white focus:ring-1 focus:ring-primary"
                 placeholder="Email Address"
                 type="email"
               />
