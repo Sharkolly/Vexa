@@ -43,7 +43,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                       <img
                         src={resolveImage(item?.images[0], "")}
                         alt="product"
-                        className="sm:h-64 md:w-64 sm:w-56 w-50 h-60 object-cover rounded-md"
+                        className="sm:h-64 md:w-64 sm:w-56 w-6/12 h-60 object-cover rounded-md"
                       />
 
                       <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
@@ -51,7 +51,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                       </span>
                     </Link>
 
-                    <div className="md:flex-1 flex flex-col justify-between flex-none">
+                    <div className="md:flex-1 flex flex-col justify-between flex-none max-md:w-6/12">
                       <div className="space-y-1 mt-4 max-md:mt-0">
                         <Link
                           to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
