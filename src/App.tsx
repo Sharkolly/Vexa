@@ -12,7 +12,7 @@ const SignUp = lazy(() => import("./pages/auth/SignUp"));
 const Delivery = lazy(() => import("./pages/Delivery"));
 const NotFound = lazy(() => import("./pages/404"));
 const Search = lazy(() => import("./pages/Search"));
-// const Layout = lazy(() => import("../components/ui/Layout"));
+const Layout = lazy(() => import("../components/ui/Layout"));
 const LayoutNoFooter = lazy(() => import("../components/ui/LayoutNoFooter"));
 const ForgotPassword = lazy(() => import("./pages/auth/forgot-password"));
 const Services = lazy(() => import("./pages/Services"));
@@ -52,7 +52,7 @@ function App() {
             </RedirectRoute>
           }
         />
-        <Route path="/" element={<LayoutNoFooter />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="*" element={<NotFound />} />
