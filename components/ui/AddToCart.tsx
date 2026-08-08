@@ -112,7 +112,7 @@ const AddToCart = ({
         <button
           className={
             AddToCartClassName ||
-            "bg-blue-600 text-white hover:bg-blue-700 py-2  px-3 rounded-xs  font-medium text-sm flex items-center gap-2 justify-center"
+            "bg-blue-600 text-white hover:bg-blue-700 py-2  px-3 rounded-xs max-md:rounded-sm font-medium text-sm flex items-center gap-2 justify-center"
           }
           onClick={() => addToCartBtn(name, category,subCategory, _id, slug, image, price)}
         >
