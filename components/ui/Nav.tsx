@@ -34,7 +34,7 @@ const Nav = () => {
   const toggleMenu = () => setMenu(!menu);
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md  dark:border-slate-800 shadow-sm overflow-x-hidden ">
+    <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md  dark:border-slate-800 shadow-sm">
       <div className="flex items-center justify-between px-4 md:px-6 py-4 w-full mx-auto">
         <div className="flex items-center ga justify-between">
           <h1
