@@ -29,11 +29,12 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
         <>
           {searchData.length > 0 ? (
             <>
-              <div className="flex flex-col gap-5 overflow-x-hidden max-sm:overflow-x-hidden pb-12">
-                {/* <div className="flex flex-co flex-wrap justify-between  gap- gap-y-8"> */}
+              <div className="flex justify-between flex-wrap gap-5 overflow-x-hidden max-sm:overflow-x-hidden  flex-col 2xl:flex-row  pb-12">
+              {/* <div className="flex flex-col gap-5 overflow-x-hidden max-sm:overflow-x-hidden pb-12"> */}
                 {searchData.map((item: AllProductType) => (
                   <div
-                    className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
+                    className="flex flex-row gap-4 basis-[40%] flex-1 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
+                    // className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
                     key={item._id}
                   >
                     <div className='max-md:w-7/12'>
