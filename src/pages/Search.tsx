@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Search as SearchIcon, Grid3X3, List as ListIcon, X, SlidersHorizontal } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { AllProductType } from "../../types/product.types";
