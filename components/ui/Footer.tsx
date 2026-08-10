@@ -1,155 +1,195 @@
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { MdEmail, MdPublic } from "react-icons/md";
+import { MdArrowForward, MdCheckCircle } from "react-icons/md";
+import { FaInstagram, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      setErrorMessage("Please enter a valid email address.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    // Simulate API request (Replace with your newsletter backend endpoint)
+    setTimeout(() => {
+      setStatus("success");
+      setEmail("");
+    }, 1200);
+  };
+
+  const shopLinks = [
+    { name: "Cars", path: "/search?category=automobile" },
+    { name: "Phones & Laptops", path: "/search?category=electronics" },
+    { name: "Women's Fashion", path: "/search?category=fashion" },
+    { name: "Games", path: "/search?category=gaming" },
+  ];
+
+  const serviceLinks = [
+    { name: "Graphics Design", path: "/services" },
+    { name: "Web Development", path: "/services" },
+    { name: "Copywriting", path: "/services" },
+    { name: "Vexa Membership", path: "/services" },
+    { name: "Support Center", path: "/services" },
+  ];
+
+  const legalLinks = [
+    { name: "Privacy Policy", path: "/privacy" },
+    { name: "Terms of Service", path: "/terms" },
+    { name: "Accessibility", path: "/accessibility" },
+  ];
+
+  const socialLinks = [
+    { icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
+    { icon: FaLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: FaGithub, href: "https://github.com", label: "GitHub" },
+  ];
+
   return (
-    <footer className="w-full overflow-x-hidden bg-slate-950 text-white pt-24 pb-12 max-md:pt-12 max-md:pb-8">
-      <div className="sm:w-10/12  w-full mx-auto px-6 md:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter mb-20">
-          <div className="col-span-full md:col-span-4">
-            <h2 className="text-3xl font-black tracking-tighter mb-6">VEXA</h2>
-            <p className="text-slate-200 font-body-md max-w-sm mb-8">
-              Redefining luxury through technical precision and editorial style.
-              Your destination for the finest curated tech, fashion, and
-              services.
-            </p>
-            <div className="flex gap-4">
-              <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors">
-                <span
-                  className="material-symbols-outlined text-[18px]"
-                  data-icon="public"
-                >
-                <MdPublic />
-                  
-                </span>
-              </button>
-              <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors">
-                <span
-                  className="material-symbols-outlined text-[18px]"
-                  data-icon="alternate_email"
-                >
-                <MdEmail />
-                </span>
-              </button>
+    <footer className="w-full bg-slate-950 text-slate-300 border-t border-slate-800/80 pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-16 border-b border-slate-800/80">
+          
+          {/* Brand Info */}
+          <div className="col-span-full md:col-span-4 flex flex-col justify-between">
+            <div>
+              <NavLink to="/" className="inline-block">
+                <h2 className="text-3xl font-black tracking-wider text-white hover:text-blue-500 transition-colors">
+                  VEXA
+                </h2>
+              </NavLink>
+              <p className="text-slate-400 text-sm leading-relaxed max-w-sm mt-4">
+                Redefining modern luxury through technical precision and editorial style. Your destination for curated tech, fashion, and digital services.
+              </p>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-3 mt-8">
+              {socialLinks.map((social, idx) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    <Icon className="text-base" />
+                  </a>
+                );
+              })}
             </div>
           </div>
-          <div className="col-span-full sm:col-span-6 md:col-span-2">
-            <h5 className="font-label-md uppercase tracking-widest text-slate-500 mb-8">
+
+          {/* Shop Column */}
+          <div className="col-span-6 sm:col-span-3 md:col-span-2">
+            <h5 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">
               Shop
             </h5>
-            <ul className="space-y-4">
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="/categories/tech"
-                >
-                  Tech Essentials
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Men's Fashion
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Women's Fashion
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Footwear
-                </NavLink>
-              </li>
+            <ul className="space-y-3 text-sm">
+              {shopLinks.map((link) => (
+                <li key={link.name}>
+                  <NavLink
+                    to={link.path}
+                    className="text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-200"
+                  >
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="col-span-full sm:col-span-6 md:col-span-2">
-            <h5 className="font-label-md uppercase tracking-widest text-slate-500 mb-8">
+
+          {/* Services Column */}
+          <div className="col-span-6 sm:col-span-3 md:col-span-2">
+            <h5 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">
               Services
             </h5>
-            <ul className="space-y-4">
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Graphics Design
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Web Development
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Copywriting
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Vexa Members
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="text-slate-300 hover:text-white transition-colors"
-                  to="#"
-                >
-                  Support
-                </NavLink>
-              </li>
+            <ul className="space-y-3 text-sm">
+              {serviceLinks.map((link) => (
+                <li key={link.name}>
+                  <NavLink
+                    to={link.path}
+                    className="text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-200"
+                  >
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Newsletter Section */}
           <div className="col-span-full md:col-span-4">
-            <h5 className="font-label-md uppercase tracking-widest text-slate-500 mb-8">
+            <h5 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">
               Newsletter
             </h5>
-            <p className="text-slate-400 mb-6">
-              Subscribe to receive first access to limited drops.
+            <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+              Subscribe to receive first access to limited product drops and insider updates.
             </p>
-            <div className="flex gap-2">
-              <input
-                className=" bg-slate-900 border-none rounded-lg px-4 text-white focus:ring-1 focus:ring-primary"
-                placeholder="Email Address"
-                type="email"
-              />
-              <button className="px-6 py-3 bg-white text-slate-950 font-label-md rounded-lg hover:bg-primary hover:text-white transition-all">
-                Join
-              </button>
-            </div>
+
+            {status === "success" ? (
+              <div className="flex items-center gap-2.5 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm animate-in fade-in duration-300">
+                <MdCheckCircle className="text-xl shrink-0" />
+                <span>You're subscribed! Check your inbox soon.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
+                <div className="relative flex items-center">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all pr-12"
+                    disabled={status === "loading"}
+                  />
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="absolute right-1.5 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-all duration-200 disabled:opacity-50 flex items-center justify-center cursor-pointer"
+                    aria-label="Subscribe to newsletter"
+                  >
+                    {status === "loading" ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <MdArrowForward className="text-lg" />
+                    )}
+                  </button>
+                </div>
+                {status === "error" && (
+                  <p className="text-xs text-rose-500 mt-1">{errorMessage}</p>
+                )}
+              </form>
+            )}
           </div>
         </div>
-        <div className="pt-12 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-[13px] font-label-sm">
-          <p>© 2024 VEXA GLOBAL. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-8">
-            <NavLink className="hover:text-white transition-colors" to="#">
-              Privacy Policy
-            </NavLink>
-            <NavLink className="hover:text-white transition-colors" to="#">
-              Terms of Service
-            </NavLink>
-            <NavLink className="hover:text-white transition-colors" to="#">
-              Accessibility
-            </NavLink>
+
+        {/* Bottom Legal & Copyright Bar */}
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} VEXA GLOBAL. All rights reserved.</p>
+
+          <div className="flex flex-wrap gap-6">
+            {legalLinks.map((link) => (
+              <NavLink
+                key={link.name}
+                to={link.path}
+                className="hover:text-slate-300 transition-colors"
+              >
+                {link.name}
+              </NavLink>
+            ))}
           </div>
         </div>
       </div>
@@ -158,52 +198,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-// <footer className="bg-black text-white py-16">
-//   <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10">
-//     <div>
-//       <h3 className="text-2xl font-black text-blue-400">Foland Store</h3>
-
-//       <p className="text-gray-400 mt-4 leading-7">
-//         Premium ecommerce experience with secure checkout and fast
-//         delivery.
-//       </p>
-//     </div>
-
-//     <div>
-//       <h4 className="font-bold text-lg mb-4">Shop</h4>
-
-//       <div className="space-y-3 text-gray-400">
-//         <p>Electronics</p>
-//         <p>Fashion</p>
-//         <p>Gaming</p>
-//         <p>Accessories</p>
-//       </div>
-//     </div>
-
-//     <div>
-//       <h4 className="font-bold text-lg mb-4">Support</h4>
-
-//       <div className="space-y-3 text-gray-400">
-//         <p>Help Center</p>
-//         <p>Shipping</p>
-//         <p>Returns</p>
-//         <p>Contact</p>
-//       </div>
-//     </div>
-
-//     <div>
-//       <h4 className="font-bold text-lg mb-4">Contact</h4>
-
-//       <div className="space-y-3 text-gray-400">
-//         <p>Lagos, Nigeria</p>
-//         <p>support@folandstore.com</p>
-//         <p>+234 000 000 0000</p>
-//       </div>
-//     </div>
-//   </div>
-
-//   <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-500 text-sm px-4">
-//     © 2026 Foland Store. All rights reserved.
-//   </div>
-// </footer>
