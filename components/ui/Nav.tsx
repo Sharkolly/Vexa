@@ -21,7 +21,7 @@ const Nav = () => {
   const { user, refetch } = useAuthContextStore();
 
   const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart,
+    (state: RootState) => state.product.addToCart
   );
 
   useEffect(() => {
@@ -45,9 +45,12 @@ const Nav = () => {
     { name: "Profile", path: "/profile" },
   ];
 
+  // Filter out 'Profile' from desktop text links
+  const desktopNavLinks = navLinks.filter((link) => link.name !== "Profile");
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/95  backdrop-blur-md border-b border-slate-100 shadow-xs">
-      <div className="flex items-center justify-between px-4 sm:px-10  py-3.5 w-full  mx-auto">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
+      <div className="flex items-center justify-between px-4 sm:px-10 py-3.5 w-full mx-auto">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center">
           <h1 className="text-2xl sm:text-3xl font-black tracking-wider text-slate-900">
@@ -55,9 +58,9 @@ const Nav = () => {
           </h1>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => {
+        {/* Desktop Navigation (Profile excluded) */}
+        <nav className="hidden md:flex items-center gap-5  lg:gap-8">
+          {desktopNavLinks.map((link) => {
             if (link.hasDropdown) {
               return (
                 <div
@@ -125,7 +128,7 @@ const Nav = () => {
         </nav>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-4 sm:gap-6">
+        <div className="flex items-center gap-4 sm:gap-5">
           {/* Cart Icon */}
           <Link
             to="/cart"
@@ -138,24 +141,28 @@ const Nav = () => {
             </span>
           </Link>
 
-          {/* User Status / Desktop Auth */}
-          {user?.email ? (
-            <div className="hidden md:flex items-center gap-3">
-              <Link
-                to="/profile"
-                className="p-2 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors"
-                title={`${user?.firstName || "User"} ${user?.lastName || ""}`}
-              >
-                <IoPersonSharp className="text-lg" />
-              </Link>
+          {/* Profile Icon (Visible on Tablet & Desktop) */}
+          <Link
+            to="/profile"
+            className="hidden md:flex items-center justify-center p-2 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors"
+            title={
+              user?.firstName
+                ? `${user.firstName} ${user.lastName || ""}`
+                : "Profile"
+            }
+            aria-label="Profile Page"
+          >
+            <IoPersonSharp className="text-lg" />
+          </Link>
 
-              <button
-                onClick={logout}
-                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
-              >
-                Logout
-              </button>
-            </div>
+          {/* Desktop Auth Controls */}
+          {user?.email ? (
+            <button
+              onClick={logout}
+              className="hidden md:block px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
+            >
+              Logout
+            </button>
           ) : (
             <div className="hidden md:flex items-center gap-2">
               <Link to="/login">
@@ -200,16 +207,16 @@ const Nav = () => {
           />
 
           {/* Drawer Sidebar */}
-          <aside className="relative w-[80%] max-w-xs bg-navy-blue b-white shadow-2xl z-60 h-screen flex flex-col justify-between p-6 overflow-y-auto animate-in slide-in-from-right duration-300 ">
+          <aside className="relative w-[80%] max-w-xs bg-navy-blue shadow-2xl z-60 h-screen flex flex-col justify-between p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
             <div>
               {/* Sidebar Header */}
-              <div className="flex items-center justify-between pb-5 border-b border-slate-100 mb-6">
-                <span className="text-xl font-black tex-slate-900 text-white tracking-wider">
+              <div className="flex items-center justify-between pb-5 border-b border-slate-100/20 mb-6">
+                <span className="text-xl font-black text-white tracking-wider">
                   VEXA
                 </span>
                 <button
                   onClick={closeMenu}
-                  className="p-2 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+                  className="p-2 rounded-full hover:bg-slate-800 text-slate-300 transition-colors cursor-pointer"
                 >
                   <MdClose className="text-2xl" />
                 </button>
@@ -217,20 +224,24 @@ const Nav = () => {
 
               {/* Sidebar User Header (If Logged In) */}
               {user?.email && (
-                <div className="flex items-center gap-3 p-3 mb-6 bg-slate-50 rounded-xl border border-slate-100">
-                  <div className="p-2 bg-blue-100 text-blue-600 rounded-full">
+                <div className="flex items-center gap-3 p-3 mb-6 bg-white/10 rounded-xl border border-white/10">
+                  <div className="p-2 bg-blue-600 text-white rounded-full">
                     <IoPersonSharp className="text-base" />
                   </div>
                   <div className="overflow-hidden">
-                    <p className="text-sm font-bold text-slate-900 truncate">
-                      {user.firstName ? `${user.firstName} ${user.lastName || ""}` : "Account"}
+                    <p className="text-sm font-bold text-white truncate">
+                      {user.firstName
+                        ? `${user.firstName} ${user.lastName || ""}`
+                        : "Account"}
                     </p>
-                    <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                    <p className="text-xs text-slate-300 truncate">
+                      {user.email}
+                    </p>
                   </div>
                 </div>
               )}
 
-              {/* Navigation Links */}
+              {/* Mobile Navigation Links (Includes 'Profile') */}
               <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <NavLink
@@ -240,8 +251,8 @@ const Nav = () => {
                     className={({ isActive }) =>
                       `px-4 py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-between ${
                         isActive
-                          ? "bg-blue-50 text-blue-600"
-                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                          ? "bg-blue-600 text-white"
+                          : "text-slate-200 hover:bg-white/10 hover:text-white"
                       }`
                     }
                   >
@@ -253,11 +264,11 @@ const Nav = () => {
             </div>
 
             {/* Drawer Bottom Actions */}
-            <div className="pt-6 border-t mb-20 border-slate-100 space-y-3">
+            <div className="pt-6 border-t border-slate-100/20 mb-25 space-y-3">
               {user?.email ? (
                 <button
                   onClick={logout}
-                  className="w-full py-3 z-[1000] bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95 cursor-pointer"
+                  className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95 cursor-pointer"
                 >
                   Log out
                 </button>
@@ -273,7 +284,7 @@ const Nav = () => {
                   <Link
                     to="/signup"
                     onClick={closeMenu}
-                    className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-center rounded-xl text-xs uppercase tracking-wider transition-all active:scale-95"
+                    className="w-full py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-center rounded-xl text-xs uppercase tracking-wider transition-all active:scale-95"
                   >
                     Sign Up
                   </Link>
