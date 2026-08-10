@@ -72,17 +72,19 @@ const Search = () => {
   }, [query]);
 
   // Category Search Handler
-  const categorySearch = async (selectedCategory: string) => {
-    setCategory(selectedCategory);
-    setSearchParams(
-      selectedCategory === "All" ? {} : { category: selectedCategory }
-    );
+  const categorySearch = async (category: string) => {
+    setCategory(category);
+    // setSearchParams(
+    //  selectedCategory === "All" ? {} : { category: selectedCategory }
+  //  );
+
+    setSearchParams({category})
     try {
-      const endpoint =
-        selectedCategory === "All"
-          ? `/products`
-          : `/products/category?search=${selectedCategory}`;
-      const res = await API(endpoint);
+     // const endpoint =
+       // selectedCategory === "All"
+         // ? `/products`
+         // : `/products/category?search=${selectedCategory}`;
+      const res = await API(`/products/category?search=${category}`);
       const resData = res.data?.data || [];
       setSearchData(resData);
     } catch (error) {
