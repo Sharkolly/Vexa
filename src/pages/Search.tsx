@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Search as SearchIcon, Grid3X3, List as ListIcon, X, SlidersHorizontal } from "lucide-react";
+import {
+  Search as SearchIcon,
+  Grid3X3,
+  List as ListIcon,
+  X,
+  SlidersHorizontal,
+} from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { AllProductType } from "../../types/product.types";
 import Loader from "../../components/Loader";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import API from "../../api/api";
-import type { AxiosError } from "axios";
 import SearchFilter from "../../components/ui/SearchFilter";
 import Grid from "../../components/ui/SearchGridProduct";
 import List from "../../components/ui/SearchListProduct";
@@ -19,6 +24,7 @@ export const PlaceholderCard = () => (
     <Skeleton height={20} width="75%" className="mb-2" />
     <Skeleton height={14} width="45%" className="mb-4" />
     <Skeleton height={22} width="35%" className="mb-4" />
+
     <div className="flex justify-between items-center pt-2 border-t border-slate-100">
       <Skeleton height={14} width="25%" />
       <Skeleton height={14} width="20%" />
@@ -27,14 +33,253 @@ export const PlaceholderCard = () => (
 );
 
 const Search = () => {
-  const { data, isLoading } = useQueryProduct(`/products`);
-  const [query, setQuery] = useState("");
+  /*
+   * -------------------------------------------------------
+   * Fetch categories / initial product data
+   * -------------------------------------------------------
+   */
+  const { data, isLoading } = useQueryProduct("/products");
+
+  /*
+   * -------------------------------------------------------
+   * URL parameters
+   * -------------------------------------------------------
+   */
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchProduct = searchParams.get("product") || "";
+  const categoryFilter = searchParams.get("category") || "All";
+
+  /*
+   * -------------------------------------------------------
+   * Local state
+   * -------------------------------------------------------
+   */
+  const [query, setQuery] = useState(searchProduct);
   const [searchData, setSearchData] = useState<AllProductType[]>([]);
   const [view, setView] = useState<"grid" | "list">("grid");
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState(categoryFilter);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  /*
+   * -------------------------------------------------------
+   * Categories
+   * -------------------------------------------------------
+   */
+  const categories = ["All", ...(data?.categories || [])];
+
+  /*
+   * -------------------------------------------------------
+   * Keep local state synchronized with URL
+   *
+   * IMPORTANT:
+   * We do NOT call setQuery/setCategory directly in the
+   * component render body.
+   * -------------------------------------------------------
+   */
+  useEffect(() => {
+    setQuery(searchProduct);
+  }, [searchProduct]);
+
+  useEffect(() => {
+    setCategory(categoryFilter);
+  }, [categoryFilter]);
+
+  /*
+   * -------------------------------------------------------
+   * Fetch products
+   *
+   * This is the ONLY place where automatic searching happens.
+   *
+   * Rules:
+   *
+   * 1. Category + search text:
+   *    /products?search=text
+   *
+   * 2. Category only:
+   *    /products/category?search=category
+   *
+   * 3. Nothing selected:
+   *    /products
+   *
+   * The request is debounced by 500ms.
+   * -------------------------------------------------------
+   */
+  useEffect(() => {
+    const timeout = window.setTimeout(async () => {
+      try {
+        setIsSearching(true);
+
+        let response;
+
+        /*
+         * ---------------------------------------------------
+         * Text search takes priority
+         * ---------------------------------------------------
+         */
+        if (query.trim()) {
+          response = await API(
+            `/products?search=${encodeURIComponent(query.trim())}`
+          );
+        }
+
+        /*
+         * ---------------------------------------------------
+         * Category search
+         * ---------------------------------------------------
+         */
+        else if (categoryFilter && categoryFilter !== "All") {
+          response = await API(
+            `/products/category?search=${encodeURIComponent(
+              categoryFilter
+            )}`
+          );
+        }
+
+        /*
+         * ---------------------------------------------------
+         * No filters
+         * ---------------------------------------------------
+         */
+        else {
+          response = await API("/products");
+        }
+
+        const products = response?.data?.data || [];
+
+        setSearchData(products);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+        setSearchData([]);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 500);
+
+    /*
+     * Cancel previous request timer whenever query/category
+     * changes.
+     */
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [query, categoryFilter]);
+
+  /*
+   * -------------------------------------------------------
+   * Category selection
+   * -------------------------------------------------------
+   */
+  const categorySearch = (selectedCategory: string) => {
+    /*
+     * Update local state immediately.
+     */
+    setCategory(selectedCategory);
+
+    /*
+     * Update URL.
+     *
+     * We preserve the product search parameter if it exists.
+     */
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      /*
+       * Selecting a category clears the text search.
+       * This prevents the two filters from fighting each other.
+       */
+      params.delete("product");
+
+      if (selectedCategory === "All") {
+        params.delete("category");
+      } else {
+        params.set("category", selectedCategory);
+      }
+
+      return params;
+    });
+
+    /*
+     * Clear the text search because category filtering and
+     * text searching are treated as separate modes.
+     */
+    setQuery("");
+  };
+
+  /*
+   * -------------------------------------------------------
+   * Search input
+   * -------------------------------------------------------
+   */
+  const searchOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+
+    /*
+     * Update input immediately.
+     */
+    setQuery(value);
+
+    /*
+     * When the user starts typing, remove category filtering.
+     */
+    setCategory("All");
+
+    /*
+     * Update URL.
+     */
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      /*
+       * Remove category because text search is now active.
+       */
+      params.delete("category");
+
+      if (value.trim()) {
+        params.set("product", value);
+      } else {
+        params.delete("product");
+      }
+
+      return params;
+    });
+  };
+
+  /*
+   * -------------------------------------------------------
+   * Clear search
+   * -------------------------------------------------------
+   */
+  const clearSearch = () => {
+    setQuery("");
+
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      params.delete("product");
+
+      return params;
+    });
+  };
+
+  /*
+   * -------------------------------------------------------
+   * Initial loading
+   * -------------------------------------------------------
+   */
+  if (isLoading && searchData.length === 0) {
+    return <Loader />;
+  }
+
+  /*
+   * -------------------------------------------------------
+   * UI
+   * -------------------------------------------------------
+   */
+  return (  const [searchParams, setSearchParams] = useSearchParams();
   const categoryFilter = searchParams.get("category");
   const searchProduct = searchParams.get("product");
 
