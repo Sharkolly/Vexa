@@ -59,17 +59,18 @@ const Search = () => {
 //  }, [data]);
 
   // Search API Call
-  const handleSearch = useCallback(async () => {
+  // const handleSearch = useCallback(async () => {
+  const handleSearch = async () => {
     try {
-      const endpoint = query ? `/products?search=${query}` : `/products`;
-      const res = await API(endpoint);
+    //  const endpoint = query ? `/products?search=${query}` : `/products`;
+      const res = await API(`/products?search=${query}`);
       const {data} = await res.data || [];
       setSearchData(data);
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
       console.error(errorMessage.message);
     }
-  }, [query]);
+ // }, [query]);
 
   // Category Search Handler
   const categorySearch = async (category: string) => {
