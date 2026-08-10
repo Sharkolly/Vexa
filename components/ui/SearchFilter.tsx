@@ -37,6 +37,9 @@ export interface FilterSidebarProps {
   initialMinPrice?: number;
   initialMaxPrice?: number;
   autoApply?: boolean;
+  searchOnChange: (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>
+) => void
+query: string
 }
 
 // Default Swatches
@@ -67,9 +70,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   setCategory,
   categorySearchBtn,
   onFilterChange,
-  initialMinPrice = 0,
+  initialMinPrice = 0, 
   initialMaxPrice = 1000000,
   autoApply = false,
+  searchOnChange,
+  query
 }) => {
   // --- Mobile Drawer Open/Close State ---
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -232,6 +237,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     b.name.toLowerCase().includes(brandSearchQuery.toLowerCase())
   );
 
+
+  const searchBtn = (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
+    searchOnChange(e)
+    setSearch(e.target.value)
+  }
+
   return (
     <>
       {/* ========================================================= */}
@@ -376,8 +387,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           <div className="relative">
             <input
               type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={query}
+              // onChange={(e) => setSearch(e.target.value)}
+              // onChange={(e) => searchOnChange(e)}
+              onChange={(e) => searchBtn(e)}
               placeholder="Search products..."
               className="w-full bg-gray-50 border border-gray-300 rounded-sm  py-2 pl-9 pr-8 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
             />
@@ -516,6 +529,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   <input
                     type="number"
                     placeholder="0"
+                    min={0}
                     value={minPrice}
                     onChange={(e) =>
                       setMinPrice(

@@ -5,7 +5,7 @@ const Categories = () => {
   return (
     <section className="w-[90%]  max-md:w-[95%] mx-auto px-4 pb-16">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl text-nav-blue-active/90  font-bold">
+        <h2 className="text-3xl text-nav-blue-active/90 max-md:text-2xl  font-bold">
           Shop By Category
         </h2>
 
@@ -20,7 +20,7 @@ const Categories = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {categories_data.map((item) => (
           <Link
             to={item.link}

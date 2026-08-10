@@ -20,6 +20,7 @@ const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const ProductDetails = lazy(() => import("./pages/Product"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Shop = lazy(() => import("./pages/Shop"));
+const Profile = lazy(() => import("./pages/Profile"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const RedirectRoute = lazy(() => import("../components/RedirectRoute"));
 import Loader from "../components/Loader";
@@ -68,6 +69,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />

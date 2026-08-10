@@ -2,17 +2,19 @@ import {
   Search,
   // ShoppingCart,
   ChevronRight,
-  Smartphone,
+  // Smartphone,
   Monitor,
   Home,
   HeartPulse,
   Shirt,
   Gamepad2,
-  Baby,
+  // Baby,
   Apple,
+  Gamepad,
+  Car,
 } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
-import type { AllProductType,} from "../../types/product.types";
+import type { AllProductType } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
@@ -22,22 +24,22 @@ const categories = [
   { name: "Supermarket", icon: <Apple size={18} /> },
   { name: "Health & Beauty", icon: <HeartPulse size={18} /> },
   { name: "Home & Office", icon: <Home size={18} /> },
-  { name: "Phones & Tablets", icon: <Smartphone size={18} /> },
+  { name: "Gaming", icon: <Gamepad size={18} /> },
   { name: "Computing", icon: <Monitor size={18} /> },
   { name: "Electronics", icon: <Gamepad2 size={18} /> },
   { name: "Fashion", icon: <Shirt size={18} /> },
-  { name: "Baby Products", icon: <Baby size={18} /> },
+  { name: "Automobile", icon: <Car size={18} /> },
 ];
 
-   const resolveImage = (
-    img: string | File | null | undefined,
-    fallback: string,
-  ) =>
-    typeof img === "string"
-      ? img
-      : img instanceof File
-        ? URL.createObjectURL(img)
-        : fallback;
+const resolveImage = (
+  img: string | File | null | undefined,
+  fallback: string,
+) =>
+  typeof img === "string"
+    ? img
+    : img instanceof File
+      ? URL.createObjectURL(img)
+      : fallback;
 
 type PRODUCT_CATEGORY_TYPE = {
   category: string;
@@ -59,6 +61,10 @@ export default function Random() {
               <aside className="hidden lg:block w-1/5 bg-white rounded-md shadow-sm py- h-[400px]">
                 <ul className="flex flex-col h-full text-sm text-gray-700">
                   {categories.map((cat, idx) => (
+                    <Link
+                      to={`/search?category=${cat.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      key={idx}                      
+                    >
                     <li
                       key={idx}
                       className={`hover:text-blue-800 hover:bg-gray-50 cursor-pointer transition-colors px-4 py-3 flex items-center justify-between ${idx == 0 ? "rounded-t-md" : ""}`}
@@ -68,31 +74,10 @@ export default function Random() {
                         <span>{cat.name}</span>
                       </div>
                     </li>
+                    </Link>
                   ))}
                 </ul>
               </aside>
-
-              {/* <div className="w-full lg:w-3/5 h-[280px] lg:h-[400px] bg-blue-900 rounded-md shadow-sm relative overflow-hidden flex items-center justify-center text-white">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-800 to-blue-600 opacity-90" />
-                <div className="relative z-10 text-center p-8">
-                  <h2 className="text-3xl lg:text-5xl font-black mb-4">
-                    TECH WEEK
-                  </h2>
-                  <p className="text-lg lg:text-xl mb-6">
-                    Up to 40% off on premium devices
-                  </p>
-                  <button className="bg-white text-blue-800 font-bold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
-                    SHOP NOW
-                  </button>
-                </div>
-
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                  <div className="w-2 h-2 rounded-full bg-white"></div>
-                  <div className="w-2 h-2 rounded-full bg-white/50"></div>
-                  <div className="w-2 h-2 rounded-full bg-white/50"></div>
-                </div>
-              </div> */}
-
               <div className="w-full max-w-7xl mx-auto font-san ">
                 {/* Main Hero Card Container */}
                 <div className="relative overflow-hidden w-full rounded-3xl bg-gradient-to-br from-indigo-900 via-blue-950 to-slate-950  max-md:p-6  sm:p-10 md:p-14 lg:px-8  lg:py-0 min-h-88  md:min-h-[410px]    flex flex-col justify-center shadow-xl">
@@ -153,7 +138,7 @@ export default function Random() {
                       >
                         <path d="M12 2.18l8.16 4.71v9.42L12 21.02l-8.16-4.71V6.89L12 2.18zM12 4.5L5.84 8.05l6.16 3.56 6.16-3.56L12 4.5zM5.16 9.64v5.82l5.84 3.37v-5.82l-5.84-3.37zm13.68 0l-5.84 3.37v5.82l5.84-3.37v-5.82z" />
                       </svg>
-                      URBANCUBE MART
+                      VEXA ONLINE SHOP 
                     </div>
 
                     {/* Core Typography Headlines */}
@@ -191,17 +176,17 @@ export default function Random() {
                       </button>
 
                       <div className="flex justify-center">
-                      <div className="flex items-center gap-2  text-white/90 text-xs sm:text-sm font-semibold tracking-wide">
-                        <svg
-                          className="w-4 h-4 text-orange-400 shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
-                        </svg>
-                        Secure shopping experience
-                      </div>
+                        <div className="flex items-center gap-2  text-white/90 text-xs sm:text-sm font-semibold tracking-wide">
+                          <svg
+                            className="w-4 h-4 text-orange-400 shrink-0"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                          </svg>
+                          Secure shopping experience
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -241,7 +226,7 @@ export default function Random() {
                     Fast dispatch
                   </div>
 
-                        <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
+                  <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
                     <svg
                       className="w-4 h-4 text-amber-500"
                       fill="none"
@@ -278,7 +263,6 @@ export default function Random() {
                     Quality checked
                   </div>
 
-                  
                   <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
                     <svg
                       className="w-4 h-4 text-purple-900"
@@ -296,9 +280,6 @@ export default function Random() {
                     </svg>
                     Customer support
                   </div>
-
-                  
-            
                 </div>
               </div>
 
@@ -360,17 +341,21 @@ export default function Random() {
                           <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-1.5 py-0.5 rounded z-10">
                             {product.discount || Math.ceil(Math.random() * 60)}%
                           </div>
-                          <Link to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}>
+                          <Link
+                            to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
+                          >
                             <img
-                              src={resolveImage(product?.images[0], '')}
+                              src={resolveImage(product?.images[0], "")}
                               alt={product.name}
                               className="w-full md:h-80  h-55 object-cover rounded mb-2 mix-blend-multiply"
                             />
                           </Link>
                           <div className="px-3 py-1 pb-3 ">
-                        <Link to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}>
+                            <Link
+                              to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
+                            >
                               <h3 className="text-sm text-gray-600 capitalize line-clamp-2 font-medium ">
-                               {product.subCategory}
+                                {product.subCategory}
                               </h3>
                               <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-13  mt-1">
                                 {product.name}
@@ -379,7 +364,7 @@ export default function Random() {
                                 ₦{product.price?.toLocaleString()}
                               </div>
                               <div className="text-xs text-gray-500 line-through">
-                                ₦{(product.price * 1.03 ).toLocaleString()}
+                                ₦{(product.price * 1.03).toLocaleString()}
                               </div>
                             </Link>
                             <AddToCart
@@ -390,7 +375,7 @@ export default function Random() {
                               category={product?.category}
                               subCategory={product?.subCategory}
                               price={product?.price}
-                              image={resolveImage(product?.images[0], '')}
+                              image={resolveImage(product?.images[0], "")}
                               name={product?.name}
                               slug={product?.slug}
                             />

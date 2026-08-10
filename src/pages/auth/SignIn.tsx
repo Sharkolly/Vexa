@@ -1,9 +1,11 @@
 // import { useState } from "react";
-import { NavLink,  useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContextStore } from "../../../store/useAuthContext";
 import API from "../../../api/api";
 import { useState } from "react";
 import type { AxiosError } from "axios";
+import { MdOutlineMail } from "react-icons/md";
+import { IoLockClosedOutline } from "react-icons/io5";
 
 const SignIn = () => {
   const { emailOnChange, passwordOnChange, email, password } =
@@ -12,8 +14,7 @@ const SignIn = () => {
 
   // const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-const navigate = useNavigate();
-  
+  const navigate = useNavigate();
 
   const submitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +30,7 @@ const navigate = useNavigate();
 
       localStorage.setItem("token", data?.token);
       setMessage(data?.message || "Account created successfully");
-      navigate("/shop")
+      navigate("/shop");
     } catch (error: unknown) {
       const err = error as AxiosError<{
         message: string;
@@ -110,28 +111,35 @@ const navigate = useNavigate();
               >
                 <div className="flex flex-col gap-2">
                   <label className="font-label-md">Email Address</label>
-                  <input
-                    onChange={(e) => emailOnChange(e)}
-                    className="w-full px-4 py-3 bg-white border border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body-md text-body-md"
-                    id="email"
-                    placeholder="name@company.com"
-                    type="email"
-                  />
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+                      <MdOutlineMail />
+                    </span>
+                    <input
+                      onChange={(e) => emailOnChange(e)}
+                      className="w-full pl-12 pr-4 py-3 rounded-md  border border-gray-600  bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-body-md text-body-md outline-none"
+                      id="email"
+                      placeholder="name@company.com"
+                      type="email"
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label
-                    className="font-label-md text-label-md text-on-surface-variant"
-                    // for="password"
-                  >
+                  <label className="font-label-md text-label-md text-on-surface-variant">
                     Password
                   </label>
-                  <input
-                    onChange={(e) => passwordOnChange(e)}
-                    className="w-full px-4 py-3 bg-white border border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body-md text-body-md"
-                    id="password"
-                    placeholder="••••••••"
-                    type="password"
-                  />
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+                      <IoLockClosedOutline />
+                    </span>
+                    <input
+                      className="w-full pl-12 pr-12 py-3 rounded-md  border border-gray-600  bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-body-md text-body-md outline-none"
+                      id="password"
+                      onChange={(e) => passwordOnChange(e)}
+                      placeholder="••••••••"
+                      type="password"
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center justify-between mt-unit">
                   <label className="flex items-center gap-2 cursor-pointer group">

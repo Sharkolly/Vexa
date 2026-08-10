@@ -28,7 +28,7 @@ const FeaturedProduct = () => {
       ) : (
         <section className="w-[90%] max-md:w-[95%] mx-auto px-4 pb-20">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl text-nav-blue-active/90  font-bold">
+            <h2 className="text-3xl text-nav-blue-active/90 max-md:text-2xl font-bold">
               Featured Products
             </h2>
 
