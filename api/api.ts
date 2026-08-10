@@ -2,8 +2,13 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL:
+<<<<<<< HEAD
   // 'http://localhost:5001/api/',
     'https://vexa-server.onrender.com/api/',
+=======
+ // 'http://localhost:5001/api/',
+     'https://vexa-server.onrender.com/api/',
+>>>>>>> b90d1d9eb35ef0ec0135d31435c7af90ee07c59b
   withCredentials: true,
 });
 
