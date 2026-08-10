@@ -24,8 +24,9 @@ export interface PaystackSuccessResponse {
 }
 
 export const PayButton: React.FC<PaymentProps> = ({ email, amountInNaira }) => {
+
   const config = {
-    reference: `PK_diyguybhwvj4526783904-gbvrnf`,
+    reference: `PK_${new Date().getTime()}`,
     email,
     amount: amountInNaira * 100,
     publicKey: "pk_test_e23429cee1c47a2d55bb413e2fcc89ee91a612fc",
