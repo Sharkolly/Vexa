@@ -100,10 +100,10 @@ const Search = () => {
     setQuery(e.target.value);
   };
 
-  const clearSearch = () => {
-    setQuery("");
-    if (data?.data) setSearchData(data.data);
-  };
+ // const clearSearch = () => {
+  //  setQuery("");
+ //   if (data?.data) setSearchData(data.data);
+ // };
 
   // Debounce text search query
   useEffect(() => {
@@ -185,7 +185,7 @@ const Search = () => {
                     />
                     {query && (
                       <button
-                        onClick={clearSearch}
+                    //    onClick={clearSearch}
                         className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200/60"
                         title="Clear"
                       >
