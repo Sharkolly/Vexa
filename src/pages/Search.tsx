@@ -40,22 +40,23 @@ const Search = () => {
 
   const categories = ["All", ...(data?.categories || [])];
 
+  if (searchProduct) setQuery(searchProduct)
   // Sync initial query & category state safely from search params on mount
-  useEffect(() => {
-    if (searchProduct && searchProduct !== query) {
-      setQuery(searchProduct);
-    }
-    if (categoryFilter && categoryFilter !== category) {
-      setCategory(categoryFilter);
-    }
-  }, [searchProduct, categoryFilter]);
+ // useEffect(() => {
+  //  if (searchProduct && searchProduct !== query) {
+ //     setQuery(searchProduct);
+ //   }
+  //  if (categoryFilter && categoryFilter !== category) {
+  //    setCategory(categoryFilter);
+  //  }
+  // }, [searchProduct, categoryFilter]);
 
   // Sync fetched product data when initial load finishes
-  useEffect(() => {
-    if (data?.data && searchData.length === 0 && !query) {
-      setSearchData(data.data);
-    }
-  }, [data]);
+//  useEffect(() => {
+ //   if (data?.data && searchData.length === 0 && !query) {
+   //   setSearchData(data.data);
+ //   }
+//  }, [data]);
 
   // Search API Call
   const handleSearch = useCallback(async () => {
@@ -88,6 +89,8 @@ const Search = () => {
       console.error(error);
     }
   };
+
+  if (categoryFilter) categorySearch(categoryFilter)
 
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
