@@ -63,8 +63,8 @@ const Search = () => {
     try {
       const endpoint = query ? `/products?search=${query}` : `/products`;
       const res = await API(endpoint);
-      const resData = res.data?.data || [];
-      setSearchData(resData);
+      const {data} = await res.data || [];
+      setSearchData(data);
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
       console.error(errorMessage.message);
