@@ -70,6 +70,7 @@ const Search = () => {
       const errorMessage = error as AxiosError<{ message: string }>;
       console.error(errorMessage.message);
     }
+  }
  // }, [query]);
 
   // Category Search Handler
