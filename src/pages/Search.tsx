@@ -87,7 +87,7 @@ const Search = () => {
          // ? `/products`
          // : `/products/category?search=${selectedCategory}`;
       const res = await API(`/products/category?search=${category}`);
-      const resData = res.data?.data || [];
+      const resData = await res.data?.data || [];
       setSearchData(resData);
     } catch (error) {
       console.error(error);
