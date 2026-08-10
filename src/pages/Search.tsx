@@ -110,7 +110,7 @@ const Search = () => {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [query, handleSearch]);
+  }, [query]);
 
   return (
     <div className="bg-white min-h-screen text-slate-900 pb-12">
