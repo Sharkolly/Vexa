@@ -34,6 +34,7 @@
     "react-infinite-scroll-component": "^7.2.0",
     "react-loading-skeleton": "^3.5.0",
     "react-multi-carousel": "^2.8.6",
+    "react-paystack": "^6.0.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.14.2",
     "react-slick": "^0.31.0",

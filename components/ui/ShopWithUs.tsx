@@ -1,3 +1,6 @@
+
+
+
 interface KorapayCustomer {
   name: string;
   email: string;
@@ -127,6 +130,9 @@ const ShopWithUs = () => {
           Click to pay here
         </button>
       </div>
+
+
+      
     </section>
   );
 };
