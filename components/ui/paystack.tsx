@@ -1,6 +1,7 @@
 import React from "react";
 import { BiPurchaseTagAlt } from "react-icons/bi";
-import { usePaystackPayment } from "react-paystack";
+// import { usePaystackPayment } from "react-paystack";
+import Paystack from "@paystack/inline-js";
 
 interface PaymentProps {
   email: string;
@@ -25,27 +26,44 @@ export interface PaystackSuccessResponse {
 
 export const PayButton: React.FC<PaymentProps> = ({ email, amountInNaira }) => {
 
-  const config = {
-    reference: `PK_${new Date().getTime()}`,
+  const paystack = new Paystack();
+
+  const handlePayment = () => {
+  paystack.checkout({
+    key: "pk_test_e23429cee1c47a2d55bb413e2fcc89ee91a612fc",
     email,
-    amount: amountInNaira * 100,
-    publicKey: "pk_test_e23429cee1c47a2d55bb413e2fcc89ee91a612fc",
-  };
+    amount: amountInNaira * 100, // Convert to kobo
+    currency: "NGN",
+    onSuccess: (transaction: PaystackSuccessResponse) => {
+      console.log(transaction);
+    },
+    onCancel: () => {
+      console.log("Payment cancelled");
+    },
+  });
+};
 
-  const initializePayment = usePaystackPayment(config);
+  // const config = {
+  //   reference: `PK_${new Date().getTime()}`,
+  //   email,
+  //   amount: amountInNaira * 100,
+  //   publicKey: "pk_test_e23429cee1c47a2d55bb413e2fcc89ee91a612fc",
+  // };
 
-  const onSuccess = (reference: PaystackSuccessResponse) => {
-    // Reference contains the transaction ID for your backend to verify
-    console.log("Payment successful! Reference:", reference);
-  };
+  // // const initializePayment = usePaystackPayment(config);
 
-  const onClose = () => {
-    console.log("User closed the payment modal");
-  };
+  // const onSuccess = (reference: PaystackSuccessResponse) => {
+  //   // Reference contains the transaction ID for your backend to verify
+  //   console.log("Payment successful! Reference:", reference);
+  // };
+
+  // const onClose = () => {
+  //   console.log("User closed the payment modal");
+  // };
 
   return (
     <button
-      onClick={() => initializePayment({ onSuccess, onClose })}
+      onClick={handlePayment}
       className="w-full mt-6 bg-green-700/90 text-white py-3 rounded-xl hover:opacity-90 transition flex items-center gap-2 justify-center cursor-pointer"
     >
       {/* Pay ₦{amountInNaira.toLocaleString()} */}
