@@ -42,8 +42,8 @@ const categoryFilter = searchParams.get("category") || 'All';
   const searchProduct = searchParams.get("product");
   
   
-  // const { data, isLoading } = useQueryProduct(`/products`);
-  const { data, isLoading } = useQueryProduct(`/products/category?search=${categoryFilter}`);
+  const { data, isLoading } = useQueryProduct(`/products`);
+ // const { data, isLoading } = useQueryProduct(`/products/category?search=${categoryFilter}`);
   const [query, setQuery] = useState("");
   const [searchData, setSearchData] = useState<AllProductType[] | []>(
     data?.data || [],
