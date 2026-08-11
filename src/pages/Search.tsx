@@ -73,7 +73,7 @@ const Search = () => {
       console.error(errorMessage.message);
     }
   };
-
+if (categoryFilter) categorySearch(categoryFilter);
   const categorySearch = async (category: string) => {
     setCategory(category);
     setSearchParams({ category });
@@ -82,7 +82,7 @@ const Search = () => {
     setSearchData(data);
   };
 
-  if (categoryFilter) categorySearch(categoryFilter);
+  
 
   useEffect(() => {
     const timeout = setTimeout(() => {
