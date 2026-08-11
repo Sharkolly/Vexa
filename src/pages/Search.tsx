@@ -50,7 +50,7 @@ const Search = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-//  const categoryFilter = searchParams.get("category");
+const categoryFilter = searchParams.get("category");
   const searchProduct = searchParams.get("product");
 
   if (searchProduct) setQuery(searchProduct);
@@ -77,12 +77,14 @@ const Search = () => {
   const categorySearch = async (category: string) => {
     setCategory(category);
     setSearchParams({ category });
+    if(category !== categoryFilter) {
     const res = await API(`/products/category?search=${category}`);
     const { data } = await res.data;
     setSearchData(data);
+    }
   };
 
-  // if (categoryFilter) categorySearch(categoryFilter);
+  if (categoryFilter) categorySearch(categoryFilter);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
