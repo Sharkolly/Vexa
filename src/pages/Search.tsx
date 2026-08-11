@@ -37,10 +37,13 @@ export const PlaceholderCard = () => (
 
 const Search = () => {
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+const categoryFilter = searchParams.get("category");
+  const searchProduct = searchParams.get("product");
   
-  
-  const { data, isLoading } = useQueryProduct(`/products`);
- // const { data, isLoading } = useQueryProduct(`/products/category?search=${categoryFilter}`);
+ // const { data, isLoading } = useQueryProduct(`/products`);
+ const { data, isLoading } = useQueryProduct(`/products/category?search=${categoryFilter}`);
   const [query, setQuery] = useState("");
   const [searchData, setSearchData] = useState<AllProductType[] | []>(
     data?.data || [],
@@ -51,10 +54,10 @@ const Search = () => {
 
   const [view, setView] = useState<"grid" | "list">("grid");
   const [category, setCategory] = useState("All");
-const [searchParams, setSearchParams] = useSearchParams();
+// const [searchParams, setSearchParams] = useSearchParams();
 
-const categoryFilter = searchParams.get("category");
-  const searchProduct = searchParams.get("product");
+// const categoryFilter = searchParams.get("category");
+ // const searchProduct = searchParams.get("product");
   
   if (searchProduct) setQuery(searchProduct);
 
