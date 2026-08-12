@@ -153,7 +153,7 @@ const CheckoutPage = () => {
 
           <PayButton
             email={deliveryDetails.email || "sharkollymofeoluwa@gmail.com"}
-            amountInNaira={total?.totalPrice * 1.03}
+            amountInNaira={total?.totalPrice}
           />
           <Link to="/delivery">
             <button className="w-full mt-4  bg-red-700/90  text-white py-3 rounded-xl hover:opacity-90 transition flex items-center gap-2 justify-center">
