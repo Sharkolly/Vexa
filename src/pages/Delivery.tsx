@@ -282,12 +282,13 @@ const destination = deliveryDetails.address
             <div className="flex justify-between font-bold">
               <span className="text-nav-blue-active/80 text-lg ">Total</span>
               <span className="text-nav-blue-active/80">
-                ₦{(total?.totalPrice * 1.03).toLocaleString() || 0}
+                ₦{(total?.totalPrice + deliveryFee || 0)}
+                
               </span>
             </div>
           </div>
 
-          <Link to="/checkout">
+          {deliveryFee => 0 && <Link to="/checkout">
             <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">
               <span>
                 <IoBagCheckOutline className="text-white w-5 h-5" />
@@ -295,6 +296,7 @@ const destination = deliveryDetails.address
               <p>Proceed to Checkout</p>
             </button>
           </Link>
+          }
             <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2" onClick={calcDistance}>
               <span>
                 <IoBagCheckOutline className="text-white w-5 h-5" />
