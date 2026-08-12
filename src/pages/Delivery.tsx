@@ -32,8 +32,9 @@ const DeliveryPage = () => {
 
   const total = useSelector((state: RootState) => state.product.total);
 
-  const calcDistance = async () => {const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`
-
+  const calcDistance = async () => {
+    // const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`
+const destination = deliveryDetails.address
     const numberOfProduct = total?.totalItems || 0;
 
     try {
