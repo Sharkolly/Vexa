@@ -46,7 +46,9 @@ const destination = deliveryDetails.address
           { withCredentials: true },
         );
         const data = await res.data;
+        setTimeout(() => {
       setCalculating(false)
+        },1100)
         setDeliveryFee(data.deliveryFee);
       }
     } catch (error) {
