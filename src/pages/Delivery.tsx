@@ -7,7 +7,7 @@ import { useAuthContextStore } from "../../store/useAuthContext";
 import SearchNav from "../../components/ui/SearchNav";
 import API from "../../api/api";
 import type { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // import { useState } from "react";
 
 type RootState = {
