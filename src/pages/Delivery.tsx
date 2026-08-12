@@ -26,7 +26,7 @@ const DeliveryPage = () => {
   const { setDeliveryDetails, deliveryDetails } = useAuthContextStore();
 
   const [calculating, setCalculating] = useState(false);
-  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
 
   // const { data, isLoading } = useQueryProduct(`/products/get-distance`);
 
@@ -288,7 +288,7 @@ const destination = deliveryDetails.address
             </div>
           </div>
 
-          {deliveryFee => 0 && <Link to="/checkout">
+          {deliveryFee > 0 && <Link to="/checkout">
             <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">
               <span>
                 <IoBagCheckOutline className="text-white w-5 h-5" />
