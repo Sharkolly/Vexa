@@ -282,7 +282,7 @@ const destination = deliveryDetails.address
             <div className="flex justify-between font-bold">
               <span className="text-nav-blue-active/80 text-lg ">Total</span>
               <span className="text-nav-blue-active/80">
-                ₦{(total?.totalPrice + deliveryFee || 0)}
+                ₦{(total?.totalPrice + deliveryFee || 0).toLocaleString()}
                 
               </span>
             </div>
