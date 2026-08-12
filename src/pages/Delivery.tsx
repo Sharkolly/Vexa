@@ -45,7 +45,7 @@ const DeliveryPage = () => {
           { withCredentials: true },
         );
         const data = await res.data;
-        setCalculating(true)
+      setCalculating(false)
         setDeliveryFee(data.deliveryFee);
       }
     } catch (error) {
