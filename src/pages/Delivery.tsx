@@ -132,7 +132,7 @@ const destination = deliveryDetails.address
   // const [state, setState] = useState('')
 
   return (
-    <div className="pt-24 pb-24 max-w-[1440px] mx-auto w-full md:px-10 xl:px-16 max-md:pt-24 max-md:px-2.5">
+    <div className="pt-24 pb-24 max-w-[1440px] mx-auto w-full md:px-10 xl:px-16 max-md:pt-24 max-md:px-3.5">
       <div className="grid xl:grid-cols-3 gap-8">
         <div className="xl:col-span-2  bg-white p-6 rounded-xl shadow max-md:p-0 max-md:shadow-none">
           <h1 className="text-3xl text-nav-blue-active/80 font-bold mb-6">
