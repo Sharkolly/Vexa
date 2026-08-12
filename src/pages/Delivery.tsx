@@ -5,6 +5,9 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
 import { useAuthContextStore } from "../../store/useAuthContext";
 import SearchNav from "../../components/ui/SearchNav";
+import API from "../../api/api";
+import type { AxiosError } from "axios";
+import { useEffect, useState } from "react";
 // import { useState } from "react";
 
 type RootState = {
@@ -22,60 +25,109 @@ type RootState = {
 const DeliveryPage = () => {
   const { setDeliveryDetails, deliveryDetails } = useAuthContextStore();
 
+  const [calculating, setCalculating] = useState(false);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
+  // const { data, isLoading } = useQueryProduct(`/products/get-distance`);
+
   const total = useSelector((state: RootState) => state.product.total);
 
-  const changeDeliveryDetails = (e: React.ChangeEvent<
+  const calcDistance = async () => {const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`
+
+    const numberOfProduct = total?.totalItems || 0;
+
+    try {
+      if (destination && numberOfProduct > 0) {
+        setCalculating(true)
+        const res = await API.post(
+          `/products/get-distance`,
+          { destination, numberOfProduct },
+          { withCredentials: true },
+        );
+        const data = await res.data;
+        setCalculating(true)
+        setDeliveryFee(data.deliveryFee);
+      }
+    } catch (error) {
+      const errorMessage = error as AxiosError<{ message: string }>;
+      console.error(errorMessage.message);
+    }
+  };
+
+  // useEffect(() => {
+  //   const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`;
+  //   const timeout = setTimeout(() => {
+  //     setCalculating(true);
+  //     calcDistance(destination);
+  //     setCalculating(false);
+  //   }, 2000);
+
+  //   return () => clearTimeout(timeout);
+  // }, [deliveryDetails.address]);
+
+  const changeDeliveryDetails = (
+    e: React.ChangeEvent<
       HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
-    > )  => {
+    >,
+  ) => {
     const { name, value } = e.target;
     setDeliveryDetails((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // if (name === "address" || name === "city" || name === "state") {
+    //   setCalculating(true);
+    //   const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`;
+    //   setTimeout(() => {
+    //     calcDistance(destination);
+    //     setCalculating(false);
+    //   }, 3500);
+    // }
   };
 
   const nigeriaStates = [
-  "Abia",
-  "Adamawa",
-  "Akwa Ibom",
-  "Anambra",
-  "Bauchi",
-  "Bayelsa",
-  "Benue",
-  "Borno",
-  "Cross River",
-  "Delta",
-  "Ebonyi",
-  "Edo",
-  "Ekiti",
-  "Enugu",
-  "Federal Capital Territory (FCT)",
-  "Gombe",
-  "Imo",
-  "Jigawa",
-  "Kaduna",
-  "Kano",
-  "Katsina",
-  "Kebbi",
-  "Kogi",
-  "Kwara",
-  "Lagos",
-  "Nasarawa",
-  "Niger",
-  "Ogun",
-  "Ondo",
-  "Osun",
-  "Oyo",
-  "Plateau",
-  "Rivers",
-  "Sokoto",
-  "Taraba",
-  "Yobe",
-  "Zamfara",
-];
+    "Abia",
+    "Adamawa",
+    "Akwa Ibom",
+    "Anambra",
+    "Bauchi",
+    "Bayelsa",
+    "Benue",
+    "Borno",
+    "Cross River",
+    "Delta",
+    "Ebonyi",
+    "Edo",
+    "Ekiti",
+    "Enugu",
+    "Federal Capital Territory (FCT)",
+    "Gombe",
+    "Imo",
+    "Jigawa",
+    "Kaduna",
+    "Kano",
+    "Katsina",
+    "Kebbi",
+    "Kogi",
+    "Kwara",
+    "Lagos",
+    "Nasarawa",
+    "Niger",
+    "Ogun",
+    "Ondo",
+    "Osun",
+    "Oyo",
+    "Plateau",
+    "Rivers",
+    "Sokoto",
+    "Taraba",
+    "Yobe",
+    "Zamfara",
+  ];
 
+  // const [state, setState] = useState('')
 
-// const [state, setState] = useState('')
   return (
     <div className="pt-24 pb-24 max-w-[1440px] mx-auto w-full md:px-10 xl:px-16 max-md:pt-24 max-md:px-2.5">
       <div className="grid xl:grid-cols-3 gap-8">
@@ -146,19 +198,19 @@ const DeliveryPage = () => {
                 /> */}
 
                 <select
-  name="state"
-  value={deliveryDetails.state}
-  onChange={changeDeliveryDetails}
-  className="w-full rounded-sm  border p-2"
->
-  <option value="">Select State</option>
+                  name="state"
+                  value={deliveryDetails.state}
+                  onChange={changeDeliveryDetails}
+                  className="w-full rounded-sm  border p-2"
+                >
+                  <option value="">Select State</option>
 
-  {nigeriaStates.map((state) => (
-    <option key={state} value={state}>
-      {state}
-    </option>
-  ))}
-</select>
+                  {nigeriaStates.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="flex flex-col gap-1.5 flex-1">
@@ -199,37 +251,6 @@ const DeliveryPage = () => {
             </div>
           </div>
 
-          {/* <div className="space-y-3 pt-4">
-            <h2 className="font-semibold text-lg text-nav-blue-active/80">
-              Delivery Method
-            </h2>
-
-            <label className="flex items-center justify-between border p-4 rounded-sm  cursor-pointer">
-              <div>
-                <p className="font-medium">Standard Delivery</p>
-                <p className="text-sm text-gray-500">3-5 Business Days</p>
-              </div>
-
-              <input
-                type="radio"
-                checked={deliveryMethod === "standard"}
-                onChange={() => setDeliveryMethod("standard")}
-              />
-            </label>
-
-            <label className="flex items-center justify-between border p-4 rounded-sm  cursor-pointer">
-              <div>
-                <p className="font-medium">Express Delivery</p>
-                <p className="text-sm text-gray-500">1-2 Business Days</p>
-              </div>
-
-              <input
-                type="radio"
-                checked={deliveryMethod === "express"}
-                onChange={() => setDeliveryMethod("express")}
-              />
-            </label>
-          </div> */}
         </div>
         {/* </div> */}
 
@@ -241,13 +262,18 @@ const DeliveryPage = () => {
 
           <div className="space-y-5">
             <div className="flex justify-between">
-              <span className='text-lg '>Subtotal</span>
+              <span className="text-lg ">Subtotal</span>
               <span>₦{total?.totalPrice?.toLocaleString() || 0}</span>
             </div>
 
             <div className="flex justify-between">
-              <span className='text-lg '>Shipping</span>
-              <span>₦{(total?.totalPrice * 0.03).toLocaleString() || 0}</span>
+              <span className="text-lg ">Delivery</span>
+              {/* <span>₦{(total?.totalPrice * 0.03).toLocaleString() || 0}</span> */}
+              <span>
+                {calculating
+                  ? "Calculating..."
+                  : `₦${deliveryFee?.toLocaleString() || 0}`}
+              </span>
             </div>
 
             <hr />
@@ -260,7 +286,6 @@ const DeliveryPage = () => {
             </div>
           </div>
 
-
           <Link to="/checkout">
             <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">
               <span>
@@ -269,6 +294,12 @@ const DeliveryPage = () => {
               <p>Proceed to Checkout</p>
             </button>
           </Link>
+            <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2" onClick={calcDistance}>
+              <span>
+                <IoBagCheckOutline className="text-white w-5 h-5" />
+              </span>
+              <p>Calculate Delivery Fee</p>
+            </button>
           <Link to="/shop">
             <button className="w-full border border-green-700  text-green-700 py-3 rounded-xl cursor-pointer flex items-center justify-center gap-2">
               <span>
@@ -279,7 +310,7 @@ const DeliveryPage = () => {
           </Link>
         </div>
       </div>
-      <SearchNav/>
+      <SearchNav />
     </div>
   );
 };

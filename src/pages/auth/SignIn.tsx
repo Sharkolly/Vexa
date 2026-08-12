@@ -5,16 +5,28 @@ import API from "../../../api/api";
 import type { AxiosError } from "axios";
 
 // Icons
-import { MdOutlineMail, MdErrorOutline, MdCheckCircleOutline } from "react-icons/md";
-import { IoLockClosedOutline, IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import {
+  MdOutlineMail,
+  MdErrorOutline,
+  MdCheckCircleOutline,
+} from "react-icons/md";
+import {
+  IoLockClosedOutline,
+  IoEyeOutline,
+  IoEyeOffOutline,
+} from "react-icons/io5";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 
 const SignIn = () => {
-  const { emailOnChange, passwordOnChange, email, password } = useAuthContextStore();
+  const { emailOnChange, passwordOnChange, email, password } =
+    useAuthContextStore();
   const [isFetching, setIsFetching] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: "success" | "error" | "" }>({
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error" | "";
+  }>({
     text: "",
     type: "",
   });
@@ -30,7 +42,7 @@ const SignIn = () => {
       const { data } = await API.post(
         "/user/login",
         { email, password },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       localStorage.setItem("token", data?.token);
@@ -49,7 +61,9 @@ const SignIn = () => {
         status: boolean;
       }>;
       setMessage({
-        text: err.response?.data?.message || "Invalid credentials. Please try again.",
+        text:
+          err.response?.data?.message ||
+          "Invalid credentials. Please try again.",
         type: "error",
       });
     } finally {
@@ -63,11 +77,9 @@ const SignIn = () => {
   return (
     <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex items-center justify-center font-sans antialiased">
       <main className="w-full min-h-screen flex flex-col md:flex-row">
-        
         {/* Form Section */}
         <section className="w-full md:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-slate-950">
           <div className="max-w-[420px] w-full flex flex-col gap-6">
-            
             {/* Header */}
             <header className="flex flex-col gap-2">
               <NavLink to="/" className="inline-block mb-4">
@@ -92,7 +104,7 @@ const SignIn = () => {
                 <FcGoogle className="text-xl group-hover:scale-110 transition-transform" />
                 <span>Google</span>
               </button>
-              
+
               <button
                 type="button"
                 className="flex items-center justify-center gap-2.5 py-3 px-4 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800/80 hover:border-slate-700 text-slate-200 text-sm font-medium transition-all duration-200 cursor-pointer group"
@@ -113,7 +125,6 @@ const SignIn = () => {
 
             {/* Form */}
             <form className="flex flex-col gap-4" onSubmit={submitForm}>
-              
               {/* Alert Feedback Banner */}
               {message.text && (
                 <div
@@ -134,7 +145,10 @@ const SignIn = () => {
 
               {/* Email Input */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="email">
+                <label
+                  className="text-xs font-semibold uppercase tracking-wider text-slate-400"
+                  htmlFor="email"
+                >
                   Email Address
                 </label>
                 <div className="relative flex items-center">
@@ -154,7 +168,10 @@ const SignIn = () => {
               {/* Password Input */}
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="password">
+                  <label
+                    className="text-xs font-semibold uppercase tracking-wider text-slate-400"
+                    htmlFor="password"
+                  >
                     Password
                   </label>
                   <NavLink
@@ -179,9 +196,15 @@ const SignIn = () => {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 text-slate-500 hover:text-slate-300 transition-colors"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
-                    {showPassword ? <IoEyeOffOutline className="text-lg" /> : <IoEyeOutline className="text-lg" />}
+                    {showPassword ? (
+                      <IoEyeOffOutline className="text-lg" />
+                    ) : (
+                      <IoEyeOutline className="text-lg" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -233,7 +256,7 @@ const SignIn = () => {
         <section className="hidden md:block md:w-1/2 relative overflow-hidden bg-slate-900">
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10" />
           <div className="absolute inset-0 bg-blue-900/10 mix-blend-overlay z-10" />
-          
+
           <img
             alt="Vexa Modern Aesthetic"
             className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 hover:scale-100"
@@ -264,12 +287,13 @@ const SignIn = () => {
                 />
               </div>
               <p className="text-xs text-slate-400 font-medium">
-                Joined by over <span className="text-slate-200 font-semibold">50,000+</span> creators globally.
+                Joined by over{" "}
+                <span className="text-slate-200 font-semibold">50,000+</span>{" "}
+                creators globally.
               </p>
             </div>
           </div>
         </section>
-
       </main>
     </div>
   );
