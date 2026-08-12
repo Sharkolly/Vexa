@@ -22,7 +22,7 @@ const CheckoutPage = () => {
   const total = useSelector((state: RootState) => state.product.total);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 pt-28 max-md:pt-24 max-md:mb-20 max-md:px-2.5">
+    <div className="min-h-screen bg-gray-50 py-10 px-4 pt-28 max-md:pt-24 max-md:mb-20 max-md:px-3">
       <div className="max-w-[1440px] mx-auto w-full md:px-10 xl:px-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl shadow-lg border-gray-200 border p-6 max-md:p-5 ">
