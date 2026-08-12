@@ -45,7 +45,7 @@ const Cart = () => {
     }
   };
 
-  console.log(CartedProduct);
+ // console.log(CartedProduct);
   // const resolveImage = (
   //   img: string | File | null | undefined,
   //   fallback: string,
@@ -304,7 +304,7 @@ const Cart = () => {
                         ₦{total?.totalPrice.toLocaleString() || 0}
                       </span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center hidden">
                       <span className="text-slate-500 font-body-md">
                         Shipping
                       </span>
@@ -312,7 +312,7 @@ const Cart = () => {
                         ₦{(total?.totalPrice * 0.03).toLocaleString() || 0}
                       </span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center hidden">
                       <span className="text-slate-500 font-body-md">
                         Shipping
                       </span>
@@ -325,7 +325,7 @@ const Cart = () => {
                         Total
                       </span>
                       <span className="text-nav-blue-active font-semibold  text-xl">
-                        ₦{(total?.totalPrice * 1.03).toLocaleString() || 0}
+                        ₦{(total?.totalPrice).toLocaleString() || 0}
                       </span>
                     </div>
                   </div>
