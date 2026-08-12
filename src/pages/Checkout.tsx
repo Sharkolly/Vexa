@@ -27,7 +27,7 @@ const CheckoutPage = () => {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl shadow-lg border-gray-200 border p-6 max-md:p-5 ">
             <h2 className="text-2xl font-bold mb-6 text-nav-blue-active/80">
-              Shipping Details
+              Delivery Details
             </h2>
 
             <form className="space-y-10 ">
