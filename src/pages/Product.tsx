@@ -50,7 +50,7 @@ const Product = () => {
   );
   // const { data: RelatedData, isLoading: isLoadingRelatedData } = useQueryProduct(`/products/category/${category}`);
   const { data: RelatedData, isLoading: isLoadingRelatedData } =
-    useQueryProduct(`/products/category/${category?.toLowerCase()}`);
+    useQueryProduct(`/products/category/${category?.toLowerCase()}`, slug );
 
   const product: AllProductType | null = data?.data || null;
 
