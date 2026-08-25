@@ -15,8 +15,14 @@ type RootState = {
   };
 };
 
-// SVG Logo Component scaled 1.5x bigger (h-12 sm:h-14)
-const FexaLogo = ({ isDark = false, className = "h-12 sm:h-14 w-auto" }: { isDark?: boolean; className?: string }) => (
+// SVG Logo Component scaled 1.3x (h-10 sm:h-12)
+const FexaLogo = ({
+  isDark = false,
+  className = "h-10 sm:h-12 w-auto",
+}: {
+  isDark?: boolean;
+  className?: string;
+}) => (
   <svg
     viewBox="0 0 320 90"
     className={`${className} transition-transform group-hover:scale-105`}
@@ -107,8 +113,8 @@ const Nav = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-      <div className="flex items-center justify-between px-4 sm:px-10 py-2.5 w-full max-w-7xl mx-auto">
-        {/* Brand Logo (1.5x Larger) */}
+      <div className="flex items-center justify-between px-4 sm:px-10 py-3 w-full max-w-7xl mx-auto">
+        {/* Brand Logo (1.3x Scaled) */}
         <Link to="/" className="flex items-center group py-0.5" aria-label="FEXA Home">
           <FexaLogo />
         </Link>
@@ -269,7 +275,7 @@ const Nav = () => {
             <div>
               <div className="flex items-center justify-between pb-5 border-b border-slate-800 mb-6">
                 <Link to="/" onClick={closeMenu} className="flex items-center">
-                  <FexaLogo isDark={true} className="h-10 w-auto" />
+                  <FexaLogo isDark={true} className="h-9 w-auto" />
                 </Link>
                 <button
                   onClick={closeMenu}
