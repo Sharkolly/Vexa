@@ -1,13 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
+
 import {
   addToCart,
   decrementQuantity,
   incrementQuantity,
   removeCart,
 } from "../../store/product.slice";
-import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/index";
 import type { ProductType } from "../../types/product.types";
-import { Minus, Plus, ShoppingCart } from "lucide-react";
 
 type RootState = {
   product: {
@@ -22,33 +23,27 @@ type AddToCartType = ProductType & {
 };
 
 const AddToCart = ({
-  name,
-  category,
-  subCategory,
-  image,
-  _id,
-  price,
-  slug,
+  name = "",
+  category = "",
+  subCategory = "",
+  image = "",
+  _id = "",
+  price = 0,
+  slug = "",
   AddToCartClassName,
   quantityNumberStyle,
-  quantityColorStyle,
 }: AddToCartType) => {
-  const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart,
-  );
-
   const dispatch = useDispatch<AppDispatch>();
 
-  const addToCartBtn = (
-    name: string = "",
-    category: string = "",
-    subCategory: string = "",
-    _id: string = "",
-    slug: string = "",
-    image: string = "",
-    price: number = 0,
-  ) => {
-    // setToggleAddToCart(true);
+  const CartedProduct = useSelector(
+    (state: RootState) => state.product.addToCart
+  );
+
+  const singleProduct = CartedProduct?.find(
+    (product) => product.slug === slug || (product._id && product._id === _id)
+  );
+
+  const handleAddToCart = () => {
     dispatch(
       addToCart({
         _id,
@@ -59,68 +54,71 @@ const AddToCart = ({
         category,
         subCategory,
         slug,
-      }),
+      })
     );
   };
 
-  const incrementProductQuantity = (slug: string = "") => {
+  const handleIncrement = () => {
     dispatch(incrementQuantity({ slug }));
   };
-  const decrementProductQuantity = (slug: string = "") => {
+
+  const handleDecrement = () => {
     dispatch(decrementQuantity({ slug }));
 
-    const single_product = CartedProduct.find(
-      (product) => product.slug === slug,
-    );
     if (
-      single_product &&
-      single_product?.quantity &&
-      single_product?.quantity - 1 <= 0
+      singleProduct &&
+      singleProduct.quantity &&
+      singleProduct.quantity - 1 <= 0
     ) {
       dispatch(removeCart({ slug }));
     }
-  };  
+  };
+
+  if (singleProduct) {
+    return (
+      <div
+        className={
+          quantityNumberStyle ||
+          "flex items-center justify-between gap-2 bg-slate-50 border border-slate-200/80 p-1 rounded-xl shadow-xs"
+        }
+      >
+        <button
+          type="button"
+          onClick={handleDecrement}
+          aria-label="Decrease quantity"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-rose-50 text-rose-600 border border-rose-200/70 hover:bg-rose-100 hover:text-rose-700 active:scale-95 transition-all shadow-xs cursor-pointer"
+        >
+          <Minus className="w-4 h-4" />
+        </button>
+
+        <span className="font-extrabold text-slate-900 text-sm px-2">
+          {singleProduct.quantity || 1}
+        </span>
+
+        <button
+          type="button"
+          onClick={handleIncrement}
+          aria-label="Increase quantity"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/70 hover:bg-emerald-100 active:scale-95 transition-all shadow-xs cursor-pointer"
+        >
+          <Plus className="w-4 h-4" />
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <>
-      {CartedProduct?.find((product) => product.slug === slug) ? (
-        <div className={quantityNumberStyle || "flex gap-6 items-center"}>
-          <button
-            onClick={() => decrementProductQuantity(slug)}
-            className={
-              quantityColorStyle ||
-              "bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gray-300 rounded-xs w-7 h-7 flex justify-center items-center font-medium text-md cursor-pointer"
-            }
-          >
-            <Minus size={18} />
-          </button>
-          <span>
-            {CartedProduct?.find((product) => product.slug === slug)
-              ?.quantity || 0}
-          </span>
-          <button
-            onClick={() => incrementProductQuantity(slug)}
-            className={
-              quantityColorStyle ||
-              "bg-gray-100 text-gray-800 border border-gray-300  hover:bg-gray-300 rounded-xs w-7 h-7 flex justify-center items-center font-medium text-md cursor-pointer"
-            }
-          >
-            <Plus size={18} />
-          </button>
-        </div>
-      ) : (
-        <button
-          className={
-            AddToCartClassName ||
-            "bg-blue-600 text-white hover:bg-blue-700 py-2  px-3 rounded-xs max-md:rounded-sm font-medium text-sm flex items-center gap-2 justify-center"
-          }
-          onClick={() => addToCartBtn(name, category,subCategory, _id, slug, image, price)}
-        >
-          {/* Add To Cart */}
-          <ShoppingCart size={15} /> <span> ADD TO CART</span>
-        </button>
-      )}
-    </>
+    <button
+      type="button"
+      className={
+        AddToCartClassName ||
+        "w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+      }
+      onClick={handleAddToCart}
+    >
+      <ShoppingCart className="w-4 h-4" />
+      <span>Add to Cart</span>
+    </button>
   );
 };
 
