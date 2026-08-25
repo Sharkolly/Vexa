@@ -27,14 +27,14 @@ const MOCK_ORDERS = [
     date: "Aug 02, 2026",
     status: "Delivered",
     items: "Brand Identity Suite + UI Audit",
-    total: "$1,250.00",
+    total: "₦1,250,000.00",
   },
   {
     id: "VX-97410",
     date: "Jul 18, 2026",
     status: "In Progress",
     items: "Custom E-Commerce Storefront",
-    total: "$2,400.00",
+    total: "₦2,400,000.00",
   },
 ];
 
@@ -48,8 +48,8 @@ const Profile = (): React.JSX.Element => {
     firstName: user?.firstName || "Alex",
     lastName: user?.lastName || "Morgan",
     email: user?.email || "alex.morgan@vexa.com",
-    phone: "+1 (555) 019-2834",
-    address: "742 Evergreen Terrace, Springfield, OR",
+    phone: "+234 812 345 6789",
+    address: "742 Trans-Amadi Layout, Port Harcourt, Rivers State",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,13 +76,13 @@ const Profile = (): React.JSX.Element => {
             <div className="flex flex-col sm:flex-row items-center gap-6">
               {/* Avatar Upload Placeholder */}
               <div className="relative group">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 p-1 shadow-md">
-                  <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-slate-700 font-extrabold text-3xl overflow-hidden">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 p-1 shadow-md">
+                  <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-slate-800 font-extrabold text-3xl overflow-hidden">
                     {user?.firstName ? user.firstName[0].toUpperCase() : "A"}
                   </div>
                 </div>
                 <button
-                  className="absolute bottom-1 right-1 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-md transition-transform active:scale-95 cursor-pointer"
+                  className="absolute bottom-1 right-1 bg-emerald-700 hover:bg-emerald-800 text-white p-2 rounded-full shadow-md transition-transform active:scale-95 cursor-pointer"
                   title="Update Avatar"
                 >
                   <Camera className="w-4 h-4" />
@@ -91,11 +91,11 @@ const Profile = (): React.JSX.Element => {
 
               <div>
                 <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                  <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                     {formData.firstName} {formData.lastName}
                   </h1>
-                  <span className="md:inline-flex items-center gap-1 hidden px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-600 border border-blue-200/60">
-                    <Sparkles className="w-3 h-3" />
+                  <span className="md:inline-flex items-center gap-1 hidden px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                    <Sparkles className="w-3 h-3 text-emerald-600" />
                     Pro Member
                   </span>
                 </div>
@@ -138,7 +138,7 @@ const Profile = (): React.JSX.Element => {
                     onClick={() => setActiveTab(tab.id as TabType)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                       isActive
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                        ? "bg-emerald-700 text-white shadow-md shadow-emerald-700/20"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                   >
@@ -166,9 +166,9 @@ const Profile = (): React.JSX.Element => {
                   </div>
                   <button
                     onClick={() => setIsEditing(!isEditing)}
-                    className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-3.5 py-2 rounded-xl transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3.5 py-2 rounded-xl transition-colors cursor-pointer"
                   >
-                    {isEditing ? <Check className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
+                    {isEditing ? <Check className="w-4 h-4 text-emerald-700" /> : <Edit3 className="w-4 h-4 text-emerald-700" />}
                     {isEditing ? "Cancel" : "Edit Profile"}
                   </button>
                 </div>
@@ -187,7 +187,7 @@ const Profile = (): React.JSX.Element => {
                           disabled={!isEditing}
                           value={formData.firstName}
                           onChange={handleInputChange}
-                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-blue-600 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                         />
                       </div>
                     </div>
@@ -204,7 +204,7 @@ const Profile = (): React.JSX.Element => {
                           disabled={!isEditing}
                           value={formData.lastName}
                           onChange={handleInputChange}
-                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-blue-600 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                         />
                       </div>
                     </div>
@@ -221,7 +221,7 @@ const Profile = (): React.JSX.Element => {
                           disabled={!isEditing}
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-blue-600 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                         />
                       </div>
                     </div>
@@ -238,7 +238,7 @@ const Profile = (): React.JSX.Element => {
                           disabled={!isEditing}
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-blue-600 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                         />
                       </div>
                     </div>
@@ -256,7 +256,7 @@ const Profile = (): React.JSX.Element => {
                         disabled={!isEditing}
                         value={formData.address}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-blue-600 transition-all"
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 disabled:opacity-75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                       />
                     </div>
                   </div>
@@ -265,7 +265,7 @@ const Profile = (): React.JSX.Element => {
                     <div className="pt-4 flex justify-end">
                       <button
                         type="submit"
-                        className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-600/20 transition-all cursor-pointer"
+                        className="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-700/20 transition-all cursor-pointer"
                       >
                         Save Changes
                       </button>
@@ -295,7 +295,7 @@ const Profile = (): React.JSX.Element => {
                           <span
                             className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
                               order.status === "Delivered"
-                                ? "bg-emerald-50 text-emerald-600 border border-emerald-200/60"
+                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200/60"
                                 : "bg-amber-50 text-amber-600 border border-amber-200/60"
                             }`}
                           >
@@ -327,13 +327,13 @@ const Profile = (): React.JSX.Element => {
                 <Heart className="w-12 h-12 text-slate-300 mx-auto mb-3" />
                 <h3 className="font-bold text-slate-900 text-lg mb-1">No Saved Services Yet</h3>
                 <p className="text-xs text-slate-500 max-w-sm mx-auto mb-6">
-                  Click the heart icon on any service card in our store to save items for quick access later.
+                  Click the heart icon on any product or service card to save items for quick access later.
                 </p>
                 <a
                   href="/services"
-                  className="inline-flex px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold shadow-xs hover:bg-blue-700 transition-colors"
+                  className="inline-flex px-5 py-2.5 bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs hover:bg-emerald-800 transition-colors"
                 >
-                  Browse Services
+                  Browse Store
                 </a>
               </div>
             )}
@@ -356,7 +356,7 @@ const Profile = (): React.JSX.Element => {
                       <input
                         type="password"
                         placeholder="••••••••"
-                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-600 transition-all"
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                       />
                     </div>
                   </div>
@@ -370,12 +370,12 @@ const Profile = (): React.JSX.Element => {
                       <input
                         type="password"
                         placeholder="••••••••"
-                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-600 transition-all"
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                       />
                     </div>
                   </div>
 
-                  <button className="px-6 py-2.5 bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold rounded-xl transition-colors cursor-pointer">
+                  <button className="px-6 py-2.5 bg-slate-900 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-colors cursor-pointer">
                     Update Password
                   </button>
                 </div>
