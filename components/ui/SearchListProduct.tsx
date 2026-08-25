@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import type { AllProductType } from "../../types/product.types";
 import NoProduct from "./NoProduct";
 import Loader from "../Loader";
-import { Link } from "react-router-dom";
 import AddToCart from "./AddToCart";
 
 type SearchProductsType = {
@@ -13,104 +13,107 @@ type SearchProductsType = {
 const List = ({ isLoading, searchData, category }: SearchProductsType) => {
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string,
+    fallback: string
   ) =>
     typeof img === "string"
       ? img
       : img instanceof File
-        ? URL.createObjectURL(img)
-        : fallback;
+      ? URL.createObjectURL(img)
+      : fallback;
+
+  if (isLoading && (!searchData || searchData.length === 0)) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!searchData || searchData.length === 0) {
+    return <NoProduct category={category} />;
+  }
 
   return (
-    <>
-      {isLoading && !searchData ? (
-        <Loader />
-      ) : (
-        <>
-          {searchData.length > 0 ? (
-            <>
-              <div className="flex justify-between flex-wrap gap-5 overflow-x-hidden max-sm:overflow-x-hidden  flex-col 2xl:flex-row  pb-12">
-              {/* <div className="flex flex-col gap-5 overflow-x-hidden max-sm:overflow-x-hidden pb-12"> */}
-                {searchData.map((item: AllProductType) => (
-                  <div
-                    className="flex flex-row gap-4 basis-[40%] flex-1 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
-                    // className="flex flex-row gap-4 border-b-1.5 rounded-lg  border-b-slate-200 shadow-md max-md:gap-2 md:p-5 p-2 py-4"
-                    key={item._id}
-                  >
-                    <div className='max-md:w-7/12'>
-                    <Link
-                      to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                      className="relative
-                      
-                      "
-                    >
-                      <img
-                        src={resolveImage(item?.images[0], "")}
-                        alt="product"
-                        className="sm:h-64 md:w-64 sm:w-56 w-full h-45 object-cover rounded-md"
-                      />
+    <div className="w-full flex flex-col gap-4 pb-12">
+      {searchData.map((item: AllProductType) => {
+        const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
 
-                      <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
-                        -25%
-                      </span>
-                    </Link>
-                  </div>
+        return (
+          <div
+            key={item._id}
+            className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-4 flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch"
+          >
+            {/* Image Container */}
+            <div className="relative w-full sm:w-52 h-48 sm:h-48 shrink-0 rounded-xl overflow-hidden bg-slate-100">
+              <Link to={productPath} className="block w-full h-full">
+                <img
+                  src={resolveImage(item?.images[0], "")}
+                  alt={item?.name || "Product image"}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+              </Link>
 
-                    <div className="md:flex-1 flex flex-col justify-between flex-none max-md:w-7/12">
-                      <div className="space-y-1 mt-4 max-md:mt-0">
-                        <Link
-                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                          className="text-sm text-gray-500 font-medium capitalize line-clamp-2 capitalize"
-                        >
-                          {item?.subCategory}
-                        </Link>
-                        <Link
-                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                          className="font-medium line-clamp-2 max-lg:text-lg mb- truncate"
-                        >
-                          {item?.name}
-                        </Link>
-                       
+              {/* Sale Tag */}
+              <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                -25% OFF
+              </span>
+            </div>
 
-                        <p className="text-sm text-yellow-500 mt-1 hidden">
-                          ⭐⭐⭐⭐☆ (4.5)
-                        </p>
+            {/* Product Details Section */}
+            <div className="flex-1 flex flex-col justify-between py-1">
+              <div>
+                {/* Category Header */}
+                <Link
+                  to={productPath}
+                  className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1 block hover:underline"
+                >
+                  {item?.subCategory}
+                </Link>
 
-                        <p className="text-xl font-bold">
-                          ₦{item?.price?.toLocaleString()}
-                        </p>
-                        <p className="text-sm text-gray-500 line-through">
-                          ₦{(item?.price * 1.12).toLocaleString()}
-                        </p>
-                      </div>
+                {/* Product Name */}
+                <Link to={productPath}>
+                  <h3 className="font-bold text-slate-900 text-base sm:text-lg line-clamp-2 leading-snug group-hover:text-emerald-700 transition-colors">
+                    {item?.name}
+                  </h3>
+                </Link>
 
-                      <div className="flex items-center gap-3 max-md:mt-2">
-                        <AddToCart
-                          quantity={item?.quantity}
-                          id={item?._id}
-                          category={item?.category}
-                          subCategory={item?.subCategory}
-                          price={item?.price}
-                          image={resolveImage(item?.images[0], "")}
-                          name={item?.name}
-                          slug={item?.slug}
-                        />
-
-                        <button className="border px-4 py-2 rounded-lg hidden">
-                          ❤️ Wishlist
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {/* Optional Description Preview on Desktop */}
+                {item?.description && (
+                  <p className="text-xs text-slate-500 line-clamp-2 mt-2 hidden md:block">
+                    {item.description}
+                  </p>
+                )}
               </div>
-            </>
-          ) : (
-            <NoProduct category={category} />
-          )}
-        </>
-      )}
-    </>
+
+              {/* Pricing & Add to Cart Footer */}
+              <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xl font-extrabold text-emerald-700 tracking-tight">
+                    ₦{item?.price?.toLocaleString()}
+                  </p>
+                  <p className="text-xs font-medium text-slate-400 line-through">
+                    ₦{(item?.price * 1.12).toLocaleString()}
+                  </p>
+                </div>
+
+                <div className="w-full sm:w-auto">
+                  <AddToCart
+                    quantity={item?.quantity}
+                    id={item?._id}
+                    category={item?.category}
+                    subCategory={item?.subCategory}
+                    price={item?.price}
+                    image={resolveImage(item?.images[0], "")}
+                    name={item?.name}
+                    slug={item?.slug}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
