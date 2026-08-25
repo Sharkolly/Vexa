@@ -118,7 +118,7 @@ const Search = () => {
         </div>
       ) : (
         <div>
-          <div className="pt-24 lg:flex gap-6 max-md:flex-col lg:px-12 max-lg:px-6 px-4 pb-20 md:pb-12">
+          <div className="pt-24 lg:flex gap-6 max-md:flex-col lg:px-12 max-lg:px-6 max-xs:px-1.5 max-md:px-3 pb-20 md:pb-12">
             <SearchFilter
               categories={categories}
               categorySearchBtn={categorySearch}
