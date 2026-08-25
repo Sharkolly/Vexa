@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { AllProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
@@ -11,7 +12,7 @@ const FeaturedProduct = () => {
 
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string,
+    fallback: string
   ) =>
     typeof img === "string"
       ? img
@@ -19,103 +20,111 @@ const FeaturedProduct = () => {
         ? URL.createObjectURL(img)
         : fallback;
 
-  console.log(productItem);
-
   return (
-    <>
-      {isLoading && !productItem ? (
-        <Loader />
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-24">
+      {/* Section Header */}
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200/70">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-6 h-6 text-emerald-700" />
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Featured Products
+          </h2>
+        </div>
+
+        <Link
+          to="/shop"
+          className="group flex items-center gap-1.5 text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-all"
+        >
+          <span>View All</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </div>
+
+      {isLoading && productItem.length === 0 ? (
+        <div className="flex justify-center items-center py-16">
+          <Loader />
+        </div>
       ) : (
-        <section className="w-[90%] max-md:w-[95%] mx-auto px-4 pb-20">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl text-nav-blue-active/90 max-md:text-2xl font-bold">
-              Featured Products
-            </h2>
+        /* Product Grid */
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {productItem.map((product) => {
+            const productSlug = product.slug || product._id;
+            const productDetailUrl = `/products/${product.category.toLowerCase()}/${product.subCategory}/${productSlug}`;
+            const imageSrc = resolveImage(
+              product?.images?.[0],
+              "https://placehold.co/400x400?text=No+Image"
+            );
 
-            <Link
-              to="/shop"
-              className="text-blue-700 max-md:hidden font-semibold"
-            >
-              View More &gt;
-            </Link>
-            <Link
-              to="/shop"
-              className="text-blue-700 text-xl md:hidden font-semibold"
-            >
-              &gt;
-            </Link>
-          </div>
+            // Calculated 12% markup for standard discount display
+            const oldPrice = Math.round(product.price * 1.12);
 
-          <div className="grid  sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {productItem.map((product) => (
+            return (
               <div
-                key={product.id}
-                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition"
+                key={product._id || product.id}
+                className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 flex flex-col justify-between"
               >
-                <Link
-                  to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
-                  className="relative overflow-hidden"
-                >
-                  <img
-                    src={resolveImage(product?.images[0], "")}
-                    alt={product.name}
-                    className="w-full h-80 max-md:h-110 object-cover hover:scale-105 transition duration-300"
-                  />
-
-                  <span className="absolute top-4 left-4 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-bold">
-                    -20%
-                  </span>
-                </Link>
-
-                <div className="p-5">
-                   <Link to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}>
-                    <p className="text-sm text-gray-500 capitalize">
-                       {product?.subCategory}
-                    </p>
-                    <h3 className="font-medium h-14  text-lg mt-1 line-clamp-3">
-                      {product.name}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-2 text-yellow-500 text-sm hidden">
-                      ⭐⭐⭐⭐⭐
-                      <span className="text-gray-500">(4.8)</span>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-xl font-bold">
-                        ₦{product.price.toLocaleString()}
-                      </p>
-                      <p className="text-sm text-gray-400 line-through">
-                        {/* {product.oldPrice} */}₦
-                        {(product.price * 1.08).toLocaleString()}
-                      </p>
-                    </div>
-                  </Link>
-
-                  <div className="flex w-full gap-3 mt-5">
-                    {/* <button className="flex-1 bg-blue-700 hover:bg-blue-800 text-white py-2 rounded-xl font-semibold transition">
-                  Add To Cart
-                </button> */}
-
-                    <AddToCart
-                      AddToCartClassName="w-full bg-blue-600  text-white font-semibold py-2 mt-2 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2 justify-center"
-                      quantityNumberStyle="w-full flex justify-between mt-2  items-center    borde-1 border-orange-00 rounded-md py-1"
-                      quantity={product?.quantity}
-                      id={product?._id}
-                      category={product?.category}
-                      price={product?.price}
-                      image={resolveImage(product?.images[0], "")}
-                      name={product?.name}
-                      slug={product?.slug}
+                {/* Image Container */}
+                <div>
+                  <Link
+                    to={productDetailUrl}
+                    className="relative block aspect-square overflow-hidden bg-slate-50"
+                  >
+                    <img
+                      src={imageSrc}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                      loading="lazy"
                     />
 
-                    {/* <button className="border px-4 rounded-xl">❤️</button> */}
+                    {/* Badge */}
+                    <span className="absolute top-3 left-3 bg-rose-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wider">
+                      -10% OFF
+                    </span>
+                  </Link>
+
+                  {/* Content Details */}
+                  <div className="p-4 sm:p-5">
+                    <Link to={productDetailUrl} className="block group/title">
+                      <p className="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-1">
+                        {product?.subCategory || product?.category}
+                      </p>
+                      <h3 className="font-semibold text-slate-800 text-base line-clamp-2 h-12 group-hover/title:text-emerald-700 transition-colors">
+                        {product.name}
+                      </h3>
+                    </Link>
+
+                    {/* Pricing */}
+                    <div className="mt-3 flex items-baseline gap-2">
+                      <span className="text-xl font-black text-slate-900">
+                        ₦{product.price.toLocaleString()}
+                      </span>
+                      <span className="text-xs font-semibold text-slate-400 line-through">
+                        ₦{oldPrice.toLocaleString()}
+                      </span>
+                    </div>
                   </div>
                 </div>
+
+                {/* Add to Cart Footer Action */}
+                <div className="p-4 sm:p-5 pt-0 mt-auto">
+                  <AddToCart
+                    AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                    quantityNumberStyle="w-full flex items-center justify-between gap-2 bg-slate-50 border border-slate-200/80 p-1.5 rounded-xl shadow-xs"
+                    _id={product?._id}
+                    category={product?.category}
+                    subCategory={product?.subCategory}
+                    price={product?.price}
+                    image={imageSrc}
+                    name={product?.name}
+                    slug={product?.slug}
+                  />
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
+            );
+          })}
+        </div>
       )}
-    </>
+    </section>
   );
 };
 
