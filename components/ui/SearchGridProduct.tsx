@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-// import { IoMdHeartEmpty } from "react-icons/io";
-import Loader from "../Loader";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
+import Loader from "../Loader";
 import NoProduct from "./NoProduct";
-import type { AllProductType } from "../../types/product.types";
 import AddToCart from "./AddToCart";
+import type { AllProductType } from "../../types/product.types";
 
 type SearchProductsType = {
   isLoading?: boolean;
@@ -15,139 +15,146 @@ type SearchProductsType = {
 const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string,
+    fallback: string
   ) =>
     typeof img === "string"
       ? img
       : img instanceof File
-        ? URL.createObjectURL(img)
-        : fallback;
-  return (
-    <>
-      {isLoading && searchData.length == 0 ? (
+      ? URL.createObjectURL(img)
+      : fallback;
+
+  if (isLoading && searchData.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-20">
         <Loader />
-      ) : (
-        <>
-          {searchData.length > 0 ? (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3  gap-4 ">
-                {searchData.map((item: AllProductType) => (
-                  <>
-                    <div
-                      key={item?._id}
-                      className="group bg-white rounded-2x overflow-hidden  flex flex-col text-sm sm:text-base border-b-1.5 rounded-lg  border-b-slate-200 shadow-md"
-                    >
-                      <div className="bg-white p-4 rounded-md hover:shadow-lg transition">
-                        <Link
-                          to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                          className="relative"
-                        >
-                          <img
-                            src={resolveImage(item?.images[0], "")}
-                            alt="product"
-                            className="w-full h-80 max-md:h-85  object-cover rounded-md"
-                          />
+      </div>
+    );
+  }
 
-                          <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded">
-                            -25%
-                          </span>
-                        </Link>
+  if (searchData.length === 0) {
+    return <NoProduct category={category} />;
+  }
 
-                        <div className="mt-4">
-                          <div className="space-y-1">
-                            <Link
-                              to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                              className="text-sm text-gray-500 font-medium mb-2 line-clamp-2 capitalize"
-                            >
-                              {item?.subCategory}
-                            </Link>
-                            <Link
-                              to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                              className="font-medium line-clamp-2 max-lg:text-lg mb-10 "
-                            >
-                              {item?.name}
-                            </Link>
-                            <Link
-                              to={`/products/${item.category}/${item.subCategory}/${item.slug}`}
-                              className="text-sm text-gray-500 mb-4 line-clamp-2 wrap-break-word hidden"
-                            >
-                              {item?.description}
-                            </Link>
-                          </div>
+  return (
+    <div className="w-full">
+      {/* Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {searchData.map((item: AllProductType) => {
+          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
 
-                          <div className="flex items-center gap-2 mt-2 hidden">
-                            <div className="flex text-yellow-500">
-                              ⭐⭐⭐⭐⭐
-                            </div>
+          return (
+            <div
+              key={item?._id}
+              className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                {/* Product Image & Badges */}
+                <div className="relative bg-slate-100 aspect-square overflow-hidden">
+                  <Link to={productPath}>
+                    <img
+                      src={resolveImage(item?.images[0], "")}
+                      alt={item?.name || "Product"}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                  </Link>
 
-                            <span className="text-sm text-blue-600">2,340</span>
-                          </div>
-
-                          <div className="mt-2 flex justify-between items-center">
-                            <div>
-                              <p className="text-xl font-bold">
-                                ₦{item?.price?.toLocaleString()}
-                              </p>
-                              <p className="text-sm text-gray-500 line-through">
-                                ₦{(item?.price * 1.12).toLocaleString()}
-                              </p>
-                            </div>
-
-                            <AddToCart
-                              quantity={item?.quantity}
-                              id={item?._id}
-                              category={item?.category}
-                              price={item?.price}
-                              image={resolveImage(item?.images[0], "")}
-                              name={item?.name}
-                              slug={item?.slug}
-                              subCategory={item?.subCategory}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ))}
-              </div>
-              <div className="mt-stack-lg flex justify-center items-center gap-2">
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
-                  <span
-                    className="material-symbols-outlined text-[20px]"
-                    data-icon="chevron_left"
-                  >
-                    {/* chevron_left */}
+                  {/* Discount Badge */}
+                  <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    -25% OFF
                   </span>
-                </button>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-label-md text-label-md">
-                  1
-                </button>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors font-label-md text-label-md">
-                  2
-                </button>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors font-label-md text-label-md">
-                  3
-                </button>
-                <span className="px-2">...</span>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors font-label-md text-label-md">
-                  12
-                </button>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
-                  <span
-                    className="material-symbols-outlined text-[20px]"
-                    data-icon="chevron_right"
+                </div>
+
+                {/* Product Metadata */}
+                <div className="p-5">
+                  <Link
+                    to={productPath}
+                    className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1 block hover:underline"
                   >
-                    {/* chevron_right */}
-                  </span>
-                </button>
+                    {item?.subCategory}
+                  </Link>
+
+                  <Link to={productPath}>
+                    <h3 className="font-bold text-slate-900 text-base line-clamp-2 h-12 leading-snug group-hover:text-emerald-700 transition-colors">
+                      {item?.name}
+                    </h3>
+                  </Link>
+                </div>
               </div>
-            </>
-          ) : (
-            <NoProduct category={category} />
-          )}
-        </>
-      )}
-    </>
+
+              {/* Price & Add to Cart Container */}
+              <div className="px-5 pb-5 pt-0">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xl font-extrabold text-emerald-700 tracking-tight">
+                      ₦{item?.price?.toLocaleString()}
+                    </p>
+                    <p className="text-xs font-medium text-slate-400 line-through">
+                      ₦{(item?.price * 1.12).toLocaleString()}
+                    </p>
+                  </div>
+
+                  <AddToCart
+                    quantity={item?.quantity}
+                    id={item?._id}
+                    category={item?.category}
+                    price={item?.price}
+                    image={resolveImage(item?.images[0], "")}
+                    name={item?.name}
+                    slug={item?.slug}
+                    subCategory={item?.subCategory}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="mt-12 flex justify-center items-center gap-2">
+        <button
+          type="button"
+          aria-label="Previous Page"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+        >
+          <FiChevronLeft className="w-5 h-5" />
+        </button>
+
+        <button
+          type="button"
+          className="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-700 text-white font-bold text-sm shadow-sm shadow-emerald-700/20"
+        >
+          1
+        </button>
+        <button
+          type="button"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors font-medium text-sm"
+        >
+          2
+        </button>
+        <button
+          type="button"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors font-medium text-sm"
+        >
+          3
+        </button>
+        <span className="px-1 text-slate-400 font-medium">...</span>
+        <button
+          type="button"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors font-medium text-sm"
+        >
+          12
+        </button>
+
+        <button
+          type="button"
+          aria-label="Next Page"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+        >
+          <FiChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
   );
 };
 
