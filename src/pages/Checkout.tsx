@@ -47,7 +47,7 @@ const CheckoutPage = () => {
                   disabled={true}
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.fullName || ""}
-                  disabled
+                  
                 />
               </div>
 
@@ -61,7 +61,7 @@ const CheckoutPage = () => {
                   placeholder="Email Address"
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.email || ""}
-                  disabled
+                  
                 />
               </div>
             </div>
@@ -78,7 +78,7 @@ const CheckoutPage = () => {
                   disabled={true}
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.phone || ""}
-                  disabled
+                  
                 />
               </div>
 
@@ -92,7 +92,7 @@ const CheckoutPage = () => {
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   placeholder="Apartment, Suite, Landmark (optional)"
                   value={deliveryDetails.landmark || ""}
-                  disabled
+                  
                 />
               </div>
             </div>
@@ -122,7 +122,7 @@ const CheckoutPage = () => {
                   placeholder="State"
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.state || ""}
-                  disabled
+                  
                 />
               </div>
             </div>
