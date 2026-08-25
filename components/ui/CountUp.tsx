@@ -131,7 +131,7 @@ const CountUpPage = () => {
       ref={sectionRef}
       className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-12 sm:py-16"
     >
-      <div className="bg-slate-50/80 rounded-3xl border border-slate-200/70 p-6 sm:p-10 lg:p-12 shadow-xs">
+      <div className="bg-slate-50/80 rounded-3xl border border-slate-200/70 max-md:py-4.5 max-xs:px-2 max-md:px-4  sm:p-10 lg:p-12 shadow-xs">
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-10">
           <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-100/80 px-3 py-1 rounded-full">
