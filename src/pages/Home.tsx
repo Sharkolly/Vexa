@@ -114,7 +114,7 @@ const Home = () => {
 
         <div className="animate-marquee-track">
           {/* First Marquee Item Group */}
-          <div className="flex items-center justify-around w-1/2 shrink-0 gap-8 px-4">
+          <div className="flex items-center justify-around w-1/2 py-2 shrink-0 gap-8 px-4">
             <span className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-emerald-400" />
               🚚 Free Nationwide Delivery On Orders Above ₦100,000
