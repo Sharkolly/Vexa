@@ -13,7 +13,6 @@ import { MdArrowRightAlt } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
 import NoCartItem from "../../components/ui/NoCartItem";
 import SearchNav from "../../components/ui/SearchNav";
-// import {MultiCarouselExample} from '../../components/MediaCarousel'
 
 type RootState = {
   product: {
@@ -30,13 +29,14 @@ type RootState = {
 const Cart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart,
+    (state: RootState) => state.product.addToCart
   );
   const total = useSelector((state: RootState) => state.product.total);
 
   const incrementProductQuantity = (slug: string = "") => {
     dispatch(incrementQuantity({ slug }));
   };
+
   const decrementProductQuantity = (slug: string = "", quantity: number) => {
     dispatch(decrementQuantity({ slug }));
 
@@ -45,348 +45,270 @@ const Cart = () => {
     }
   };
 
- // console.log(CartedProduct);
-  // const resolveImage = (
-  //   img: string | File | null | undefined,
-  //   fallback: string,
-  // ) =>
-  //   typeof img === "string"
-  //     ? img
-  //     : img instanceof File
-  //       ? URL.createObjectURL(img)
-  //       : fallback;
-
-        
   return (
-    <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased ">
-      {/* <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased mb-50"> */}
+    <div className="min-h-screen bg-slate-50/50 text-slate-800 antialiased">
       {CartedProduct.length > 0 ? (
-        <main className="flex-grow pt-32  pb-24 max-w-[1440px] mx-auto w-full md:px-12 max-md:pt-24 max-md:px-2.5 ">
-          <>
-            <div className="mb-12 max-md:mb-7 px-2.5">
-              <h1 className="font-semibold text-4xl text-on-surface mb-4">
+        <main className="pt-20 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16">
+          {/* HEADER */}
+          <div className="border-b border-slate-200/80 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
                 Shopping Cart
               </h1>
-              <Link
-                className="text-nav-blue-active font-label-md flex items-center gap-2 hover:underline transition-all "
-                to="/shop"
-              >
-                <span
-                  className="material-symbols-outlined text-sm"
-                  data-icon="arrow_back"
-                >
-                  <IoMdArrowBack />
-                </span>
-                Continue Shopping
-              </Link>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                Review your items and proceed to checkout when ready.
+              </p>
             </div>
-            <div className="flex flex-col xl:flex-row gap-5  xl:justify-between w-full">
-              <div className="flex- flex-1 ">
-                <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden border border-slate-200">
-                  <table className="w-full border-collapse  hidden md:table">
-                    <thead>
-                      <tr className="border-b border-gray-300">
-                        <th className="text-left py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                          Product
-                        </th>
-                        <th className="text-center py-6 px-4 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                          Price
-                        </th>
-                        <th className="text-center py-6 px-4 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                          Quantity
-                        </th>
-                        <th className="text-right py-6 px-8 font-label-sm text-nav-blue-active uppercase tracking-widest">
-                          Total
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-300">
-                      {CartedProduct.map((product: ProductType) => (
-                        <tr className="group hover:bg-slate-50/50 transition-colors">
-                          <td className="py-8 pl-8 pr-4">
-                            <div className="flex items-center gap-3.5">
-                              <div className="w-32 h-32     rounded-sm   overflow-hidden bg-slate-100 flex-shrink-0">
-                                <img
-                                  className="w-full h-full object-cover"
-                                  data-alt="A high-end, sleek matte black wireless headphone set resting on a minimalist white marble surface. The studio lighting is soft and directional, highlighting the premium metallic textures and smooth leather ear pads. The aesthetic is ultra-modern and professional, aligning with a luxury electronics catalog. Soft shadows ground the product in a bright, airy environment."
-                                  // src={resolveImage(product?.images[0], '/placeholder-image.jpg')}
-                                  src={product.image}
-                                />
-                              </div>
-                              <div>
-                                <Link
-                                  to={`/products/${product.category}/${product.subCategory}/${product.slug}`}
-                                >
-                                  <h3 className="font-semibold text-lg  text-slate-900 mb-1">
-                                    {product.name}
-                                  </h3>
-                                  <p className="text-slate-500 capitalize text-label-md mb-2">
-                                    {product.category} / {product.subCategory}  
-                                  </p>
-                                </Link>
-                                <button
-                                  className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
-                                  onClick={() =>
-                                    dispatch(
-                                      removeCart({
-                                        slug: product.slug,
-                                      }),
-                                    )
-                                  }
-                                >
-                                  <span className="text-red-500 hover:text-red-600 flex items-center gap-2">
-                                    <span className="text-sm">Delete </span>{" "}
-                                    <span>
-                                      <RiDeleteBinLine />{" "}
-                                    </span>
-                                  </span>
-                                  {/* Remove */}
-                                </button>
-                              </div>
-                            </div>
-                          </td>
+            <Link
+              className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 transition-colors w-fit"
+              to="/shop"
+            >
+              <IoMdArrowBack className="w-4 h-4" />
+              <span>Continue Shopping</span>
+            </Link>
+          </div>
 
-                          <td className="py-8 px-2 text-center">
-                            <span className="font-medium text-slate-900">
-                              ₦{product.price.toLocaleString()}
-                            </span>
-                          </td>
-                          <td className="py-8 px-0">
-                            <div className="flex items-center justify-center">
-                              <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden">
-                                <button
-                                  className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                                  onClick={() =>
-                                    decrementProductQuantity(
-                                      product.slug,
-                                      product?.quantity,
-                                    )
-                                  }
-                                >
-                                  -
-                                </button>
-                                <span className="px-4 py-1 font-medium text-slate-900 border-x border-slate-200">
-                                  {product.quantity}
-                                </span>
-                                <button
-                                  className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                                  onClick={() =>
-                                    incrementProductQuantity(product.slug)
-                                  }
-                                >
-                                  +
-                                </button>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-8 px-3 text-center">
-                            <span className="font-medium text-slate-900">
-                              ₦{product?.new_price?.toLocaleString()}
-                            </span>
-                          </td>
-
-                          {/* <hr />   */}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="md:hidden">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
+            {/* LEFT COLUMN: PRODUCT LIST / TABLE */}
+            <div className="xl:col-span-2 space-y-4">
+              <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden transition-shadow hover:shadow-md">
+                {/* DESKTOP TABLE */}
+                <table className="w-full border-collapse hidden md:table">
+                  <thead>
+                    <tr className="border-b border-slate-100 bg-slate-50/50 text-slate-600 text-xs uppercase tracking-wider font-semibold">
+                      <th className="text-left py-4 px-6">Product</th>
+                      <th className="text-center py-4 px-4">Price</th>
+                      <th className="text-center py-4 px-4">Quantity</th>
+                      <th className="text-right py-4 px-6">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-sm">
                     {CartedProduct.map((product: ProductType) => (
-                      <div className="py-5 px-4 max-[500px]:px-3 space-y-4">
-                        <div className="flex gap-4 max-[500px]:gap-2">
-                          <div className="w-28 h-28 max-[500px]:w-23 max-[500px]:h-23 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
-                            <img
-                              alt="Acoustic Pro Headphones"
-                              className="w-full h-full object-cover"
-                              src={product.image}
-                            />
-                          </div>
-                          <div className="flex-grow flex flex-col gap-2">
-                            <Link
-                              to={`/products/${product.category}/${product.subCategory}/${product?.slug}`}
-                            >
-                              <h3 className="font-medium text-slate-900 w-11/12 truncate">
+                      <tr
+                        key={product.slug}
+                        className="group hover:bg-slate-50/50 transition-colors"
+                      >
+                        <td className="py-5 px-6">
+                          <div className="flex items-center gap-4">
+                            <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 border border-slate-200/60 shrink-0">
+                              <img
+                                className="w-full h-full object-cover"
+                                src={product.image}
+                                alt={product.name}
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Link
+                                to={`/products/${product.category}/${product.subCategory}/${product.slug}`}
+                                className="font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-1"
+                              >
                                 {product.name}
-                              </h3>
-                              <p className="text-slate-500 text-sm capitalize">
+                              </Link>
+                              <p className="text-xs text-slate-500 capitalize">
                                 {product.category} / {product.subCategory}
                               </p>
-                            </Link>
-                            <div className="flex justify-between items-center">
-                              <p className=" font-semibold max-md:text-sm text-slate-600 ">
-                                ₦{product.price.toLocaleString()}
-                              </p>
-                              <span className=" font-semibold text-blue-900 flex flex-col items-center max-[500px]:hidden">
-                                <span>{product.quantity}</span>
-                                <span>
-                                  <MdArrowRightAlt />
-                                </span>
-                              </span>
-                              <p className="font-semibold text-slate-900 pr-4 max-md:text-sm max-[500px]:hidden">
-                                ₦
-                                {product.new_price
-                                  ? product.new_price?.toLocaleString()
-                                  : "0"}
-                              </p>
+                              <button
+                                className="text-xs text-rose-600 hover:text-rose-700 font-medium inline-flex items-center gap-1 pt-1 transition-colors cursor-pointer"
+                                onClick={() =>
+                                  dispatch(removeCart({ slug: product.slug }))
+                                }
+                              >
+                                <RiDeleteBinLine className="w-3.5 h-3.5" />
+                                <span>Remove</span>
+                              </button>
                             </div>
                           </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden">
-                            <button
-                              className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                              onClick={() =>
-                                decrementProductQuantity(
-                                  product.slug,
-                                  product.quantity,
-                                )
-                              }
-                            >
-                              -
-                            </button>
-                            <span className="px-4 py-1 font-medium text-slate-900 border-x border-slate-200">
-                              {product.quantity}
-                            </span>
-                            <button
-                              className="px-3 py-1 hover:bg-slate-50 text-slate-400"
-                              onClick={() =>
-                                incrementProductQuantity(product.slug)
-                              }
-                            >
-                              +
-                            </button>
-                          </div>
-                          <button
-                            className="text-error font-label-sm flex items-center gap-1 cursor-pointer"
-                            onClick={() =>
-                              dispatch(removeCart({ slug: product.slug }))
-                            }
-                          >
-                            <span className="text-red-500 hover:text-red-600 flex items-center gap-2">
-                              <span className="text-sm">Delete </span>{" "}
-                              <span>
-                                <RiDeleteBinLine />{" "}
+                        </td>
+
+                        <td className="py-5 px-4 text-center font-mono font-medium text-slate-700">
+                          ₦{product.price.toLocaleString()}
+                        </td>
+
+                        <td className="py-5 px-4">
+                          <div className="flex items-center justify-center">
+                            <div className="inline-flex items-center border border-slate-200 rounded-xl bg-white shadow-xs overflow-hidden">
+                              <button
+                                className="px-3 py-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
+                                onClick={() =>
+                                  decrementProductQuantity(
+                                    product.slug,
+                                    product.quantity
+                                  )
+                                }
+                              >
+                                -
+                              </button>
+                              <span className="px-3 py-1.5 font-mono font-semibold text-slate-900 border-x border-slate-200 text-xs">
+                                {product.quantity}
                               </span>
+                              <button
+                                className="px-3 py-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
+                                onClick={() =>
+                                  incrementProductQuantity(product.slug)
+                                }
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="py-5 px-6 text-right font-mono font-bold text-slate-900">
+                          ₦{product?.new_price?.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                {/* MOBILE LIST VIEW */}
+                <div className="md:hidden divide-y divide-slate-100">
+                  {CartedProduct.map((product: ProductType) => (
+                    <div key={product.slug} className="p-4 space-y-3">
+                      <div className="flex gap-3">
+                        <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 border border-slate-200/60 shrink-0">
+                          <img
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                            src={product.image}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <Link
+                            to={`/products/${product.category}/${product.subCategory}/${product.slug}`}
+                          >
+                            <h3 className="font-semibold text-sm text-slate-900 truncate">
+                              {product.name}
+                            </h3>
+                            <p className="text-xs text-slate-500 capitalize">
+                              {product.category} / {product.subCategory}
+                            </p>
+                          </Link>
+
+                          <div className="flex justify-between items-center pt-1">
+                            <p className="text-xs font-mono text-slate-600">
+                              ₦{product.price.toLocaleString()}
+                            </p>
+                            <span className="hidden min-[500px]:flex items-center gap-1 text-xs text-slate-400">
+                              <span>Qty: {product.quantity}</span>
+                              <MdArrowRightAlt />
                             </span>
-                            {/* Remove */}
-                          </button>
+                            <p className="font-mono font-bold text-sm text-slate-900">
+                              ₦
+                              {product.new_price
+                                ? product.new_price.toLocaleString()
+                                : "0"}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    ))}
+
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="inline-flex items-center border border-slate-200 rounded-xl bg-white shadow-xs overflow-hidden">
+                          <button
+                            className="px-3 py-1 text-slate-500 hover:bg-slate-100 cursor-pointer text-xs"
+                            onClick={() =>
+                              decrementProductQuantity(
+                                product.slug,
+                                product.quantity
+                              )
+                            }
+                          >
+                            -
+                          </button>
+                          <span className="px-3 py-1 font-mono font-semibold text-slate-900 border-x border-slate-200 text-xs">
+                            {product.quantity}
+                          </span>
+                          <button
+                            className="px-3 py-1 text-slate-500 hover:bg-slate-100 cursor-pointer text-xs"
+                            onClick={() =>
+                              incrementProductQuantity(product.slug)
+                            }
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        <button
+                          className="text-xs text-rose-600 hover:text-rose-700 font-medium inline-flex items-center gap-1 transition-colors cursor-pointer"
+                          onClick={() =>
+                            dispatch(removeCart({ slug: product.slug }))
+                          }
+                        >
+                          <RiDeleteBinLine className="w-3.5 h-3.5" />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: ORDER SUMMARY */}
+            <aside className="w-full">
+              <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm sticky top-6">
+                <h2 className="text-xl font-bold tracking-tight text-slate-900 border-b border-slate-100 pb-4 mb-5">
+                  Order Summary
+                </h2>
+
+                <div className="space-y-4 text-sm">
+                  <div className="flex justify-between items-center text-slate-600 font-medium">
+                    <span>Subtotal</span>
+                    <span className="font-mono text-slate-900 font-bold">
+                      ₦{total?.totalPrice?.toLocaleString() || 0}
+                    </span>
+                  </div>
+
+                  <hr className="border-slate-100 my-2" />
+
+                  <div className="flex justify-between items-center text-base font-bold text-slate-900">
+                    <span>Total</span>
+                    <span className="font-mono text-lg text-emerald-700">
+                      ₦{total?.totalPrice?.toLocaleString() || 0}
+                    </span>
                   </div>
                 </div>
-                <div className="mt-8 flex justify-between items-center hidden">
-                  <div className="flex flex-col sm:flex-row gap-4 w-full">
-                    <input
-                      className="flex-grow px-6 py-3 border border-slate-200 rounded-lg focus:ring-primary focus:border-primary bg-white outline-none "
-                      placeholder="Promo code "
-                      type="text"
-                    />
-                    <button className="px-6 py-3 bg-nav-blue-active/90  text-white font-label-md rounded-lg hover:bg-slate-800 transition-all active:scale-95">
-                      Apply
+
+                {/* ACTION BUTTONS */}
+                <div className="mt-7 space-y-3">
+                  <Link to="/delivery" className="block">
+                    <button className="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-700/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                      <span>Proceed to Delivery</span>
                     </button>
+                  </Link>
+
+                  <Link to="/shop" className="block">
+                    <button className="w-full py-3 px-4 border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-sm rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                      <span>Continue Shopping</span>
+                    </button>
+                  </Link>
+                </div>
+
+                {/* TRUST BADGES */}
+                <div className="mt-7 pt-6 border-t border-slate-100 space-y-3">
+                  <div className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
+                    <MdVerified className="text-emerald-600 w-4 h-4 shrink-0" />
+                    <span>Secure checkout powered by Paystack</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
+                    <MdLocalShipping className="text-blue-600 w-4 h-4 shrink-0" />
+                    <span>Calculated shipping options available</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
+                    <MdSync className="text-amber-600 w-4 h-4 shrink-0" />
+                    <span>30-day hassle-free return policy</span>
                   </div>
                 </div>
               </div>
-
-              <aside className="w-full xl:w-100 shrink-0 ">
-                <div className="bg-white rounded-xl border border-slate-200 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-7  max-md:p-6   md:sticky md:top-32 ">
-                  {/* <div className="bg-white rounded-xl md:border md:border-slate-200 md:shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-9  max-md:p-4   md:sticky md:top-32 fixed bottom-0 left-0 right-0 z-10 border-t-1 h-[250px] overflow-y-auto"> */}
-                  <h2 className="font-semibold text-2xl text-slate-900 mb-8">
-                    Order Summary
-                  </h2>
-                  <div className="space-y-4 mb-8">
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-500 font-body-md">
-                        Subtotal
-                      </span>
-                      <span className="text-slate-900 font-medium">
-                        ₦{total?.totalPrice.toLocaleString() || 0}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center hidden">
-                      <span className="text-slate-500 font-body-md">
-                        Shipping
-                      </span>
-                      <span className="text-slate-900 font-medium">
-                        ₦{(total?.totalPrice * 0.03).toLocaleString() || 0}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center hidden">
-                      <span className="text-slate-500 font-body-md">
-                        Shipping
-                      </span>
-                      <span className="text-green-600 font-medium uppercase text-label-sm tracking-wider">
-                        Free
-                      </span>
-                    </div>
-                    <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                      <span className="text-slate-900 font-medium  text-lg">
-                        Total
-                      </span>
-                      <span className="text-nav-blue-active font-semibold  text-xl">
-                        ₦{(total?.totalPrice).toLocaleString() || 0}
-                      </span>
-                    </div>
-                  </div>
-                  <Link to="/delivery">
-                    <button className="w-full py-3 mb-2   bg-nav-blue-active/90 text-white  rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-container hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer">
-                      Proceed to Delivery
-                    </button>
-                  </Link>
-                  <Link to="/shop">
-                    <button className="w-full mt-3 border border-nav-blue-active  text-nav-blue-active py-3 rounded-xl cursor-pointer ">
-                      {" "}
-                      Continue Shopping
-                    </button>
-                  </Link>
-                  <div className="mt-8 pt-8 border-t border-slate-100 space-y-4">
-                    <div className="flex items-center gap-3 text-slate-500 text-label-md">
-                      <span
-                        className="material-symbols-outlined text-primary"
-                        data-icon="verified"
-                      >
-                        <MdVerified className="text-green-700 w-3.5   h-3.5 " />
-                      </span>
-                      <span className="text-sm">
-                        Secure checkout powered by Stripe
-                      </span>
-                    </div>
-                    <div className=" flex items-center gap-3 text-slate-500 text-label-md">
-                      <span
-                        className="material-symbols-outlined text-primary"
-                        data-icon="local_shipping"
-                      >
-                        <MdLocalShipping className="text-blue-700 w-3.5   h-3.5 " />
-                      </span>
-                      <span className="text-sm">
-                        Free shipping on orders over $150
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-500 text-label-md">
-                      <span
-                        className="material-symbols-outlined text-primary"
-                        data-icon="sync"
-                      >
-                        <MdSync className="text-orange-700  w-3.5   h-3.5 " />
-                      </span>
-                      <span className="text-sm">
-                        30-day hassle-free returns
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </aside>
-            </div>
-          </>
+            </aside>
+          </div>
         </main>
       ) : (
         <NoCartItem />
       )}
 
       <SearchNav />
-
-      {/* <MultiCarouselExample/> */}
     </div>
   );
 };
