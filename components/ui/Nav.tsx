@@ -17,16 +17,24 @@ type RootState = {
 
 const Nav = () => {
   const [menu, setMenu] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
   const { user, refetch } = useAuthContextStore();
 
   const CartedProduct = useSelector(
     (state: RootState) => state.product.addToCart
   );
 
+  // Calculate total item quantity in cart
+  const totalCartCount = CartedProduct?.reduce(
+    (acc, item) => acc + (item.quantity || 1),
+    0
+  );
+
   useEffect(() => {
-    refetch();
-  }, [user, refetch]);
+    if (refetch) {
+      refetch();
+    }
+  }, []);
 
   const toggleMenu = () => setMenu((prev) => !prev);
   const closeMenu = () => setMenu(false);
@@ -45,64 +53,66 @@ const Nav = () => {
     { name: "Profile", path: "/profile" },
   ];
 
-  // Filter out 'Profile' from desktop text links
   const desktopNavLinks = navLinks.filter((link) => link.name !== "Profile");
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
-      <div className="flex items-center justify-between px-4 sm:px-10 py-3.5 w-full mx-auto">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+      <div className="flex items-center justify-between px-4 sm:px-10 py-3.5 w-full max-w-7xl mx-auto">
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center">
-          <h1 className="text-2xl sm:text-3xl font-black tracking-wider text-slate-900">
-            VEXA
+        <Link to="/" className="flex items-center group">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-wider text-slate-900 group-hover:text-emerald-700 transition-colors">
+            VEXA<span className="text-emerald-700">.</span>
           </h1>
         </Link>
 
-        {/* Desktop Navigation (Profile excluded) */}
-        <nav className="hidden md:flex items-center gap-5  lg:gap-8">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {desktopNavLinks.map((link) => {
             if (link.hasDropdown) {
               return (
                 <div
                   key={link.path}
                   className="relative group py-2"
-                  onMouseEnter={() => setOpen(true)}
-                  onMouseLeave={() => setOpen(false)}
+                  onMouseEnter={() => setOpenDropdown(true)}
+                  onMouseLeave={() => setOpenDropdown(false)}
                 >
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `text-[13px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1 ${
+                      `text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 ${
                         isActive
-                          ? "text-blue-600"
-                          : "text-slate-600 hover:text-blue-600"
+                          ? "text-emerald-700 font-extrabold"
+                          : "text-slate-600 hover:text-emerald-700"
                       }`
                     }
                   >
-                    Shop <span className="text-xs">▾</span>
+                    <span>Shop</span>
+                    <span className="text-[10px] transition-transform duration-200 group-hover:rotate-180">
+                      ▼
+                    </span>
                   </NavLink>
 
-                  {/* Desktop Dropdown */}
-                  {open && (
-                    <div className="absolute top-full left-0 w-48 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                      <a
-                        className="block px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
-                        href="#"
+                  {/* Desktop Dropdown Menu */}
+                  {openDropdown && (
+                    <div className="absolute top-full left-0 w-48 bg-white border border-slate-200/80 shadow-xl rounded-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <Link
+                        to="/search?category=Fashion"
+                        className="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
                       >
                         Fashion
-                      </a>
-                      <a
-                        className="block px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
-                        href="#"
+                      </Link>
+                      <Link
+                        to="/search?category=Shoes"
+                        className="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
                       >
                         Shoes
-                      </a>
-                      <a
-                        className="block px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
-                        href="#"
+                      </Link>
+                      <Link
+                        to="/search?category=Accessories"
+                        className="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
                       >
                         Accessories
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -114,10 +124,10 @@ const Nav = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-[13px] font-bold uppercase tracking-widest transition-colors ${
+                  `text-xs font-bold uppercase tracking-widest transition-colors ${
                     isActive
-                      ? "text-blue-600"
-                      : "text-slate-600 hover:text-blue-600"
+                      ? "text-emerald-700 font-extrabold"
+                      : "text-slate-600 hover:text-emerald-700"
                   }`
                 }
               >
@@ -128,23 +138,25 @@ const Nav = () => {
         </nav>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-4 sm:gap-5">
+        <div className="flex items-center gap-3 sm:gap-4">
           {/* Cart Icon */}
           <Link
             to="/cart"
-            className="relative p-2 text-slate-700 hover:text-blue-600 transition-colors"
-            aria-label="Cart"
+            className="relative p-2 text-slate-700 hover:text-emerald-700 transition-colors active:scale-95"
+            aria-label="View Cart"
           >
             <AiOutlineShoppingCart className="text-2xl" />
-            <span className="absolute top-0 right-0 bg-rose-600 text-white text-[10px] font-bold min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs">
-              {CartedProduct?.length || 0}
-            </span>
+            {totalCartCount > 0 && (
+              <span className="absolute top-0.5 right-0.5 bg-rose-500 text-white text-[10px] font-extrabold min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs animate-in zoom-in">
+                {totalCartCount}
+              </span>
+            )}
           </Link>
 
-          {/* Profile Icon (Visible on Tablet & Desktop) */}
+          {/* Profile Icon (Desktop & Tablet) */}
           <Link
             to="/profile"
-            className="hidden md:flex items-center justify-center p-2 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors"
+            className="hidden md:flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-full text-slate-600 transition-colors border border-slate-200/60"
             title={
               user?.firstName
                 ? `${user.firstName} ${user.lastName || ""}`
@@ -152,14 +164,14 @@ const Nav = () => {
             }
             aria-label="Profile Page"
           >
-            <IoPersonSharp className="text-lg" />
+            <IoPersonSharp className="text-base" />
           </Link>
 
           {/* Desktop Auth Controls */}
           {user?.email ? (
             <button
               onClick={logout}
-              className="hidden md:block px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
+              className="hidden md:block px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
             >
               Logout
             </button>
@@ -169,18 +181,18 @@ const Nav = () => {
                 <Button
                   color="text-white"
                   content="Login"
-                  bg="bg-blue-600 hover:bg-blue-700"
+                  bg="bg-emerald-700 hover:bg-emerald-800"
                   cursor="cursor-pointer"
-                  border="shadow-xs rounded-lg px-4 py-2 text-xs font-semibold"
+                  border="shadow-xs rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all"
                 />
               </Link>
               <Link to="/signup">
                 <Button
-                  color="text-blue-600"
+                  color="text-emerald-700"
                   content="Sign Up"
-                  bg="bg-blue-50 hover:bg-blue-100"
+                  bg="bg-emerald-50 hover:bg-emerald-100"
                   cursor="cursor-pointer"
-                  border="border border-blue-200 rounded-lg px-4 py-2 text-xs font-semibold"
+                  border="border border-emerald-200/80 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all"
                 />
               </Link>
             </div>
@@ -189,7 +201,7 @@ const Nav = () => {
           {/* Mobile Hamburger Toggle */}
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 text-slate-800 hover:text-blue-600 transition-colors cursor-pointer"
+            className="md:hidden p-2 text-slate-800 hover:text-emerald-700 transition-colors cursor-pointer"
             aria-label="Toggle Navigation Menu"
           >
             <GiHamburgerMenu className="text-2xl" />
@@ -197,7 +209,7 @@ const Nav = () => {
         </div>
       </div>
 
-      {/* Mobile Sidebar Navigation Drawer */}
+      {/* Mobile Drawer Navigation */}
       {menu && (
         <div className="fixed inset-0 z-50 md:hidden flex justify-end">
           {/* Backdrop Overlay */}
@@ -207,41 +219,41 @@ const Nav = () => {
           />
 
           {/* Drawer Sidebar */}
-          <aside className="relative w-[80%] max-w-xs bg-navy-blue shadow-2xl z-60 h-screen flex flex-col justify-between p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
+          <aside className="relative w-[80%] max-w-xs bg-slate-900 shadow-2xl z-60 h-screen flex flex-col justify-between p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
             <div>
-              {/* Sidebar Header */}
-              <div className="flex items-center justify-between pb-5 border-b border-slate-100/20 mb-6">
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between pb-5 border-b border-slate-800 mb-6">
                 <span className="text-xl font-black text-white tracking-wider">
-                  VEXA
+                  VEXA<span className="text-emerald-500">.</span>
                 </span>
                 <button
                   onClick={closeMenu}
-                  className="p-2 rounded-full hover:bg-slate-800 text-slate-300 transition-colors cursor-pointer"
+                  className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
                 >
                   <MdClose className="text-2xl" />
                 </button>
               </div>
 
-              {/* Sidebar User Header (If Logged In) */}
+              {/* User Account Info Box */}
               {user?.email && (
-                <div className="flex items-center gap-3 p-3 mb-6 bg-white/10 rounded-xl border border-white/10">
-                  <div className="p-2 bg-blue-600 text-white rounded-full">
+                <div className="flex items-center gap-3 p-3 mb-6 bg-slate-800/80 rounded-2xl border border-slate-700/60">
+                  <div className="p-2.5 bg-emerald-700 text-white rounded-xl">
                     <IoPersonSharp className="text-base" />
                   </div>
                   <div className="overflow-hidden">
-                    <p className="text-sm font-bold text-white truncate">
+                    <p className="text-xs font-bold text-white truncate">
                       {user.firstName
                         ? `${user.firstName} ${user.lastName || ""}`
                         : "Account"}
                     </p>
-                    <p className="text-xs text-slate-300 truncate">
+                    <p className="text-[11px] text-slate-400 truncate">
                       {user.email}
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* Mobile Navigation Links (Includes 'Profile') */}
+              {/* Navigation Links */}
               <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <NavLink
@@ -249,22 +261,22 @@ const Nav = () => {
                     to={link.path}
                     onClick={closeMenu}
                     className={({ isActive }) =>
-                      `px-4 py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-between ${
+                      `px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-between ${
                         isActive
-                          ? "bg-blue-600 text-white"
-                          : "text-slate-200 hover:bg-white/10 hover:text-white"
+                          ? "bg-emerald-700 text-white shadow-xs"
+                          : "text-slate-300 hover:bg-slate-800 hover:text-white"
                       }`
                     }
                   >
                     <span>{link.name}</span>
-                    {link.hasDropdown && <span className="text-xs">▾</span>}
+                    {link.hasDropdown && <span className="text-[10px]">▼</span>}
                   </NavLink>
                 ))}
               </nav>
             </div>
 
-            {/* Drawer Bottom Actions */}
-            <div className="pt-6 border-t border-slate-100/20 mb-25 space-y-3">
+            {/* Bottom Auth Actions */}
+            <div className="pt-6 border-t border-slate-800 mb-20 space-y-3">
               {user?.email ? (
                 <button
                   onClick={logout}
@@ -273,18 +285,18 @@ const Nav = () => {
                   Log out
                 </button>
               ) : (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2.5">
                   <Link
                     to="/login"
                     onClick={closeMenu}
-                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-center rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95"
+                    className="w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-center rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95"
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
                     onClick={closeMenu}
-                    className="w-full py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-center rounded-xl text-xs uppercase tracking-wider transition-all active:scale-95"
+                    className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-center rounded-xl text-xs uppercase tracking-wider transition-all active:scale-95 border border-slate-700"
                   >
                     Sign Up
                   </Link>
