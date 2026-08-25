@@ -78,11 +78,12 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                 </Link>
 
                 {/* Description Preview on larger screens */}
-                {item?.description && (
+           {/*     {item?.description && (
                   <p className="text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 mt-2 hidden leading-relaxed">
                     {item.description}
                   </p>
                 )}
+                */}
               </div>
 
               {/* Pricing & Add to Cart Container */}
