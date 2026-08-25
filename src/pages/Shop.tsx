@@ -242,10 +242,10 @@ export default function Random() {
                       {productGroup.products.map((product) => (
                         <div
                           key={product.id || product._id}
-                          className="w-[240px] sm:w-[260px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
+                          className="w-[290px] sm:w-[330px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
                         >
                           {/* Image Container */}
-                          <div className="relative w-full aspect-square bg-slate-50/80 p-4 overflow-hidden flex items-center justify-center border-b border-slate-100">
+                          <div className="relative w-full aspect-square bg-slate-50 overflow-hidden border-b border-slate-100">
                             <span className="absolute top-3 right-3 bg-rose-500 text-white font-bold text-[11px] px-2 py-0.5 rounded-full shadow-xs z-10">
                               -{product.discount || Math.ceil(Math.random() * 40)}%
                             </span>
@@ -254,18 +254,18 @@ export default function Random() {
                               to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
                                 product.slug || product._id
                               }`}
-                              className="w-full h-full flex items-center justify-center"
+                              className="w-full h-full block"
                             >
                               <img
                                 src={resolveImage(product?.images[0], "")}
                                 alt={product.name}
-                                className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               />
                             </Link>
                           </div>
 
                           {/* Product Details */}
-                          <div className="p-4 flex flex-col flex-1 justify-between">
+                          <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
                             <div>
                               <p className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider mb-1">
                                 {product.subCategory}
@@ -319,4 +319,4 @@ export default function Random() {
       )}
     </>
   );
-}
+              }
