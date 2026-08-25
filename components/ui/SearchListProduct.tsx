@@ -79,7 +79,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
 
                 {/* Description Preview on larger screens */}
                 {item?.description && (
-                  <p className="text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 mt-2 hidden sm:block leading-relaxed">
+                  <p className="text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 mt-2 hidden leading-relaxed">
                     {item.description}
                   </p>
                 )}
