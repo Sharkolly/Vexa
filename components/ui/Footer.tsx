@@ -3,6 +3,63 @@ import { NavLink } from "react-router-dom";
 import { MdArrowForward, MdCheckCircle } from "react-icons/md";
 import { FaInstagram, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 
+// SVG Logo Component (Configured for Dark Footer Background)
+const FexaLogo = ({
+  isDark = true,
+  className = "h-10 sm:h-12 w-auto",
+}: {
+  isDark?: boolean;
+  className?: string;
+}) => (
+  <svg
+    viewBox="0 0 320 90"
+    className={`${className} transition-transform group-hover:scale-105`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="fexaGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#34D399" />
+        <stop offset="50%" stopColor="#10B981" />
+        <stop offset="100%" stopColor="#059669" />
+      </linearGradient>
+    </defs>
+    {/* E-Commerce Shopping Bag & 'F' Mark */}
+    <g transform="translate(5, 0) scale(0.65)">
+      <path
+        d="M 46 42 C 46 22, 84 22, 84 42"
+        fill="none"
+        stroke="url(#fexaGradFooter)"
+        strokeWidth="9"
+        strokeLinecap="round"
+      />
+      <rect x="25" y="42" width="18" height="85" rx="6" fill="url(#fexaGradFooter)" />
+      <path
+        d="M 43 42 H 105 C 111 42, 114 48, 110 54 L 98 72 C 95 76, 89 78, 82 78 H 43 V 42 Z"
+        fill="url(#fexaGradFooter)"
+      />
+      <path
+        d="M 43 90 H 88 C 94 90, 97 96, 93 102 L 84 114 C 81 118, 75 120, 68 120 H 43 V 90 Z"
+        fill="url(#fexaGradFooter)"
+        opacity="0.9"
+      />
+      <circle cx="112" cy="30" r="6" fill="#34D399" />
+    </g>
+    {/* Typography */}
+    <g transform="translate(100, 62)">
+      <text
+        fontFamily="Inter, system-ui, sans-serif"
+        fontWeight="900"
+        fontSize="52"
+        letterSpacing="2"
+        fill={isDark ? "#F8FAFC" : "#0F172A"}
+      >
+        FEX<tspan fill="url(#fexaGradFooter)">A</tspan>
+      </text>
+    </g>
+  </svg>
+);
+
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -37,7 +94,7 @@ const Footer = () => {
     { name: "Graphics Design", path: "/services" },
     { name: "Web Development", path: "/services" },
     { name: "Copywriting", path: "/services" },
-    { name: "Vexa Membership", path: "/services" },
+    { name: "Fexa Membership", path: "/services" },
     { name: "Support Center", path: "/services" },
   ];
 
@@ -62,10 +119,8 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="col-span-full md:col-span-4 flex flex-col justify-between">
             <div>
-              <NavLink to="/" className="inline-block">
-                <h2 className="text-3xl font-black tracking-wider text-white hover:text-emerald-400 transition-colors">
-                  VEXA<span className="text-emerald-500">.</span>
-                </h2>
+              <NavLink to="/" className="inline-block group" aria-label="FEXA Home">
+                <FexaLogo isDark={true} />
               </NavLink>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm mt-4">
                 Redefining modern e-commerce through technical precision and editorial style. Your premier destination for curated tech, fashion, and digital services.
@@ -178,7 +233,7 @@ const Footer = () => {
 
         {/* Bottom Legal & Copyright Bar */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} VEXA GLOBAL. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} FEXA GLOBAL. All rights reserved.</p>
 
           <div className="flex flex-wrap gap-6">
             {legalLinks.map((link) => (
