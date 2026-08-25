@@ -110,13 +110,15 @@ const FeaturedProduct = () => {
                   <AddToCart
                     AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                     quantityNumberStyle="w-full flex items-center justify-between gap-2 bg-slate-50 border border-slate-200/80 p-1.5 rounded-xl shadow-xs"
-                    _id={product?._id}
-                    category={product?.category}
-                    subCategory={product?.subCategory}
-                    price={product?.price}
-                    image={imageSrc}
-                    name={product?.name}
-                    slug={product?.slug}
+                    quantity={product?.quantity}
+                      id={product?._id}
+                      category={product?.category}
+                      price={product?.price}
+                      image={resolveImage(product?.images[0], "")}
+                      name={product?.name}
+                      slug={product?.slug}
+
+                    
                   />
                 </div>
               </div>
@@ -128,4 +130,4 @@ const FeaturedProduct = () => {
   );
 };
 
-export default FeaturedProduct;
+export default FeaturedProduct
