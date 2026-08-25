@@ -46,7 +46,7 @@ const FeaturedProduct = () => {
         </div>
       ) : (
         /* Product Grid */
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {productItem.map((product) => {
             const productSlug = product.slug || product._id;
             const productDetailUrl = `/products/${product.category.toLowerCase()}/${product.subCategory}/${productSlug}`;
