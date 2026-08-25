@@ -125,15 +125,7 @@ const Home = () => {
           </div>
 
           {/* Duplicate Item Group for Seamless Loop */}
-          <div className="flex items-center justify-around w-1/2 shrink-0 gap-8 px-4">
-            <span className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              🚚 Free Nationwide Delivery On Orders Above ₦100,000
-            </span>
-            <span>🔥 Flash Sale — Up to 70% OFF</span>
-            <span>⚡ New Arrivals Every Week</span>
-            <span>💳 Fast & Secure Checkout</span>
-          </div>
+          
         </div>
       </div>
 
