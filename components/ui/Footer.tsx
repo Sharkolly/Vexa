@@ -19,7 +19,7 @@ const Footer = () => {
     setStatus("loading");
     setErrorMessage("");
 
-    // Simulate API request (Replace with your newsletter backend endpoint)
+    // Simulate API request
     setTimeout(() => {
       setStatus("success");
       setEmail("");
@@ -63,12 +63,12 @@ const Footer = () => {
           <div className="col-span-full md:col-span-4 flex flex-col justify-between">
             <div>
               <NavLink to="/" className="inline-block">
-                <h2 className="text-3xl font-black tracking-wider text-white hover:text-blue-500 transition-colors">
-                  VEXA
+                <h2 className="text-3xl font-black tracking-wider text-white hover:text-emerald-400 transition-colors">
+                  VEXA<span className="text-emerald-500">.</span>
                 </h2>
               </NavLink>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm mt-4">
-                Redefining modern luxury through technical precision and editorial style. Your destination for curated tech, fashion, and digital services.
+                Redefining modern e-commerce through technical precision and editorial style. Your premier destination for curated tech, fashion, and digital services.
               </p>
             </div>
 
@@ -83,7 +83,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 transform hover:-translate-y-1"
+                    className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-emerald-700 hover:border-emerald-600 transition-all duration-300 transform hover:-translate-y-1 shadow-sm"
                   >
                     <Icon className="text-base" />
                   </a>
@@ -102,7 +102,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <NavLink
                     to={link.path}
-                    className="text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-200"
+                    className="text-slate-400 hover:text-emerald-400 hover:translate-x-1 inline-block transition-all duration-200"
                   >
                     {link.name}
                   </NavLink>
@@ -121,7 +121,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <NavLink
                     to={link.path}
-                    className="text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-200"
+                    className="text-slate-400 hover:text-emerald-400 hover:translate-x-1 inline-block transition-all duration-200"
                   >
                     {link.name}
                   </NavLink>
@@ -136,12 +136,12 @@ const Footer = () => {
               Newsletter
             </h5>
             <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-              Subscribe to receive first access to limited product drops and insider updates.
+              Subscribe to receive first access to limited product drops, discount codes, and insider updates.
             </p>
 
             {status === "success" ? (
               <div className="flex items-center gap-2.5 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm animate-in fade-in duration-300">
-                <MdCheckCircle className="text-xl shrink-0" />
+                <MdCheckCircle className="text-xl shrink-0 text-emerald-400" />
                 <span>You're subscribed! Check your inbox soon.</span>
               </div>
             ) : (
@@ -152,13 +152,13 @@ const Footer = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all pr-12"
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all pr-12"
                     disabled={status === "loading"}
                   />
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="absolute right-1.5 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-all duration-200 disabled:opacity-50 flex items-center justify-center cursor-pointer"
+                    className="absolute right-1.5 p-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg transition-all duration-200 disabled:opacity-50 flex items-center justify-center cursor-pointer active:scale-95"
                     aria-label="Subscribe to newsletter"
                   >
                     {status === "loading" ? (
