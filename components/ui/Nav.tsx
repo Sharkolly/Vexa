@@ -15,6 +15,57 @@ type RootState = {
   };
 };
 
+// SVG Logo Component with theme adaptation
+const FexaLogo = ({ isDark = false }: { isDark?: boolean }) => (
+  <svg
+    viewBox="0 0 320 90"
+    className="h-8 sm:h-9 w-auto transition-transform group-hover:scale-105"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="fexaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#34D399" />
+        <stop offset="50%" stopColor="#10B981" />
+        <stop offset="100%" stopColor="#059669" />
+      </linearGradient>
+    </defs>
+    {/* E-Commerce Shopping Bag & 'F' Mark */}
+    <g transform="translate(5, 0) scale(0.65)">
+      <path
+        d="M 46 42 C 46 22, 84 22, 84 42"
+        fill="none"
+        stroke="url(#fexaGrad)"
+        strokeWidth="9"
+        strokeLinecap="round"
+      />
+      <rect x="25" y="42" width="18" height="85" rx="6" fill="url(#fexaGrad)" />
+      <path
+        d="M 43 42 H 105 C 111 42, 114 48, 110 54 L 98 72 C 95 76, 89 78, 82 78 H 43 V 42 Z"
+        fill="url(#fexaGrad)"
+      />
+      <path
+        d="M 43 90 H 88 C 94 90, 97 96, 93 102 L 84 114 C 81 118, 75 120, 68 120 H 43 V 90 Z"
+        fill="url(#fexaGrad)"
+        opacity="0.9"
+      />
+      <circle cx="112" cy="30" r="6" fill="#34D399" />
+    </g>
+    {/* Typography */}
+    <g transform="translate(100, 62)">
+      <text
+        fontFamily="Inter, system-ui, sans-serif"
+        fontWeight="900"
+        fontSize="52"
+        letterSpacing="2"
+        fill={isDark ? "#F8FAFC" : "#0F172A"}
+      >
+        FEX<tspan fill="url(#fexaGrad)">A</tspan>
+      </text>
+    </g>
+  </svg>
+);
+
 const Nav = () => {
   const [menu, setMenu] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -59,10 +110,8 @@ const Nav = () => {
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
       <div className="flex items-center justify-between px-4 sm:px-10 py-3.5 w-full max-w-7xl mx-auto">
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center group">
-          <h1 className="text-2xl sm:text-3xl font-black tracking-wider text-slate-900 group-hover:text-emerald-700 transition-colors">
-            VEXA<span className="text-emerald-700">.</span>
-          </h1>
+        <Link to="/" className="flex items-center group py-0.5" aria-label="FEXA Home">
+          <FexaLogo />
         </Link>
 
         {/* Desktop Navigation */}
@@ -72,7 +121,7 @@ const Nav = () => {
               return (
                 <div
                   key={link.path}
-                  className="relative group py-2"
+                  className="relative group py-2 flex items-center"
                   onMouseEnter={() => setOpenDropdown(true)}
                   onMouseLeave={() => setOpenDropdown(false)}
                 >
@@ -124,7 +173,7 @@ const Nav = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-xs font-bold uppercase tracking-widest transition-colors ${
+                  `text-xs font-bold uppercase tracking-widest transition-colors flex items-center ${
                     isActive
                       ? "text-emerald-700 font-extrabold"
                       : "text-slate-600 hover:text-emerald-700"
@@ -142,7 +191,7 @@ const Nav = () => {
           {/* Cart Icon */}
           <Link
             to="/cart"
-            className="relative p-2 text-slate-700 hover:text-emerald-700 transition-colors active:scale-95"
+            className="relative p-2 text-slate-700 hover:text-emerald-700 transition-colors active:scale-95 flex items-center"
             aria-label="View Cart"
           >
             <AiOutlineShoppingCart className="text-2xl" />
@@ -201,7 +250,7 @@ const Nav = () => {
           {/* Mobile Hamburger Toggle */}
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 text-slate-800 hover:text-emerald-700 transition-colors cursor-pointer"
+            className="md:hidden p-2 text-slate-800 hover:text-emerald-700 transition-colors cursor-pointer flex items-center"
             aria-label="Toggle Navigation Menu"
           >
             <GiHamburgerMenu className="text-2xl" />
@@ -223,9 +272,9 @@ const Nav = () => {
             <div>
               {/* Drawer Header */}
               <div className="flex items-center justify-between pb-5 border-b border-slate-800 mb-6">
-                <span className="text-xl font-black text-white tracking-wider">
-                  VEXA<span className="text-emerald-500">.</span>
-                </span>
+                <Link to="/" onClick={closeMenu} className="flex items-center">
+                  <FexaLogo isDark={true} />
+                </Link>
                 <button
                   onClick={closeMenu}
                   className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
