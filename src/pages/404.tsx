@@ -1,29 +1,29 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { Search } from "lucide-react";
+import { Search, ArrowRight, ShoppingBag } from "lucide-react";
 
 const CATEGORIES = [
   {
-    title: "Tech",
-    subtitle: "Innovation First",
+    title: "Tech & Electronics",
+    subtitle: "Innovation & Devices",
     href: "/search?category=Electronics",
     alt: "Tech Category",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuATgmLtybDFEJj8QJ9zXt2HZyLn9iioTVoZyI-faCneSaEwATIs14OqJAlD4lenz2ob5iezfXVJuIgkjmZu9nqfaUiUkFrIw3EOcM95UOYumopjCD3gze32mrPZWjilRh1xvzvbro6F9tzrI9OHpUBVUoVKpEH8wrAsJ5GHeUotBf9NqRGfT_AWxGhkKmWoU0j-Q2zLxm_GClG4Qf9LA38lvz0lOvtkPijI-Qk11hPBDwLyEgycTSKR4GKc519PCIQYVNZGMY6dHz4",
+    src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop",
   },
   {
-    title: "Fashion",
-    subtitle: "Timeless Design",
+    title: "Fashion & Apparel",
+    subtitle: "Curated Style",
     href: "/search?category=Fashion",
     alt: "Fashion Category",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBr6G611_N7U2Y5a4D7KSEIfrca2wgi_Rsptdk5gH-1T7Rgfd6RRnPFJMZvwcWJfW7ZYCphMAv9U2a70pVN4yP0dzBGTY50E5rCJ6sfIMXMd0fncjbGZ5Tiw06aUnswQ7bXcFvBISIzUcDB4y_EEzB2XMfsFs9V0kxw5B1JqZCYPqWhxmmOwjA4TkbQzjel1w9Zz2FOwYIjMbOzQ7B4NNtXul72SwqKdwhPza6VDsUAbG5gbeHX8rD35WrA0JhStxkM_SWfL46ECAc",
+    src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop",
   },
   {
-    title: "Shoes",
+    title: "Footwear & Shoes",
     subtitle: "Premium Comfort",
-    href: "/search?category=Beauty",
+    href: "/search?category=Shoes",
     alt: "Shoes Category",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC3Kt0lR7M7Q9VtrLejfOPNULvUNiYX-MvL6in7XmS_M4Gy8zpKalR16wYJiBigxFJXABfIQG3Dzs6OSem7Qt_FKeddS5jbR8bh7SXCu2chaXyFpqgR1RFehUDjwn2_DGzDoAabXivimyn5YXstEqR0z_2w85qxiJut4eR85u6wMO8G4nLGm0O6-JHIM509e9PARw012yAJ3P40zh1KmSCutoR4EKKucpK1PZ-awCdSDNCax1hPx_rDKKosFxCKiZTCNIR8By2jn9g",
+    src: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -38,93 +38,117 @@ const NotFound = () => {
   };
 
   return (
-    <div className="bg-background text-on-background min-h-screen flex flex-col overflow-x-hidden">
-      <main className="flex-grow pt-24">
-        <section className="max-w-[1440px] mx-auto px-5 md:px-16 py-16 md:py-32 flex flex-col items-center justify-center text-center">
-          {/* Hero Graphic */}
-          <div className="relative mb-4 flex items-center justify-center">
-            <span className="text-[140px] sm:text-[180px] font-black text-slate-200 leading-none select-none tracking-wide">
+    <div className="bg-slate-50 text-slate-900 min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+      <main className="flex-grow pt-24 pb-20">
+        <section className="max-w-7xl mx-auto px-5 md:px-12 py-12 md:py-20 flex flex-col items-center justify-center text-center">
+          
+          {/* Ambient Background Radial Glow */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-emerald-400/15 blur-[120px] rounded-full pointer-events-none -z-10" />
+
+          {/* 404 Visual Graphic */}
+          <div className="relative mb-6 flex items-center justify-center select-none">
+            <span className="text-[130px] sm:text-[200px] md:text-[240px] font-black text-slate-200/80 leading-none tracking-tight">
               404
             </span>
+            
+            {/* Floating Error Badge */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <img
-                alt="Error Graphic"
-                className="w-48 h-48 sm:w-64 sm:h-64 object-contain"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmE6aEgJnZX6aPWvc3W4PL00Oqi2neqyI6FchS0hvBmMJgZ1InQO_Y4tJ0OWNeykKH1igejgX3kLO1ZGIaBntopdpMQwFb6E0sdi5x6SmPWhXfhLSmYy2xe4sE5mhiD_vwrG1zTRY4znceBjTiqtpFd_-MOtUOWoiNTU4yqq4Su-ApbalYxiLLp4QCt7xO371btafj_UvhuRqYKFL1GyUnPe43NZQhN3Oahv-HOQb6HYhnrZurk_IFrTuiNX3v2SUeqQuV_Qew6CI"
-              />
+              <div className="bg-white/90 backdrop-blur-md border border-slate-200 px-5 py-2.5 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce">
+                <div className="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
+                  <ShoppingBag className="w-5 h-5" />
+                </div>
+                <span className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
+                  Item Not Found
+                </span>
+              </div>
             </div>
           </div>
 
-          <h1 className="font-bold text-3xl md:text-4xl text-on-surface mt-6 mb-2 tracking-wide">
-            Lost in the Digital World?
+          {/* Heading & Subtext */}
+          <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-tight max-w-2xl">
+            Lost in the <span className="text-emerald-700">Digital Aisle?</span>
           </h1>
-          <p className="text-md text-slate-700 max-w-xl mx-auto mb-8 mt-3">
-            The page you're looking for doesn't exist. It might have been moved,
-            or perhaps it never arrived in this dimension.
+          <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto mb-10 mt-4 leading-relaxed">
+            The requested page seems to have expired or moved to another directory. Use our store search or return home to keep exploring.
           </p>
 
-          {/* Action Bar */}
-          <div className="w-full max-w-2xl flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          {/* Search & Action Bar */}
+          <div className="w-full max-w-2xl flex flex-col sm:flex-row gap-3 justify-center items-center mb-20">
             <Link
               to="/"
-              className="w-full sm:w-auto bg-nav-blue-active text-white px-5 py-2.5 rounded-xl font-medium text-base shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 duration-200 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer border border-slate-800"
             >
-              <FaHome size={18} />
+              <FaHome className="text-sm" />
               <span>Back to Home</span>
             </Link>
 
             <form
               onSubmit={handleSearch}
-              className="w-full sm:w-auto flex flex-col sm:flex-row gap-2 items-center flex-1"
+              className="w-full flex items-center gap-2 flex-1"
             >
-              <div className="w-full flex items-center bg-surface-container px-4 py-2.5 rounded-xl border border-slate-400 focus-within:border-primary transition-colors">
-                <Search size={18} className="text-gray-500 mr-3 flex-shrink-0" />
+              <div className="relative w-full flex items-center bg-white rounded-xl border border-slate-200 shadow-xs focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-600/20 transition-all">
+                <Search className="text-slate-400 w-5 h-5 absolute left-3.5 pointer-events-none" />
                 <input
-                  className="bg-transparent border-none focus:ring-0 w-full font-medium text-base outline-none text-on-surface placeholder:text-gray-400"
-                  placeholder="Search products..."
+                  className="w-full bg-transparent pl-11 pr-4 py-3 text-sm font-medium outline-none text-slate-900 placeholder:text-slate-400"
+                  placeholder="Search products, brands, categories..."
                   type="text"
                   value={searchProduct}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setSearchProduct(e.target.value)
-                  }
+                  onChange={(e) => setSearchProduct(e.target.value)}
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full sm:w-auto bg-orange-400 hover:bg-orange-500 text-white px-5 py-2.5 rounded-xl font-medium text-base shadow-lg transition-all active:scale-95 duration-200 flex items-center justify-center gap-2 cursor-pointer flex-shrink-0"
+                className="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-emerald-700/20 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer shrink-0"
               >
-                <Search size={18} className="text-white" />
                 <span>Search</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </form>
           </div>
 
-          {/* Popular Destinations */}
-          <div className="w-full max-w-5xl mt-6">
-            <h2 className="font-semibold text-2xl text-on-surface mb-6 text-left">
-              Popular Destinations
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Popular Destinations Cards */}
+          <div className="w-full max-w-5xl text-left">
+            <div className="flex items-center justify-between mb-8 pb-3 border-b border-slate-200">
+              <h2 className="font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight">
+                Popular Destinations
+              </h2>
+              <span className="text-xs font-semibold text-emerald-700 uppercase tracking-widest hidden sm:inline-block">
+                Fexa Categories
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {CATEGORIES.map((category) => (
                 <Link
                   key={category.title}
                   to={category.href}
-                  className="group relative overflow-hidden rounded-xl h-80 bg-slate-200 border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-1"
+                  className="group relative overflow-hidden rounded-2xl h-80 bg-slate-900 border border-slate-200/80 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300"
                 >
+                  {/* Category Image */}
                   <img
                     alt={category.alt}
                     src={category.src}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-85 group-hover:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
-                  <div className="absolute bottom-6 left-6 text-left">
-                    <p className="text-white font-semibold text-2xl">
-                      {category.title}
-                    </p>
-                    <p className="text-slate-300 font-medium text-sm uppercase tracking-widest">
-                      {category.subtitle}
-                    </p>
+                  
+                  {/* Dark Emerald Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent transition-opacity group-hover:from-slate-950/95" />
+
+                  {/* Content Overlay */}
+                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                    <div>
+                      <p className="text-emerald-400 font-bold text-xs uppercase tracking-widest mb-1">
+                        {category.subtitle}
+                      </p>
+                      <h3 className="text-white font-extrabold text-2xl tracking-tight">
+                        {category.title}
+                      </h3>
+                    </div>
+
+                    <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:bg-emerald-600 group-hover:border-emerald-500 transition-all duration-300 transform group-hover:translate-x-1">
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
                   </div>
                 </Link>
               ))}
