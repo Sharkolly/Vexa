@@ -129,7 +129,7 @@ const CountUpPage = () => {
   return (
     <section
       ref={sectionRef}
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
+      className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-12 sm:py-16"
     >
       <div className="bg-slate-50/80 rounded-3xl border border-slate-200/70 p-6 sm:p-10 lg:p-12 shadow-xs">
         {/* Section Header */}
@@ -143,7 +143,7 @@ const CountUpPage = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {STATS.map((stat) => (
             <AnimatedStatCard
               key={stat.label}
