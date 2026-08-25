@@ -44,7 +44,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
             className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5 flex flex-row gap-4 sm:gap-6 items-stretch"
           >
             {/* Left: Product Image (Wider & Taller Frame) */}
-            <div className="relative w-44 sm:w-64 md:w-72 h-52 sm:h-64 md:h-68 shrink-0 rounded-xl overflow-hidden bg-slate-100">
+            <div className="relative w-44 max-[500px]:w-36 sm:w-64 md:w-72 h-52 sm:h-64 md:h-68 shrink-0 rounded-xl overflow-hidden bg-slate-100">
               <Link to={productPath} className="block w-full h-full">
                 <img
                   src={resolveImage(item?.images[0], "")}
@@ -97,7 +97,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   </p>
                 </div>
 
-                <div className='w-ful'>
+                <div className='max-[500px]:w-full'>
                   <AddToCart
                     quantity={item?.quantity}
                     id={item?._id}
