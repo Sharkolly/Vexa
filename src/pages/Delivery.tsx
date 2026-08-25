@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { ProductType } from "../../types/product.types";
@@ -7,8 +8,6 @@ import { useAuthContextStore } from "../../store/useAuthContext";
 import SearchNav from "../../components/ui/SearchNav";
 import API from "../../api/api";
 import type { AxiosError } from "axios";
-import { useState } from "react";
-// import { useState } from "react";
 
 type RootState = {
   product: {
@@ -28,65 +27,43 @@ const DeliveryPage = () => {
   const [calculating, setCalculating] = useState(false);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
 
-  // const { data, isLoading } = useQueryProduct(`/products/get-distance`);
-
   const total = useSelector((state: RootState) => state.product.total);
 
   const calcDistance = async () => {
-    // const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`
-const destination = deliveryDetails.address
+    const destination = deliveryDetails.address;
     const numberOfProduct = total?.totalItems || 0;
 
     try {
       if (destination && numberOfProduct > 0) {
-        setCalculating(true)
+        setCalculating(true);
         const res = await API.post(
           `/products/get-distance`,
           { destination, numberOfProduct },
-          { withCredentials: true },
+          { withCredentials: true }
         );
         const data = await res.data;
         setTimeout(() => {
-      setCalculating(false)
-        },1100)
+          setCalculating(false);
+        }, 1100);
         setDeliveryFee(data.deliveryFee);
       }
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
       console.error(errorMessage.message);
+      setCalculating(false);
     }
   };
-
-  // useEffect(() => {
-  //   const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`;
-  //   const timeout = setTimeout(() => {
-  //     setCalculating(true);
-  //     calcDistance(destination);
-  //     setCalculating(false);
-  //   }, 2000);
-
-  //   return () => clearTimeout(timeout);
-  // }, [deliveryDetails.address]);
 
   const changeDeliveryDetails = (
     e: React.ChangeEvent<
       HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     setDeliveryDetails((prev) => ({
       ...prev,
       [name]: value,
     }));
-
-    // if (name === "address" || name === "city" || name === "state") {
-    //   setCalculating(true);
-    //   const destination = `${deliveryDetails.address || ""} ${deliveryDetails.city || ""} ${deliveryDetails.state || ""}`;
-    //   setTimeout(() => {
-    //     calcDistance(destination);
-    //     setCalculating(false);
-    //   }, 3500);
-    // }
   };
 
   const nigeriaStates = [
@@ -129,37 +106,45 @@ const destination = deliveryDetails.address
     "Zamfara",
   ];
 
-  // const [state, setState] = useState('')
-
   return (
-    <div className="pt-24 pb-24 max-w-[1440px] mx-auto w-full md:px-10 xl:px-16 max-md:pt-24 max-md:px-3.5">
-      <div className="grid xl:grid-cols-3 gap-8">
-        <div className="xl:col-span-2  bg-white p-6 rounded-xl shadow max-md:p-0 max-md:shadow-none">
-          <h1 className="text-3xl text-nav-blue-active/80 font-bold mb-6">
-            Delivery Information
-          </h1>
+    <div className="pt-20 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16 text-slate-800">
+      <div className="grid xl:grid-cols-3 gap-8 items-start">
+        {/* LEFT COLUMN: FORM */}
+        <div className="xl:col-span-2 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm transition-shadow hover:shadow-md">
+          <div className="border-b border-slate-100 pb-5 mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+              Delivery Information
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Please enter your shipping address details to calculate accurate delivery rates.
+            </p>
+          </div>
 
-          <div className="space-y-4">
-            <div className="flex gap-5 justify-between max-md:flex-col  max-md:gap-3">
-              <div className="gap-1 flex flex-col flex-1">
-                <label className="font-medium text-gray-500">Email </label>
+          <div className="space-y-5">
+            {/* EMAIL & FULL NAME */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  Email Address
+                </label>
                 <input
                   type="email"
-                  placeholder="Email Address"
-                  className="w-full outline-none border border-gray-500  rounded-sm  p-3"
+                  placeholder="name@example.com"
+                  className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
                   value={deliveryDetails.email || ""}
                   name="email"
                   onChange={changeDeliveryDetails}
                 />
               </div>
 
-              <div className="gap-1  flex flex-col flex-1">
-                <label className="font-medium text-gray-500">Full Name </label>
-
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  Full Name
+                </label>
                 <input
                   type="text"
-                  placeholder="Full Name"
-                  className="w-full outline-none border border-gray-500  rounded-sm  p-3"
+                  placeholder="John Doe"
+                  className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
                   value={deliveryDetails.fullName || ""}
                   name="fullName"
                   onChange={changeDeliveryDetails}
@@ -167,47 +152,46 @@ const destination = deliveryDetails.address
               </div>
             </div>
 
-            <label className="font-medium text-gray-500">Phone Number </label>
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              className="w-full outline-none border border-gray-500  rounded-sm  p-3"
-              value={deliveryDetails.phone || ""}
-              name="phone"
-              onChange={changeDeliveryDetails}
-            />
+            {/* PHONE NUMBER */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                placeholder="+234 800 000 0000"
+                className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
+                value={deliveryDetails.phone || ""}
+                name="phone"
+                onChange={changeDeliveryDetails}
+              />
+            </div>
 
-            <div className="flex gap-4 justify-between max-md:flex-col  max-md:gap-4 mb-4">
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="font-medium text-gray-500">Country </label>
+            {/* COUNTRY, STATE & CITY */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  Country
+                </label>
                 <input
                   type="text"
-                  placeholder="Country"
-                  className="border border-gray-500  rounded-sm  p-3"
-                  value={"Nigeria"}
+                  value="Nigeria"
                   disabled
+                  className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-500 bg-slate-100 cursor-not-allowed select-none"
                 />
               </div>
 
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="font-medium text-gray-500">State </label>
-                {/* <input
-                  type="text"
-                  placeholder="State"
-                  className="border border-gray-500  rounded-sm  p-3"
-                  value={deliveryDetails.state || ""}
-                  name="state"
-                  onChange={changeDeliveryDetails}
-                /> */}
-
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  State
+                </label>
                 <select
                   name="state"
-                  value={deliveryDetails.state}
+                  value={deliveryDetails.state || ""}
                   onChange={changeDeliveryDetails}
-                  className="w-full rounded-sm  border p-2"
+                  className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all cursor-pointer"
                 >
                   <option value="">Select State</option>
-
                   {nigeriaStates.map((state) => (
                     <option key={state} value={state}>
                       {state}
@@ -216,105 +200,119 @@ const destination = deliveryDetails.address
                 </select>
               </div>
 
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="font-medium text-gray-500">City </label>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  City
+                </label>
                 <input
                   type="text"
-                  placeholder="City"
-                  className="border border-gray-500  rounded-sm  p-3"
+                  placeholder="City / Town"
+                  className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
                   value={deliveryDetails.city || ""}
                   name="city"
                   onChange={changeDeliveryDetails}
                 />
               </div>
             </div>
-          </div>
 
-          <div className="flex gap-4 justify-between max-md:flex-col  max-md:gap-4 mb-4">
-            <div className="flex flex-col gap-1.5 flex-1">
-              <label className="font-medium text-gray-500">Address </label>
-              <input
-                type="text"
-                placeholder="Street Address"
-                className="w-full outline-none border border-gray-500  rounded-sm  p-3"
-                name="address"
-                onChange={changeDeliveryDetails}
-              />
+            {/* ADDRESS & LANDMARK */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  Street Address
+                </label>
+                <input
+                  type="text"
+                  placeholder="House number & street name"
+                  className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
+                  value={deliveryDetails.address || ""}
+                  name="address"
+                  onChange={changeDeliveryDetails}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                  Landmark <span className="text-slate-400 font-normal">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Apartment, suite, or nearby landmark"
+                  className="w-full border border-slate-300 rounded-xl p-3 text-sm text-slate-900 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
+                  value={deliveryDetails.landmark || ""}
+                  name="landmark"
+                  onChange={changeDeliveryDetails}
+                />
+              </div>
             </div>
-
-            <div className="flex flex-col gap-1.5 flex-1 mb-4">
-              <label className="font-medium text-gray-500">Landmark </label>
-              <input
-                type="text"
-                placeholder="Apartment, Landmark (Optional)"
-                className="w-full outline-none border border-gray-500  rounded-sm  p-3"
-                name="landmark"
-                onChange={changeDeliveryDetails}
-              />
-            </div>
           </div>
-
         </div>
-        {/* </div> */}
 
-        <div className="bg-white p-6 rounded-xl shadow-lg max-md:shadow-xl max-md:border max-md:border-gray-200 h-fit sticky top-4  overflow-y-auto mb-10">
-          {/* <div className="bg-white md:p-6 rounded-xl shadow-lg md:h-fit md:sticky md:top-4 p-3 py-5 max-md:border-t-1 max-md:shadow-none fixed bottom-0 left-0 z-10  right-0 h-[280px] overflow-y-auto"> */}
-          <h2 className="md:text-2xl text-3xl  font-bold mb-4 text-nav-blue-active/80">
+        {/* RIGHT COLUMN: ORDER SUMMARY CARD */}
+        <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm sticky top-6">
+          <h2 className="text-xl font-bold tracking-tight text-slate-900 border-b border-slate-100 pb-4 mb-5">
             Order Summary
           </h2>
 
-          <div className="space-y-5">
-            <div className="flex justify-between">
-              <span className="text-lg ">Subtotal</span>
-              <span>₦{total?.totalPrice?.toLocaleString() || 0}</span>
-            </div>
-
-            <div className="flex justify-between">
-              <span className="text-lg ">Delivery</span>
-              {/* <span>₦{(total?.totalPrice * 0.03).toLocaleString() || 0}</span> */}
-              <span>
-                {calculating
-                  ? "Calculating..."
-                  : `₦${deliveryFee?.toLocaleString() || 0}`}
+          <div className="space-y-4 text-sm">
+            <div className="flex justify-between items-center text-slate-600 font-medium">
+              <span>Subtotal ({total?.totalItems || 0} items)</span>
+              <span className="font-mono text-slate-900 font-bold">
+                ₦{total?.totalPrice?.toLocaleString() || 0}
               </span>
             </div>
 
-            <hr />
+            <div className="flex justify-between items-center text-slate-600 font-medium">
+              <span>Delivery Fee</span>
+              <span className="font-mono font-bold text-slate-900">
+                {calculating ? (
+                  <span className="text-amber-600 animate-pulse text-xs">Calculating...</span>
+                ) : (
+                  `₦${deliveryFee?.toLocaleString() || 0}`
+                )}
+              </span>
+            </div>
 
-            <div className="flex justify-between font-bold">
-              <span className="text-nav-blue-active/80 text-lg ">Total</span>
-              <span className="text-nav-blue-active/80">
+            <hr className="border-slate-100 my-2" />
+
+            <div className="flex justify-between items-center text-base font-bold text-slate-900">
+              <span>Total Amount</span>
+              <span className="font-mono text-lg text-emerald-700">
                 ₦{(total?.totalPrice + deliveryFee || 0).toLocaleString()}
-                
               </span>
             </div>
           </div>
 
-          {deliveryFee > 0 && <Link to="/checkout">
-            <button className="w-full outline-none py-3 mb-4 mt-6 bg-green-800/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2">
-              <span>
-                <IoBagCheckOutline className="text-white w-5 h-5" />
-              </span>
-              <p>Proceed to Checkout</p>
+          {/* ACTION BUTTONS */}
+          <div className="mt-7 space-y-3">
+            {deliveryFee > 0 && (
+              <Link to="/checkout" className="block">
+                <button className="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-700/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                  <IoBagCheckOutline className="w-5 h-5" />
+                  <span>Proceed to Checkout</span>
+                </button>
+              </Link>
+            )}
+
+            <button
+              disabled={calculating}
+              onClick={calcDistance}
+              className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-md shadow-amber-500/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <IoBagCheckOutline className="hidden" />
+              <span>{calculating ? "Calculating Distance..." : "Calculate Delivery Fee"}</span>
             </button>
-          </Link>
-          }
-            <button disabled={calculating} className="w-full outline-none py-3 mb-4 mt-6 bg-yellow-600/90 text-white  rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center  gap-2" onClick={calcDistance}>
-              <span className='hidden'>
-                <IoBagCheckOutline className="text-white w-5 h-5" />
-              </span>
-              <p> {calculating ? 'Calculating' : 'Calculate Delivery Fee'}</p>
-            </button>
-          <Link to="/shop">
-            <button className="w-full border border-green-700  text-green-700 py-3 rounded-xl cursor-pointer flex items-center justify-center gap-2">
-              <span>
-                <FaShoppingBag className="text-green-700 w-4 h-4" />
-              </span>
-              <p>Continue Shopping</p>
-            </button>
-          </Link>
+
+            <Link to="/shop" className="block">
+              <button className="w-full py-3 px-4 border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-sm rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                <FaShoppingBag className="w-4 h-4 text-slate-600" />
+                <span>Continue Shopping</span>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
+
       <SearchNav />
     </div>
   );
