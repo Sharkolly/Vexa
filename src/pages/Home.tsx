@@ -88,17 +88,53 @@ const Home = () => {
     if (isHovered) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 4000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [nextSlide, isHovered]);
 
   return (
     <div className="min-h-screen bg-white text-slate-900 pt-16">
-      {/* Announcement Bar */}
-      <div className="bg-emerald-900 text-emerald-100 text-center text-xs sm:text-sm font-semibold py-2.5 px-4 flex items-center justify-center gap-2 tracking-wide border-b border-emerald-800">
-        <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
-        <span>Free Nationwide Delivery On Orders Above ₦100,000</span>
+      {/* Pure CSS Infinite Marquee Announcement Bar */}
+      <div className="bg-emerald-900 text-emerald-100 text-xs sm:text-sm font-semibold py-2.5 overflow-hidden border-b border-emerald-800 relative whitespace-nowrap">
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee-track {
+            display: flex;
+            width: 200%;
+            animation: marquee 22s linear infinite;
+          }
+          .animate-marquee-track:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        <div className="animate-marquee-track">
+          {/* First Marquee Item Group */}
+          <div className="flex items-center justify-around w-1/2 shrink-0 gap-8 px-4">
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              🚚 Free Nationwide Delivery On Orders Above ₦100,000
+            </span>
+            <span>🔥 Flash Sale — Up to 70% OFF</span>
+            <span>⚡ New Arrivals Every Week</span>
+            <span>💳 Fast & Secure Checkout</span>
+          </div>
+
+          {/* Duplicate Item Group for Seamless Loop */}
+          <div className="flex items-center justify-around w-1/2 shrink-0 gap-8 px-4">
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              🚚 Free Nationwide Delivery On Orders Above ₦100,000
+            </span>
+            <span>🔥 Flash Sale — Up to 70% OFF</span>
+            <span>⚡ New Arrivals Every Week</span>
+            <span>💳 Fast & Secure Checkout</span>
+          </div>
+        </div>
       </div>
 
       {/* Hero Carousel Section */}
@@ -115,7 +151,9 @@ const Home = () => {
             <div
               key={slide.id}
               className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"
+                isActive
+                  ? "opacity-100 pointer-events-auto z-10"
+                  : "opacity-0 pointer-events-none z-0"
               }`}
             >
               {/* Background Image & Overlays */}
@@ -126,13 +164,13 @@ const Home = () => {
                   isActive ? "scale-105" : "scale-100"
                 }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-slate-950/30" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/30" />
               <div className="absolute inset-0 bg-slate-950/20" />
 
-              {/* Slide Content */}
+              {/* Slide Content with Enhanced Left Padding */}
               <div className="absolute inset-0 flex items-center">
                 <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 text-white">
-                  <div className="max-w-2xl sm:max-w-3xl">
+                  <div className="max-w-2xl sm:max-w-3xl pl-4 sm:pl-12 lg:pl-20">
                     {/* Badge */}
                     <div
                       className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg mb-6 transition-all duration-700 transform ${
