@@ -88,7 +88,7 @@ const Home = () => {
     if (isHovered) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 6500);
 
     return () => clearInterval(interval);
   }, [nextSlide, isHovered]);
