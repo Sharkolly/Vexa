@@ -112,7 +112,7 @@ const AddToCart = ({
       type="button"
       className={
         AddToCartClassName ||
-        "w-[55%] bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+        "w-[55%] lg:w-[85%] bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
       }
       onClick={handleAddToCart}
     >
