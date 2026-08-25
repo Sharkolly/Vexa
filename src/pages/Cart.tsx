@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MdLocalShipping, MdSync, MdVerified } from "react-icons/md";
+import { MdLocalShipping, MdSync, MdVerified, MdArrowRightAlt } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import type { ProductType } from "../../types/product.types";
 import {
@@ -9,8 +9,9 @@ import {
 } from "../../store/product.slice";
 import type { AppDispatch } from "../../store/index";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { MdArrowRightAlt } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
+import { IoBagCheckOutline } from "react-icons/io5";
+import { FaShoppingBag } from "react-icons/fa";
 import NoCartItem from "../../components/ui/NoCartItem";
 import SearchNav from "../../components/ui/SearchNav";
 
@@ -270,16 +271,18 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {/* ACTION BUTTONS */}
+                {/* ACTION BUTTONS WITH ICONS */}
                 <div className="mt-7 space-y-3">
                   <Link to="/delivery" className="block">
                     <button className="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-700/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                      <IoBagCheckOutline className="w-5 h-5" />
                       <span>Proceed to Delivery</span>
                     </button>
                   </Link>
 
                   <Link to="/shop" className="block">
                     <button className="w-full py-3 px-4 border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-sm rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                      <FaShoppingBag className="w-4 h-4 text-slate-600" />
                       <span>Continue Shopping</span>
                     </button>
                   </Link>
