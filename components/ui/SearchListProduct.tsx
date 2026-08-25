@@ -86,7 +86,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
               </div>
 
               {/* Pricing & Add to Cart Container */}
-              <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col justify-between gap-3">
                 <div>
                   <p className="text-base sm:text-xl font-extrabold text-emerald-700 tracking-tight">
                     ₦{item?.price?.toLocaleString()}
@@ -96,7 +96,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   </p>
                 </div>
 
-                <div className='w-full'>
+                <div className='w-ful'>
                   <AddToCart
                     quantity={item?.quantity}
                     id={item?._id}
