@@ -24,12 +24,12 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
   return (
     <section className="mt-16">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
             You May Also Like
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-0.5">
             Handpicked items matching your current view
           </p>
         </div>
@@ -43,16 +43,15 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
         </Link>
       </div>
 
-      {/* Product List Grid / Responsive Scroll */}
-      <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 min-w-max md:min-w-0">
+      {/* Horizontal Slider on Mobile (< md) | 4-Column Grid on Tablet & Desktop (>= md) */}
+      <div className="w-full">
+        <div className="flex md:grid md:grid-cols-4 gap-5 overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-none snap-x snap-mandatory md:snap-none">
           {relatedData.map((product, index) => {
             const productPath = `/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`;
-            const isDiscounted = true; // Example flag for discount visual
 
             return (
               <div
-                className="group w-72 sm:w-full bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
+                className="w-[270px] shrink-0 md:w-full snap-start group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
                 key={product._id || index}
               >
                 <div>
@@ -66,12 +65,10 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
                       />
                     </Link>
 
-                    {/* Sale Badge */}
-                    {isDiscounted && (
-                      <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                        -15% OFF
-                      </span>
-                    )}
+                    {/* Discount Tag */}
+                    <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                      -15% OFF
+                    </span>
 
                     {/* Wishlist Button */}
                     <button
@@ -84,13 +81,13 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
                   </div>
 
                   {/* Product Details */}
-                  <div className="p-5">
+                  <div className="p-4">
                     <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1">
                       {product.subCategory}
                     </p>
 
                     <Link to={productPath}>
-                      <h3 className="font-bold text-slate-900 text-base line-clamp-2 h-12 leading-snug group-hover:text-emerald-700 transition-colors">
+                      <h3 className="font-bold text-slate-900 text-sm line-clamp-2 h-10 leading-snug group-hover:text-emerald-700 transition-colors">
                         {product?.name}
                       </h3>
                     </Link>
@@ -108,10 +105,10 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
                 </div>
 
                 {/* Add to Cart CTA */}
-                <div className="px-5 pb-5">
+                <div className="p-4 pt-0">
                   <AddToCart
                     AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2.5 rounded-xl text-sm transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
-                    quantityNumberStyle="w-full flex justify-between items-center mt-2 border border-slate-200 rounded-xl py-1 px-2"
+                    quantityNumberStyle="w-full flex justify-between items-center mt-2 border border-slate-200 rounded-xl py-1 px-2 text-sm"
                     quantity={product?.quantity}
                     slug={product?.slug}
                     category={product?.category}
