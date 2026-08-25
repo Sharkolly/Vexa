@@ -96,7 +96,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   </p>
                 </div>
 
-                <div>
+                <div className='w-full'>
                   <AddToCart
                     quantity={item?.quantity}
                     id={item?._id}
