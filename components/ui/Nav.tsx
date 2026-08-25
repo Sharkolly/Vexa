@@ -15,11 +15,11 @@ type RootState = {
   };
 };
 
-// SVG Logo Component with theme adaptation
-const FexaLogo = ({ isDark = false }: { isDark?: boolean }) => (
+// SVG Logo Component scaled 1.5x bigger (h-12 sm:h-14)
+const FexaLogo = ({ isDark = false, className = "h-12 sm:h-14 w-auto" }: { isDark?: boolean; className?: string }) => (
   <svg
     viewBox="0 0 320 90"
-    className="h-8 sm:h-9 w-auto transition-transform group-hover:scale-105"
+    className={`${className} transition-transform group-hover:scale-105`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -75,7 +75,6 @@ const Nav = () => {
     (state: RootState) => state.product.addToCart
   );
 
-  // Calculate total item quantity in cart
   const totalCartCount = CartedProduct?.reduce(
     (acc, item) => acc + (item.quantity || 1),
     0
@@ -108,8 +107,8 @@ const Nav = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-      <div className="flex items-center justify-between px-4 sm:px-10 py-3.5 w-full max-w-7xl mx-auto">
-        {/* Brand Logo */}
+      <div className="flex items-center justify-between px-4 sm:px-10 py-2.5 w-full max-w-7xl mx-auto">
+        {/* Brand Logo (1.5x Larger) */}
         <Link to="/" className="flex items-center group py-0.5" aria-label="FEXA Home">
           <FexaLogo />
         </Link>
@@ -202,7 +201,7 @@ const Nav = () => {
             )}
           </Link>
 
-          {/* Profile Icon (Desktop & Tablet) */}
+          {/* Profile Icon */}
           <Link
             to="/profile"
             className="hidden md:flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-full text-slate-600 transition-colors border border-slate-200/60"
@@ -261,19 +260,16 @@ const Nav = () => {
       {/* Mobile Drawer Navigation */}
       {menu && (
         <div className="fixed inset-0 z-50 md:hidden flex justify-end">
-          {/* Backdrop Overlay */}
           <div
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
             onClick={closeMenu}
           />
 
-          {/* Drawer Sidebar */}
           <aside className="relative w-[80%] max-w-xs bg-slate-900 shadow-2xl z-60 h-screen flex flex-col justify-between p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
             <div>
-              {/* Drawer Header */}
               <div className="flex items-center justify-between pb-5 border-b border-slate-800 mb-6">
                 <Link to="/" onClick={closeMenu} className="flex items-center">
-                  <FexaLogo isDark={true} />
+                  <FexaLogo isDark={true} className="h-10 w-auto" />
                 </Link>
                 <button
                   onClick={closeMenu}
@@ -283,7 +279,6 @@ const Nav = () => {
                 </button>
               </div>
 
-              {/* User Account Info Box */}
               {user?.email && (
                 <div className="flex items-center gap-3 p-3 mb-6 bg-slate-800/80 rounded-2xl border border-slate-700/60">
                   <div className="p-2.5 bg-emerald-700 text-white rounded-xl">
@@ -302,7 +297,6 @@ const Nav = () => {
                 </div>
               )}
 
-              {/* Navigation Links */}
               <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <NavLink
@@ -324,7 +318,6 @@ const Nav = () => {
               </nav>
             </div>
 
-            {/* Bottom Auth Actions */}
             <div className="pt-6 border-t border-slate-800 mb-20 space-y-3">
               {user?.email ? (
                 <button
