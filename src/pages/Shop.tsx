@@ -1,17 +1,19 @@
 import {
   Search,
-  // ShoppingCart,
   ChevronRight,
-  // Smartphone,
   Monitor,
   Home,
   HeartPulse,
   Shirt,
   Gamepad2,
-  // Baby,
   Apple,
   Gamepad,
   Car,
+  ShieldCheck,
+  Truck,
+  Tag,
+  CheckCircle2,
+  Headphones,
 } from "lucide-react";
 import { useQueryProduct } from "../../lib/useQuery";
 import type { AllProductType } from "../../types/product.types";
@@ -33,13 +35,13 @@ const categories = [
 
 const resolveImage = (
   img: string | File | null | undefined,
-  fallback: string,
+  fallback: string
 ) =>
   typeof img === "string"
     ? img
     : img instanceof File
-      ? URL.createObjectURL(img)
-      : fallback;
+    ? URL.createObjectURL(img)
+    : fallback;
 
 type PRODUCT_CATEGORY_TYPE = {
   category: string;
@@ -52,56 +54,63 @@ export default function Random() {
 
   return (
     <>
-      {isLoading && productData.length == 0 ? (
+      {isLoading && productData.length === 0 ? (
         <Loader />
       ) : (
-        <div className="min-h-screen bg-white/80  mt-20 max-md:my-16 ">
-          <main className="max-w-360  mx-auto px-2 lg:px-8 py-6">
-            <div className="flex flex-col lg:flex-row gap-4 mb-8">
-              <aside className="hidden lg:block w-1/5 bg-white rounded-md shadow-sm py- h-[400px]">
-                <ul className="flex flex-col h-full text-sm text-gray-700">
+        <div className="min-h-screen bg-slate-50/50 text-slate-800 antialiased pt-20 pb-24 max-md:pt-16">
+          <main className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 xl:px-16">
+            {/* HERO & CATEGORIES SECTION */}
+            <div className="flex flex-col lg:flex-row gap-5 mb-8">
+              {/* SIDEBAR CATEGORIES */}
+              <aside className="hidden lg:block w-1/5 bg-white rounded-2xl border border-slate-200/80 shadow-xs p-3 h-[420px] shrink-0">
+                <div className="px-3 py-2 border-b border-slate-100 mb-1">
+                  <h3 className="font-bold text-xs uppercase tracking-wider text-slate-400">
+                    Categories
+                  </h3>
+                </div>
+                <ul className="flex flex-col justify-between h-[340px] text-sm font-medium text-slate-700">
                   {categories.map((cat, idx) => (
-                    <Link
-                      to={`/search?category=${cat.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      key={idx}                      
-                    >
-                    <li
-                      key={idx}
-                      className={`hover:text-blue-800 hover:bg-gray-50 cursor-pointer transition-colors px-4 py-3 flex items-center justify-between ${idx == 0 ? "rounded-t-md" : ""}`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-gray-500">{cat.icon}</span>
-                        <span>{cat.name}</span>
-                      </div>
+                    <li key={idx}>
+                      <Link
+                        to={`/search?category=${cat.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                        className="group flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-50 hover:text-emerald-700 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-slate-400 group-hover:text-emerald-600 transition-colors">
+                            {cat.icon}
+                          </span>
+                          <span className="text-sm font-medium">{cat.name}</span>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all" />
+                      </Link>
                     </li>
-                    </Link>
                   ))}
                 </ul>
               </aside>
-              <div className="w-full max-w-7xl mx-auto font-san ">
-                {/* Main Hero Card Container */}
-                <div className="relative overflow-hidden w-full rounded-3xl bg-gradient-to-br from-indigo-900 via-blue-950 to-slate-950  max-md:p-6  sm:p-10 md:p-14 lg:px-8  lg:py-0 min-h-88  md:min-h-[410px]    flex flex-col justify-center shadow-xl">
-                  {/* Background Decorative Wireframe Cube */}
-                  <div className="absolute right-4 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 w-48 sm:w-64 md:w-80 lg:w-96 aspect-square opacity-30 md:opacity-40 pointer-events-none select-none hidden sm:block text-purple-400">
+
+              {/* MAIN HERO BANNER */}
+              <div className="w-full lg:flex-1">
+                <div className="relative overflow-hidden w-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 p-6 sm:p-10 md:p-12 h-[380px] lg:h-[420px] flex flex-col justify-center shadow-md">
+                  {/* Background Decorative Graphic */}
+                  <div className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-56 sm:w-72 md:w-96 aspect-square opacity-20 md:opacity-30 pointer-events-none select-none hidden sm:block text-emerald-400">
                     <svg
                       viewBox="0 0 200 200"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-full h-full"
                     >
-                      {/* Outer Hexagon Line structure */}
                       <path
                         d="M100 20 L170 60 L170 140 L100 180 L30 140 L30 60 Z"
                         stroke="currentColor"
                         strokeWidth="1"
                         strokeLinejoin="round"
                       />
-                      {/* Front facing vertex lines */}
                       <path
                         d="M100 20 L100 100 M100 180 L100 100 M30 60 L100 100 M170 140 L100 100 M30 140 L100 100 M170 60 L100 100"
                         stroke="currentColor"
                         strokeWidth="1"
-                        // strokeWidth="0.75"
                         strokeDasharray="2 2"
                         strokeOpacity="0.5"
                       />
@@ -111,274 +120,190 @@ export default function Random() {
                         strokeWidth="1.5"
                         strokeLinejoin="round"
                       />
-                      <path
-                        d="M30 60 L30 140 L100 180 L100 100 Z"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M100 100 L100 180 L170 140 L170 60 Z"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinejoin="round"
-                      />
                     </svg>
                   </div>
 
-                  {/* Hero Content Wrapper */}
-                  <div className="relative z-10 max-w-2xl w-full flex flex-col gap-4 sm:gap-6">
-                    {/* Top Brand Badge */}
-                    <div className="flex items-center gap-2  bg-white/10 backdrop-blur-md border border-white/15 text-white font-bold text-xs uppercase tracking-wider py-1.5 px-3.5 rounded-full w-fit shadow-inner">
-                      <svg
-                        className="w-3.5 h-3.5 text-orange-400"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M12 2.18l8.16 4.71v9.42L12 21.02l-8.16-4.71V6.89L12 2.18zM12 4.5L5.84 8.05l6.16 3.56 6.16-3.56L12 4.5zM5.16 9.64v5.82l5.84 3.37v-5.82l-5.84-3.37zm13.68 0l-5.84 3.37v5.82l5.84-3.37v-5.82z" />
-                      </svg>
-                      VEXA ONLINE SHOP 
+                  {/* Hero Content */}
+                  <div className="relative z-10 max-w-2xl w-full flex flex-col gap-4 sm:gap-5">
+                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 text-white font-bold text-xs uppercase tracking-wider py-1.5 px-3.5 rounded-full w-fit shadow-xs">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                      VEXA ONLINE SHOP
                     </div>
 
-                    {/* Core Typography Headlines */}
-                    <h1 className="text-white font-black tracking-tight text-3xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.1]">
+                    <h1 className="text-white font-black tracking-tight text-3xl sm:text-5xl lg:text-5xl leading-[1.15]">
                       Everything You Need, <br className="hidden sm:inline" />
-                      <span className="text-orange-500">In One Place.</span>
+                      <span className="text-emerald-400">In One Place.</span>
                     </h1>
 
-                    {/* Subtext description */}
-                    <p className="text-gray-300 text-sm sm:text-base font-normal leading-relaxed max-w-xl ">
+                    <p className="text-slate-300 text-xs sm:text-sm font-normal leading-relaxed max-w-lg">
                       Shop quality products across multiple categories with
-                      secure checkout, trusted service and convenient delivery
+                      secure checkout, trusted service, and convenient delivery
                       across Nigeria.
                     </p>
 
-                    {/* CTA & Trust Elements Row */}
-                    <div className="flex items-center max-md:flex-col max-md:items-start   md:flex-row items-star sm:items-center gap-4 sm:gap-6 mt-2">
-                      {/* Main Shop Button */}
-                      <button className="group flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-bold text-sm sm:text-base py-3 px-6 rounded-2xl shadow-lg shadow-orange-600/20 transition-all duration-200 max-md:w-full">
-                        Shop Now
-                        <svg
-                          className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                          ></path>
-                        </svg>
-                      </button>
+                    <div className="flex items-center max-md:flex-col max-md:items-start md:flex-row gap-4 mt-2">
+                      <Link to="/shop" className="max-md:w-full">
+                        <button className="group flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold text-sm py-3.5 px-7 rounded-xl shadow-md shadow-emerald-950/20 transition-all duration-200 cursor-pointer max-md:w-full">
+                          <span>Shop Now</span>
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </Link>
 
-                      <div className="flex justify-center">
-                        <div className="flex items-center gap-2  text-white/90 text-xs sm:text-sm font-semibold tracking-wide">
-                          <svg
-                            className="w-4 h-4 text-orange-400 shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
-                          </svg>
-                          Secure shopping experience
-                        </div>
+                      <div className="flex items-center gap-2 text-white/90 text-xs sm:text-sm font-semibold">
+                        <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>100% Verified Products</span>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                {/* Bottom Features Horizontal Bar */}
-                <div className="flex flex-wrap items-center gap-2 mt-4 justify-start w-full overflow-x-auto pb-2 scrollbar-none">
-                  {/* Secure Checkout Badge */}
-                  <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
-                    <svg
-                      className="w-3.5 h-3.5 text-indigo-950"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
-                    </svg>
-                    Secure checkout
-                  </div>
-
-                  {/* Fast Dispatch Badge */}
-                  <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
-                    <svg
-                      className="w-4 h-4 text-orange-500"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M8.25 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM19.5 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM2.25 5.25h3.83l1.71 8.2a1.5 1.5 0 001.47 1.19h9.17a1.5 1.5 0 001.47-1.19l1.45-6.99h-15.1"
-                      />
-                    </svg>
-                    Fast dispatch
-                  </div>
-
-                  <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
-                    <svg
-                      className="w-4 h-4 text-amber-500"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a2.25 2.25 0 003.182 0l5.174-5.173a2.25 2.25 0 000-3.182L12.15 3.659a2.25 2.25 0 00-1.591-.659zM6 7.5h.008v.008H6V7.5z"
-                      ></path>
-                    </svg>
-                    Great value
-                  </div>
-                  <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
-                    <div className="bg-emerald-600 text-white rounded-full p-0.5">
-                      <svg
-                        className="w-3 h-3"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        ></path>
-                      </svg>
-                    </div>
-                    Quality checked
-                  </div>
-
-                  <div className="flex items-center gap-2  bg-white border border-gray-200 shadow-sm px-4 py-2.5 rounded-full text-slate-900 font-bold text-xs sm:text-sm shrink-0">
-                    <svg
-                      className="w-4 h-4 text-purple-900"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      ></path>
-                    </svg>
-                    Customer support
-                  </div>
-                </div>
               </div>
 
-              {/* Right Promo Banners (Desktop) */}
-              <div className="hidden lg:flex w-1/5 flex-col gap-4 h-[400px]">
-                <div className="flex-1 bg-white rounded-md shadow-sm flex items-center justify-center border-2 border-blue-100 p-4 text-center hover:shadow-md transition">
-                  <div>
-                    <HeartPulse
-                      className="mx-auto text-blue-800 mb-2"
-                      size={32}
-                    />
-                    <h3 className="font-bold text-gray-800">Health & Beauty</h3>
-                    <p className="text-xs text-gray-500">
-                      Starting from ₦2,000
-                    </p>
+              {/* RIGHT PROMO CARDS */}
+              <div className="hidden lg:flex w-1/5 flex-col gap-4 h-[420px] shrink-0">
+                <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 p-5 flex flex-col items-center justify-center text-center shadow-xs hover:shadow-md transition-shadow group cursor-pointer">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700 mb-3 group-hover:scale-110 transition-transform">
+                    <HeartPulse size={24} />
                   </div>
+                  <h3 className="font-bold text-slate-900 text-sm">
+                    Health & Beauty
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1">Starting from ₦2,000</p>
                 </div>
-                <div className="flex-1 bg-white rounded-md shadow-sm flex items-center justify-center border-2 border-blue-100 p-4 text-center hover:shadow-md transition">
-                  <div>
-                    <Home className="mx-auto text-blue-800 mb-2" size={32} />
-                    <h3 className="font-bold text-gray-800">Home Essentials</h3>
-                    <p className="text-xs text-gray-500">Free delivery</p>
+
+                <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 p-5 flex flex-col items-center justify-center text-center shadow-xs hover:shadow-md transition-shadow group cursor-pointer">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-700 mb-3 group-hover:scale-110 transition-transform">
+                    <Home size={24} />
                   </div>
+                  <h3 className="font-bold text-slate-900 text-sm">
+                    Home Essentials
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1">Free delivery available</p>
                 </div>
               </div>
             </div>
 
-            {productData?.map((product: PRODUCT_CATEGORY_TYPE) => (
+            {/* TRUST BADGES BAR */}
+            <div className="flex flex-wrap items-center gap-3 mb-10 overflow-x-auto pb-2 scrollbar-none">
+              <div className="flex items-center gap-2 bg-white border border-slate-200/80 shadow-xs px-4 py-2.5 rounded-full text-slate-700 font-semibold text-xs sm:text-sm shrink-0">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Secure checkout</span>
+              </div>
+
+              <div className="flex items-center gap-2 bg-white border border-slate-200/80 shadow-xs px-4 py-2.5 rounded-full text-slate-700 font-semibold text-xs sm:text-sm shrink-0">
+                <Truck className="w-4 h-4 text-blue-600" />
+                <span>Fast dispatch</span>
+              </div>
+
+              <div className="flex items-center gap-2 bg-white border border-slate-200/80 shadow-xs px-4 py-2.5 rounded-full text-slate-700 font-semibold text-xs sm:text-sm shrink-0">
+                <Tag className="w-4 h-4 text-amber-600" />
+                <span>Great value</span>
+              </div>
+
+              <div className="flex items-center gap-2 bg-white border border-slate-200/80 shadow-xs px-4 py-2.5 rounded-full text-slate-700 font-semibold text-xs sm:text-sm shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Quality checked</span>
+              </div>
+
+              <div className="flex items-center gap-2 bg-white border border-slate-200/80 shadow-xs px-4 py-2.5 rounded-full text-slate-700 font-semibold text-xs sm:text-sm shrink-0">
+                <Headphones className="w-4 h-4 text-purple-600" />
+                <span>24/7 Support</span>
+              </div>
+            </div>
+
+            {/* PRODUCT CATEGORIES SECTIONS */}
+            {productData?.map((productGroup: PRODUCT_CATEGORY_TYPE) => (
               <div
-                key={product.category}
-                className={`${product.products.length <= 0 ? "hidden" : ""}`}
+                key={productGroup.category}
+                className={`${
+                  productGroup.products.length <= 0 ? "hidden" : "mb-10"
+                }`}
               >
-                <section className="bg-white rounded-md shadow-sm overflow-hidden mt-6">
-                  <div className="bg-blue-100  text-blue-800 p-4 flex items-center justify-between">
+                <section className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+                  {/* Category Header */}
+                  <div className="border-b border-slate-100 p-4 sm:px-6 flex items-center justify-between bg-slate-50/50">
                     <div className="flex items-center gap-3">
-                      <div className="bg-red-500 p-1 rounded hidden">
-                        <Search size={20} className="text-white" />
-                      </div>
-                      <h2 className="text-lg lg:text-xl capitalize   font-bold">
-                        {product.category}
+                      <div className="w-2.5 h-6 rounded-full bg-emerald-600"></div>
+                      <h2 className="text-base sm:text-lg capitalize font-bold text-slate-900 tracking-tight">
+                        {productGroup.category}
                       </h2>
                     </div>
                     <Link
-                      to={`/search?category=${product.category}`}
-                      className="text-sm font-semibold flex items-center hover:underline"
+                      to={`/search?category=${productGroup.category}`}
+                      className="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition-colors"
                     >
-                      SEE ALL <ChevronRight size={16} />
+                      <span>SEE ALL</span>
+                      <ChevronRight size={16} />
                     </Link>
                   </div>
 
-                  <div className="px-4 py-6 overflow-x-auto max-md:px-0">
-                    {/* <div className="flex gap-4 min-w-max lg:grid lg:grid-cols-6 lg:min-w-0"> */}
-                    <div className="flex gap-4 min-w-max items-center">
-                      {product.products.map((product) => (
+                  {/* Product Cards Row */}
+                  <div className="p-4 sm:p-6 overflow-x-auto scrollbar-none">
+                    <div className="flex gap-4 sm:gap-5 min-w-max items-stretch">
+                      {productGroup.products.map((product) => (
                         <div
-                          key={product.id}
-                          className="basis-65 lg:basis-80  flex-shrink-0 group cursor-pointer hover:shadow-lg  rounded-md transition-shadow border-2 border-gray-200 md:hover:border-gray-100 relative"
+                          key={product.id || product._id}
+                          className="w-[240px] sm:w-[260px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
                         >
-                          <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-1.5 py-0.5 rounded z-10">
-                            {product.discount || Math.ceil(Math.random() * 60)}%
-                          </div>
-                          <Link
-                            to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
-                          >
-                            <img
-                              src={resolveImage(product?.images[0], "")}
-                              alt={product.name}
-                              className="w-full md:h-80  h-55 object-cover rounded mb-2 mix-blend-multiply"
-                            />
-                          </Link>
-                          <div className="px-3 py-1 pb-3 ">
+                          {/* Image Container */}
+                          <div className="relative w-full aspect-square bg-slate-50/80 p-4 overflow-hidden flex items-center justify-center border-b border-slate-100">
+                            <span className="absolute top-3 right-3 bg-rose-500 text-white font-bold text-[11px] px-2 py-0.5 rounded-full shadow-xs z-10">
+                              -{product.discount || Math.ceil(Math.random() * 40)}%
+                            </span>
+
                             <Link
-                              to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`}
+                              to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
+                                product.slug || product._id
+                              }`}
+                              className="w-full h-full flex items-center justify-center"
                             >
-                              <h3 className="text-sm text-gray-600 capitalize line-clamp-2 font-medium ">
-                                {product.subCategory}
-                              </h3>
-                              <h3 className="text-md  text-black font-normal line-clamp-2 mb-1 h-13  mt-1">
-                                {product.name}
-                              </h3>
-                              <div className="font-bold text-base">
-                                ₦{product.price?.toLocaleString()}
-                              </div>
-                              <div className="text-xs text-gray-500 line-through">
-                                ₦{(product.price * 1.03).toLocaleString()}
-                              </div>
+                              <img
+                                src={resolveImage(product?.images[0], "")}
+                                alt={product.name}
+                                className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                              />
                             </Link>
-                            <AddToCart
-                              AddToCartClassName="w-full bg-orange-600  text-white font-semibold py-2 mt-5 cursor-pointer rounded opacity- text-sm lg: group-hover:opacity-100 transition-opacity hidde lg: shadow flex items-center gap-2  justify-center"
-                              quantityNumberStyle="w-full flex justify-between   items-center  mt-5  borde-1 border-orange-00 rounded-md py-1"
-                              quantity={product?.quantity}
-                              id={product?._id}
-                              category={product?.category}
-                              subCategory={product?.subCategory}
-                              price={product?.price}
-                              image={resolveImage(product?.images[0], "")}
-                              name={product?.name}
-                              slug={product?.slug}
-                            />
+                          </div>
+
+                          {/* Product Details */}
+                          <div className="p-4 flex flex-col flex-1 justify-between">
+                            <div>
+                              <p className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider mb-1">
+                                {product.subCategory}
+                              </p>
+                              <Link
+                                to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
+                                  product.slug || product._id
+                                }`}
+                              >
+                                <h3 className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 min-h-[40px] leading-snug">
+                                  {product.name}
+                                </h3>
+                              </Link>
+                            </div>
+
+                            <div className="mt-3">
+                              <div className="flex items-baseline gap-2">
+                                <span className="font-mono font-bold text-base text-slate-900">
+                                  ₦{product.price?.toLocaleString()}
+                                </span>
+                                <span className="font-mono text-xs text-slate-400 line-through">
+                                  ₦{(product.price * 1.15).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                                </span>
+                              </div>
+
+                              <AddToCart
+                                AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2.5 mt-4 rounded-xl shadow-xs hover:shadow-md transition-all active:scale-[0.98] text-xs sm:text-sm flex items-center gap-2 justify-center cursor-pointer"
+                                quantityNumberStyle="w-full flex justify-between items-center mt-4 border border-slate-200 rounded-xl py-1.5 px-3 bg-slate-50 text-slate-900 font-mono text-xs"
+                                quantity={product?.quantity}
+                                id={product?._id}
+                                category={product?.category}
+                                subCategory={product?.subCategory}
+                                price={product?.price}
+                                image={resolveImage(product?.images[0], "")}
+                                name={product?.name}
+                                slug={product?.slug}
+                              />
+                            </div>
                           </div>
                         </div>
                       ))}
