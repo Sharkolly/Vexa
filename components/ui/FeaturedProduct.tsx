@@ -33,7 +33,7 @@ const FeaturedProduct = () => {
 
         <Link
           to="/shop"
-          className="group flex items-center gap-1.5 text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-all"
+          className="group max-[440px]:hidden flex items-center gap-1.5 text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-all"
         >
           <span>View All</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
