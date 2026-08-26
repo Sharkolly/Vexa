@@ -116,7 +116,7 @@ const AddToCart = ({
       }
       onClick={handleAddToCart}
     >
-      <ShoppingCart className="max-[500px]:hidden w-4 h-4" />
+      <ShoppingCart className="max-[440px]:hidden w-4 h-4" />
       <span>Add to Cart</span>
     </button>
   );
