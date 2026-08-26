@@ -29,7 +29,7 @@ const ShopWithUs = () => {
       <div className="w-[90%] max-md:w-[95%] mx-auto px-4">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-2xl max-[440px]:text-lg sm:text-3xl font-black text-slate-900 tracking-tight">
             Why Shop With Us?
           </h2>
           <p className="text-slate-500 text-sm sm:text-base mt-2 font-medium">
