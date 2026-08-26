@@ -82,10 +82,10 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
               </div>
 
               {/* Price & Add to Cart Container */}
-              <div className="px-5 pb-5 pt-0 max-sm:px-2">
+              <div className="px-5 pb-5 pt-0 max-[500px]:px-2">
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xl font-extrabold text-emerald-700 tracking-tight max-sm:text-sm">
+                    <p className="text-xl font-extrabold text-emerald-700 tracking-tight max-[500px]:text-sm">
                       ₦{item?.price?.toLocaleString()}
                     </p>
                     <p className="text-xs font-medium text-slate-400 line-through">
