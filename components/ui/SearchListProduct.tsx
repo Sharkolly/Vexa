@@ -41,7 +41,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
         return (
           <div
             key={item._id}
-            className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5 flex flex-row gap-4 sm:gap-6 items-stretch"
+            className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5 flex flex-row gap-4 max-[440px]:gap-1.5 sm:gap-6 items-stretch"
           >
             {/* Left: Product Image (Wider & Taller Frame) */}
             <div className="relative w-48 max-[500px]:w-30 sm:w-64 md:w-72 max-[500px]:h-48 sm:h-64 md:h-68 h-54 shrink-0 rounded-xl overflow-hidden bg-slate-100">
