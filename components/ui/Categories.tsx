@@ -9,7 +9,7 @@ const Categories = () => {
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200/70">
         <div className="flex items-center gap-2">
           <LayoutGrid className="w-6 h-6 text-emerald-700" />
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-2xl max-[440px]:text-lg sm:text-3xl font-black text-slate-900 tracking-tight">
             Shop By Category
           </h2>
         </div>
