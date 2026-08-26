@@ -113,7 +113,7 @@ const Nav = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-      <div className="flex items-center justify-between md:px-10 py-3 w-full w-[90%] max-md:w-[93%] max-[440px]:w-[95%] mx-auto">
+      <div className="flex items-center justify-between md:px-10 py-3 w-full w-[90%] max-md:w-[94%] max-[440px]:w-[95%] mx-auto">
         {/* Brand Logo (1.3x Scaled) */}
         <Link to="/" className="flex items-center group py-0.5" aria-label="FEXA Home">
           <FexaLogo />
