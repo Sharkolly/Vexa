@@ -122,7 +122,7 @@ const Footer = () => {
               <NavLink to="/" className="inline-block group" aria-label="FEXA Home">
                 <FexaLogo isDark={true} />
               </NavLink>
-              <p className="text-slate-400 text-sm leading-relaxed max-w-sm mt-4">
+              <p className="text-slate-400 text-sm leading-relaxed max-w-lg max-md:w-full mt-4">
                 Redefining modern e-commerce through technical precision and editorial style. Your premier destination for curated tech, fashion, and digital services.
               </p>
             </div>
