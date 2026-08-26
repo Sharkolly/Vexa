@@ -5,7 +5,7 @@ import { PackageX, ArrowRight, RotateCcw } from "lucide-react";
 interface NoProductProps {
   category?: string;
   onReset?: () => void;
-}
+} 
 
 const NoProduct = ({ category, onReset }: NoProductProps) => {
   const isFilteredCategory = category && category.toLowerCase() !== "all";
