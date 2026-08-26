@@ -137,7 +137,7 @@ const CountUpPage = () => {
           <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-100/80 px-3 py-1 rounded-full">
             Our Impact
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-3">
+          <h2 className="text-2xl max-[440px]:text-lg sm:text-3xl font-black text-slate-900 tracking-tight mt-3">
             Trusted By Thousands Nationwide
           </h2>
         </div>
