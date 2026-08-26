@@ -65,7 +65,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
                 </div>
 
                 {/* Product Metadata */}
-                <div className="p-5">
+                <div className="p-5 max-[500px]:px-2">
                   <Link
                     to={productPath}
                     className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1 block hover:underline"
