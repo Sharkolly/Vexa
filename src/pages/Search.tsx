@@ -118,7 +118,7 @@ const Search = () => {
         </div>
       ) : (
         <div>
-          <div className="pt-24 lg:flex gap-6 max-md:flex-col lg:px-12 max-lg:px-6 max-xs:px-1.5 max-md:px-3 pb-20 md:pb-12">
+          <div className="pt-24 lg:flex gap-6 max-md:flex-col lg:px-10 max-lg:px-6 max-xs:px-1.5 max-md:px-3 pb-20 md:pb-12">
             <SearchFilter
               categories={categories}
               categorySearchBtn={categorySearch}
@@ -189,7 +189,7 @@ const Search = () => {
                 </div>
 
                 {/* Horizontal Category Pills Bar */}
-                <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                <div className="mt-4 w-full pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                   {categories.map((item: string) => {
                     const isSelected = category === item;
                     return (
