@@ -111,7 +111,7 @@ const Search = () => {
   }, [query, handleSearch]);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
+    <div className="min-h-screen bg-slate-50 text-slate-800 overflow-x-hidden">
       {isLoading && searchData.length === 0 ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader />
@@ -189,7 +189,7 @@ const Search = () => {
                 </div>
 
                 {/* Horizontal Category Pills Bar */}
-                <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 max-md:overflow-x-auto pb-1 scrollbar-none">
+                <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                   {categories.map((item: string) => {
                     const isSelected = category === item;
                     return (
