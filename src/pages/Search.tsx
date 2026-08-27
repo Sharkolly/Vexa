@@ -135,7 +135,7 @@ const Search = () => {
               </div>
 
               {/* Main Content Area */}
-              <main className="flex-1 min-w-0 w-full z-20 bg-transparent">
+              <main className="flex-1 min-w-0 w-full z-20 bg-transparent md:pl-4">
                 {/* Search Header Bar */}
                 <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5 mb-6">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
