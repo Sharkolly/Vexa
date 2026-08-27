@@ -137,7 +137,7 @@ const Product = () => {
           <span className="text-slate-300">/</span>
           <Link
             className="hover:text-emerald-700 font-medium capitalize transition-colors"
-            to={`/search?categories=${product?.category}`}
+            to={`/search?category=${product?.category}`}
           >
             {product?.category}
           </Link>
