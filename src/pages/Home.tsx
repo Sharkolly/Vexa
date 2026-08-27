@@ -161,7 +161,7 @@ const Home = () => {
 
               {/* Slide Content with Enhanced Left Padding */}
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full max-md:w-[97%] mx-auto px-4 max-[440px]:px-1.5 sm:px-6 lg:px-8 text-white">
+                <div className="w-full max-md:w-[97%] mx-auto px-4 max-[440px]:px-1.5 sm:px-6 text-white">
                   <div className="max-w-2xl sm:max-w-3xl pl-4 max-[440px]:pl-2 sm:pl-12 lg:pl-20">
                     {/* Badge */}
                     <div
