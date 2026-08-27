@@ -119,11 +119,11 @@ const Search = () => {
       ) : (
         <div className="w-full">
           {/* Constrained layout container for big screens */}
-          <div className="max-w-7xl mx-auto pt-24 pb-20 md:pb-12 px-4 sm:pr-6 lg:pr-8">
+          <div className="max-w-7xl mx-auto pt-24 pb-20 md:pb-12 px-4 sm:pr-4.5 lg:pr-6">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
               
               {/* Sidebar Filter Component */}
-              <div className="w-full lg:w-64 xl:w-72 shrink-0">
+              <div className="w-full lg:w-64 shrink-0">
                 <SearchFilter
                   categories={categories}
                   categorySearchBtn={categorySearch}
