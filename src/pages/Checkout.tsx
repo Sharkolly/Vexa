@@ -196,7 +196,7 @@ const CheckoutPage = () => {
             <div className="w-full">
               <PayButton
                 email={deliveryDetails.email || "sharkollymofeoluwa@gmail.com"}
-                amountInNaira={999 }
+                amountInNaira={deliveryDetails.totalFee + total?.totalPrice || total?.totalPrice}
               />
             </div>
 
