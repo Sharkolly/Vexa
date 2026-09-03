@@ -25,7 +25,7 @@ const DeliveryPage = () => {
   const { setDeliveryDetails, deliveryDetails } = useAuthContextStore();
 
   const [calculating, setCalculating] = useState(false);
-  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  // const [deliveryFee, setDeliveryFee] = useState<number>(0);
 
   const total = useSelector((state: RootState) => state.product.total);
 
@@ -39,17 +39,24 @@ const DeliveryPage = () => {
         const res = await API.post(
           `/products/get-distance`,
           { destination, numberOfProduct },
-          { withCredentials: true }
+          { withCredentials: true },
         );
         const data = await res.data;
+        setDeliveryDetails((prev) => ({
+          ...prev,
+          deliveryFee: data.deliveryFee,
+          totalFee: total?.totalPrice + data.deliveryFee,
+        }));
+
         setTimeout(() => {
-          setCalculating(false);
+          if (data.duration == "0s")
+            alert("Invalid Address. Please put in a valid complete address.");
         }, 1100);
-        setDeliveryFee(data.deliveryFee);
       }
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
-      console.error(errorMessage.message);
+      console.log(errorMessage.message);
+    } finally {
       setCalculating(false);
     }
   };
@@ -57,7 +64,7 @@ const DeliveryPage = () => {
   const changeDeliveryDetails = (
     e: React.ChangeEvent<
       HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setDeliveryDetails((prev) => ({
@@ -116,7 +123,8 @@ const DeliveryPage = () => {
               Delivery Information
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Please enter your shipping address details to calculate accurate delivery rates.
+              Please enter your shipping address details to calculate accurate
+              delivery rates.
             </p>
           </div>
 
@@ -233,7 +241,8 @@ const DeliveryPage = () => {
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
-                  Landmark <span className="text-slate-400 font-normal">(Optional)</span>
+                  Landmark{" "}
+                  <span className="text-slate-400 font-normal">(Optional)</span>
                 </label>
                 <input
                   type="text"
@@ -266,9 +275,11 @@ const DeliveryPage = () => {
               <span>Delivery Fee</span>
               <span className="font-mono font-bold text-slate-900">
                 {calculating ? (
-                  <span className="text-amber-600 animate-pulse text-xs">Calculating...</span>
+                  <span className="text-amber-600 animate-pulse text-xs">
+                    Calculating...
+                  </span>
                 ) : (
-                  `₦${deliveryFee?.toLocaleString() || 0}`
+                  `₦${deliveryDetails.deliveryFee?.toLocaleString() || 0}`
                 )}
               </span>
             </div>
@@ -278,14 +289,14 @@ const DeliveryPage = () => {
             <div className="flex justify-between items-center text-base font-bold text-slate-900">
               <span>Total Amount</span>
               <span className="font-mono text-lg text-emerald-700">
-                ₦{(total?.totalPrice + deliveryFee || 0).toLocaleString()}
+                ₦{(deliveryDetails.totalFee || total?.totalPrice)?.toLocaleString()}
               </span>
             </div>
           </div>
 
           {/* ACTION BUTTONS */}
           <div className="mt-7 space-y-3">
-            {deliveryFee > 0 && (
+            {deliveryDetails.deliveryFee > 0 && (
               <Link to="/checkout" className="block">
                 <button className="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-700/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                   <IoBagCheckOutline className="w-5 h-5" />
@@ -300,7 +311,11 @@ const DeliveryPage = () => {
               className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-md shadow-amber-500/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
             >
               <IoBagCheckOutline className="hidden" />
-              <span>{calculating ? "Calculating Distance..." : "Calculate Delivery Fee"}</span>
+              <span>
+                {calculating
+                  ? "Calculating Distance..."
+                  : "Calculate Delivery Fee"}
+              </span>
             </button>
 
             <Link to="/shop" className="block">

@@ -94,18 +94,18 @@ const Home = () => {
   }, [nextSlide, isHovered]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 pt-16">
+    <div className="min-h-screen bg-white text-slate-900 pt-19 ">
       {/* Pure CSS Infinite Marquee Announcement Bar */}
-      <div className="bg-emerald-900 text-emerald-100 text-xs sm:text-sm font-semibold py-2.5 overflow-hidden border-b border-emerald-800 relative whitespace-nowrap">
+      <div className="bg-emerald-900 text-emerald-100 text-xs sm:text-sm font-semibold py-3 max-md:py-2  overflow-hidden border-b border-emerald-800 relative whitespace-nowrap">
         <style>{`
           @keyframes marquee {
-            0% { transform: translateX(0%); }
+            0% { transform: translateX(51%); }
             100% { transform: translateX(-50%); }
           }
           .animate-marquee-track {
             display: flex;
             width: 200%;
-            animation: marquee 22s linear infinite;
+            animation: marquee 20s linear infinite;
           }
           .animate-marquee-track:hover {
             animation-play-state: paused;
@@ -114,7 +114,7 @@ const Home = () => {
 
         <div className="animate-marquee-track">
           {/* First Marquee Item Group */}
-          <div className="flex items-center justify-around w-1/2 py-2 shrink-0 gap-8 px-4">
+          <div className="flex items-center justify-around w-1/2 shrink-0 gap-8 px-4">
             <span className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-emerald-400" />
               🚚 Free Nationwide Delivery On Orders Above ₦100,000
@@ -272,3 +272,7 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+    // data: '{"origin":{"address":"Lagos, Nigeria"},"destination":{"address":"7 Foursquare Cresent Kambala"},"travelMode":"DRIVE","routingPreference":"TRAFFIC_UNAWARE","computeAlternativeRoutes":false,"units":"METRIC"}'

@@ -174,7 +174,7 @@ const CheckoutPage = () => {
             <div className="flex justify-between items-center text-slate-600 font-medium">
               <span>Shipping</span>
               <span className="font-mono text-slate-900 font-bold">
-                ₦{(total?.totalPrice * 0.03).toLocaleString() || 0}
+                ₦{(deliveryDetails.deliveryFee).toLocaleString() || 0}
               </span>
             </div>
 
@@ -185,10 +185,7 @@ const CheckoutPage = () => {
               <span className="font-mono text-lg text-emerald-700">
                 ₦
                 {total?.totalPrice
-                  ? (
-                      total.totalPrice +
-                      total.totalPrice * 0.03
-                    ).toLocaleString()
+                  ? ( deliveryDetails.totalFee || total.totalPrice ).toLocaleString()
                   : 0}
               </span>
             </div>
@@ -199,7 +196,7 @@ const CheckoutPage = () => {
             <div className="w-full">
               <PayButton
                 email={deliveryDetails.email || "sharkollymofeoluwa@gmail.com"}
-                amountInNaira={total?.totalPrice}
+                amountInNaira={999 }
               />
             </div>
 

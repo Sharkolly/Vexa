@@ -29,6 +29,8 @@ const Context = ({ children }: { children: React.ReactNode }) => {
     state: "Lagos",
     city: "Ikeja",
     landmark: "",   
+    deliveryFee: 0, 
+    totalFee: 0, 
   });
 
   const user: UserType | null = data?.message || null;

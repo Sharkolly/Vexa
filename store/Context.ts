@@ -32,9 +32,11 @@ type USERAUTHCONTEXT_TYPES = {
     state: string;
     city: string;
     landmark: string;
+    deliveryFee: number;
+    totalFee: number; 
   };
   setDeliveryDetails: React.Dispatch<
-    React.SetStateAction<{
+  React.SetStateAction<{
       email: string;
       fullName: string;
       phone: string;
@@ -42,6 +44,8 @@ type USERAUTHCONTEXT_TYPES = {
       state: string;
       city: string;
       landmark: string;
+      deliveryFee: number;
+      totalFee: number; 
     }>
   >;
 };
