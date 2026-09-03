@@ -17,7 +17,7 @@ const Tesimonials = () => {
   return (
    <section className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
-          <h2 className="text-3xl  text-nav-blue-active/90  font-bold">Customer Reviews</h2>
+          <h2 className="text-3xl max-[440px]:text-lg text-nav-blue-active/90  font-bold">Customer Reviews</h2>
 
           <p className="text-gray-500 mt-3">What our customers are saying.</p>
         </div>

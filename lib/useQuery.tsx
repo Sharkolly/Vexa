@@ -79,9 +79,9 @@ export const useQueryUserFunction = () => {
   return { data, error, isLoading, refetch };
 };
 
-export const useQueryProduct = (url: string) => {
+export const useQueryProduct = (url: string, queryKey?: string) => {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["products", url],
+    queryKey: ["products", queryKey ?? url],
     queryFn: getRequest,
   });
   return { data, error, isLoading };
