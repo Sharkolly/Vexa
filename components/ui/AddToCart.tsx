@@ -27,7 +27,7 @@ const AddToCart = ({
   category = "",
   subCategory = "",
   image = "",
-  _id = "",
+  _id,
   price = 0,
   slug = "",
   AddToCartClassName,
@@ -38,6 +38,8 @@ const AddToCart = ({
   const CartedProduct = useSelector(
     (state: RootState) => state.product.addToCart
   );
+
+  console.log(_id)
 
   const singleProduct = CartedProduct?.find(
     (product) => product.slug === slug || (product._id && product._id === _id)

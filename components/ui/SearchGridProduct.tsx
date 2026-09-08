@@ -15,13 +15,13 @@ type SearchProductsType = {
 const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string
+    fallback: string,
   ) =>
     typeof img === "string"
       ? img
       : img instanceof File
-      ? URL.createObjectURL(img)
-      : fallback;
+        ? URL.createObjectURL(img)
+        : fallback;
 
   if (isLoading && searchData.length === 0) {
     return (
@@ -95,13 +95,13 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
 
                   <AddToCart
                     quantity={item?.quantity}
-                    id={item?._id}
+                    _id={item?._id ?? ""}
+                    subCategory={item?.subCategory ?? ""}
                     category={item?.category}
                     price={item?.price}
                     image={resolveImage(item?.images[0], "")}
                     name={item?.name}
                     slug={item?.slug}
-                    subCategory={item?.subCategory}
                   />
                 </div>
               </div>

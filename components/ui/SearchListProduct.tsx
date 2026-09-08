@@ -34,14 +34,14 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-5 pb-12">
+    <div className="w-full flex flex-col  gap-5 pb-12">
       {searchData.map((item: AllProductType) => {
         const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
 
         return (
           <div
             key={item._id}
-            className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5 flex flex-row gap-4 max-[440px]:gap-1.5 sm:gap-6 items-stretch"
+            className="group l  bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5  flex flex-row gap-4 max-[440px]:gap-1.5 sm:gap-6 items-stretch"
           >
             {/* Left: Product Image (Wider & Taller Frame) */}
             <div className="relative w-48 max-[500px]:w-30 sm:w-64 md:w-72 max-[500px]:h-48 sm:h-64 md:h-68 h-54 shrink-0 rounded-xl overflow-hidden bg-slate-100">
@@ -97,12 +97,12 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
                   </p>
                 </div>
 
-                <div className='max-sm:w-full'>
-                  <AddToCart
+                <div className='max-sm:w-full sm:w-[50%]'>
+                 <AddToCart
                     quantity={item?.quantity}
-                    id={item?._id}
+                    _id={item?._id ?? ""}
+                    subCategory={item?.subCategory ?? ""}
                     category={item?.category}
-                    subCategory={item?.subCategory}
                     price={item?.price}
                     image={resolveImage(item?.images[0], "")}
                     name={item?.name}

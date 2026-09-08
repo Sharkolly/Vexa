@@ -43,18 +43,14 @@ const Search = () => {
 
   const [query, setQuery] = useState(searchParam);
   const [category, setCategory] = useState(categoryParam);
-  const [searchData, setSearchData] = useState<AllProductType[]>([]);
+  const [searchData, setSearchData] = useState<AllProductType[] | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
 
   const oldCategories = data?.categories || [];
   const categories = ["All", ...oldCategories];
 
-  // Sync initial product data from query hook when loaded
-  useEffect(() => {
-    if (data?.data && searchData.length === 0 && !query && category === "All") {
-      setSearchData(data.data);
-    }
-  }, [data, query, category, searchData.length]);
+  const displayedSearchData =
+    searchData ?? (!query && category === "All" ? (data?.data ?? []) : []);
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
@@ -71,7 +67,7 @@ const Search = () => {
   const categorySearch = async (selectedCategory: string) => {
     setCategory(selectedCategory);
     setSearchParams(
-      selectedCategory === "All" ? {} : { category: selectedCategory }
+      selectedCategory === "All" ? {} : { category: selectedCategory },
     );
 
     try {
@@ -112,7 +108,7 @@ const Search = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 overflow-x-hidden">
-      {isLoading && searchData.length === 0 ? (
+      {isLoading && displayedSearchData.length === 0 ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader />
         </div>
@@ -121,7 +117,6 @@ const Search = () => {
           {/* Constrained layout container for big screens */}
           <div className="md:w-full mx-auto pt-24 pb-20 md:pb-12 px-4 sm:pr-4.5 lg:pr-6">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
-              
               {/* Sidebar Filter Component */}
               <div className="w-full lg:w-64 shrink-0">
                 <SearchFilter
@@ -222,13 +217,13 @@ const Search = () => {
                   <Grid
                     isLoading={isLoading}
                     category={category}
-                    searchData={searchData}
+                    searchData={displayedSearchData}
                   />
                 ) : (
                   <List
                     isLoading={isLoading}
                     category={category}
-                    searchData={searchData}
+                    searchData={displayedSearchData}
                   />
                 )}
               </main>

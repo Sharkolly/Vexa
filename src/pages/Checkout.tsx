@@ -3,10 +3,15 @@ import { useSelector } from "react-redux";
 import SearchNav from "../../components/ui/SearchNav";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { PayButton } from "../../components/ui/paystack";
+// import { PayButton } from "../../components/ui/paystack";
+import axios from "axios";
+import { BiPurchaseTagAlt } from "react-icons/bi";
+import type { ProductType } from "../../types/product.types";
+import API from "../../api/api";
 
 type RootState = {
   product: {
+    addToCart: ProductType[];
     total: {
       totalPrice: number;
       totalItems: number;
@@ -19,6 +24,41 @@ type RootState = {
 const CheckoutPage = () => {
   const { deliveryDetails } = useAuthContextStore();
   const total = useSelector((state: RootState) => state.product.total);
+  const CartedProduct = useSelector(
+    (state: RootState) => state.product.addToCart,
+  );
+
+  const handlePayment = async () => {
+    try {
+      if (CartedProduct.length === 0) {
+        alert("Your cart is empty");
+
+        return;
+      }
+
+      console.log('Payment on going....');
+
+      // Send cart to backend
+      const response = await API.post(
+        "/products/initialize-payment",
+        {
+          details: {CartedProduct, deliveryDetails},
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      // Send customer to Paystack
+      window.location.href = response.data.authorization_url;
+    } catch (error) {
+      console.log(error);
+
+      // alert(
+      //   error.response?.data?.message || "Payment could not be initialized",
+      // );
+    }
+  };
 
   return (
     <div className="pt-20 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16 text-slate-800">
@@ -30,7 +70,8 @@ const CheckoutPage = () => {
               Delivery Details
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Please review your delivery details before proceeding with payment.
+              Please review your delivery details before proceeding with
+              payment.
             </p>
           </div>
 
@@ -47,7 +88,6 @@ const CheckoutPage = () => {
                   disabled={true}
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.fullName || ""}
-                  
                 />
               </div>
 
@@ -61,7 +101,6 @@ const CheckoutPage = () => {
                   placeholder="Email Address"
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.email || ""}
-                  
                 />
               </div>
             </div>
@@ -78,7 +117,6 @@ const CheckoutPage = () => {
                   disabled={true}
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.phone || ""}
-                  
                 />
               </div>
 
@@ -92,7 +130,6 @@ const CheckoutPage = () => {
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   placeholder="Apartment, Suite, Landmark (optional)"
                   value={deliveryDetails.landmark || ""}
-                  
                 />
               </div>
             </div>
@@ -122,7 +159,6 @@ const CheckoutPage = () => {
                   placeholder="State"
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-600 bg-slate-100/80 cursor-not-allowed select-none"
                   value={deliveryDetails.state || ""}
-                  
                 />
               </div>
             </div>
@@ -174,7 +210,7 @@ const CheckoutPage = () => {
             <div className="flex justify-between items-center text-slate-600 font-medium">
               <span>Shipping</span>
               <span className="font-mono text-slate-900 font-bold">
-                ₦{(deliveryDetails.deliveryFee).toLocaleString() || 0}
+                ₦{deliveryDetails.deliveryFee.toLocaleString() || 0}
               </span>
             </div>
 
@@ -185,7 +221,9 @@ const CheckoutPage = () => {
               <span className="font-mono text-lg text-emerald-700">
                 ₦
                 {total?.totalPrice
-                  ? ( deliveryDetails.totalFee || total.totalPrice ).toLocaleString()
+                  ? (
+                      deliveryDetails.totalFee || total.totalPrice
+                    ).toLocaleString()
                   : 0}
               </span>
             </div>
@@ -194,10 +232,23 @@ const CheckoutPage = () => {
           {/* ACTION BUTTONS */}
           <div className="mt-7 space-y-3">
             <div className="w-full">
-              <PayButton
+              {/* <PayButton
                 email={deliveryDetails.email || "sharkollymofeoluwa@gmail.com"}
-                amountInNaira={deliveryDetails.deliveryFee + total?.totalPrice || total?.totalPrice}
-              />
+                amountInNaira={
+                  deliveryDetails.deliveryFee + total?.totalPrice ||
+                  total?.totalPrice
+                }
+              /> */}
+
+              <button
+                onClick={handlePayment}
+                className="w-full mt-6 bg-green-700/90 text-white py-3 rounded-xl hover:opacity-90 transition flex items-center gap-2 justify-center cursor-pointer"
+              >
+                <span>
+                  <BiPurchaseTagAlt className="w-4 h-4 " />
+                </span>
+                <span>Place Order</span>
+              </button>
             </div>
 
             <Link to="/delivery" className="block">

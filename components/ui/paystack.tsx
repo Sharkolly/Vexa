@@ -63,7 +63,7 @@ export const PayButton: React.FC<PaymentProps> = ({ email, amountInNaira }) => {
 
   return (
     <button
-      onClick={handlePayment}
+      // onClick={handlePayment}
       className="w-full mt-6 bg-green-700/90 text-white py-3 rounded-xl hover:opacity-90 transition flex items-center gap-2 justify-center cursor-pointer"
     >
       {/* Pay ₦{amountInNaira.toLocaleString()} */}

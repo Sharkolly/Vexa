@@ -1,6 +1,6 @@
 export type ProductType = {
     slug: string;
-_id?: string,
+_id: string,
 name: string,
 description?: string, 
 price: number,
@@ -8,7 +8,7 @@ image?: string,
 // images: string[];
 id?: string,
 category?: string
-subCategory?: string
+subCategory: string
 brand?: string
 quantity: number | 0;
 new_price?: number

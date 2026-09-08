@@ -12,7 +12,7 @@ const FeaturedProduct = () => {
 
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string
+    fallback: string,
   ) =>
     typeof img === "string"
       ? img
@@ -52,7 +52,7 @@ const FeaturedProduct = () => {
             const productDetailUrl = `/products/${product.category.toLowerCase()}/${product.subCategory}/${productSlug}`;
             const imageSrc = resolveImage(
               product?.images?.[0],
-              "https://placehold.co/400x400?text=No+Image"
+              "https://placehold.co/400x400?text=No+Image",
             );
 
             // Calculated 12% markup for standard discount display
@@ -111,14 +111,13 @@ const FeaturedProduct = () => {
                     AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                     quantityNumberStyle="w-full flex items-center justify-between gap-2 bg-slate-50 border border-slate-200/80 p-1.5 rounded-xl shadow-xs"
                     quantity={product?.quantity}
-                      id={product?._id}
-                      category={product?.category}
-                      price={product?.price}
-                      image={resolveImage(product?.images[0], "")}
-                      name={product?.name}
-                      slug={product?.slug}
-
-                    
+                    _id={product?._id ?? ""}
+                    subCategory={product?.subCategory ?? ""}
+                    category={product?.category}
+                    price={product?.price}
+                    image={resolveImage(product?.images[0], "")}
+                    name={product?.name}
+                    slug={product?.slug}
                   />
                 </div>
               </div>
@@ -130,4 +129,4 @@ const FeaturedProduct = () => {
   );
 };
 
-export default FeaturedProduct
+export default FeaturedProduct;

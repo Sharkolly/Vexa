@@ -1,5 +1,5 @@
 import {
- // Search,
+  // Search,
   ChevronRight,
   Monitor,
   Home,
@@ -35,13 +35,13 @@ const categories = [
 
 const resolveImage = (
   img: string | File | null | undefined,
-  fallback: string
+  fallback: string,
 ) =>
   typeof img === "string"
     ? img
     : img instanceof File
-    ? URL.createObjectURL(img)
-    : fallback;
+      ? URL.createObjectURL(img)
+      : fallback;
 
 type PRODUCT_CATEGORY_TYPE = {
   category: string;
@@ -81,7 +81,9 @@ export default function Random() {
                           <span className="text-slate-400 group-hover:text-emerald-600 transition-colors">
                             {cat.icon}
                           </span>
-                          <span className="text-sm font-medium">{cat.name}</span>
+                          <span className="text-sm font-medium">
+                            {cat.name}
+                          </span>
                         </div>
                         <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all" />
                       </Link>
@@ -167,7 +169,9 @@ export default function Random() {
                   <h3 className="font-bold text-slate-900 text-sm">
                     Health & Beauty
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1">Starting from ₦2,000</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Starting from ₦2,000
+                  </p>
                 </div>
 
                 <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 p-5 flex flex-col items-center justify-center text-center shadow-xs hover:shadow-md transition-shadow group cursor-pointer">
@@ -177,7 +181,9 @@ export default function Random() {
                   <h3 className="font-bold text-slate-900 text-sm">
                     Home Essentials
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1">Free delivery available</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Free delivery available
+                  </p>
                 </div>
               </div>
             </div>
@@ -239,74 +245,83 @@ export default function Random() {
                   {/* Product Cards Row */}
                   <div className="p-4 sm:p-6 overflow-x-auto scrollbar-none">
                     <div className="flex gap-4 sm:gap-5 min-w-max items-stretch">
-                      {productGroup.products.map((product) => (
-                        <div
-                          key={product.id || product._id}
-                          className="w-[290px] sm:w-[330px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
-                        >
-                          {/* Image Container */}
-                          <div className="relative w-full aspect-square bg-slate-50 overflow-hidden border-b border-slate-100">
-                            <span className="absolute top-3 right-3 bg-rose-500 text-white font-bold text-[11px] px-2 py-0.5 rounded-full shadow-xs z-10">
-                              -{product.discount || Math.ceil(Math.random() * 40)}%
-                            </span>
+                      {productGroup.products.map((product) => {
+                        return (
+                          <div
+                            key={product._id}
+                            className="w-[290px] sm:w-[330px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
+                          >
+                            {/* Image Container */}
+                            <div className="relative w-full aspect-square bg-slate-50 overflow-hidden border-b border-slate-100">
+                              <span className="absolute top-3 right-3 bg-rose-500 text-white font-bold text-[11px] px-2 py-0.5 rounded-full shadow-xs z-10">
+                                -
+                                {product.discount ||
+                                  Math.ceil(Math.random() * 40)}
+                                %
+                              </span>
 
-                            <Link
-                              to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
-                                product.slug || product._id
-                              }`}
-                              className="w-full h-full block"
-                            >
-                              <img
-                                src={resolveImage(product?.images[0], "")}
-                                alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                            </Link>
-                          </div>
-
-                          {/* Product Details */}
-                          <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
-                            <div>
-                              <p className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider mb-1">
-                                {product.subCategory}
-                              </p>
                               <Link
                                 to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
                                   product.slug || product._id
                                 }`}
+                                className="w-full h-full block"
                               >
-                                <h3 className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 min-h-[40px] leading-snug">
-                                  {product.name}
-                                </h3>
+                                <img
+                                  src={resolveImage(product?.images[0], "")}
+                                  alt={product.name}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
                               </Link>
                             </div>
 
-                            <div className="mt-3">
-                              <div className="flex items-baseline gap-2">
-                                <span className="font-mono font-bold text-base text-slate-900">
-                                  ₦{product.price?.toLocaleString()}
-                                </span>
-                                <span className="font-mono text-xs text-slate-400 line-through">
-                                  ₦{(product.price * 1.15).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                                </span>
+                            {/* Product Details */}
+                            <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
+                              <div>
+                                <p className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider mb-1">
+                                  {product.subCategory}
+                                </p>
+                                <Link
+                                  to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
+                                    product.slug || product._id
+                                  }`}
+                                >
+                                  <h3 className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 min-h-[40px] leading-snug">
+                                    {product.name}
+                                  </h3>
+                                </Link>
                               </div>
 
-                              <AddToCart
-                                AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2.5 mt-4 rounded-xl shadow-xs hover:shadow-md transition-all active:scale-[0.98] text-xs sm:text-sm flex items-center gap-2 justify-center cursor-pointer"
-                                quantityNumberStyle="w-full flex justify-between items-center mt-4 border border-slate-200 rounded-xl py-1.5 px-3 bg-slate-50 text-slate-900 font-mono text-xs"
-                                quantity={product?.quantity}
-                                id={product?._id}
-                                category={product?.category}
-                                subCategory={product?.subCategory}
-                                price={product?.price}
-                                image={resolveImage(product?.images[0], "")}
-                                name={product?.name}
-                                slug={product?.slug}
-                              />
+                              <div className="mt-3">
+                                <div className="flex items-baseline gap-2">
+                                  <span className="font-mono font-bold text-base text-slate-900">
+                                    ₦{product.price?.toLocaleString()}
+                                  </span>
+                                  <span className="font-mono text-xs text-slate-400 line-through">
+                                    ₦
+                                    {(product.price * 1.15).toLocaleString(
+                                      undefined,
+                                      { maximumFractionDigits: 0 },
+                                    )}
+                                  </span>
+                                </div>
+
+                                <AddToCart
+                                  AddToCartClassName="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2.5 mt-4 rounded-xl shadow-xs hover:shadow-md transition-all active:scale-[0.98] text-xs sm:text-sm flex items-center gap-2 justify-center cursor-pointer"
+                                  quantityNumberStyle="w-full flex justify-between items-center mt-4 border border-slate-200 rounded-xl py-1.5 px-3 bg-slate-50 text-slate-900 font-mono text-xs"
+                                  quantity={product?.quantity}
+                                  _id={product?._id ?? ""}
+                                  subCategory={product?.subCategory ?? ""}
+                                  category={product?.category}
+                                  price={product?.price}
+                                  image={resolveImage(product?.images[0], "")}
+                                  name={product?.name}
+                                  slug={product?.slug}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </section>
@@ -319,4 +334,4 @@ export default function Random() {
       )}
     </>
   );
-              }
+}
