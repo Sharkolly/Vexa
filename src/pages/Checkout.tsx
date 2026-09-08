@@ -222,7 +222,7 @@ const CheckoutPage = () => {
                 ₦
                 {total?.totalPrice
                   ? (
-                      deliveryDetails.totalFee || total.totalPrice
+                    total?.totalPrice +  deliveryDetails.deliveryFee || total.totalPrice
                     ).toLocaleString()
                   : 0}
               </span>
