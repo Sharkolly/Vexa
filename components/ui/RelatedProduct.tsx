@@ -115,6 +115,8 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
                     image={resolveImage(product?.images[0], "")}
                     name={product?.name}
                     price={product?.price}
+                    _id={product?._id ?? ""}
+                                  subCategory={product?.subCategory ?? ""}
                   />
                 </div>
               </div>
