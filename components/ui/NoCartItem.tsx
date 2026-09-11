@@ -3,26 +3,32 @@ import { Link } from "react-router-dom";
 
 const NoCartItem = () => {
   return (
-    <div className="flex flex-col h-screen items-center justify-center">
-      <div>
-        <TiShoppingCart className="text-slate-300/90 w-60 h-60 md:w-72 md:h-72" />
+    <div className="w-full flex flex-col items-center justify-center px-4 h-screen py-12 text-center">
+      {/* Graphic Container with Emerald Ring */}
+      <div className="relative mb-6 flex items-center justify-center">
+        <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center shadow-inner">
+          <TiShoppingCart className="text-emerald-500/80 w-20 h-20 sm:w-24 sm:h-24 -translate-x-0.5" />
+        </div>
+        <span className="absolute top-2 right-2 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-sm" />
       </div>
-      <p className="text-4xl text-black text-center mb-2  font-semibold  ">
+
+      {/* Messaging */}
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-2">
         Your Cart is Empty
-      </p>
-      <p className="text-center text-gray-500 mt-2 mb-6 w-5/12 max-lg:w-10/12  ">
-        Your cart is currently empty, but there's plenty to discover. Browse
-        through our categories, find your favorite products, and add them to
-        your cart to get started.
+      </h2>
+      <p className="text-slate-500 text-sm sm:text-base max-w-md mx-auto mb-8 leading-relaxed">
+        Your cart is currently empty, but there&apos;s plenty to discover. Browse
+        through our categories, find your favorite products, and add them to get started.
       </p>
 
+      {/* Primary Emerald Call to Action */}
       <Link
-        className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2.5 px-5 rounded"
         to="/shop"
+        className="inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-7 rounded-xl shadow-lg shadow-emerald-700/20 hover:shadow-emerald-700/30 active:scale-95 transition-all duration-200 text-base"
       >
-        Start Shopping
+        <span>Start Shopping</span>
       </Link>
-    </div>
+    </div> 
   );
 };
 

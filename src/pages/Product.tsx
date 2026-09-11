@@ -24,16 +24,6 @@ type RootState = {
   };
 };
 
-const getColorClassName = (color?: string) => {
-  switch (color?.toLowerCase()) {
-    case "black":
-      return "bg-slate-900";
-    case "white":
-      return "bg-white border-slate-300";
-    default:
-      return `bg-${color?.trim().toLowerCase()}-600`;
-  }
-};
 
 const Product = () => {
   const { slug, category, subCategory } = useParams();
@@ -183,9 +173,9 @@ const Product = () => {
               <span className="text-sm font-semibold text-slate-700">Color</span>
               <div className="flex items-center gap-2.5">
                 <span
-                  className={`inline-block h-5 w-5 rounded-full ring-2 ring-slate-200 ${getColorClassName(
-                    product?.color
-                  )}`}
+                  className={`inline-block h-5 w-5 rounded-full ring-2 ring-slate-200 `}
+
+                  style={{backgroundColor: product?.color ? product.color : "transparent"}}
                 />
                 <span className="text-sm font-medium text-slate-900 capitalize">
                   {product?.color}

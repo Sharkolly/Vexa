@@ -20,6 +20,8 @@ const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const ProductDetails = lazy(() => import("./pages/Product"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Shop = lazy(() => import("./pages/Shop"));
+const VendorProduct = lazy(() => import("./pages/VendorProduct"));
+const VendorProduct2 = lazy(() => import("./pages/VendorProduct2"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const RedirectRoute = lazy(() => import("../components/RedirectRoute"));
@@ -63,6 +65,8 @@ function App() {
           <Route path="/products/:category/:subCategory/:slug" element={<ProductDetails />} />
        
           <Route path="/shop" element={<Shop />} />
+          <Route path="/vendor/:id" element={<VendorProduct />} />
+          <Route path="/vendor2/:id" element={<VendorProduct2 />} />
           <Route path="/search" element={<Search />} />
           <Route
             path="/checkout"
