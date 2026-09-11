@@ -60,8 +60,9 @@ const Product = () => {
   );
 
   const single_product = CartedProduct.find(
-    (product: ProductType) => product.slug === slug
+    (product_: ProductType) => product_._id === product?._id
   );
+
 
   const addToCartBtn = (
     name = "",
@@ -87,19 +88,19 @@ const Product = () => {
     );
   };
 
-  const incrementProductQuantity = (slug = "") => {
-    dispatch(incrementQuantity({ slug }));
+  const incrementProductQuantity = (_id = "") => {
+    dispatch(incrementQuantity({ _id }));
   };
 
-  const decrementProductQuantity = (slug = "") => {
-    dispatch(decrementQuantity({ slug }));
+  const decrementProductQuantity = (_id = "") => {
+    dispatch(decrementQuantity({ _id }));
 
     if (
       single_product &&
       single_product?.quantity &&
       single_product?.quantity - 1 <= 0
     ) {
-      dispatch(removeCart({ slug }));
+      dispatch(removeCart({ _id }));
       setToggleAddToCart(false);
     }
   };
@@ -219,7 +220,7 @@ const Product = () => {
               {toggleAddToCart || single_product ? (
                 <div className="w-1/2 flex items-center justify-between bg-slate-100 rounded-xl p-1.5 border border-slate-200">
                   <button
-                    onClick={() => decrementProductQuantity(product?.slug)}
+                    onClick={() => decrementProductQuantity(product?._id)}
                     className="bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-bold rounded-lg w-10 h-10 flex items-center justify-center transition-all shadow-sm"
                     aria-label="Decrease quantity"
                   >
@@ -229,7 +230,7 @@ const Product = () => {
                     {single_product?.quantity}
                   </span>
                   <button
-                    onClick={() => incrementProductQuantity(product?.slug)}
+                    onClick={() => incrementProductQuantity(product?._id)}
                     className="bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold rounded-lg w-10 h-10 flex items-center justify-center transition-all shadow-sm"
                     aria-label="Increase quantity"
                   >

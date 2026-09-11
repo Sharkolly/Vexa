@@ -36,13 +36,12 @@ const AddToCart = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart
+    (state: RootState) => state.product.addToCart,
   );
 
-  console.log(_id)
-
   const singleProduct = CartedProduct?.find(
-    (product) => product.slug === slug || (product._id && product._id === _id)
+    (product) => product._id === _id
+    //  || (product._id && product._id === _id),
   );
 
   const handleAddToCart = () => {
@@ -56,23 +55,23 @@ const AddToCart = ({
         category,
         subCategory,
         slug,
-      })
+      }),
     );
   };
 
   const handleIncrement = () => {
-    dispatch(incrementQuantity({ slug }));
+    dispatch(incrementQuantity({ _id}));
   };
 
   const handleDecrement = () => {
-    dispatch(decrementQuantity({ slug }));
+    dispatch(decrementQuantity({ _id }));
 
     if (
       singleProduct &&
       singleProduct.quantity &&
       singleProduct.quantity - 1 <= 0
     ) {
-      dispatch(removeCart({ slug }));
+      dispatch(removeCart({ _id })); 
     }
   };
 

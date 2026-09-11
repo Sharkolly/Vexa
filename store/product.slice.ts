@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 interface CartItem {
-  _id: string | number;
+  _id: string;
   category: string;
   subCategory: string;
   image: string;
@@ -9,7 +9,7 @@ interface CartItem {
   price: number;
   quantity: number | 0;
   new_price?: number;
-  slug: string
+  slug?: string
   [key: string]: string | number | boolean | undefined;
 }
 
@@ -77,10 +77,10 @@ const counterSlice = createSlice({
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
 
-    incrementQuantity: (state, action: PayloadAction<{ slug: string }>) => {
-      const { slug } = action.payload;
+    incrementQuantity: (state, action: PayloadAction<{ _id: string }>) => {
+      const { _id } = action.payload;
       const product = state.addToCart.find(
-        (item) => String(item.slug) === String(slug),
+        (item) => String(item._id) === String(_id),
       );
 
       if (product) {
@@ -109,11 +109,11 @@ const counterSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.addToCart));
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
-    decrementQuantity: (state, action: PayloadAction<{slug: string }>) => {
+    decrementQuantity: (state, action: PayloadAction<{_id: string }>) => {
       // const { _id, slug } = action.payload;
-      const { slug } = action.payload;
+      const { _id } = action.payload;
       const product = state.addToCart.find(
-        (item) => String(item.slug) === String(slug),
+        (item) => String(item._id) === String(_id),
       );
 
       if (product) {
@@ -143,9 +143,9 @@ const counterSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.addToCart));
       localStorage.setItem("totalCartItems", JSON.stringify(state.total));
     },
-    removeCart: (state, action: PayloadAction<{ slug: string }>) => {
-      const { slug } = action.payload;
-      state.addToCart = state.addToCart.filter((item) => item.slug !== slug);
+    removeCart: (state, action: PayloadAction<{ _id: string }>) => {
+      const { _id } = action.payload;
+      state.addToCart = state.addToCart.filter((item) => item._id !== _id);
       const total: {
         totalPrice: number;
         totalItems: number;

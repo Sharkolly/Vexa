@@ -34,15 +34,15 @@ const Cart = () => {
   );
   const total = useSelector((state: RootState) => state.product.total);
 
-  const incrementProductQuantity = (slug: string = "") => {
-    dispatch(incrementQuantity({ slug }));
+  const incrementProductQuantity = (_id: string = "") => {
+    dispatch(incrementQuantity({ _id }));
   };
 
-  const decrementProductQuantity = (slug: string = "", quantity: number) => {
-    dispatch(decrementQuantity({ slug }));
+  const decrementProductQuantity = (_id: string = "", quantity: number) => {
+    dispatch(decrementQuantity({ _id }));
 
     if (quantity - 1 <= 0) {
-      dispatch(removeCart({ slug }));
+      dispatch(removeCart({ _id }));
     }
   };
 
@@ -86,7 +86,7 @@ const Cart = () => {
                   <tbody className="divide-y divide-slate-100 text-sm">
                     {CartedProduct.map((product: ProductType) => (
                       <tr
-                        key={product.slug}
+                        key={product._id}
                         className="group hover:bg-slate-50/50 transition-colors"
                       >
                         <td className="py-5 px-6">
@@ -100,7 +100,7 @@ const Cart = () => {
                             </div>
                             <div className="space-y-1">
                               <Link
-                                to={`/products/${product.category}/${product.subCategory}/${product.slug}`}
+                                to={`/products/${product.category}/${product.subCategory}/${product._id}`}
                                 className="font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-1"
                               >
                                 {product.name}
@@ -111,7 +111,7 @@ const Cart = () => {
                               <button
                                 className="text-xs text-rose-600 hover:text-rose-700 font-medium inline-flex items-center gap-1 pt-1 transition-colors cursor-pointer"
                                 onClick={() =>
-                                  dispatch(removeCart({ slug: product.slug }))
+                                  dispatch(removeCart({ _id: product._id }))
                                 }
                               >
                                 <RiDeleteBinLine className="w-3.5 h-3.5" />
@@ -132,7 +132,7 @@ const Cart = () => {
                                 className="px-3 py-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
                                 onClick={() =>
                                   decrementProductQuantity(
-                                    product.slug,
+                                    product._id,
                                     product.quantity
                                   )
                                 }
@@ -145,7 +145,7 @@ const Cart = () => {
                               <button
                                 className="px-3 py-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
                                 onClick={() =>
-                                  incrementProductQuantity(product.slug)
+                                  incrementProductQuantity(product._id)
                                 }
                               >
                                 +
@@ -165,7 +165,7 @@ const Cart = () => {
                 {/* MOBILE LIST VIEW */}
                 <div className="md:hidden divide-y divide-slate-100">
                   {CartedProduct.map((product: ProductType) => (
-                    <div key={product.slug} className="p-4 space-y-3">
+                    <div key={product._id} className="p-4 space-y-3">
                       <div className="flex gap-3">
                         <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 border border-slate-200/60 shrink-0">
                           <img
@@ -176,7 +176,7 @@ const Cart = () => {
                         </div>
                         <div className="flex-1 min-w-0 space-y-1">
                           <Link
-                            to={`/products/${product.category}/${product.subCategory}/${product.slug}`}
+                            to={`/products/${product.category}/${product.subCategory}/${product._id}`}
                           >
                             <h3 className="font-semibold text-sm text-slate-900 truncate">
                               {product.name}
@@ -210,7 +210,7 @@ const Cart = () => {
                             className="px-3 py-1 text-slate-500 hover:bg-slate-100 cursor-pointer text-xs"
                             onClick={() =>
                               decrementProductQuantity(
-                                product.slug,
+                                product._id,
                                 product.quantity
                               )
                             }
@@ -223,7 +223,7 @@ const Cart = () => {
                           <button
                             className="px-3 py-1 text-slate-500 hover:bg-slate-100 cursor-pointer text-xs"
                             onClick={() =>
-                              incrementProductQuantity(product.slug)
+                              incrementProductQuantity(product._id)
                             }
                           >
                             +
@@ -233,7 +233,7 @@ const Cart = () => {
                         <button
                           className="text-xs text-rose-600 hover:text-rose-700 font-medium inline-flex items-center gap-1 transition-colors cursor-pointer"
                           onClick={() =>
-                            dispatch(removeCart({ slug: product.slug }))
+                            dispatch(removeCart({ _id: product._id }))
                           }
                         >
                           <RiDeleteBinLine className="w-3.5 h-3.5" />
