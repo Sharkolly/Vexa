@@ -16,6 +16,8 @@ import {
   Clock,
   ShieldCheck,
 } from "lucide-react";
+import type { AllProductType, ProductType } from "../../types/product.types";
+import AddToCart from "../../components/ui/AddToCart";
 
 // --- MOCK VENDOR DATA ---
 const VENDOR_INFO = {
@@ -37,75 +39,6 @@ const VENDOR_INFO = {
   bio: "Official distributor of premium mobile devices, audio gear, and gaming accessories in Rivers State. 100% genuine products with warranty.",
 };
 
-// --- MOCK VENDOR PRODUCTS ---
-const VENDOR_PRODUCTS = [
-  {
-    id: "p-1",
-    title: "Wireless Noise-Canceling Headphones",
-    category: "Electronics",
-    price: 85000,
-    originalPrice: 95000,
-    rating: 4.9,
-    reviews: 38,
-    inStock: true,
-    image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=500",
-    isFeatured: true,
-  },
-  {
-    id: "p-2",
-    title: "Ultra-Fast Magnetic Wireless Charger 15W",
-    category: "Accessories",
-    price: 18500,
-    originalPrice: 22000,
-    rating: 4.7,
-    reviews: 19,
-    inStock: true,
-    image:
-      "https://images.unsplash.com/photo-1622445268465-84382c76e27a?auto=format&fit=crop&q=80&w=500",
-    isFeatured: false,
-  },
-  {
-    id: "p-3",
-    title: "Smart Ergonomic Wrist Watch (Series 8)",
-    category: "Electronics",
-    price: 120000,
-    originalPrice: 135000,
-    rating: 4.8,
-    reviews: 54,
-    inStock: true,
-    image:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=500",
-    isFeatured: true,
-  },
-  {
-    id: "p-4",
-    title: "Mechanical RGB Gaming Keyboard",
-    category: "Gaming",
-    price: 45000,
-    originalPrice: 50000,
-    rating: 4.6,
-    reviews: 12,
-    inStock: false,
-    image:
-      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&q=80&w=500",
-    isFeatured: false,
-  },
-  {
-    id: "p-5",
-    title: "Portable Waterproof Bluetooth Speaker 20W",
-    category: "Audio",
-    price: 32000,
-    originalPrice: 38000,
-    rating: 4.9,
-    reviews: 27,
-    inStock: true,
-    image:
-      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=500",
-    isFeatured: false,
-  },
-];
-
 const VendorProduct: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
 
@@ -113,7 +46,20 @@ const VendorProduct: React.FC = () => {
       `/admin/vendor/${id}`,
     );
 
-    console.log(data, isLoading)
+    const adminDetailsAndProduct = data?.data || []
+
+    console.log(adminDetailsAndProduct)
+
+     const resolveImage = (
+    img: string | File | null | undefined,
+    fallback: string
+  ) =>
+    typeof img === "string"
+      ? img
+      : img instanceof File
+      ? URL.createObjectURL(img)
+      : fallback;
+
   
   // States
   const [copied, setCopied] = useState(false);
@@ -130,20 +76,6 @@ const VendorProduct: React.FC = () => {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  // Filter Categories dynamically
-  const categories = ["All", ...Array.from(new Set(VENDOR_PRODUCTS.map((p) => p.category)))];
-
-  // Filtering & Sorting Logic
-  const filteredProducts = VENDOR_PRODUCTS.filter((product) => {
-    const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  }).sort((a, b) => {
-    if (sortBy === "price-low") return a.price - b.price;
-    if (sortBy === "price-high") return b.price - a.price;
-    if (sortBy === "rating") return b.rating - a.rating;
-    return b.reviews - a.reviews; // Default: Popular
-  });
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
@@ -158,7 +90,7 @@ const VendorProduct: React.FC = () => {
       </div>
 
       {/* --- VENDOR PROFILE HEADER CARD --- */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-[90%] max-md:w-[92%] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative -mt-20 sm:-mt-24 mb-8">
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200/80 flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center">
             
@@ -257,7 +189,7 @@ const VendorProduct: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Total Products</p>
-            <p className="text-xl font-bold text-slate-900 mt-0.5">{VENDOR_PRODUCTS.length}</p>
+            <p className="text-xl font-bold text-slate-900 mt-0.5">{adminDetailsAndProduct.length}</p>
           </div>
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Average Rating</p>
@@ -292,7 +224,7 @@ const VendorProduct: React.FC = () => {
           <div className="w-full md:w-auto flex flex-wrap items-center gap-3 justify-between md:justify-end">
             {/* Category Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-              {categories.map((cat) => (
+              {/* {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
@@ -304,7 +236,7 @@ const VendorProduct: React.FC = () => {
                 >
                   {cat}
                 </button>
-              ))}
+              ))} */}
             </div>
 
             {/* Sort Dropdown */}
@@ -324,101 +256,77 @@ const VendorProduct: React.FC = () => {
           </div>
         </div>
 
-        {/* --- PRODUCT GRID --- */}
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-              >
+    <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4  gap-6">
+        {adminDetailsAndProduct.map((item: AllProductType) => {
+          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
+
+          return (
+            <div
+              key={item?._id}
+              className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
                 {/* Product Image & Badges */}
-                <div className="relative aspect-square bg-slate-100 overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {product.isFeatured && (
-                    <span className="absolute top-3 left-3 bg-slate-900/90 text-white text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-lg backdrop-blur-sm">
-                      Featured
-                    </span>
-                  )}
-                  {!product.inStock && (
-                    <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] flex items-center justify-center">
-                      <span className="bg-rose-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow-md">
-                        Out of Stock
-                      </span>
-                    </div>
-                  )}
+                <div className="relative bg-slate-100 aspect-square overflow-hidden">
+                  <Link to={productPath}>
+                    <img
+                      src={resolveImage(item?.images[0], "")}
+                      alt={item?.name || "Product"}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                  </Link>
+
+                  {/* Discount Badge */}
+                  <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    -25% OFF
+                  </span>
                 </div>
 
-                {/* Details */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between text-xs text-slate-400 font-medium mb-1.5">
-                      <span>{product.category}</span>
-                      <div className="flex items-center gap-1 text-amber-500 font-bold">
-                        <Star className="w-3.5 h-3.5 fill-amber-400" />
-                        <span>{product.rating}</span>
-                      </div>
-                    </div>
+                {/* Product Metadata */}
+                <div className="p-5 max-[500px]:px-2">
+                  <Link
+                    to={productPath}
+                    className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1 block hover:underline"
+                  >
+                    {item?.subCategory}
+                  </Link>
 
-                    <h3 className="font-semibold text-slate-900 text-base line-clamp-2 group-hover:text-emerald-700 transition-colors">
-                      {product.title}
+                  <Link to={productPath}>
+                    <h3 className="font-bold text-slate-900 text-base line-clamp-2 h-12 leading-snug group-hover:text-emerald-700 transition-colors">
+                      {item?.name}
                     </h3>
-                  </div>
-
-                  {/* Price & Action */}
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                      <p className="text-lg font-extrabold text-slate-900">
-                        ₦{product.price.toLocaleString()}
-                      </p>
-                      {product.originalPrice && (
-                        <p className="text-xs text-slate-400 line-through">
-                          ₦{product.originalPrice.toLocaleString()}
-                        </p>
-                      )}
-                    </div>
-
-                    <button
-                      disabled={!product.inStock}
-                      className={`p-2.5 rounded-xl transition-all ${
-                        product.inStock
-                          ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-700 hover:text-white active:scale-95"
-                          : "bg-slate-100 text-slate-300 cursor-not-allowed"
-                      }`}
-                      title="Add to Cart"
-                    >
-                      <ShoppingBag className="w-5 h-5" />
-                    </button>
-                  </div>
+                  </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          /* Empty State */
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-12 text-center max-w-md mx-auto my-12">
-            <div className="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8" />
+
+              {/* Price & Add to Cart Container */}
+              <div className="px-5 pb-5 pt-0 max-[500px]:px-2">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xl font-extrabold text-emerald-700 tracking-tight max-[500px]:text-sm">
+                      ₦{item?.price?.toLocaleString()}
+                    </p>
+                    <p className="text-xs font-medium text-slate-400 line-through">
+                      ₦{(item?.price * 1.12).toLocaleString()}
+                    </p>
+                  </div>
+
+                  <AddToCart
+                    quantity={item?.quantity}
+                    _id={item?._id ?? ""}
+                    subCategory={item?.subCategory ?? ""}
+                    category={item?.category}
+                    price={item?.price}
+                    image={resolveImage(item?.images[0], "")}
+                    name={item?.name}
+                    slug={item?.slug}
+                  />
+                </div>
+              </div>
             </div>
-            <h3 className="text-lg font-bold text-slate-900">No Products Found</h3>
-            <p className="text-sm text-slate-500 mt-1">
-              We couldn't find any products matching your current search or category filter in this store.
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("All");
-              }}
-              className="mt-6 text-sm font-semibold text-emerald-700 hover:text-emerald-800"
-            >
-              Reset Filters
-            </button>
-          </div>
-        )}
+          );
+        })}
+      </div>
       </div>
     </div>
   );
