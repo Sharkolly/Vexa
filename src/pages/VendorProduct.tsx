@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQueryProduct } from "../../lib/useQuery";
-import { useParams, Link } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {
   Search,
   Share2,
