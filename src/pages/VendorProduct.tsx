@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useQueryProduct } from "../../lib/useQuery";
-import { useParams} from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 import {
   Search,
   Share2,
   Star,
   CheckCircle2,
   MapPin,
-  ShoppingBag,
+  // ShoppingBag,
 //   Copy,
   Check,
 //   Filter,
@@ -16,7 +16,7 @@ import {
   Clock,
   ShieldCheck,
 } from "lucide-react";
-import type { AllProductType, ProductType } from "../../types/product.types";
+import type { AllProductType, } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 
 // --- MOCK VENDOR DATA ---
@@ -42,7 +42,7 @@ const VENDOR_INFO = {
 const VendorProduct: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
 
-    const { data, isLoading } = useQueryProduct(
+    const { data,  } = useQueryProduct(
       `/admin/vendor/${id}`,
     );
 
@@ -64,7 +64,7 @@ const VendorProduct: React.FC = () => {
   // States
   const [copied, setCopied] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  // const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("popular");
 
   // Store Link Generator
