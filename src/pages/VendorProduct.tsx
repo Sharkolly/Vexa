@@ -43,7 +43,7 @@ const VendorProduct: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   
-    const { data, isLoading } = useQueryProduct(
+    const { data } = useQueryProduct(
       `/admin/${id}`
     );
 
