@@ -4,7 +4,6 @@ import { Link, useParams} from "react-router-dom";
 import {
   Search,
   Share2,
-  Star,
   CheckCircle2,
   MapPin,
   // ShoppingBag,
@@ -19,15 +18,6 @@ import {
 import type { AllProductType, } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 
-type VendorAndProduct = {
-  product: AllProductType;
-  vendor: {
-    _id: string;
-    businessName: string,
-    phoneNumber: number,
-    category: string
-  }
-};
 
 // --- MOCK VENDOR DATA ---
 const VENDOR_INFO = {
@@ -59,8 +49,6 @@ const VendorProduct: React.FC = () => {
 
     const adminDetailsAndProduct = data?.data || []
 
-    console.log(data)
-    console.log(isLoading);
 
      const resolveImage = (
     img: string | File | null | undefined,
