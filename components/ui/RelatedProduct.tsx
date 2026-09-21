@@ -47,7 +47,7 @@ const RelatedProduct = ({ relatedData }: RelatedProductProps) => {
       <div className="w-full">
         <div className="flex md:grid md:grid-cols-4 gap-5 overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-none snap-x snap-mandatory md:snap-none">
           {relatedData.map((product, index) => {
-            const productPath = `/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug || product._id}`;
+            const productPath = `/products/${product.category.toLowerCase()}/${product.subCategory}/${product.slug}/${product._id}`;
 
             return (
               <div

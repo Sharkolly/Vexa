@@ -37,9 +37,10 @@ export interface FilterSidebarProps {
   initialMinPrice?: number;
   initialMaxPrice?: number;
   autoApply?: boolean;
-  searchOnChange: (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>
-) => void
-query: string
+  searchOnChange: (
+    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => void;
+  query: string;
 }
 
 // Default Swatches
@@ -70,11 +71,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   setCategory,
   categorySearchBtn,
   onFilterChange,
-  initialMinPrice = 0, 
+  initialMinPrice = 0,
   initialMaxPrice = 1000000,
   autoApply = false,
   searchOnChange,
-  query
+  query,
 }) => {
   // --- Mobile Drawer Open/Close State ---
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -109,7 +110,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   // Normalize categories prop
   const normalizedCategories = useMemo(() => {
     return categories.map((cat) =>
-      typeof cat === "string" ? { name: cat } : cat
+      typeof cat === "string" ? { name: cat } : cat,
     );
   }, [categories]);
 
@@ -138,7 +139,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       minDiscount,
       inStockOnly,
       onSaleOnly,
-    ]
+    ],
   );
 
   // Auto-apply trigger
@@ -165,7 +166,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     setSelectedBrands((prev) =>
       prev.includes(brandId)
         ? prev.filter((b) => b !== brandId)
-        : [...prev, brandId]
+        : [...prev, brandId],
     );
   };
 
@@ -173,7 +174,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     setSelectedColors((prev) =>
       prev.includes(colorId)
         ? prev.filter((c) => c !== colorId)
-        : [...prev, colorId]
+        : [...prev, colorId],
     );
   };
 
@@ -234,14 +235,15 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   ]);
 
   const filteredBrandsList = brands.filter((b) =>
-    b.name.toLowerCase().includes(brandSearchQuery.toLowerCase())
+    b.name.toLowerCase().includes(brandSearchQuery.toLowerCase()),
   );
 
-
-  const searchBtn = (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
-    searchOnChange(e)
-    setSearch(e.target.value)
-  }
+  const searchBtn = (
+    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => {
+    searchOnChange(e);
+    setSearch(e.target.value);
+  };
 
   return (
     <>
@@ -295,7 +297,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       {/* ========================================================= */}
       <aside
         className={`
-          bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto
+          lg:pl-4 md:mt-19 md:pt-5 bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto 
           ${isMobileOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"}
           lg:flex-shrink-0 lg:sticky lg:top-24 lg:h-[calc(100vh-120px)] lg:overflow-y-auto lg:custom-scrollbar lg:pr-3 lg:w-72 select-none
         `}
@@ -344,8 +346,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             )}
             {search && (
               <span className="inline-flex items-center gap-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs px-2.5 py-1 rounded-full font-medium transition-colors">
-                "{search}"
-                <button onClick={() => setSearch("")}>✕</button>
+                "{search}"<button onClick={() => setSearch("")}>✕</button>
               </span>
             )}
             {selectedBrands.map((bId) => {
@@ -533,7 +534,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     value={minPrice}
                     onChange={(e) =>
                       setMinPrice(
-                        e.target.value === "" ? "" : Number(e.target.value)
+                        e.target.value === "" ? "" : Number(e.target.value),
                       )
                     }
                     className="w-full border border-gray-300 px-2 py-1.5 rounded-md text-xs focus:outline-none focus:border-blue-600"
@@ -550,7 +551,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     value={maxPrice}
                     onChange={(e) =>
                       setMaxPrice(
-                        e.target.value === "" ? "" : Number(e.target.value)
+                        e.target.value === "" ? "" : Number(e.target.value),
                       )
                     }
                     className="w-full border border-gray-300 px-2 py-1.5 rounded-md text-xs focus:outline-none focus:border-blue-600"

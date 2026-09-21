@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowBack } from "react-icons/io";
@@ -24,9 +24,8 @@ type RootState = {
   };
 };
 
-
 const Product = () => {
-  const { slug, category, subCategory } = useParams();
+  const { slug, category, subCategory, id } = useParams();
 
   const [toggleFormat, setToggleFormat] = useState(true);
   const [toggleAddToCart, setToggleAddToCart] = useState(false);
@@ -34,11 +33,18 @@ const Product = () => {
   const toggleFormatHandle = () => setToggleFormat(!toggleFormat);
 
   const { data, isLoading } = useQueryProduct(
-    `/products/${category?.toLowerCase()}/${subCategory}/${slug}`
+    `/products/${category?.toLowerCase()}/${subCategory}/${slug}/${id}`,
   );
 
-  const { data: RelatedData, isLoading: isLoadingRelatedData } =
-    useQueryProduct(`/products/category/${category?.toLowerCase()}`);
+  const {
+    data: RelatedData,
+    refetch,
+    isLoading: isLoadingRelatedData,
+  } = useQueryProduct(`/products/category/${category?.toLowerCase()}`);
+
+  useEffect(() => {
+    refetch();
+  }, [id]);
 
   const product: AllProductType | null = data?.data || null;
   const relatedData: AllProductType[] = RelatedData?.data || [];
@@ -46,13 +52,12 @@ const Product = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart
+    (state: RootState) => state.product.addToCart,
   );
 
   const single_product = CartedProduct.find(
-    (product_: ProductType) => product_._id === product?._id
+    (product_: ProductType) => product_._id === product?._id,
   );
-
 
   const addToCartBtn = (
     name = "",
@@ -61,7 +66,7 @@ const Product = () => {
     _id = "",
     image = "",
     slug = "",
-    price = 0
+    price = 0,
   ) => {
     setToggleAddToCart(true);
     dispatch(
@@ -74,7 +79,7 @@ const Product = () => {
         price,
         category,
         slug,
-      })
+      }),
     );
   };
 
@@ -97,13 +102,13 @@ const Product = () => {
 
   const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string
+    fallback: string,
   ) =>
     typeof img === "string"
       ? img
       : img instanceof File
-      ? URL.createObjectURL(img)
-      : fallback;
+        ? URL.createObjectURL(img)
+        : fallback;
 
   if (isLoading) {
     return (
@@ -170,12 +175,17 @@ const Product = () => {
 
             {/* Color Selector Display */}
             <div className="flex items-center justify-between py-3 border-y border-slate-200/80 my-4">
-              <span className="text-sm font-semibold text-slate-700">Color</span>
+              <span className="text-sm font-semibold text-slate-700">
+                Color
+              </span>
               <div className="flex items-center gap-2.5">
                 <span
                   className={`inline-block h-5 w-5 rounded-full ring-2 ring-slate-200 `}
-
-                  style={{backgroundColor: product?.color ? product.color : "transparent"}}
+                  style={{
+                    backgroundColor: product?.color
+                      ? product.color
+                      : "transparent",
+                  }}
                 />
                 <span className="text-sm font-medium text-slate-900 capitalize">
                   {product?.color}
@@ -238,7 +248,7 @@ const Product = () => {
                       product?._id,
                       resolveImage(product?.images[0], ""),
                       product?.slug,
-                      product?.price
+                      product?.price,
                     )
                   }
                 >
@@ -275,7 +285,8 @@ const Product = () => {
                   14 Days Fexa Warranty
                 </p>
                 <p className="text-xs text-slate-600 mt-0.5">
-                  Extended protection included automatically on all qualifying orders.
+                  Extended protection included automatically on all qualifying
+                  orders.
                 </p>
               </div>
             </div>

@@ -62,7 +62,7 @@ function App() {
         </Route>
 
         <Route path="/" element={<LayoutNoFooter />}>
-          <Route path="/products/:category/:subCategory/:slug" element={<ProductDetails />} />
+          <Route path="/products/:category/:subCategory/:slug/:id" element={<ProductDetails />} />
        
           <Route path="/shop" element={<Shop />} />
           <Route path="/vendor/:id" element={<VendorProduct />} />

@@ -19,6 +19,16 @@ import {
 import type { AllProductType, } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 
+type VendorAndProduct = {
+  product: AllProductType;
+  vendor: {
+    _id: string;
+    businessName: string,
+    phoneNumber: number,
+    category: string
+  }
+};
+
 // --- MOCK VENDOR DATA ---
 const VENDOR_INFO = {
   id: "v-101",
@@ -40,15 +50,17 @@ const VENDOR_INFO = {
 };
 
 const VendorProduct: React.FC = () => {
-  const { id } = useParams<{ id?: string }>();
+  const { id } = useParams<{ id: string }>();
 
-    const { data,  } = useQueryProduct(
-      `/admin/vendor/${id}`,
+  
+    const { data, isLoading } = useQueryProduct(
+      `/admin/${id}`
     );
 
     const adminDetailsAndProduct = data?.data || []
 
-    console.log(adminDetailsAndProduct)
+    console.log(data)
+    console.log(isLoading);
 
      const resolveImage = (
     img: string | File | null | undefined,
@@ -115,7 +127,7 @@ const VendorProduct: React.FC = () => {
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
-                    {VENDOR_INFO.name}
+                    {adminDetailsAndProduct?.vendor?.businessName}
                   </h1>
                   {VENDOR_INFO.isVerified && (
                     <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-200">
@@ -126,23 +138,24 @@ const VendorProduct: React.FC = () => {
                 </div>
 
                 <p className="text-sm text-slate-500 mt-1 max-w-xl leading-relaxed">
-                  {VENDOR_INFO.bio}
+                  {adminDetailsAndProduct?.vendor?.businessDescription}
                 </p>
 
                 {/* Badges & Meta */}
                 <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-600 mt-3 font-medium">
                   <div className="flex items-center gap-1 text-amber-500">
-                    <Star className="w-4 h-4 fill-amber-400" />
-                    <span className="font-bold text-slate-900">{VENDOR_INFO.rating}</span>
-                    <span className="text-slate-400">({VENDOR_INFO.reviewCount} reviews)</span>
+                    {/* <Star className="w-4 h-4 fill-amber-400" />
+                    <span className="font-bold text-slate-900">{VENDOR_INFO.rating}</span> */}
+                    <span className="text-slate-400 capitalize">{adminDetailsAndProduct?.vendor?.category }</span>
+                    {/* <span className="text-slate-400">({VENDOR_INFO.reviewCount} reviews)</span> */}
                   </div>
-                  <span className="text-slate-300">•</span>
-                  <div className="flex items-center gap-1 text-slate-500">
+                  <span className="text-slate-300 hidden">•</span>
+                  <div className="flex items-center gap-1  hidden text-slate-500">
                     <MapPin className="w-4 h-4 text-slate-400" />
                     {VENDOR_INFO.location}
                   </div>
-                  <span className="text-slate-300">•</span>
-                  <div className="flex items-center gap-1 text-slate-500">
+                  <span className="text-slate-300 hidden">•</span>
+                  <div className="flex items-center hidden gap-1 text-slate-500">
                     <Clock className="w-4 h-4 text-slate-400" />
                     Replies {VENDOR_INFO.responseTime}
                   </div>
@@ -175,7 +188,7 @@ const VendorProduct: React.FC = () => {
               </button>
 
               <a
-                href={`tel:${VENDOR_INFO.phone}`}
+                href={`tel:${adminDetailsAndProduct?.vendor?.phoneNumber}`}
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-5 py-3 rounded-xl font-semibold text-sm shadow-md shadow-emerald-700/20 active:scale-95 transition-all"
               >
                 <PhoneCall className="w-4 h-4" />
@@ -257,8 +270,8 @@ const VendorProduct: React.FC = () => {
         </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4  gap-6">
-        {adminDetailsAndProduct.map((item: AllProductType) => {
-          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
+        {adminDetailsAndProduct?.product?.map((item:  AllProductType) => {
+          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
 
           return (
             <div

@@ -48,8 +48,8 @@ const FeaturedProduct = () => {
         /* Product Grid */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {productItem.map((product) => {
-            const productSlug = product.slug || product._id;
-            const productDetailUrl = `/products/${product.category.toLowerCase()}/${product.subCategory}/${productSlug}`;
+            const productSlug = product.slug;
+            const productDetailUrl = `/products/${product.category.toLowerCase()}/${product.subCategory}/${productSlug}/${product._id}`;
             const imageSrc = resolveImage(
               product?.images?.[0],
               "https://placehold.co/400x400?text=No+Image",

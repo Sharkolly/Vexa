@@ -36,7 +36,7 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
   return (
     <div className="w-full flex flex-col  gap-5 pb-12">
       {searchData.map((item: AllProductType) => {
-        const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
+        const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
 
         return (
           <div

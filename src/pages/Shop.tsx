@@ -262,7 +262,7 @@ export default function Random() {
 
                               <Link
                                 to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
-                                  product.slug || product._id
+                                  product.slug}/${product._id}
                                 }`}
                                 className="w-full h-full block"
                               >
@@ -282,7 +282,7 @@ export default function Random() {
                                 </p>
                                 <Link
                                   to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
-                                    product.slug || product._id
+                                    product.slug}/${product._id
                                   }`}
                                 >
                                   <h3 className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 min-h-[40px] leading-snug">

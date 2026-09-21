@@ -40,7 +40,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
         {searchData.map((item: AllProductType) => {
-          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}`;
+          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
 
           return (
             <div

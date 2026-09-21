@@ -115,7 +115,7 @@ const Search = () => {
       ) : (
         <div className="w-full">
           {/* Constrained layout container for big screens */}
-          <div className="md:w-full mx-auto pt-24 pb-20 md:pb-12 px-4 sm:pr-4.5 lg:pr-6">
+          <div className="md:w-full mx-auto max-md:pt-24 pb-20 md:pb-12 max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
               {/* Sidebar Filter Component */}
               <div className="w-full lg:w-64 shrink-0">
@@ -130,7 +130,7 @@ const Search = () => {
               </div>
 
               {/* Main Content Area */}
-              <main className="flex-1 min-w-0 w-full z-20 bg-transparent md:pl-4">
+              <main className="flex-1 min-w-0 w-full pt-24 z-20 bg-transparent md:pl-4">
                 {/* Search Header Bar */}
                 <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5 mb-6">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
