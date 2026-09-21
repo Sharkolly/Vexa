@@ -115,7 +115,7 @@ const Search = () => {
       ) : (
         <div className="w-full">
           {/* Constrained layout container for big screens */}
-          <div className="md:w-full mx-auto pb-20 md:pb-12 max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
+          <div className="md:w-full mx-auto max-md:pt-24 pb-20 md:pb-12 max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
               {/* Sidebar Filter Component */}
               <div className="w-full lg:w-64 shrink-0">
