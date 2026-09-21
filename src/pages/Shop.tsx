@@ -262,8 +262,7 @@ export default function Random() {
 
                               <Link
                                 to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
-                                  product.slug}/${product._id}
-                                }`}
+                                  product.slug}/${product._id}`}
                                 className="w-full h-full block"
                               >
                                 <img
