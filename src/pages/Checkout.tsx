@@ -2,7 +2,7 @@ import { useAuthContextStore } from "../../store/useAuthContext";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchNav from "../../components/ui/SearchNav";
-import { Link, useNavigation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { BiPurchaseTagAlt } from "react-icons/bi";
 import type { ProductType } from "../../types/product.types";
