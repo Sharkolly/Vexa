@@ -48,14 +48,14 @@ const Search = () => {
   const [view, setView] = useState<"grid" | "list">("grid");
 
 
-  // const { data, isLoading } = useQueryProduct(`/products`);
-  const { data, isLoading } = useQueryProduct(`/products/category?search=${subCategory.toLowerCase()}`);
+  const { data, isLoading } = useQueryProduct(`/products`);
+  // const { data, isLoading } = useQueryProduct(`/products/category?search=${subCategory.toLowerCase()}`);
 
   const oldSubCategories = data?.subCategories || [];
   const subCategories = ["All", ...oldSubCategories];
 
   const displayedSearchData =
-    searchData ?? (!query && subCategory === "All" ? (data?.data ?? []) : []);
+    searchData ?? (!query && subCategory === "All" ? data?.data : []);
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
