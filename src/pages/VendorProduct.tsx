@@ -1,25 +1,20 @@
 import React, { useState } from "react";
 import { useQueryProduct } from "../../lib/useQuery";
-import { Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Search,
   Share2,
   CheckCircle2,
   MapPin,
-  // ShoppingBag,
-//   Copy,
   Check,
-//   Filter,
   ArrowUpDown,
   PhoneCall,
   Clock,
   ShieldCheck,
 } from "lucide-react";
-import type { AllProductType, } from "../../types/product.types";
+import type { AllProductType } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 
-
-// --- MOCK VENDOR DATA ---
 const VENDOR_INFO = {
   id: "v-101",
   slug: "apex-tech-hub",
@@ -42,32 +37,25 @@ const VENDOR_INFO = {
 const VendorProduct: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  
-    const { data } = useQueryProduct(
-      `/admin/${id}`
-    );
+  const { data } = useQueryProduct(`/admin/${id}`);
 
-    const adminDetailsAndProduct = data?.data || []
+  const adminDetailsAndProduct = data?.data || [];
 
-
-     const resolveImage = (
+  const resolveImage = (
     img: string | File | null | undefined,
-    fallback: string
+    fallback: string,
   ) =>
     typeof img === "string"
       ? img
       : img instanceof File
-      ? URL.createObjectURL(img)
-      : fallback;
+        ? URL.createObjectURL(img)
+        : fallback;
 
-  
-  // States
   const [copied, setCopied] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  // const [selectedCategory, setSelectedCategory] = useState("All");
+
   const [sortBy, setSortBy] = useState("popular");
 
-  // Store Link Generator
   const currentStoreUrl = `${window.location.origin}/store/${id || VENDOR_INFO.slug}`;
 
   const handleCopyLink = () => {
@@ -75,7 +63,6 @@ const VendorProduct: React.FC = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
-
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
@@ -93,7 +80,6 @@ const VendorProduct: React.FC = () => {
       <div className="w-[90%] max-md:w-[92%] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative -mt-20 sm:-mt-24 mb-8">
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200/80 flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center">
-            
             {/* Vendor Avatar & Basic Info */}
             <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
               <div className="relative flex-shrink-0">
@@ -134,7 +120,9 @@ const VendorProduct: React.FC = () => {
                   <div className="flex items-center gap-1 text-amber-500">
                     {/* <Star className="w-4 h-4 fill-amber-400" />
                     <span className="font-bold text-slate-900">{VENDOR_INFO.rating}</span> */}
-                    <span className="text-slate-400 capitalize">{adminDetailsAndProduct?.vendor?.category }</span>
+                    <span className="text-slate-400 capitalize">
+                      {adminDetailsAndProduct?.vendor?.category}
+                    </span>
                     {/* <span className="text-slate-400">({VENDOR_INFO.reviewCount} reviews)</span> */}
                   </div>
                   <span className="text-slate-300 hidden">•</span>
@@ -190,25 +178,32 @@ const VendorProduct: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Total Products</p>
-            <p className="text-xl font-bold text-slate-900 mt-0.5">{adminDetailsAndProduct.length}</p>
+            <p className="text-xl font-bold text-slate-900 mt-0.5">
+              {adminDetailsAndProduct.length}
+            </p>
           </div>
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Average Rating</p>
-            <p className="text-xl font-bold text-slate-900 mt-0.5">{VENDOR_INFO.rating} / 5.0</p>
+            <p className="text-xl font-bold text-slate-900 mt-0.5">
+              {VENDOR_INFO.rating} / 5.0
+            </p>
           </div>
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Member Since</p>
-            <p className="text-xl font-bold text-slate-900 mt-0.5">{VENDOR_INFO.joinedDate}</p>
+            <p className="text-xl font-bold text-slate-900 mt-0.5">
+              {VENDOR_INFO.joinedDate}
+            </p>
           </div>
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
-            <p className="text-xs text-slate-500 font-medium">Fulfillment Rate</p>
+            <p className="text-xs text-slate-500 font-medium">
+              Fulfillment Rate
+            </p>
             <p className="text-xl font-bold text-emerald-600 mt-0.5">99.4%</p>
           </div>
         </div>
 
         {/* --- CONTROLS: SEARCH & CATEGORY FILTERS --- */}
         <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 mb-8 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
-          
           {/* Search Bar */}
           <div className="relative w-full md:w-80">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -257,77 +252,77 @@ const VendorProduct: React.FC = () => {
           </div>
         </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4  gap-6">
-        {adminDetailsAndProduct?.product?.map((item:  AllProductType) => {
-          const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
+        <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4  gap-6">
+          {adminDetailsAndProduct?.product?.map((item: AllProductType) => {
+            const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
 
-          return (
-            <div
-              key={item?._id}
-              className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                {/* Product Image & Badges */}
-                <div className="relative bg-slate-100 aspect-square overflow-hidden">
-                  <Link to={productPath}>
-                    <img
-                      src={resolveImage(item?.images[0], "")}
-                      alt={item?.name || "Product"}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                    />
-                  </Link>
+            return (
+              <div
+                key={item?._id}
+                className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  {/* Product Image & Badges */}
+                  <div className="relative bg-slate-100 aspect-square overflow-hidden">
+                    <Link to={productPath}>
+                      <img
+                        src={resolveImage(item?.images[0], "")}
+                        alt={item?.name || "Product"}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                      />
+                    </Link>
 
-                  {/* Discount Badge */}
-                  <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                    -25% OFF
-                  </span>
-                </div>
-
-                {/* Product Metadata */}
-                <div className="p-5 max-[500px]:px-2">
-                  <Link
-                    to={productPath}
-                    className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1 block hover:underline"
-                  >
-                    {item?.subCategory}
-                  </Link>
-
-                  <Link to={productPath}>
-                    <h3 className="font-bold text-slate-900 text-base line-clamp-2 h-12 leading-snug group-hover:text-emerald-700 transition-colors">
-                      {item?.name}
-                    </h3>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Price & Add to Cart Container */}
-              <div className="px-5 pb-5 pt-0 max-[500px]:px-2">
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xl font-extrabold text-emerald-700 tracking-tight max-[500px]:text-sm">
-                      ₦{item?.price?.toLocaleString()}
-                    </p>
-                    <p className="text-xs font-medium text-slate-400 line-through">
-                      ₦{(item?.price * 1.12).toLocaleString()}
-                    </p>
+                    {/* Discount Badge */}
+                    <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                      -25% OFF
+                    </span>
                   </div>
 
-                  <AddToCart
-                    quantity={item?.quantity}
-                    _id={item?._id ?? ""}
-                    subCategory={item?.subCategory ?? ""}
-                    category={item?.category}
-                    price={item?.price}
-                    image={resolveImage(item?.images[0], "")}
-                    name={item?.name}
-                    slug={item?.slug}
-                  />
+                  {/* Product Metadata */}
+                  <div className="p-5 max-[500px]:px-2">
+                    <Link
+                      to={productPath}
+                      className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1 block hover:underline"
+                    >
+                      {item?.subCategory}
+                    </Link>
+
+                    <Link to={productPath}>
+                      <h3 className="font-bold text-slate-900 text-base line-clamp-2 h-12 leading-snug group-hover:text-emerald-700 transition-colors">
+                        {item?.name}
+                      </h3>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Price & Add to Cart Container */}
+                <div className="px-5 pb-5 pt-0 max-[500px]:px-2">
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xl font-extrabold text-emerald-700 tracking-tight max-[500px]:text-sm">
+                        ₦{item?.price?.toLocaleString()}
+                      </p>
+                      <p className="text-xs font-medium text-slate-400 line-through">
+                        ₦{(item?.price * 1.12).toLocaleString()}
+                      </p>
+                    </div>
+
+                    <AddToCart
+                      quantity={item?.quantity}
+                      _id={item?._id ?? ""}
+                      subCategory={item?.subCategory ?? ""}
+                      category={item?.category}
+                      price={item?.price}
+                      image={resolveImage(item?.images[0], "")}
+                      name={item?.name}
+                      slug={item?.slug}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

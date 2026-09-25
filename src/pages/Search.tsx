@@ -35,22 +35,27 @@ export const PlaceholderCard = () => (
 );
 
 const Search = () => {
-  const { data, isLoading } = useQueryProduct(`/products`);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const categoryParam = searchParams.get("category") || "All";
+  
+  const subCategoryParam = searchParams.get("category") || "All";
   const searchParam = searchParams.get("product") || "";
-
+  
   const [query, setQuery] = useState(searchParam);
-  const [category, setCategory] = useState(categoryParam);
+
+  console.log(subCategoryParam)
+  const [subCategory, setSubCategory] = useState(subCategoryParam || 'All');
   const [searchData, setSearchData] = useState<AllProductType[] | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  const oldCategories = data?.categories || [];
-  const categories = ["All", ...oldCategories];
+
+  // const { data, isLoading } = useQueryProduct(`/products`);
+  const { data, isLoading } = useQueryProduct(`/products/category?search=${subCategory.toLowerCase()}`);
+
+  const oldSubCategories = data?.subCategories || [];
+  const subCategories = ["All", ...oldSubCategories];
 
   const displayedSearchData =
-    searchData ?? (!query && category === "All" ? (data?.data ?? []) : []);
+    searchData ?? (!query && subCategory === "All" ? (data?.data ?? []) : []);
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
@@ -65,7 +70,7 @@ const Search = () => {
 
   // Category filter fetcher
   const categorySearch = async (selectedCategory: string) => {
-    setCategory(selectedCategory);
+    setSubCategory(selectedCategory);
     setSearchParams(
       selectedCategory === "All" ? {} : { category: selectedCategory },
     );
@@ -74,7 +79,7 @@ const Search = () => {
       const endpoint =
         selectedCategory === "All"
           ? `/products`
-          : `/products/category?search=${selectedCategory}`;
+          : `/products/category?search=${selectedCategory.toLowerCase()}`;
       const res = await API(endpoint);
       setSearchData(res.data?.data || []);
     } catch (error) {
@@ -88,10 +93,10 @@ const Search = () => {
 
   const clearSearch = () => {
     setQuery("");
-    if (category === "All") {
+    if (subCategory === "All") {
       setSearchData(data?.data || []);
     } else {
-      categorySearch(category);
+      categorySearch(subCategory);
     }
   };
 
@@ -120,10 +125,10 @@ const Search = () => {
               {/* Sidebar Filter Component */}
               <div className="w-full lg:w-64 shrink-0">
                 <SearchFilter
-                  categories={categories}
+                  categories={subCategories}
                   categorySearchBtn={categorySearch}
-                  category={category}
-                  setCategory={setCategory}
+                  category={subCategory}
+                  setCategory={setSubCategory}
                   searchOnChange={searchOnChange}
                   query={query}
                 />
@@ -192,8 +197,8 @@ const Search = () => {
 
                   {/* Horizontal Category Pills Bar */}
                   <div className="mt-4 w-full pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                    {categories.map((item: string) => {
-                      const isSelected = category === item;
+                    {subCategories.map((item: string) => {
+                      const isSelected = subCategory === item;
                       return (
                         <button
                           key={item}
@@ -216,13 +221,13 @@ const Search = () => {
                 {view === "grid" ? (
                   <Grid
                     isLoading={isLoading}
-                    category={category}
+                    category={subCategory}
                     searchData={displayedSearchData}
                   />
                 ) : (
                   <List
                     isLoading={isLoading}
-                    category={category}
+                    category={subCategory}
                     searchData={displayedSearchData}
                   />
                 )}

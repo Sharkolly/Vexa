@@ -12,26 +12,21 @@ const Context = ({ children }: { children: React.ReactNode }) => {
 
   const { data, isLoading, refetch } = useQueryUserFunction();
 
-  // const [deliveryEmail, setDeliveryEmail] = useState("");
-  // const [deliveryFullName, setDeliveryFullName] = useState("");
-  // const [deliveryPhone, setDeliveryPhone] = useState("");
-  // const [deliveryAddress, setDeliveryAddress] = useState("");
-  // const [deliveryState, setDeliveryState] = useState("");
-  // const [deliveryCity, setDeliveryCity] = useState("");
-  // const [deliveryLandmark, setDeliveryLandmark] = useState("");
-
-
-  const [deliveryDetails, setDeliveryDetails] = useState({  
-    email: data?.message?.email || "",
-    fullName: data?.message?.firstName ? `${data.message.firstName} ${data.message.lastName}` : "",
-    phone: data?.message?.phone || "",
-    address: "",
-    state: "Lagos",
-    city: "Ikeja",
-    landmark: "",   
-    deliveryFee: 0, 
-    totalFee: 0, 
-  });
+  const [deliveryDetails, setDeliveryDetails] = useState(
+    JSON.parse(localStorage.getItem("DeliveryDetails") ?? "null") || {
+      email: data?.message?.email || "",
+      fullName: data?.message?.firstName
+        ? `${data.message.firstName} ${data.message.lastName}`
+        : "",
+      phone: data?.message?.phone || "",
+      address: "",
+      state: "",
+      city: "",
+      landmark: "",
+      deliveryFee: 0,
+      totalFee: 0,
+    },
+  );
 
   const user: UserType | null = data?.message || null;
 

@@ -48,6 +48,8 @@ const DeliveryPage = () => {
           totalFee: total?.totalPrice + data.deliveryFee,
         }));
 
+        localStorage.setItem('DeliveryDetails', JSON.stringify(deliveryDetails));
+
         setTimeout(() => {
           if (data.duration == "0s")
             alert("Invalid Address. Please put in a valid complete address.");
@@ -71,6 +73,8 @@ const DeliveryPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    localStorage.setItem('DeliveryDetails', JSON.stringify(deliveryDetails));
   };
 
   const nigeriaStates = [

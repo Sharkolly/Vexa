@@ -44,7 +44,7 @@ const resolveImage = (
       : fallback;
 
 type PRODUCT_CATEGORY_TYPE = {
-  category: string;
+  subCategory: string;
   products: AllProductType[];
 };
 
@@ -219,7 +219,7 @@ export default function Random() {
             {/* PRODUCT CATEGORIES SECTIONS */}
             {productData?.map((productGroup: PRODUCT_CATEGORY_TYPE) => (
               <div
-                key={productGroup.category}
+                key={productGroup.subCategory}
                 className={`${
                   productGroup.products.length <= 0 ? "hidden" : "mb-10"
                 }`}
@@ -230,11 +230,11 @@ export default function Random() {
                     <div className="flex items-center gap-3">
                       <div className="w-2.5 h-6 rounded-full bg-emerald-600"></div>
                       <h2 className="text-base sm:text-lg capitalize font-bold text-slate-900 tracking-tight">
-                        {productGroup.category}
+                        {productGroup.subCategory}
                       </h2>
                     </div>
                     <Link
-                      to={`/search?category=${productGroup.category}`}
+                      to={`/search?category=${productGroup.subCategory}`}
                       className="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition-colors"
                     >
                       <span>SEE ALL</span>

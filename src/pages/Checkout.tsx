@@ -1,10 +1,9 @@
 import { useAuthContextStore } from "../../store/useAuthContext";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchNav from "../../components/ui/SearchNav";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
-// import { PayButton } from "../../components/ui/paystack";
-// import axios from "axios";
 import { BiPurchaseTagAlt } from "react-icons/bi";
 import type { ProductType } from "../../types/product.types";
 import API from "../../api/api";
@@ -35,30 +34,62 @@ const CheckoutPage = () => {
 
         return;
       }
-
-      console.log('Payment on going....');
-
-      // Send cart to backend
       const response = await API.post(
         "/products/initialize-payment",
         {
-          details: {CartedProduct, deliveryDetails},
+          details: { CartedProduct, deliveryDetails },
         },
         {
           withCredentials: true,
         },
       );
 
-      // Send customer to Paystack
       window.location.href = response.data.authorization_url;
     } catch (error) {
       console.log(error);
-
       // alert(
       //   error.response?.data?.message || "Payment could not be initialized",
       // );
     }
   };
+
+  const {
+    email,
+    address,
+    deliveryFee,
+    fullName,
+    phone,
+    state,
+    totalFee,
+    city,
+  } = deliveryDetails;
+  useEffect(() => {
+    if (
+      !email ||
+      !address ||
+      !deliveryFee ||
+      !fullName ||
+      !phone ||
+      !state ||
+      !totalFee ||
+      !city
+    ) {
+      window.location.href = "/delivery";
+    }
+  }, [email, address, deliveryFee, fullName, phone, state, totalFee, city]);
+
+  if (
+    !email ||
+    !address ||
+    !deliveryFee ||
+    !fullName ||
+    !phone ||
+    !state ||
+    !totalFee ||
+    !city
+  ) {
+    return null;
+  }
 
   return (
     <div className="pt-20 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16 text-slate-800">
@@ -222,7 +253,8 @@ const CheckoutPage = () => {
                 ₦
                 {total?.totalPrice
                   ? (
-                    total?.totalPrice +  deliveryDetails.deliveryFee || total.totalPrice
+                      total?.totalPrice + deliveryDetails.deliveryFee ||
+                      total.totalPrice
                     ).toLocaleString()
                   : 0}
               </span>
