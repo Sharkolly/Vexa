@@ -55,7 +55,7 @@ const Search = () => {
   const subCategories = ["All", ...oldSubCategories];
 
   const displayedSearchData =
-    searchData ?? (!query && subCategory === "All" ? data?.data : []);
+    searchData ?? (!query && subCategory === "All" ? (data?.data ?? []) : []);
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
