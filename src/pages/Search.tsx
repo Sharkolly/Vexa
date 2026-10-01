@@ -15,7 +15,7 @@ import type { AxiosError } from "axios";
 import SearchFilter from "../../components/ui/SearchFilter";
 import Grid from "../../components/ui/SearchGridProduct";
 import List from "../../components/ui/SearchListProduct";
-import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams, } from "react-router-dom";
 import SearchNav from "../../components/ui/SearchNav";
 
 export const PlaceholderCard = () => (
@@ -36,7 +36,7 @@ export const PlaceholderCard = () => (
 
 const Search = () => {
   const { category } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  
   
   // const subCategoryParam = searchParams.get("category") || "All";
   // const searchParam = searchParams.get("product") || "";
@@ -74,7 +74,7 @@ const Search = () => {
 
   console.log(searchData);
 
-  const displayedSearchData = searchData 
+  const displayedSearchData = searchData || []
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
@@ -100,11 +100,8 @@ const Search = () => {
 
   const clearSearch = () => {
     setQuery("");
-    if (subCategory === "all") {
-      setSearchData(data?.data || []);
-    } else {
+    
       categorySearch(subCategory);
-    }
   };
 
   // Debounced keyword search
@@ -205,7 +202,6 @@ const Search = () => {
                   {/* Horizontal Category Pills Bar */}
                   <div className="mt-4 w-full pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                     {subCategories.map((item: string) => {
-                      const isSelected = subCategory === item;
                       return (
                         <>
                       <NavLink className={({isActive}) => `px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
