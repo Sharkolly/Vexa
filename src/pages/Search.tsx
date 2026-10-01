@@ -15,7 +15,7 @@ import type { AxiosError } from "axios";
 import SearchFilter from "../../components/ui/SearchFilter";
 import Grid from "../../components/ui/SearchGridProduct";
 import List from "../../components/ui/SearchListProduct";
-import { useSearchParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import SearchNav from "../../components/ui/SearchNav";
 
 export const PlaceholderCard = () => (
@@ -35,27 +35,46 @@ export const PlaceholderCard = () => (
 );
 
 const Search = () => {
+  const { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   
-  const subCategoryParam = searchParams.get("category") || "All";
-  const searchParam = searchParams.get("product") || "";
+  // const subCategoryParam = searchParams.get("category") || "All";
+  // const searchParam = searchParams.get("product") || "";
   
-  const [query, setQuery] = useState(searchParam);
-
-  console.log(subCategoryParam)
-  const [subCategory, setSubCategory] = useState(subCategoryParam || 'All');
+  const [query, setQuery] = useState('');
+  
+  // console.log(subCategoryParam);
+  const [subCategory, setSubCategory] = useState(category || "all");
   const [searchData, setSearchData] = useState<AllProductType[] | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
 
+  useEffect(() => {
+    const getAllProduct = async () => {
+      try {
+        const endpoint =`/products/category?search=${(category ?? "").toLowerCase()}`;
+        const res = await API(endpoint);
+        setSearchData(res.data?.data || []);
+      } catch (error) {
+        console.error("Failed to fetch products by category", error);
+      }
+    };
 
-  const { data, isLoading } = useQueryProduct(`/products`);
-  // const { data, isLoading } = useQueryProduct(`/products/category?search=${subCategory.toLowerCase()}`);
+    getAllProduct();
+  }, [category]);
+  
+  // const { data, isLoading } = useQueryProduct(`/products`);
+  const { data: CategoryData, isLoading } = useQueryProduct(
+    `/products/all-category`,
+  );
 
-  const oldSubCategories = data?.subCategories || [];
-  const subCategories = ["All", ...oldSubCategories];
+  // const { data, isLoading } = useQueryProduct(
+  //   `/products/category?search=${subCategory.toLowerCase()}`,
+  // );
+  const subCategories = CategoryData?.data || [];
 
-  const displayedSearchData =
-    searchData ?? (!query && subCategory === "All" ? (data?.data ?? []) : []);
+  console.log(searchData);
+
+  const displayedSearchData = searchData 
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
@@ -68,23 +87,11 @@ const Search = () => {
     }
   }, []);
 
+  const navigate = useNavigate()
+
   // Category filter fetcher
   const categorySearch = async (selectedCategory: string) => {
-    setSubCategory(selectedCategory);
-    setSearchParams(
-      selectedCategory === "All" ? {} : { category: selectedCategory },
-    );
-
-    try {
-      const endpoint =
-        selectedCategory === "All"
-          ? `/products`
-          : `/products/category?search=${selectedCategory.toLowerCase()}`;
-      const res = await API(endpoint);
-      setSearchData(res.data?.data || []);
-    } catch (error) {
-      console.error("Failed to fetch products by category", error);
-    }
+    navigate(`/search/category/${selectedCategory}`); 
   };
 
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +100,7 @@ const Search = () => {
 
   const clearSearch = () => {
     setQuery("");
-    if (subCategory === "All") {
+    if (subCategory === "all") {
       setSearchData(data?.data || []);
     } else {
       categorySearch(subCategory);
@@ -113,7 +120,7 @@ const Search = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 overflow-x-hidden">
-      {isLoading && displayedSearchData.length === 0 ? (
+      {isLoading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader />
         </div>
@@ -200,18 +207,17 @@ const Search = () => {
                     {subCategories.map((item: string) => {
                       const isSelected = subCategory === item;
                       return (
-                        <button
-                          key={item}
-                          type="button"
-                          onClick={() => categorySearch(item)}
-                          className={`px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer ${
-                            isSelected
+                        <>
+                      <NavLink className={({isActive}) => `px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
+                             isActive
                               ? "bg-emerald-700 text-white shadow-xs"
                               : "bg-slate-100/80 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-                          }`}
-                        >
+                          }
+                        
+                        `} to={`/search/category/${item}`}>
                           {item}
-                        </button>
+                        </NavLink>
+                        </>
                       );
                     })}
                   </div>

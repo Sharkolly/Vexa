@@ -133,9 +133,16 @@ const Product = () => {
           <span className="text-slate-300">/</span>
           <Link
             className="hover:text-emerald-700 font-medium capitalize transition-colors"
-            to={`/search?category=${product?.category}`}
+            to={`/search/category/${product?.subCategory}`}
           >
             {product?.category}
+          </Link>
+          <span className="text-slate-300">/</span>
+          <Link
+            className="hover:text-emerald-700 font-medium capitalize transition-colors"
+            to={`/search/category/${product?.subCategory}`}
+          >
+            {product?.subCategory}
           </Link>
           <span className="text-slate-300">/</span>
           <span className="font-semibold text-slate-900 truncate max-w-[200px]">

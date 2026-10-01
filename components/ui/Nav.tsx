@@ -105,7 +105,7 @@ const Nav = () => {
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop", hasDropdown: true },
     { name: "Services", path: "/services" },
-    { name: "Search", path: "/search" },
+    { name: "Search", path: "/search/category/all" },
     { name: "Profile", path: "/profile" },
   ];
 

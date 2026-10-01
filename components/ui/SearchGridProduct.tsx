@@ -23,7 +23,8 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
         ? URL.createObjectURL(img)
         : fallback;
 
-  if (isLoading && searchData.length === 0) {
+  if (isLoading && !searchData) {
+  // if (isLoading && searchData.length === 0) {
     return (
       <div className="flex justify-center items-center py-20">
         <Loader />
@@ -31,7 +32,8 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
     );
   }
 
-  if (searchData.length === 0) {
+  if (!searchData) {
+  // if (searchData.length === 0) {
     return <NoProduct category={category} />;
   }
 

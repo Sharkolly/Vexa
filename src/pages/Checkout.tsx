@@ -28,6 +28,7 @@ const CheckoutPage = () => {
   );
 
   const handlePayment = async () => {
+    localStorage.removeItem('DeliveryDetails')
     try {
       if (CartedProduct.length === 0) {
         alert("Your cart is empty");

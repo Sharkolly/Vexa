@@ -234,7 +234,7 @@ export default function Random() {
                       </h2>
                     </div>
                     <Link
-                      to={`/search?category=${productGroup.subCategory}`}
+                      to={`/search/category/${productGroup.subCategory}`}
                       className="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition-colors"
                     >
                       <span>SEE ALL</span>
