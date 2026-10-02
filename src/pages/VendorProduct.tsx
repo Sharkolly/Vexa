@@ -37,7 +37,7 @@ const VENDOR_INFO = {
 const VendorProduct: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data } = useQueryProduct(`/admin/${id}`);
+  const { data } = useQueryProduct(`/admin/vendor/${id}`);
 
   const adminDetailsAndProduct = data?.data || [];
 

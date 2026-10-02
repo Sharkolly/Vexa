@@ -72,8 +72,6 @@ const Search = () => {
   // );
   const subCategories = CategoryData?.data || [];
 
-  console.log(searchData);
-
   const displayedSearchData = searchData || []
 
   // Keyword search function
