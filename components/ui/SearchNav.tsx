@@ -63,7 +63,7 @@ const SearchNav = () => {
               : "text-slate-400 hover:text-slate-600 font-medium"
           }`
         }
-        to="/search?categories=All"
+        to="/search/category/all"
       >
         {({ isActive }) => (
           <>
