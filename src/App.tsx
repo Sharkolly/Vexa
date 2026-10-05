@@ -65,7 +65,7 @@ function App() {
           <Route path="/products/:category/:subCategory/:slug/:id" element={<ProductDetails />} />
        
           <Route path="/shop" element={<Shop />} />
-          <Route path="/vendor/:id" element={<VendorProduct />} />
+          <Route path="/vendor/:id/:businessName" element={<VendorProduct />} />
         {/*   <Route path="/vendor2/:id" element={<VendorProduct2 />} /> */}
           <Route path="/search/category/:category" element={<Search />} />
           <Route

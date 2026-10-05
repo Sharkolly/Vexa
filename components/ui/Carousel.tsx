@@ -3,18 +3,16 @@ import { useState } from "react";
 import type { AllProductType } from "../../types/product.types";
 
 const Carousel = ({ product }: { product: AllProductType | null }) => {
- 
   const resolveImage = (
     img: string | File | null | undefined,
     //fallback: string | undefined
-     fallback: string
+    fallback: string,
   ) =>
-     typeof img === "string"
-    ? img
-    : img instanceof File
+    typeof img === "string"
+      ? img
+      : img instanceof File
         ? URL.createObjectURL(img)
-       : fallback;
-    
+        : fallback;
 
   const resolveVideo = (video: string | File | null | undefined) =>
     typeof video === "string"
@@ -25,8 +23,12 @@ const Carousel = ({ product }: { product: AllProductType | null }) => {
 
   const [carouselNumber, setCarouselNumber] = useState(0);
 
- // const media = [...(product?.images ?? []), product?.video ?? null].filter((item) => item !== null && item !== undefined && item !== "");
-const media = [...(product?.images ?? []), product?.video ?? null]
+  // const media = [...(product?.images ?? []), product?.video ?? null].filter((item) => item !== null && item !== undefined && item !== "");
+  const media = [...(product?.images ?? []), product?.video ?? null];
+  // const media = [
+  //   ...(product?.images ?? []),
+  //   ...(product?.video ? [product.video] : []),
+  // ];
   const mediaLength = media.length ?? 0;
 
   const nextSlide = () => {
@@ -54,7 +56,6 @@ const media = [...(product?.images ?? []), product?.video ?? null]
     if (carouselNumber === mediaLength - 1 && !product?.video) {
       setCarouselNumber(0);
     }
-
   };
 
   return (
@@ -68,10 +69,11 @@ const media = [...(product?.images ?? []), product?.video ?? null]
             <MdNavigateBefore className="w-12  h-12 max-md:w-10 max-md:h-10 bg-white rounded-full" />
           </div>
           <div className="rounded-md w-full h-full  overflow-hidden  cursor-pointer   transition-all">
-            {carouselNumber === mediaLength - 1 && media[carouselNumber] ? (
+            {carouselNumber === mediaLength - 1 &&
+            media[mediaLength - 1] != null ? (
               //   <div className="w-full h-full rounded-xl overflow-hidden shadow-sm">
               <video
-                className="w-full h-160 max-md:h-130 object-cover"
+                className={`w-full h-160 max-md:h-130 object-cover ${resolveVideo(media[carouselNumber]) == "" && "hidden"}`}
                 controls
                 //   style={{ marginTop: "10px" }}
               >
@@ -84,12 +86,12 @@ const media = [...(product?.images ?? []), product?.video ?? null]
                 className="w-full h-160 max-md:h-130 object-center  object-cover"
                 data-alt={product?.description}
                 src={resolveImage(
-                  //   product?.images?.[carouselNumber] ?? undefined,
-                  media[carouselNumber], 
-                  //media[0] 
-                  'https://lh3.googleusercontent.com/aida-public/AB6AXuADpcuApAMNwgTNOJuk0lE8Missb02pVKQbFi3oA_cyXAssxt5GcreNbWEFuDdo4ZVW3LaDWWC7jxoT60kK6VSslKL8LcCDS7YHvcqfjYwISqnsTqT18kOpV-eGpJUAh3E_dpheOaKTQ9pFzN_beS7ZboTw9R6UnBBACBqu5Fdhs6dfAm5WVDV5yVjCh_6J6k5_7MlSNhMR2J9mqHBdTQ9DkQQ8E7sDsyt9yKEydvb0tcllN8Z9V7Cv7FkEhYz16yRcbeyPENlTjjY'
-                  // updatedMedia[carouselNumber] ?? undefined,
-                   )}
+                  media[carouselNumber],
+                  resolveImage(
+                    media[carouselNumber > 0 ? carouselNumber - 2 : 0],
+                    "",
+                  ),
+                )}
               />
             )}
           </div>

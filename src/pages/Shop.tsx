@@ -1,11 +1,9 @@
 import {
-  // Search,
   ChevronRight,
   Monitor,
   Home,
   HeartPulse,
   Shirt,
-  Gamepad2,
   Apple,
   Gamepad,
   Car,
@@ -21,16 +19,17 @@ import AddToCart from "../../components/ui/AddToCart";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import SearchNav from "../../components/ui/SearchNav";
+import { BiMobile } from "react-icons/bi";
 
 const categories = [
-  { name: "Supermarket", icon: <Apple size={18} /> },
-  { name: "Health & Beauty", icon: <HeartPulse size={18} /> },
-  { name: "Home & Office", icon: <Home size={18} /> },
-  { name: "Gaming", icon: <Gamepad size={18} /> },
-  { name: "Computing", icon: <Monitor size={18} /> },
-  { name: "Electronics", icon: <Gamepad2 size={18} /> },
-  { name: "Fashion", icon: <Shirt size={18} /> },
-  { name: "Automobile", icon: <Car size={18} /> },
+  { name: "Supermarket", icon: <Apple size={18} />, link: "all" },
+  { name: "Skincare", icon: <HeartPulse size={18} />, link: "skincare" },
+  { name: "Office", icon: <Home size={18} />, link: "office-electronics" },
+  { name: "PlayStation", icon: <Gamepad size={18} />, link: "playstation" },
+  { name: "Laptops", icon: <Monitor size={18} />, link: "laptops" },
+  { name: "Phones", icon: <BiMobile size={18} />, link: "phones" },
+  { name: "Clothes", icon: <Shirt size={18} />, link: "womens-clothing" },
+  { name: "Cars", icon: <Car size={18} />, link: "cars" },
 ];
 
 const resolveImage = (
@@ -59,9 +58,7 @@ export default function Random() {
       ) : (
         <div className="min-h-screen bg-slate-50/50 text-slate-800 antialiased pt-20 pb-24 max-md:pt-16">
           <main className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 xl:px-16">
-            {/* HERO & CATEGORIES SECTION */}
             <div className="flex flex-col lg:flex-row gap-5 mb-8">
-              {/* SIDEBAR CATEGORIES */}
               <aside className="hidden lg:block w-1/5 bg-white rounded-2xl border border-slate-200/80 shadow-xs p-3 h-[420px] shrink-0">
                 <div className="px-3 py-2 border-b border-slate-100 mb-1">
                   <h3 className="font-bold text-xs uppercase tracking-wider text-slate-400">
@@ -72,7 +69,7 @@ export default function Random() {
                   {categories.map((cat, idx) => (
                     <li key={idx}>
                       <Link
-                        to={`/search?category=${cat.name
+                        to={`/search/category/${cat.link
                           .toLowerCase()
                           .replace(/\s+/g, "-")}`}
                         className="group flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-50 hover:text-emerald-700 transition-colors"
@@ -92,10 +89,8 @@ export default function Random() {
                 </ul>
               </aside>
 
-              {/* MAIN HERO BANNER */}
               <div className="w-full lg:flex-1">
                 <div className="relative overflow-hidden w-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 p-6 sm:p-10 md:p-12 h-[380px] lg:h-[420px] flex flex-col justify-center shadow-md">
-                  {/* Background Decorative Graphic */}
                   <div className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-56 sm:w-72 md:w-96 aspect-square opacity-20 md:opacity-30 pointer-events-none select-none hidden sm:block text-emerald-400">
                     <svg
                       viewBox="0 0 200 200"
@@ -125,7 +120,6 @@ export default function Random() {
                     </svg>
                   </div>
 
-                  {/* Hero Content */}
                   <div className="relative z-10 max-w-2xl w-full flex flex-col gap-4 sm:gap-5">
                     <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 text-white font-bold text-xs uppercase tracking-wider py-1.5 px-3.5 rounded-full w-fit shadow-xs">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -160,7 +154,6 @@ export default function Random() {
                 </div>
               </div>
 
-              {/* RIGHT PROMO CARDS */}
               <div className="hidden lg:flex w-1/5 flex-col gap-4 h-[420px] shrink-0">
                 <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 p-5 flex flex-col items-center justify-center text-center shadow-xs hover:shadow-md transition-shadow group cursor-pointer">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700 mb-3 group-hover:scale-110 transition-transform">
@@ -188,7 +181,6 @@ export default function Random() {
               </div>
             </div>
 
-            {/* TRUST BADGES BAR */}
             <div className="flex flex-wrap items-center gap-3 mb-10 overflow-x-auto pb-2 scrollbar-none">
               <div className="flex items-center gap-2 bg-white border border-slate-200/80 shadow-xs px-4 py-2.5 rounded-full text-slate-700 font-semibold text-xs sm:text-sm shrink-0">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
@@ -216,7 +208,6 @@ export default function Random() {
               </div>
             </div>
 
-            {/* PRODUCT CATEGORIES SECTIONS */}
             {productData?.map((productGroup: PRODUCT_CATEGORY_TYPE) => (
               <div
                 key={productGroup.subCategory}
@@ -225,7 +216,6 @@ export default function Random() {
                 }`}
               >
                 <section className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-                  {/* Category Header */}
                   <div className="border-b border-slate-100 p-4 sm:px-6 flex items-center justify-between bg-slate-50/50">
                     <div className="flex items-center gap-3">
                       <div className="w-2.5 h-6 rounded-full bg-emerald-600"></div>
@@ -242,7 +232,6 @@ export default function Random() {
                     </Link>
                   </div>
 
-                  {/* Product Cards Row */}
                   <div className="p-4 sm:p-6 overflow-x-auto scrollbar-none">
                     <div className="flex gap-4 sm:gap-5 min-w-max items-stretch">
                       {productGroup.products.map((product) => {
@@ -251,7 +240,6 @@ export default function Random() {
                             key={product._id}
                             className="w-[290px] sm:w-[330px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
                           >
-                            {/* Image Container */}
                             <div className="relative w-full aspect-square bg-slate-50 overflow-hidden border-b border-slate-100">
                               <span className="absolute top-3 right-3 bg-rose-500 text-white font-bold text-[11px] px-2 py-0.5 rounded-full shadow-xs z-10">
                                 -
@@ -262,7 +250,8 @@ export default function Random() {
 
                               <Link
                                 to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
-                                  product.slug}/${product._id}`}
+                                  product.slug
+                                }/${product._id}`}
                                 className="w-full h-full block"
                               >
                                 <img
@@ -273,7 +262,6 @@ export default function Random() {
                               </Link>
                             </div>
 
-                            {/* Product Details */}
                             <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
                               <div>
                                 <p className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider mb-1">
@@ -281,8 +269,8 @@ export default function Random() {
                                 </p>
                                 <Link
                                   to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
-                                    product.slug}/${product._id
-                                  }`}
+                                    product.slug
+                                  }/${product._id}`}
                                 >
                                   <h3 className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 min-h-[40px] leading-snug">
                                     {product.name}

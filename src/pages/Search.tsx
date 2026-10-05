@@ -57,11 +57,9 @@ const Search = () => {
   );
   const subCategories = CategoryData?.data || [];
 
-  // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
     try {
       const res = await API(`/products?search=${searchQuery}`);
-      console.log(res);
       setSearchData(res.data?.data || []);
       setTotalPages(res.data?.totalPages || 1);
       setCurrentPage(res.data?.currentPage || 1);
@@ -73,7 +71,6 @@ const Search = () => {
 
   const navigate = useNavigate();
 
-  // Category filter fetcher
   const categorySearch = async (selectedCategory: string) => {
     navigate(`/search/category/${selectedCategory}`);
   };
@@ -84,11 +81,9 @@ const Search = () => {
 
   const clearSearch = () => {
     setQuery("");
-
     categorySearch(subCategory);
   };
 
-  // Debounced keyword search
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (query) {
@@ -151,10 +146,8 @@ const Search = () => {
         </div>
       ) : (
         <div className="w-full">
-          {/* Constrained layout container for big screens */}
           <div className="md:w-full mx-auto max-md:pt-24 pb-20 md:pb-12 max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
-              {/* Sidebar Filter Component */}
               <div className="w-full lg:w-64 shrink-0">
                 <SearchFilter
                   categories={subCategories}
@@ -166,12 +159,9 @@ const Search = () => {
                 />
               </div>
 
-              {/* Main Content Area */}
               <main className="flex-1 min-w-0 w-full md:pt-24 z-20 bg-transparent md:pl-4">
-                {/* Search Header Bar */}
                 <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5 mb-6">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-                    {/* Search Input Box */}
                     <div className="relative flex items-center w-full sm:max-w-md bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 transition-all focus-within:bg-white focus-within:border-emerald-700 focus-within:ring-2 focus-within:ring-emerald-700/20">
                       <SearchIcon className="w-4 h-4 text-slate-400 shrink-0" />
                       <input
@@ -193,7 +183,6 @@ const Search = () => {
                       )}
                     </div>
 
-                    {/* View Toggles (Grid / List) */}
                     <div className="flex items-center justify-end gap-3">
                       <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60">
                         <button
@@ -227,7 +216,6 @@ const Search = () => {
                     </div>
                   </div>
 
-                  {/* Horizontal Category Pills Bar */}
                   <div className="mt-4 w-full pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                     {subCategories.map((item: string) => {
                       return (
@@ -252,36 +240,8 @@ const Search = () => {
                   </div>
                 </div>
 
-                {/* Product View Selection */}
-                {view === "grid" ? (
-                  <Grid
-                    isLoading={isLoading}
-                    category={subCategory}
-                    searchData={displayedSearchData}
-                    query={query}
-                    />
-                  ) : (
-                    <List
-                    isLoading={isLoading}
-                    category={subCategory}
-                    searchData={displayedSearchData}
-                    query={query}
-                  />
-                )}
-
-                {displayedSearchData && displayedSearchData.length > 0 && (
-                  <div className="flex flex-col items-center gap-4 mt-10 mb-8">
-                    <p className="text-sm text-gray-500">
-                      Page{" "}
-                      <span className="font-semibold text-gray-800">
-                        {currentPage}{" "}
-                      </span>
-                      of{" "}
-                      <span className="font-semibold text-gray-800">
-                        {displayedTotalPages}
-                      </span>
-                    </p>
-
+                {displayedSearchData && displayedSearchData.length > 6 && (
+                  <div className="flex flex-col items-center   gap-4 mt-10 mb-8">
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => setCurrentPage(currentPage - 1)}
@@ -308,7 +268,7 @@ const Search = () => {
                           <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
-                            className={` flex items-center justify-center w-10 h-10 rounded-lg text-sm cursor-pointer font-medium transition-all ${isActive ? "bg-blue-600 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"} `}
+                            className={` flex items-center justify-center w-10 h-10 rounded-lg text-sm cursor-pointer font-medium transition-all ${isActive ? "bg-emerald-600 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600"} `}
                           >
                             {page}
                           </button>
@@ -317,13 +277,96 @@ const Search = () => {
 
                       <button
                         onClick={() => setCurrentPage(currentPage + 1)}
-                        disabled={currentPage === totalPages}
+                        disabled={currentPage === displayedTotalPages}
                         className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
                       >
                         <span className="hidden sm:inline">Next</span>
                         <FiChevronRight size={17} />
                       </button>
                     </div>
+                    <p className="text-sm text-gray-500">
+                      Page{" "}
+                      <span className="font-semibold text-gray-800">
+                        {currentPage}{" "}
+                      </span>
+                      of{" "}
+                      <span className="font-semibold text-gray-800">
+                        {displayedTotalPages}
+                      </span>
+                    </p>
+                  </div>
+                )}
+
+                {view === "grid" ? (
+                  <Grid
+                    isLoading={isLoading}
+                    category={subCategory}
+                    searchData={displayedSearchData}
+                    query={query}
+                  />
+                ) : (
+                  <List
+                    isLoading={isLoading}
+                    category={subCategory}
+                    searchData={displayedSearchData}
+                    query={query}
+                  />
+                )}
+
+                {displayedSearchData && displayedSearchData.length > 0 && (
+                  <div className="flex flex-col items-center gap-4 mt-10 mb-8">
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
+                      >
+                        <FiChevronLeft size={17} />
+                        <span className="hidden sm:inline">Previous</span>
+                      </button>
+
+                      {pages.map((page, index) => {
+                        if (page === "...") {
+                          return (
+                            <span
+                              key={`ellipsis-${index}`}
+                              className=" flex items-center justify-center w-10 h-10 text-gray-400 text-sm   "
+                            >
+                              ...
+                            </span>
+                          );
+                        }
+                        const isActive = page === currentPage;
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={` flex items-center justify-center w-10 h-10 rounded-lg text-sm cursor-pointer font-medium transition-all ${isActive ? "bg-emerald-600 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600"} `}
+                          >
+                            {page}
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage >= displayedTotalPages}
+                        className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
+                      >
+                        <span className="hidden sm:inline">Next</span>
+                        <FiChevronRight size={17} />
+                      </button>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      Page{" "}
+                      <span className="font-semibold text-gray-800">
+                        {currentPage}{" "}
+                      </span>
+                      of{" "}
+                      <span className="font-semibold text-gray-800">
+                        {displayedTotalPages}
+                      </span>
+                    </p>
                   </div>
                 )}
               </main>

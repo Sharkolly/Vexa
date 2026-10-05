@@ -248,7 +248,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   return (
     <>
       {/* ========================================================= */}
-      {/* 1. MOBILE TRIGGER BUTTON (Visible on < lg screens)       */}
+      {/* 1. MOBILE TRIGGER BUTTON (Visible on < lg screens)      */}
       {/* ========================================================= */}
       <div className="lg:hidden mb-4">
         <button
@@ -273,7 +273,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             <span>Filters & Categories</span>
           </div>
           {activeFiltersCount > 0 && (
-            <span className="bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            <span className="bg-emerald-700 text-white text-xs font-bold px-2 py-0.5 rounded-full">
               {activeFiltersCount}
             </span>
           )}
@@ -281,7 +281,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* ========================================================= */}
-      {/* 2. MOBILE OVERLAY BACKDROP                                */}
+      {/* 2. MOBILE OVERLAY BACKDROP                              */}
       {/* ========================================================= */}
       {isMobileOpen && (
         <div
@@ -291,7 +291,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       )}
 
       {/* ========================================================= */}
-      {/* 3. RESPONSIVE SIDEBAR CONTAINER                           */}
+      {/* 3. RESPONSIVE SIDEBAR CONTAINER                         */}
       {/* - Mobile: Slide-over Drawer (fixed z-50 left-0)         */}
       {/* - Desktop: Sticky Sidebar (lg:sticky lg:top-24 lg:w-72)   */}
       {/* ========================================================= */}
@@ -309,7 +309,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               Filters
             </h2>
             {activeFiltersCount > 0 && (
-              <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+              <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2 py-0.5 rounded-full">
                 {activeFiltersCount}
               </span>
             )}
@@ -354,7 +354,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               return (
                 <span
                   key={bId}
-                  className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200 text-xs px-2.5 py-1 rounded-full font-medium capitalize"
+                  className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs px-2.5 py-1 rounded-full font-medium capitalize"
                 >
                   {bName}
                   <button onClick={() => toggleBrand(bId)}>✕</button>
@@ -393,7 +393,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               // onChange={(e) => searchOnChange(e)}
               onChange={(e) => searchBtn(e)}
               placeholder="Search products..."
-              className="w-full bg-gray-50 border border-gray-300 rounded-sm  py-2 pl-9 pr-8 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+              className="w-full bg-gray-50 border border-gray-300 rounded-sm  py-2 pl-9 pr-8 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-700 transition-all"
             />
             <svg
               className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
@@ -452,7 +452,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => handleCategorySelect("All")}
                 className={`flex items-center justify-between w-full text-left px-2.5 py-1.5 rounded-md text-xs font-medium capitalize transition-all ${
                   category === "All" || category === ""
-                    ? "bg-blue-600 text-white shadow-xs"
+                    ? "bg-emerald-700 text-white shadow-xs"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
@@ -472,7 +472,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     onClick={() => handleCategorySelect(cat.name)}
                     className={`flex items-center justify-between w-full text-left px-2.5 py-1.5 rounded-md text-xs font-medium capitalize transition-all ${
                       isSelected
-                        ? "bg-blue-600 text-white shadow-xs"
+                        ? "bg-emerald-700 text-white shadow-xs"
                         : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
@@ -481,7 +481,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                       <span
                         className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                           isSelected
-                            ? "bg-blue-700 text-white"
+                            ? "bg-emerald-800 text-white"
                             : "bg-gray-100 text-gray-500"
                         }`}
                       >
@@ -537,7 +537,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                         e.target.value === "" ? "" : Number(e.target.value),
                       )
                     }
-                    className="w-full border border-gray-300 px-2 py-1.5 rounded-md text-xs focus:outline-none focus:border-blue-600"
+                    className="w-full border border-gray-300 px-2 py-1.5 rounded-md text-xs focus:outline-none focus:border-emerald-700"
                   />
                 </div>
                 <span className="text-gray-400 font-bold mt-4">-</span>
@@ -554,7 +554,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                         e.target.value === "" ? "" : Number(e.target.value),
                       )
                     }
-                    className="w-full border border-gray-300 px-2 py-1.5 rounded-md text-xs focus:outline-none focus:border-blue-600"
+                    className="w-full border border-gray-300 px-2 py-1.5 rounded-md text-xs focus:outline-none focus:border-emerald-700"
                   />
                 </div>
               </div>
@@ -593,7 +593,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             <div className="flex items-center gap-1.5">
               <span>Brands</span>
               {selectedBrands.length > 0 && (
-                <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.2 rounded-full font-bold">
+                <span className="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.2 rounded-full font-bold">
                   {selectedBrands.length}
                 </span>
               )}
@@ -623,7 +623,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   placeholder="Search brands..."
                   value={brandSearchQuery}
                   onChange={(e) => setBrandSearchQuery(e.target.value)}
-                  className="w-full text-xs border border-gray-200 p-1.5 rounded-md mb-2 focus:outline-none focus:border-blue-500"
+                  className="w-full text-xs border border-gray-200 p-1.5 rounded-md mb-2 focus:outline-none focus:border-emerald-500"
                 />
               )}
 
@@ -640,7 +640,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleBrand(brand.id)}
-                          className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 accent-blue-600"
+                          className="w-3.5 h-3.5 rounded border-gray-300 text-emerald-700 focus:ring-emerald-500 accent-emerald-700"
                         />
                         <span className="capitalize">{brand.name}</span>
                       </div>
@@ -693,7 +693,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     onClick={() => toggleColor(color.id)}
                     className={`w-6 h-6 rounded-full border border-gray-300 relative transition-transform ${
                       isSelected
-                        ? "scale-110 ring-2 ring-blue-600 ring-offset-1"
+                        ? "scale-110 ring-2 ring-emerald-700 ring-offset-1"
                         : "hover:scale-105"
                     }`}
                     style={{ backgroundColor: color.hex }}
@@ -712,7 +712,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               type="checkbox"
               checked={inStockOnly}
               onChange={(e) => setInStockOnly(e.target.checked)}
-              className="w-4 h-4 rounded text-blue-600 border-gray-300 accent-blue-600 cursor-pointer"
+              className="w-4 h-4 rounded text-emerald-700 border-gray-300 accent-emerald-700 cursor-pointer"
             />
           </label>
 
@@ -722,7 +722,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               type="checkbox"
               checked={onSaleOnly}
               onChange={(e) => setOnSaleOnly(e.target.checked)}
-              className="w-4 h-4 rounded text-blue-600 border-gray-300 accent-blue-600 cursor-pointer"
+              className="w-4 h-4 rounded text-emerald-700 border-gray-300 accent-emerald-700 cursor-pointer"
             />
           </label>
         </div>
@@ -733,7 +733,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             <button
               type="button"
               onClick={handleApply}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-sm  shadow-sm active:scale-[0.98] transition-all text-xs uppercase tracking-wider"
+              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2.5 rounded-sm  shadow-sm active:scale-[0.98] transition-all text-xs uppercase tracking-wider"
             >
               Apply Filters
             </button>
