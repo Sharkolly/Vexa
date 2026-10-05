@@ -48,3 +48,24 @@ export const fetchProperties = async ({ pageParam = 1 }) => {
   );
   return res.data;
 };
+
+
+export const SearchProducts = async ( url: string) => {
+  const { data } = await API.get(url);
+
+  return data;
+};
+
+
+export const fetchProductsByCategory = async (
+  category: string,
+  page: number
+) => {  
+  const endpoint = `/products/category?search=${(
+    category ?? ""
+  ).toLowerCase()}&page=${page}&limit=15`;
+
+  const res = await API(endpoint);
+
+  return res.data;
+};

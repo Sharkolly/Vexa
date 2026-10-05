@@ -4,7 +4,7 @@ import {
   List as ListIcon,
   X,
 } from "lucide-react";
-import { useQueryProduct } from "../../lib/useQuery";
+import { useProductsByCategory, useQueryProduct } from "../../lib/useQuery";
 import type { AllProductType } from "../../types/product.types";
 import Loader from "../../components/Loader";
 import Skeleton from "react-loading-skeleton";
@@ -15,8 +15,9 @@ import type { AxiosError } from "axios";
 import SearchFilter from "../../components/ui/SearchFilter";
 import Grid from "../../components/ui/SearchGridProduct";
 import List from "../../components/ui/SearchListProduct";
-import { NavLink, useNavigate, useParams, } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import SearchNav from "../../components/ui/SearchNav";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 export const PlaceholderCard = () => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -36,60 +37,45 @@ export const PlaceholderCard = () => (
 
 const Search = () => {
   const { category } = useParams();
-  
-  
-  // const subCategoryParam = searchParams.get("category") || "All";
-  // const searchParam = searchParams.get("product") || "";
-  
-  const [query, setQuery] = useState('');
-  
-  // console.log(subCategoryParam);
+
+  const [query, setQuery] = useState("");
   const [subCategory, setSubCategory] = useState(category || "all");
   const [searchData, setSearchData] = useState<AllProductType[] | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  useEffect(() => {
-    const getAllProduct = async () => {
-      try {
-        const endpoint =`/products/category?search=${(category ?? "").toLowerCase()}`;
-        const res = await API(endpoint);
-        setSearchData(res.data?.data || []);
-      } catch (error) {
-        console.error("Failed to fetch products by category", error);
-      }
-    };
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-    getAllProduct();
-  }, [category]);
-  
-  // const { data, isLoading } = useQueryProduct(`/products`);
+  const {
+    data,
+    isLoading: ProductLoading,
+    isFetching,
+    // isError,
+  } = useProductsByCategory(category, currentPage);
   const { data: CategoryData, isLoading } = useQueryProduct(
     `/products/all-category`,
   );
-
-  // const { data, isLoading } = useQueryProduct(
-  //   `/products/category?search=${subCategory.toLowerCase()}`,
-  // );
   const subCategories = CategoryData?.data || [];
-
-  const displayedSearchData = searchData || []
 
   // Keyword search function
   const handleSearch = useCallback(async (searchQuery: string) => {
     try {
       const res = await API(`/products?search=${searchQuery}`);
+      console.log(res);
       setSearchData(res.data?.data || []);
+      setTotalPages(res.data?.totalPages || 1);
+      setCurrentPage(res.data?.currentPage || 1);
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
       console.error(errorMessage.message);
     }
   }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Category filter fetcher
   const categorySearch = async (selectedCategory: string) => {
-    navigate(`/search/category/${selectedCategory}`); 
+    navigate(`/search/category/${selectedCategory}`);
   };
 
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,8 +84,8 @@ const Search = () => {
 
   const clearSearch = () => {
     setQuery("");
-    
-      categorySearch(subCategory);
+
+    categorySearch(subCategory);
   };
 
   // Debounced keyword search
@@ -113,9 +99,53 @@ const Search = () => {
     return () => clearTimeout(timeout);
   }, [query, handleSearch]);
 
+  const displayedSearchData = query
+    ? (searchData ?? data?.data ?? [])
+    : (data?.data ?? []);
+
+  const displayedCurrentPage =
+    (currentPage ?? 1) ? (data?.currentPage ?? 1) : 1;
+
+  const displayedTotalPages = (totalPages ?? 1) ? (data?.totalPages ?? 1) : 1;
+
+  if (totalPages < 1) return null;
+  const getPages = () => {
+    const pages: (number | "...")[] = [];
+    if (displayedTotalPages <= 7) {
+      for (let i = 1; i <= displayedTotalPages; i++) {
+        pages.push(i);
+      }
+      return pages;
+    }
+    if (displayedCurrentPage <= 4) {
+      return [1, 2, 3, 4, 5, "...", displayedTotalPages];
+    }
+    if (displayedCurrentPage >= displayedTotalPages - 3) {
+      return [
+        1,
+        "...",
+        displayedTotalPages - 4,
+        displayedTotalPages - 3,
+        displayedTotalPages - 2,
+        displayedTotalPages - 1,
+        displayedTotalPages,
+      ];
+    }
+    return [
+      1,
+      "...",
+      displayedCurrentPage - 1,
+      displayedCurrentPage,
+      displayedCurrentPage + 1,
+      "...",
+      displayedTotalPages,
+    ];
+  };
+  const pages = getPages();
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 overflow-x-hidden">
-      {isLoading ? (
+      {isLoading || isFetching || ProductLoading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader />
         </div>
@@ -202,15 +232,20 @@ const Search = () => {
                     {subCategories.map((item: string) => {
                       return (
                         <>
-                      <NavLink className={({isActive}) => `px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
-                             isActive
-                              ? "bg-emerald-700 text-white shadow-xs"
-                              : "bg-slate-100/80 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-                          }
+                          <NavLink
+                            className={({
+                              isActive,
+                            }) => `px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
+                              isActive
+                                ? "bg-emerald-700 text-white shadow-xs"
+                                : "bg-slate-100/80 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                            }
                         
-                        `} to={`/search/category/${item}`}>
-                          {item}
-                        </NavLink>
+                        `}
+                            to={`/search/category/${item}`}
+                          >
+                            {item}
+                          </NavLink>
                         </>
                       );
                     })}
@@ -223,13 +258,73 @@ const Search = () => {
                     isLoading={isLoading}
                     category={subCategory}
                     searchData={displayedSearchData}
-                  />
-                ) : (
-                  <List
+                    query={query}
+                    />
+                  ) : (
+                    <List
                     isLoading={isLoading}
                     category={subCategory}
                     searchData={displayedSearchData}
+                    query={query}
                   />
+                )}
+
+                {displayedSearchData && displayedSearchData.length > 0 && (
+                  <div className="flex flex-col items-center gap-4 mt-10 mb-8">
+                    <p className="text-sm text-gray-500">
+                      Page{" "}
+                      <span className="font-semibold text-gray-800">
+                        {currentPage}{" "}
+                      </span>
+                      of{" "}
+                      <span className="font-semibold text-gray-800">
+                        {displayedTotalPages}
+                      </span>
+                    </p>
+
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
+                      >
+                        <FiChevronLeft size={17} />
+                        <span className="hidden sm:inline">Previous</span>
+                      </button>
+
+                      {pages.map((page, index) => {
+                        if (page === "...") {
+                          return (
+                            <span
+                              key={`ellipsis-${index}`}
+                              className=" flex items-center justify-center w-10 h-10 text-gray-400 text-sm   "
+                            >
+                              ...
+                            </span>
+                          );
+                        }
+                        const isActive = page === currentPage;
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={` flex items-center justify-center w-10 h-10 rounded-lg text-sm cursor-pointer font-medium transition-all ${isActive ? "bg-blue-600 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"} `}
+                          >
+                            {page}
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
+                      >
+                        <span className="hidden sm:inline">Next</span>
+                        <FiChevronRight size={17} />
+                      </button>
+                    </div>
+                  </div>
                 )}
               </main>
             </div>

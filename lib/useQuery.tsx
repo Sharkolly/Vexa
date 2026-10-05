@@ -5,7 +5,7 @@ import {
   // useInfiniteQuery,
 } from "@tanstack/react-query";
 import { postLoginForm } from "../api/post";
-import { getRequest } from "../api/get";
+import { fetchProductsByCategory, getRequest, SearchProducts } from "../api/get";
 
 import { AxiosError } from "axios";
 import API from "../api/api";
@@ -94,6 +94,55 @@ export const useQueryProduct = (url: string, queryKey?: string) => {
 //   });
 //   return { data, error, isLoading };
 // };
+
+
+
+
+// export const useSearchProductPagination = (url: string) => {
+//   const {
+//     data,
+//     isLoading,
+//     isFetching,
+//     isError,
+//   } = useQuery({
+//     queryKey: ["products", url],
+//     queryFn: () => SearchProducts(url),
+//   });
+
+//   return {
+//     data,
+//     isLoading,
+//     isFetching,
+//     isError,
+//   };
+// };
+
+
+export const useProductsByCategory = (
+  category: string | undefined,
+  page: number
+) => {
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+  } = useQuery({
+    queryKey: ["products", category, page],
+
+    queryFn: () =>
+      fetchProductsByCategory(category ?? "", page),
+
+    enabled: !!category,
+  });
+
+  return {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+  };
+};
 
 export const useMutationContactMessageFunction = (queryKey: string) => {
   const queryClient = useQueryClient();

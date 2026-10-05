@@ -8,9 +8,10 @@ type SearchProductsType = {
   isLoading?: boolean;
   searchData: AllProductType[] | [];
   category?: string;
+  query?: string
 };
 
-const List = ({ isLoading, searchData, category }: SearchProductsType) => {
+const List = ({ isLoading, searchData, category, query }: SearchProductsType) => {
   const resolveImage = (
     img: string | File | null | undefined,
     fallback: string
@@ -29,8 +30,10 @@ const List = ({ isLoading, searchData, category }: SearchProductsType) => {
     );
   }
 
+  const searchCategoryOrProduct = query ? query : (category ?? "");
+
   if (!searchData || searchData.length === 0) {
-    return <NoProduct category={category} />;
+    return <NoProduct category={searchCategoryOrProduct} />;
   }
 
   return (

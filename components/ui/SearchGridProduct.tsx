@@ -10,9 +10,15 @@ type SearchProductsType = {
   isLoading?: boolean;
   searchData: AllProductType[] | [];
   category?: string;
+  query?: string;
 };
 
-const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
+const Grid = ({
+  isLoading,
+  searchData,
+  category,
+  query,
+}: SearchProductsType) => {
   const resolveImage = (
     img: string | File | null | undefined,
     fallback: string,
@@ -24,7 +30,7 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
         : fallback;
 
   if (isLoading && !searchData) {
-  // if (isLoading && searchData.length === 0) {
+    // if (isLoading && searchData.length === 0) {
     return (
       <div className="flex justify-center items-center py-20">
         <Loader />
@@ -32,9 +38,10 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
     );
   }
 
-  if (!searchData) {
-  // if (searchData.length === 0) {
-    return <NoProduct category={category} />;
+  const searchCategoryOrProduct = query ? query : (category ?? "");
+
+  if (!searchData || searchData.length === 0) {
+    return <NoProduct category={searchCategoryOrProduct} />;
   }
 
   return (
@@ -113,49 +120,6 @@ const Grid = ({ isLoading, searchData, category }: SearchProductsType) => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="mt-12 flex justify-center items-center gap-2">
-        <button
-          type="button"
-          aria-label="Previous Page"
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
-        >
-          <FiChevronLeft className="w-5 h-5" />
-        </button>
-
-        <button
-          type="button"
-          className="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-700 text-white font-bold text-sm shadow-sm shadow-emerald-700/20"
-        >
-          1
-        </button>
-        <button
-          type="button"
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors font-medium text-sm"
-        >
-          2
-        </button>
-        <button
-          type="button"
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors font-medium text-sm"
-        >
-          3
-        </button>
-        <span className="px-1 text-slate-400 font-medium">...</span>
-        <button
-          type="button"
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors font-medium text-sm"
-        >
-          12
-        </button>
-
-        <button
-          type="button"
-          aria-label="Next Page"
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
-        >
-          <FiChevronRight className="w-5 h-5" />
-        </button>
-      </div>
     </div>
   );
 };
