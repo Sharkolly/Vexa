@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import Loader from "../Loader";
 import NoProduct from "./NoProduct";

@@ -5,7 +5,7 @@ import {
   // useInfiniteQuery,
 } from "@tanstack/react-query";
 import { postLoginForm } from "../api/post";
-import { fetchProductsByCategory, getRequest, SearchProducts } from "../api/get";
+import { fetchProductsByCategory, getRequest } from "../api/get";
 
 import { AxiosError } from "axios";
 import API from "../api/api";

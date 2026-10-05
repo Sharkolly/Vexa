@@ -50,11 +50,11 @@ export const fetchProperties = async ({ pageParam = 1 }) => {
 };
 
 
-export const SearchProducts = async ( url: string) => {
-  const { data } = await API.get(url);
+// export const SearchProducts = async ( url: string) => {
+//   const { data } = await API.get(url);
 
-  return data;
-};
+//   return data;
+// };
 
 
 export const fetchProductsByCategory = async (
