@@ -91,10 +91,6 @@ const Search = () => {
       }
     }, 500);
 
-    useEffect(() => {
-      setCurrentPage(1)
-    },[category])
-
     return () => clearTimeout(timeout);
   }, [query, handleSearch]);
 
