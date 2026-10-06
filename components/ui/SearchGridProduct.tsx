@@ -45,7 +45,6 @@ const Grid = ({
 
   return (
     <div className="w-full">
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
         {searchData.map((item: AllProductType) => {
           const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
@@ -56,7 +55,6 @@ const Grid = ({
               className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* Product Image & Badges */}
                 <div className="relative bg-slate-100 aspect-square overflow-hidden">
                   <Link to={productPath}>
                     <img
@@ -66,13 +64,11 @@ const Grid = ({
                     />
                   </Link>
 
-                  {/* Discount Badge */}
                   <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
                     -25% OFF
                   </span>
                 </div>
 
-                {/* Product Metadata */}
                 <div className="p-5 max-[500px]:px-2">
                   <Link
                     to={productPath}
@@ -89,14 +85,13 @@ const Grid = ({
                 </div>
               </div>
 
-              {/* Price & Add to Cart Container */}
               <div className="px-5 pb-5 pt-0 max-[500px]:px-2">
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xl font-extrabold text-emerald-700 tracking-tight max-[500px]:text-sm">
+                    <p className="text-xl font-mono font-extrabold text-emerald-700 tracking-tight max-[500px]:text-sm">
                       ₦{item?.price?.toLocaleString()}
                     </p>
-                    <p className="text-xs font-medium text-slate-400 line-through">
+                    <p className="text-xs font-mono font-medium text-slate-400 line-through">
                       ₦{(item?.price * 1.12).toLocaleString()}
                     </p>
                   </div>
@@ -118,7 +113,6 @@ const Grid = ({
         })}
       </div>
 
-      {/* Pagination Controls */}
     </div>
   );
 };

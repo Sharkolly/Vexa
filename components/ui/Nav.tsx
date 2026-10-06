@@ -36,7 +36,6 @@ const FexaLogo = ({
         <stop offset="100%" stopColor="#059669" />
       </linearGradient>
     </defs>
-    {/* E-Commerce Shopping Bag & 'F' Mark */}
     <g transform="translate(5, 0) scale(0.65)">
       <path
         d="M 46 42 C 46 22, 84 22, 84 42"
@@ -57,7 +56,6 @@ const FexaLogo = ({
       />
       <circle cx="112" cy="30" r="6" fill="#34D399" />
     </g>
-    {/* Typography */}
     <g transform="translate(100, 62)">
       <text
         fontFamily="Inter, system-ui, sans-serif"
@@ -114,12 +112,10 @@ const Nav = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
       <div className="flex items-center justify-between md:px-10 py-3 w-full w-[90%] max-md:w-[94%] max-[440px]:w-[95%] mx-auto">
-        {/* Brand Logo (1.3x Scaled) */}
         <Link to="/" className="flex items-center group py-0.5" aria-label="FEXA Home">
           <FexaLogo />
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {desktopNavLinks.map((link) => {
             if (link.hasDropdown) {
@@ -141,14 +137,13 @@ const Nav = () => {
                     }
                   >
                     <span>Shop</span>
-                    <span className="text-[10px] transition-transform duration-200 group-hover:rotate-180">
+                    <span className="hidden text-[10px] transition-transform duration-200 group-hover:rotate-180">
                       ▼
                     </span>
                   </NavLink>
 
-                  {/* Desktop Dropdown Menu */}
                   {openDropdown && (
-                    <div className="absolute top-full left-0 w-48 bg-white border border-slate-200/80 shadow-xl rounded-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="absolute hidden top-full left-0 w-48 bg-white border border-slate-200/80 shadow-xl rounded-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                       <Link
                         to="/search?category=Fashion"
                         className="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
@@ -191,9 +186,7 @@ const Nav = () => {
           })}
         </nav>
 
-        {/* Action Controls */}
         <div className="flex items-center gap-3 sm:gap-4">
-          {/* Cart Icon */}
           <Link
             to="/cart"
             className="relative p-2 text-slate-700 hover:text-emerald-700 transition-colors active:scale-95 flex items-center"
@@ -207,7 +200,6 @@ const Nav = () => {
             )}
           </Link>
 
-          {/* Profile Icon */}
           <Link
             to="/profile"
             className="hidden md:flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-full text-slate-600 transition-colors border border-slate-200/60"
@@ -221,7 +213,6 @@ const Nav = () => {
             <IoPersonSharp className="text-base" />
           </Link>
 
-          {/* Desktop Auth Controls */}
           {user?.email ? (
             <button
               onClick={logout}
@@ -252,7 +243,6 @@ const Nav = () => {
             </div>
           )}
 
-          {/* Mobile Hamburger Toggle */}
           <button
             onClick={toggleMenu}
             className="md:hidden p-2 text-slate-800 hover:text-emerald-700 transition-colors cursor-pointer flex items-center"
@@ -263,7 +253,6 @@ const Nav = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
       {menu && (
         <div className="fixed inset-0 z-50 md:hidden flex justify-end">
           <div

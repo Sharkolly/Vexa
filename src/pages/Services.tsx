@@ -101,7 +101,7 @@ const Services = (): React.JSX.Element => {
 
   return (
     <div className="bg-slate-50 text-slate-900 font-sans min-h-screen mt-17 ">
-      {/* Hero Section */} 
+       
       <section className="relative min-h-[480px] lg:h-[540px] flex items-center overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0 z-0">
           <img
@@ -137,11 +137,11 @@ const Services = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* Main Content Area */}
+      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        {/* Search & Top Action Bar */}
+        
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-200">
-          {/* Search Input */}
+          
           <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
@@ -164,9 +164,9 @@ const Services = (): React.JSX.Element => {
             )}
           </div>
 
-          {/* Right Controls */}
+          
           <div className="flex items-center justify-between sm:justify-end gap-3">
-            {/* Mobile Filter Toggle */}
+            
             <button
               onClick={() => setIsMobileFilterOpen(true)}
               className="lg:hidden flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
@@ -180,7 +180,7 @@ const Services = (): React.JSX.Element => {
               )}
             </button>
 
-            {/* Sort Dropdown */}
+            
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">
                 Sort:
@@ -198,9 +198,9 @@ const Services = (): React.JSX.Element => {
           </div>
         </div>
 
-        {/* Layout Grid */}
+        
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Desktop Sidebar Filters */}
+          
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-28 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -218,7 +218,7 @@ const Services = (): React.JSX.Element => {
                 )}
               </div>
 
-              {/* Service Type Section */}
+              
               <div className="space-y-3">
                 <button
                   onClick={() => toggleSection("serviceType")}
@@ -252,7 +252,7 @@ const Services = (): React.JSX.Element => {
                 )}
               </div>
 
-              {/* Budget Accordion Placeholder */}
+              
               <div className="pt-4 border-t border-slate-100">
                 <button
                   onClick={() => toggleSection("budget")}
@@ -272,7 +272,7 @@ const Services = (): React.JSX.Element => {
                 )}
               </div>
 
-              {/* Delivery Accordion Placeholder */}
+              
               <div className="pt-4 border-t border-slate-100">
                 <button
                   onClick={() => toggleSection("delivery")}
@@ -294,9 +294,9 @@ const Services = (): React.JSX.Element => {
             </div>
           </aside>
 
-          {/* Service Cards Grid */}
+          
           <div className="flex-1 min-w-0">
-            {/* Meta Count */}
+            
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-6">
               Showing <span className="text-slate-900 font-bold">{filteredServices.length}</span> services found
             </p>
@@ -324,7 +324,7 @@ const Services = (): React.JSX.Element => {
                       key={serviceId}
                       className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                     >
-                      {/* Image Banner */}
+                      
                       <div className="relative h-56 overflow-hidden bg-slate-100">
                         <img
                           src={
@@ -352,7 +352,7 @@ const Services = (): React.JSX.Element => {
                         </button>
                       </div>
 
-                      {/* Card Content */}
+                      
                       <div className="p-6 flex-1 flex flex-col justify-between">
                         <div>
                           <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
@@ -363,7 +363,7 @@ const Services = (): React.JSX.Element => {
                           </p>
                         </div>
 
-                        {/* Footer / Price */}
+                        
                         <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
                           <div>
                             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
@@ -384,7 +384,7 @@ const Services = (): React.JSX.Element => {
               </div>
             )}
 
-            {/* Pagination Controls */}
+            
             {totalPages > 1 && (
               <div className="mt-12 flex items-center justify-center gap-2">
                 <button
@@ -422,9 +422,9 @@ const Services = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* Light Premium Value Proposition Section */}
+      
       <section className="relative py-20 bg-gradient-to-b from-slate-50 via-blue-50/40 to-slate-100 border-t border-slate-200/80 overflow-hidden">
-        {/* Soft Ambient Background Glows */}
+        
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-10 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -481,7 +481,7 @@ const Services = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* Mobile Drawer Filter Modal */}
+      
       {isMobileFilterOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div

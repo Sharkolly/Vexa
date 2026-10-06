@@ -247,9 +247,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   return (
     <>
-      {/* ========================================================= */}
-      {/* 1. MOBILE TRIGGER BUTTON (Visible on < lg screens)      */}
-      {/* ========================================================= */}
       <div className="lg:hidden mb-4">
         <button
           type="button"
@@ -280,9 +277,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         </button>
       </div>
 
-      {/* ========================================================= */}
-      {/* 2. MOBILE OVERLAY BACKDROP                              */}
-      {/* ========================================================= */}
       {isMobileOpen && (
         <div
           onClick={() => setIsMobileOpen(false)}
@@ -290,19 +284,16 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         />
       )}
 
-      {/* ========================================================= */}
-      {/* 3. RESPONSIVE SIDEBAR CONTAINER                         */}
-      {/* - Mobile: Slide-over Drawer (fixed z-50 left-0)         */}
-      {/* - Desktop: Sticky Sidebar (lg:sticky lg:top-24 lg:w-72)   */}
-      {/* ========================================================= */}
       <aside
         className={`
           lg:pl-4 md:mt-19 md:pt-5 bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto 
+          lg:flex-shrink-0 lg:fixed  lg:h-[calc(100vh-120px)] 
           ${isMobileOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"}
-          lg:flex-shrink-0 lg:sticky lg:top-24 lg:h-[calc(100vh-120px)] lg:overflow-y-auto lg:custom-scrollbar lg:pr-3 lg:w-72 select-none
+          
+          lg:overflow-y-auto 
+          lg:custom-scrollbar lg:pr-3 lg:w-72 select-none
         `}
       >
-        {/* Header (Shows Close 'X' button on Mobile) */}
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-200">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-bold text-gray-900 tracking-tight">
@@ -324,7 +315,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 Clear All
               </button>
             )}
-            {/* Close Button on Mobile Drawer */}
             <button
               onClick={() => setIsMobileOpen(false)}
               className="lg:hidden p-1 rounded-md text-gray-500 hover:bg-gray-100"
@@ -335,7 +325,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           </div>
         </div>
 
-        {/* Active Filter Chips / Pills */}
         {activeFiltersCount > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-4 pb-3 border-b border-gray-100">
             {category && category !== "All" && (
@@ -383,7 +372,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           </div>
         )}
 
-        {/* Global Product Search Input */}
         <div className="mb-5">
           <div className="relative">
             <input
@@ -419,7 +407,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           </div>
         </div>
 
-        {/* Categories Section (With CSS Capitalize) */}
         <div className="border-b border-gray-200 py-3">
           <button
             type="button"
@@ -446,7 +433,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
           {openSections.categories && (
             <div className="mt-3 flex flex-col gap-1 max-h-52 overflow-y-auto custom-scrollbar pr-1">
-              {/* All Categories Button */}
               <button
                 type="button"
                 onClick={() => handleCategorySelect("All")}
@@ -459,7 +445,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 <span>All Categories</span>
               </button>
 
-              {/* Individual Category Buttons with CSS capitalize */}
               {normalizedCategories.map((cat) => {
                 if (cat.name === "All") return null;
                 const isSelected =
@@ -495,7 +480,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           )}
         </div>
 
-        {/* Price Range Section */}
         <div className="border-b border-gray-200 py-3">
           <button
             type="button"
@@ -559,7 +543,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 </div>
               </div>
 
-              {/* Price Presets */}
               <div className="flex flex-wrap gap-1">
                 {[
                   { label: "Under ₦10k", min: 0, max: 10000 },
@@ -583,7 +566,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           )}
         </div>
 
-        {/* Brands Section */}
         <div className="border-b border-gray-200 py-3">
           <button
             type="button"
@@ -656,7 +638,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             </div>
           )}
         </div>
-        {/* Color Swatches */}
         <div className="border-b border-gray-200 py-3">
           <button
             type="button"
@@ -704,7 +685,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           )}
         </div>
 
-        {/* Stock & Sale Switches */}
         <div className="py-3 flex flex-col gap-2.5 border-b border-gray-200">
           <label className="flex items-center justify-between cursor-pointer text-xs font-medium text-gray-700">
             <span>In Stock Only</span>
@@ -727,7 +707,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           </label>
         </div>
 
-        {/* Manual Apply Button */}
         {!autoApply && (
           <div className="pt-4 sticky bottom-0 bg-white pb-2">
             <button

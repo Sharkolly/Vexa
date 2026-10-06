@@ -100,7 +100,7 @@ const Cart = () => {
                             </div>
                             <div className="space-y-1">
                               <Link
-                                to={`/products/${product.category}/${product.subCategory}/${product._id}`}
+                                to={`/products/${product.category}/${product.subCategory}/${product.slug}/${product._id}`}
                                 className="font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-1"
                               >
                                 {product.name}
@@ -176,7 +176,7 @@ const Cart = () => {
                         </div>
                         <div className="flex-1 min-w-0 space-y-1">
                           <Link
-                            to={`/products/${product.category}/${product.subCategory}/${product._id}`}
+                            to={`/products/${product.category}/${product.subCategory}/${product.slug}/${product._id}`}
                           >
                             <h3 className="font-semibold text-sm text-slate-900 truncate">
                               {product.name}

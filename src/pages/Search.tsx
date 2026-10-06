@@ -15,7 +15,7 @@ import type { AxiosError } from "axios";
 import SearchFilter from "../../components/ui/SearchFilter";
 import Grid from "../../components/ui/SearchGridProduct";
 import List from "../../components/ui/SearchListProduct";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SearchNav from "../../components/ui/SearchNav";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -71,8 +71,9 @@ const Search = () => {
 
   const navigate = useNavigate();
 
-  const categorySearch = async (selectedCategory: string) => {
+  const categorySearch =  (selectedCategory: string) => {
     navigate(`/search/category/${selectedCategory}`);
+    setTimeout(() => setCurrentPage(1), 1);
   };
 
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +84,8 @@ const Search = () => {
     setQuery("");
     categorySearch(subCategory);
   };
+
+  // const navigate
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -145,7 +148,7 @@ const Search = () => {
           <Loader />
         </div>
       ) : (
-        <div className="w-full">
+        <div className="w-full antialiased">
           <div className="md:w-full mx-auto max-md:pt-24 pb-20 md:pb-12 max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
               <div className="w-full lg:w-64 shrink-0">
@@ -218,29 +221,29 @@ const Search = () => {
 
                   <div className="mt-4 w-full pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                     {subCategories.map((item: string) => {
+                      const isActive = item === category;
                       return (
                         <>
-                          <NavLink
-                            className={({
-                              isActive,
-                            }) => `px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
+                          <button
+                          onClick={() => categorySearch(item)}
+                            className={`px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
                               isActive
                                 ? "bg-emerald-700 text-white shadow-xs"
                                 : "bg-slate-100/80 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                             }
                         
                         `}
-                            to={`/search/category/${item}`}
+                           
                           >
                             {item}
-                          </NavLink>
+                          </button>
                         </>
                       );
                     })}
                   </div>
                 </div>
 
-                {displayedSearchData && displayedSearchData.length > 6 && (
+                {displayedSearchData && displayedSearchData.length > 3 && (
                   <div className="flex flex-col items-center   gap-4 mt-10 mb-8">
                     <div className="flex items-center gap-1.5">
                       <button
