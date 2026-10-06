@@ -108,7 +108,7 @@ const Services = (): React.JSX.Element => {
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80"
             alt="Digital Design Studio"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-900/90 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-900/50 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16">
