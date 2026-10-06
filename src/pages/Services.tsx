@@ -100,8 +100,7 @@ const Services = (): React.JSX.Element => {
   }, [filteredServices, currentPage]);
 
   return (
-    <div className="bg-slate-50 text-slate-900 font-sans min-h-screen mt-17 ">
-       
+    <div className="bg-slate-50 text-slate-900 font-sans min-h-screen mt-17">
       <section className="relative min-h-[480px] lg:h-[540px] flex items-center overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0 z-0">
           <img
@@ -114,7 +113,7 @@ const Services = (): React.JSX.Element => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6">
               <Sparkles className="w-3.5 h-3.5" />
               Premier Digital Solutions
             </span>
@@ -125,7 +124,7 @@ const Services = (): React.JSX.Element => {
               Bespoke digital services tailored for the modern enterprise. From visionary Graphics Design to seamless Website Creation, we engineer excellence.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-600/30 transition-all active:scale-95 flex items-center gap-2 cursor-pointer">
+              <button className="px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/30 transition-all active:scale-95 flex items-center gap-2 cursor-pointer">
                 View Portfolio
                 <ArrowUpRight className="w-4 h-4" />
               </button>
@@ -137,11 +136,8 @@ const Services = (): React.JSX.Element => {
         </div>
       </section>
 
-      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-200">
-          
           <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
@@ -152,7 +148,7 @@ const Services = (): React.JSX.Element => {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-400"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-slate-400"
             />
             {searchQuery && (
               <button
@@ -164,9 +160,7 @@ const Services = (): React.JSX.Element => {
             )}
           </div>
 
-          
           <div className="flex items-center justify-between sm:justify-end gap-3">
-            
             <button
               onClick={() => setIsMobileFilterOpen(true)}
               className="lg:hidden flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
@@ -174,13 +168,12 @@ const Services = (): React.JSX.Element => {
               <SlidersHorizontal className="w-4 h-4" />
               Filters
               {selectedCategories.length > 0 && (
-                <span className="w-5 h-5 bg-blue-600 text-white rounded-full text-[11px] flex items-center justify-center font-bold">
+                <span className="w-5 h-5 bg-emerald-600 text-white rounded-full text-[11px] flex items-center justify-center font-bold">
                   {selectedCategories.length}
                 </span>
               )}
             </button>
 
-            
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">
                 Sort:
@@ -188,7 +181,7 @@ const Services = (): React.JSX.Element => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 px-3 py-2.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 cursor-pointer transition-all"
+                className="bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 px-3 py-2.5 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 cursor-pointer transition-all"
               >
                 <option value="recommended">Recommended</option>
                 <option value="low-to-high">Price: Low to High</option>
@@ -198,27 +191,24 @@ const Services = (): React.JSX.Element => {
           </div>
         </div>
 
-        
         <div className="flex flex-col lg:flex-row gap-8">
-          
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-28 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
-                  <SlidersHorizontal className="w-4 h-4 text-blue-600" />
+                  <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
                   Filters
                 </h3>
                 {(selectedCategories.length > 0 || searchQuery) && (
                   <button
                     onClick={resetFilters}
-                    className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1 cursor-pointer"
                   >
                     <RotateCcw className="w-3 h-3" /> Reset
                   </button>
                 )}
               </div>
 
-              
               <div className="space-y-3">
                 <button
                   onClick={() => toggleSection("serviceType")}
@@ -243,7 +233,7 @@ const Services = (): React.JSX.Element => {
                           type="checkbox"
                           checked={selectedCategories.includes(category)}
                           onChange={() => handleCategoryChange(category)}
-                          className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                          className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
                         />
                         <span>{category}</span>
                       </label>
@@ -252,7 +242,6 @@ const Services = (): React.JSX.Element => {
                 )}
               </div>
 
-              
               <div className="pt-4 border-t border-slate-100">
                 <button
                   onClick={() => toggleSection("budget")}
@@ -272,7 +261,6 @@ const Services = (): React.JSX.Element => {
                 )}
               </div>
 
-              
               <div className="pt-4 border-t border-slate-100">
                 <button
                   onClick={() => toggleSection("delivery")}
@@ -294,9 +282,7 @@ const Services = (): React.JSX.Element => {
             </div>
           </aside>
 
-          
           <div className="flex-1 min-w-0">
-            
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-6">
               Showing <span className="text-slate-900 font-bold">{filteredServices.length}</span> services found
             </p>
@@ -308,7 +294,7 @@ const Services = (): React.JSX.Element => {
                 </p>
                 <button
                   onClick={resetFilters}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors"
                 >
                   Clear Filters
                 </button>
@@ -324,7 +310,6 @@ const Services = (): React.JSX.Element => {
                       key={serviceId}
                       className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                     >
-                      
                       <div className="relative h-56 overflow-hidden bg-slate-100">
                         <img
                           src={
@@ -335,7 +320,7 @@ const Services = (): React.JSX.Element => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                         <div className="absolute top-4 left-4">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 backdrop-blur text-blue-600 shadow-xs border border-white/40">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 backdrop-blur text-emerald-600 shadow-xs border border-white/40">
                             {service.category || "Digital Service"}
                           </span>
                         </div>
@@ -352,10 +337,9 @@ const Services = (): React.JSX.Element => {
                         </button>
                       </div>
 
-                      
                       <div className="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                          <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
+                          <h3 className="font-bold text-lg text-slate-900 group-hover:text-emerald-600 transition-colors mb-2">
                             {service.title}
                           </h3>
                           <p className="text-slate-500 text-sm line-clamp-2 leading-relaxed mb-6">
@@ -363,7 +347,6 @@ const Services = (): React.JSX.Element => {
                           </p>
                         </div>
 
-                        
                         <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
                           <div>
                             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
@@ -373,7 +356,7 @@ const Services = (): React.JSX.Element => {
                               ${service.price ? service.price.toLocaleString() : "Custom"}
                             </span>
                           </div>
-                          <button className="px-4 py-2 bg-slate-900 hover:bg-blue-600 text-white rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer">
+                          <button className="px-4 py-2 bg-slate-900 hover:bg-emerald-600 text-white rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer">
                             Inquire Now
                           </button>
                         </div>
@@ -384,7 +367,6 @@ const Services = (): React.JSX.Element => {
               </div>
             )}
 
-            
             {totalPages > 1 && (
               <div className="mt-12 flex items-center justify-center gap-2">
                 <button
@@ -401,7 +383,7 @@ const Services = (): React.JSX.Element => {
                     onClick={() => setCurrentPage(page)}
                     className={`w-10 h-10 rounded-xl font-bold text-xs transition-colors cursor-pointer ${
                       currentPage === page
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                        ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
                         : "border border-slate-200 text-slate-600 hover:bg-slate-100"
                     }`}
                   >
@@ -422,34 +404,32 @@ const Services = (): React.JSX.Element => {
         </div>
       </section>
 
-      
-      <section className="relative py-20 bg-gradient-to-b from-slate-50 via-blue-50/40 to-slate-100 border-t border-slate-200/80 overflow-hidden">
-        
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative py-20 bg-gradient-to-b from-slate-50 via-emerald-50/40 to-slate-100 border-t border-slate-200/80 overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-80 h-80 bg-teal-200/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row justify-between lg:items-end mb-16 gap-8">
             <div className="max-w-xl">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-3 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-3 block">
                 Why Work With Us
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-slate-900">
                 Built by experts, <br />
-                <span className="text-blue-600">trusted by innovators.</span>
+                <span className="text-emerald-600">trusted by innovators.</span>
               </h2>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                 We don't just build websites and design logos; we engineer digital experiences that drive market leadership.
               </p>
             </div>
-            <button className="px-7 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all active:scale-95 shadow-md shadow-blue-600/20 cursor-pointer self-start lg:self-auto">
+            <button className="px-7 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all active:scale-95 shadow-md shadow-emerald-600/20 cursor-pointer self-start lg:self-auto">
               Partner With Us
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+              <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-6">
                 <Zap className="w-6 h-6" />
               </div>
               <h4 className="font-bold text-xl mb-3 text-slate-900">Precision First</h4>
@@ -459,7 +439,7 @@ const Services = (): React.JSX.Element => {
             </div>
 
             <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+              <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-6">
                 <Sparkles className="w-6 h-6" />
               </div>
               <h4 className="font-bold text-xl mb-3 text-slate-900">Creative Mastery</h4>
@@ -469,7 +449,7 @@ const Services = (): React.JSX.Element => {
             </div>
 
             <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+              <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-6">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h4 className="font-bold text-xl mb-3 text-slate-900">Rock-Solid Trust</h4>
@@ -481,7 +461,6 @@ const Services = (): React.JSX.Element => {
         </div>
       </section>
 
-      
       {isMobileFilterOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div
@@ -492,7 +471,7 @@ const Services = (): React.JSX.Element => {
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
-                  <SlidersHorizontal className="w-4 h-4 text-blue-600" />
+                  <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
                   Filters
                 </h3>
                 <button
@@ -515,7 +494,7 @@ const Services = (): React.JSX.Element => {
                         type="checkbox"
                         checked={selectedCategories.includes(category)}
                         onChange={() => handleCategoryChange(category)}
-                        className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                        className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
                       />
                       <span>{category}</span>
                     </label>
@@ -533,7 +512,7 @@ const Services = (): React.JSX.Element => {
               </button>
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="flex-1 py-3 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700"
+                className="flex-1 py-3 bg-emerald-600 text-white rounded-xl text-xs font-semibold hover:bg-emerald-700"
               >
                 Apply
               </button>
@@ -545,4 +524,4 @@ const Services = (): React.JSX.Element => {
   );
 };
 
-export default Services;
+export default Services; 
