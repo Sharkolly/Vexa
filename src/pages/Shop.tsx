@@ -210,6 +210,7 @@ export default function Random() {
 
             {productData?.map((productGroup: PRODUCT_CATEGORY_TYPE) => (
               <div
+              id={productGroup.subCategory}
                 key={productGroup.subCategory}
                 className={`${
                   productGroup.products.length <= 0 ? "hidden" : "mb-10"

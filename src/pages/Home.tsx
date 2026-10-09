@@ -94,7 +94,7 @@ const Home = () => {
   }, [nextSlide, isHovered]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 pt-19 ">
+    <div className="min-h-screen bg-white text-slate-900 pt-19 max-md:pt-17 ">
       <div className="bg-emerald-900 text-emerald-100 text-xs sm:text-sm font-semibold py-3 max-md:py-2  overflow-hidden border-b border-emerald-800 relative whitespace-nowrap">
         <style>{`
           @keyframes marquee {
