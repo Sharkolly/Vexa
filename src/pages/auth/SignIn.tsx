@@ -4,7 +4,6 @@ import { useAuthContextStore } from "../../../store/useAuthContext";
 import API from "../../../api/api";
 import type { AxiosError } from "axios";
 
-// Icons
 import {
   MdOutlineMail,
   MdErrorOutline,
@@ -75,17 +74,17 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex items-center justify-center font-sans antialiased">
+    <div className="min-h-screen w-full bg-slate-950  text-slate-100 flex items-center justify-center font-sans antialiased">
       <main className="w-full min-h-screen flex flex-col md:flex-row">
-        {/* Form Section */}
         <section className="w-full md:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-slate-950">
           <div className="max-w-[420px] w-full flex flex-col gap-6">
-            {/* Header */}
             <header className="flex flex-col gap-2">
               <NavLink to="/" className="inline-block mb-4">
-                <span className="text-2xl font-black tracking-wider text-white hover:text-blue-500 transition-colors">
-                  VEXA
-                </span>
+                <img
+                  src="https://res.cloudinary.com/daqmey5dq/image/upload/v1791611726/fexa-logo.svg"
+                  alt="FEXA Logo"
+                  width="180"
+                />
               </NavLink>
               <h1 className="font-bold text-3xl sm:text-4xl text-white tracking-tight">
                 Welcome back
@@ -95,7 +94,6 @@ const SignIn = () => {
               </p>
             </header>
 
-            {/* Social Logins */}
             <div className="grid grid-cols-2 gap-3 pt-2">
               <button
                 type="button"
@@ -114,7 +112,6 @@ const SignIn = () => {
               </button>
             </div>
 
-            {/* Divider */}
             <div className="relative flex items-center my-2">
               <div className="grow border-t border-slate-800"></div>
               <span className="shrink mx-4 text-xs font-semibold uppercase tracking-widest text-slate-500">
@@ -123,9 +120,7 @@ const SignIn = () => {
               <div className="grow border-t border-slate-800"></div>
             </div>
 
-            {/* Form */}
             <form className="flex flex-col gap-4" onSubmit={submitForm}>
-              {/* Alert Feedback Banner */}
               {message.text && (
                 <div
                   className={`flex items-center gap-3 p-3.5 rounded-xl text-sm border animate-in fade-in duration-200 ${
@@ -143,7 +138,6 @@ const SignIn = () => {
                 </div>
               )}
 
-              {/* Email Input */}
               <div className="flex flex-col gap-1.5">
                 <label
                   className="text-xs font-semibold uppercase tracking-wider text-slate-400"
@@ -165,7 +159,6 @@ const SignIn = () => {
                 </div>
               </div>
 
-              {/* Password Input */}
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
                   <label
@@ -176,7 +169,7 @@ const SignIn = () => {
                   </label>
                   <NavLink
                     to="/forgot-password"
-                    className="text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors"
+                    className="text-xs font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
                   >
                     Forgot password?
                   </NavLink>
@@ -209,7 +202,6 @@ const SignIn = () => {
                 </div>
               </div>
 
-              {/* Remember Me */}
               <div className="flex items-center justify-between pt-1">
                 <label className="flex items-center gap-2.5 cursor-pointer group">
                   <input
@@ -222,11 +214,10 @@ const SignIn = () => {
                 </label>
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isFetching}
-                className="w-full mt-3 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold text-sm shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 active:scale-[0.99] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full mt-3 py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-semibold text-sm shadow-lg shadow-emerald-600/20 hover:shadow-emerald-500/30 active:scale-[0.99] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isFetching ? (
                   <>
@@ -239,12 +230,11 @@ const SignIn = () => {
               </button>
             </form>
 
-            {/* Footer Prompt */}
             <p className="text-center text-sm text-slate-400 pt-2">
               Don't have an account?{" "}
               <NavLink
                 to="/signup"
-                className="text-blue-400 font-semibold hover:text-blue-300 hover:underline transition-all"
+                className="text-emerald-400 font-semibold hover:text-emerald-300 hover:underline transition-all"
               >
                 Create an account
               </NavLink>
@@ -252,7 +242,6 @@ const SignIn = () => {
           </div>
         </section>
 
-        {/* Visual Hero Section */}
         <section className="hidden md:block md:w-1/2 relative overflow-hidden bg-slate-900">
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10" />
           <div className="absolute inset-0 bg-blue-900/10 mix-blend-overlay z-10" />
