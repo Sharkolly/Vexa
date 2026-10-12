@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
   ArrowLeft,
-  CheckCircle2,
   AlertCircle,
   KeyRound,
   ShieldCheck,
