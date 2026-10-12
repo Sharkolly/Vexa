@@ -84,10 +84,10 @@ const Footer = () => {
   };
 
   const shopLinks = [
-    { name: "Cars", path: "/search?category=automobile" },
-    { name: "Phones & Laptops", path: "/search?category=electronics" },
-    { name: "Women's Fashion", path: "/search?category=fashion" },
-    { name: "Games", path: "/search?category=gaming" },
+    { name: "Cars", path: "/search/category/cars" },
+    { name: "Phones & Laptops", path: "/search/category/phones" },
+    { name: "Women's Fashion", path: "/search/category/womens-fashion" },
+    { name: "Games", path: "/search/category/video-games" },
   ];
 
   const serviceLinks = [

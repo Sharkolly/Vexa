@@ -10,13 +10,14 @@ import {
   LogOut,
   Camera,
   Edit3,
-  Check,
+  Check, 
   Clock,
   ChevronRight,
   KeyRound,
   Sparkles,
 } from "lucide-react";
 import { useAuthContextStore } from "../../store/useAuthContext";
+import {logout} from "../../utils/functions";  
 
 type TabType = "profile" | "orders" | "favorites" | "security";
 
@@ -61,15 +62,10 @@ const Profile = (): React.JSX.Element => {
     setIsEditing(false);
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  };
 
   return (
     <div className="bg-slate-50 text-slate-900 font-sans min-h-screen pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Profile Header Banner */}
         <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs mb-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 text-center sm:text-left">
@@ -120,7 +116,6 @@ const Profile = (): React.JSX.Element => {
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          
           {/* Left Navigation Tabs */}
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-2xl border border-slate-200/80 p-3 shadow-xs space-y-1">
@@ -146,7 +141,9 @@ const Profile = (): React.JSX.Element => {
                       <Icon className="w-4 h-4" />
                       <span>{tab.label}</span>
                     </div>
-                    <ChevronRight className={`w-4 h-4 opacity-70 ${isActive ? "text-white" : "text-slate-400"}`} />
+                    <ChevronRight
+                      className={`w-4 h-4 opacity-70 ${isActive ? "text-white" : "text-slate-400"}`}
+                    />
                   </button>
                 );
               })}
@@ -155,20 +152,27 @@ const Profile = (): React.JSX.Element => {
 
           {/* Right Content Panels */}
           <main className="lg:col-span-3">
-            
             {/* Tab 1: Personal Details */}
             {activeTab === "profile" && (
               <div className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
                 <div className="flex items-center justify-between pb-6 border-b border-slate-100 mb-6">
                   <div>
-                    <h2 className="text-xl font-bold text-slate-900">Personal Details</h2>
-                    <p className="text-xs text-slate-500 mt-1">Manage your public profile and account credentials.</p>
+                    <h2 className="text-xl font-bold text-slate-900">
+                      Personal Details
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-1">
+                      Manage your public profile and account credentials.
+                    </p>
                   </div>
                   <button
                     onClick={() => setIsEditing(!isEditing)}
                     className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3.5 py-2 rounded-xl transition-colors cursor-pointer"
                   >
-                    {isEditing ? <Check className="w-4 h-4 text-emerald-700" /> : <Edit3 className="w-4 h-4 text-emerald-700" />}
+                    {isEditing ? (
+                      <Check className="w-4 h-4 text-emerald-700" />
+                    ) : (
+                      <Edit3 className="w-4 h-4 text-emerald-700" />
+                    )}
                     {isEditing ? "Cancel" : "Edit Profile"}
                   </button>
                 </div>
@@ -279,8 +283,12 @@ const Profile = (): React.JSX.Element => {
             {activeTab === "orders" && (
               <div className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
                 <div className="pb-6 border-b border-slate-100 mb-6">
-                  <h2 className="text-xl font-bold text-slate-900">Order History</h2>
-                  <p className="text-xs text-slate-500 mt-1">Track and manage your recent service orders.</p>
+                  <h2 className="text-xl font-bold text-slate-900">
+                    Order History
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Track and manage your recent service orders.
+                  </p>
                 </div>
 
                 <div className="space-y-4">
@@ -291,7 +299,9 @@ const Profile = (): React.JSX.Element => {
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
-                          <span className="font-extrabold text-sm text-slate-900">{order.id}</span>
+                          <span className="font-extrabold text-sm text-slate-900">
+                            {order.id}
+                          </span>
                           <span
                             className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
                               order.status === "Delivered"
@@ -302,7 +312,9 @@ const Profile = (): React.JSX.Element => {
                             {order.status}
                           </span>
                         </div>
-                        <p className="text-xs font-medium text-slate-600">{order.items}</p>
+                        <p className="text-xs font-medium text-slate-600">
+                          {order.items}
+                        </p>
                         <div className="flex items-center gap-2 text-[11px] text-slate-400">
                           <Clock className="w-3 h-3" />
                           <span>Ordered on {order.date}</span>
@@ -310,7 +322,9 @@ const Profile = (): React.JSX.Element => {
                       </div>
 
                       <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                        <span className="font-extrabold text-slate-900 text-sm">{order.total}</span>
+                        <span className="font-extrabold text-slate-900 text-sm">
+                          {order.total}
+                        </span>
                         <button className="px-3.5 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer">
                           Invoice
                         </button>
@@ -325,9 +339,12 @@ const Profile = (): React.JSX.Element => {
             {activeTab === "favorites" && (
               <div className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs text-center py-12">
                 <Heart className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                <h3 className="font-bold text-slate-900 text-lg mb-1">No Saved Services Yet</h3>
+                <h3 className="font-bold text-slate-900 text-lg mb-1">
+                  No Saved Services Yet
+                </h3>
                 <p className="text-xs text-slate-500 max-w-sm mx-auto mb-6">
-                  Click the heart icon on any product or service card to save items for quick access later.
+                  Click the heart icon on any product or service card to save
+                  items for quick access later.
                 </p>
                 <a
                   href="/services"
@@ -342,8 +359,12 @@ const Profile = (): React.JSX.Element => {
             {activeTab === "security" && (
               <div className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
                 <div className="pb-6 border-b border-slate-100 mb-6">
-                  <h2 className="text-xl font-bold text-slate-900">Security & Password</h2>
-                  <p className="text-xs text-slate-500 mt-1">Keep your credentials and sessions secure.</p>
+                  <h2 className="text-xl font-bold text-slate-900">
+                    Security & Password
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Keep your credentials and sessions secure.
+                  </p>
                 </div>
 
                 <div className="space-y-6 max-w-md">
@@ -381,7 +402,6 @@ const Profile = (): React.JSX.Element => {
                 </div>
               </div>
             )}
-
           </main>
         </div>
       </div>

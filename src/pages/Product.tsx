@@ -145,7 +145,7 @@ const Product = () => {
             {product?.subCategory}
           </Link>
           <span className="text-slate-300">/</span>
-          <span className="font-semibold text-slate-900 truncate max-w-[200px]">
+          <span className="font-semibold text-slate-900 max-md:truncate  max-w-[200px]">
             {product?.name}
           </span>
         </nav>
@@ -246,7 +246,7 @@ const Product = () => {
                 </div>
               ) : (
                 <button
-                  className="w-1/2 bg-slate-900 text-white font-semibold py-3.5 px-4 rounded-xl hover:bg-slate-800 transition-all active:scale-[0.98] shadow-sm text-center"
+                  className="w-1/2 bg-slate-900 text-white font-semibold py-3.5 px-4 rounded-xl hover:bg-slate-800 transition-all active:scale-[0.98] shadow-sm text-center uppercase"
                   onClick={() =>
                     addToCartBtn(
                       product?.name,
@@ -264,7 +264,7 @@ const Product = () => {
               )}
 
               <Link to="/cart" className="w-1/2">
-                <button className="w-full bg-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl hover:bg-emerald-800 transition-all active:scale-[0.98] shadow-md shadow-emerald-700/20 text-center">
+                <button className="w-full bg-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl hover:bg-emerald-800 transition-all active:scale-[0.98] shadow-md uppercase shadow-emerald-700/20 text-center">
                   Buy Now
                 </button>
               </Link>

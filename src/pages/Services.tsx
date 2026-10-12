@@ -15,6 +15,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { servicesData } from "../../data/services";
+import { motion } from "framer-motion";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -101,6 +102,9 @@ const Services = (): React.JSX.Element => {
 
   return (
     <div className="bg-slate-50 text-slate-900 font-sans min-h-screen mt-17">
+
+
+
       <section className="relative min-h-[480px] lg:h-[540px] flex items-center overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0 z-0">
           <img
@@ -191,7 +195,8 @@ const Services = (): React.JSX.Element => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <motion.div className="flex flex-col lg:flex-row gap-8"
+          whileInView={{ opacity: 1 }} initial={{ opacity: 0}}   transition={{ duration: 1.3 }} >
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-28 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -356,7 +361,7 @@ const Services = (): React.JSX.Element => {
                               ${service.price ? service.price.toLocaleString() : "Custom"}
                             </span>
                           </div>
-                          <button className="px-4 py-2 bg-emerald-800  hover:bg-emerald-600 text-white rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer">
+                          <button className="px-4 py-2 bg-emerald-800  hover:bg-emerald-600 text-white rounded-xl text-xs font-semibold uppercase transition-colors duration-200 cursor-pointer">
                             Inquire Now
                           </button>
                         </div>
@@ -401,7 +406,7 @@ const Services = (): React.JSX.Element => {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="relative py-20 bg-gradient-to-b from-slate-50 via-emerald-50/40 to-slate-100 border-t border-slate-200/80 overflow-hidden">

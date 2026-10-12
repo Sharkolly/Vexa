@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useAuthContextStore } from "../../store/useAuthContext";
 import { useSelector } from "react-redux";
 import type { ProductType } from "../../types/product.types";
+import {logout} from "../../utils/functions"; 
 
 type RootState = {
   product: {
@@ -93,11 +94,11 @@ const Nav = () => {
   const toggleMenu = () => setMenu((prev) => !prev);
   const closeMenu = () => setMenu(false);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    closeMenu();
-    window.location.href = "/login";
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("token");
+  //   closeMenu();
+  //   window.location.href = "/login";
+  // };
 
   const navLinks = [
     { name: "Home", path: "/" },
