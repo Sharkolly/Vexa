@@ -53,7 +53,7 @@ export const toastNotificationRemove = (productName: string) => {
       </div>
     ),
     {
-      duration: 5000,
+      duration: 3000,
       position: "top-right",
     },
   );
@@ -85,7 +85,7 @@ const showAddedToCartToast = (productName: string) => {
 
           <button
             onClick={() => toast.dismiss(t.id)}
-            className="ml-1 text-lg leading-none text-[#166534] hover:text-green-800"
+            className="ml-1 text-lg hidden leading-none text-[#166534] hover:text-green-800"
             aria-label="Dismiss notification"
           >
             &times;
