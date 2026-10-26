@@ -45,7 +45,6 @@ const AddToCart = ({
   const CartedProduct = useSelector(
     (state: RootState) => state.product.addToCart,
   );
- const total = useSelector((state: RootState) => state.product.total);
 
   const singleProduct = CartedProduct?.find((product) => product._id === _id);
 
@@ -64,12 +63,12 @@ const AddToCart = ({
       }),
     );
 
-  showAddedToCartToast(name)
+  showAddedToCartToast(name,)
   };
 
   const handleIncrement = () => {
     dispatch(incrementQuantity({ _id }));
-  showAddedToCartToast(name)
+  showAddedToCartToast(name,)
   };
 
   const handleDecrement = () => {
