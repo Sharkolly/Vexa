@@ -64,7 +64,7 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-800 antialiased">
       {CartedProduct.length > 0 ? (
-        <main className="pt-20 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16">
+        <main className="pt-24 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16">
           <div className="border-b border-slate-200/80 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
@@ -193,7 +193,7 @@ const Cart = () => {
                           <Link
                             to={`/products/${product.category}/${product.subCategory}/${product.slug}/${product._id}`}
                           >
-                            <h3 className="font-semibold text-sm text-slate-900 truncate">
+                            <h3 className="font-semibold text-sm capitalize text-slate-900 truncate">
                               {product.name}
                             </h3>
                             <p className="text-xs text-slate-500 capitalize">

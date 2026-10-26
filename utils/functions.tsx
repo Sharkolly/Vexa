@@ -38,7 +38,7 @@ export const toastNotificationRemove = (productName: string) => {
           </p>
 
           <p className="mt-1 text-sm text-[#991B1B]">
-            <span className="font-bold">{productName} </span> removed from your
+            <span className="font-bold capitalize">{productName} </span> removed from your
             cart.
           </p>
         </div>
@@ -80,7 +80,7 @@ const showAddedToCartToast = (productName: string) => {
           </p>
 
           <p className="mt-1 text-sm text-[#166534]">
-            <span className="font-bold">{productName}</span> added to your cart.
+            <span className="font-bold capitalize">{productName}</span> added to your cart.
           </p>
 
           <button
