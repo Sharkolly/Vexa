@@ -9,10 +9,17 @@ import {
 } from "../../store/product.slice";
 import type { AppDispatch } from "../../store/index";
 import type { ProductType } from "../../types/product.types";
+import showAddedToCartToast, { toastNotificationRemove } from "../../utils/functions";
 
 type RootState = {
   product: {
     addToCart: ProductType[];
+     total: {
+      totalPrice: number;
+      totalItems: number;
+      overallTotal: number;
+      totalDelivery?: number;
+    };
   };
 };
 
@@ -38,11 +45,10 @@ const AddToCart = ({
   const CartedProduct = useSelector(
     (state: RootState) => state.product.addToCart,
   );
+ const total = useSelector((state: RootState) => state.product.total);
 
-  const singleProduct = CartedProduct?.find(
-    (product) => product._id === _id
-    //  || (product._id && product._id === _id),
-  );
+  const singleProduct = CartedProduct?.find((product) => product._id === _id);
+
 
   const handleAddToCart = () => {
     dispatch(
@@ -57,10 +63,13 @@ const AddToCart = ({
         slug,
       }),
     );
+
+  showAddedToCartToast(name)
   };
 
   const handleIncrement = () => {
-    dispatch(incrementQuantity({ _id}));
+    dispatch(incrementQuantity({ _id }));
+  showAddedToCartToast(name)
   };
 
   const handleDecrement = () => {
@@ -71,8 +80,10 @@ const AddToCart = ({
       singleProduct.quantity &&
       singleProduct.quantity - 1 <= 0
     ) {
-      dispatch(removeCart({ _id })); 
+      dispatch(removeCart({ _id }));
     }
+
+  toastNotificationRemove(name);
   };
 
   if (singleProduct) {
@@ -118,7 +129,7 @@ const AddToCart = ({
       onClick={handleAddToCart}
     >
       <ShoppingCart className="max-[440px]:hidden w-4 h-4" />
-      <span className='uppercase'>Add to Cart</span>
+      <span className="uppercase">Add to Cart</span>
     </button>
   );
 };

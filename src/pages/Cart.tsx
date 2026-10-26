@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
-import { MdLocalShipping, MdSync, MdVerified, MdArrowRightAlt } from "react-icons/md";
+import {
+  MdLocalShipping,
+  MdSync,
+  MdVerified,
+  MdArrowRightAlt,
+} from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import type { ProductType } from "../../types/product.types";
 import {
@@ -14,6 +19,9 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
 import NoCartItem from "../../components/ui/NoCartItem";
 import SearchNav from "../../components/ui/SearchNav";
+import showAddedToCartToast, {
+  toastNotificationRemove,
+} from "../../utils/functions";
 
 type RootState = {
   product: {
@@ -30,27 +38,33 @@ type RootState = {
 const Cart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const CartedProduct = useSelector(
-    (state: RootState) => state.product.addToCart
+    (state: RootState) => state.product.addToCart,
   );
   const total = useSelector((state: RootState) => state.product.total);
 
-  const incrementProductQuantity = (_id: string = "") => {
+  const incrementProductQuantity = (_id: string = "", name: string) => {
     dispatch(incrementQuantity({ _id }));
+    showAddedToCartToast(name);
   };
 
-  const decrementProductQuantity = (_id: string = "", quantity: number) => {
+  const decrementProductQuantity = (
+    _id: string = "",
+    quantity: number,
+    name: string,
+  ) => {
     dispatch(decrementQuantity({ _id }));
 
     if (quantity - 1 <= 0) {
       dispatch(removeCart({ _id }));
     }
+
+    toastNotificationRemove(name);
   };
 
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-800 antialiased">
       {CartedProduct.length > 0 ? (
         <main className="pt-20 pb-24 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-10 xl:px-16">
-          {/* HEADER */}
           <div className="border-b border-slate-200/80 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
@@ -70,10 +84,8 @@ const Cart = () => {
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
-            {/* LEFT COLUMN: PRODUCT LIST / TABLE */}
             <div className="xl:col-span-2 space-y-4">
               <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden transition-shadow hover:shadow-md">
-                {/* DESKTOP TABLE */}
                 <table className="w-full border-collapse hidden md:table">
                   <thead>
                     <tr className="border-b border-slate-100 bg-slate-50/50 text-slate-600 text-xs uppercase tracking-wider font-semibold">
@@ -133,7 +145,8 @@ const Cart = () => {
                                 onClick={() =>
                                   decrementProductQuantity(
                                     product._id,
-                                    product.quantity
+                                    product.quantity,
+                                    product.name,
                                   )
                                 }
                               >
@@ -145,7 +158,10 @@ const Cart = () => {
                               <button
                                 className="px-3 py-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
                                 onClick={() =>
-                                  incrementProductQuantity(product._id)
+                                  incrementProductQuantity(
+                                    product._id,
+                                    product.name,
+                                  )
                                 }
                               >
                                 +
@@ -162,7 +178,6 @@ const Cart = () => {
                   </tbody>
                 </table>
 
-                {/* MOBILE LIST VIEW */}
                 <div className="md:hidden divide-y divide-slate-100">
                   {CartedProduct.map((product: ProductType) => (
                     <div key={product._id} className="p-4 space-y-3">
@@ -211,7 +226,8 @@ const Cart = () => {
                             onClick={() =>
                               decrementProductQuantity(
                                 product._id,
-                                product.quantity
+                                product.quantity,
+                                product.name,
                               )
                             }
                           >
@@ -223,7 +239,10 @@ const Cart = () => {
                           <button
                             className="px-3 py-1 text-slate-500 hover:bg-slate-100 cursor-pointer text-xs"
                             onClick={() =>
-                              incrementProductQuantity(product._id)
+                              incrementProductQuantity(
+                                product._id,
+                                product.name,
+                              )
                             }
                           >
                             +
@@ -246,7 +265,6 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* RIGHT COLUMN: ORDER SUMMARY */}
             <aside className="w-full">
               <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm sticky top-6">
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 border-b border-slate-100 pb-4 mb-5">
@@ -271,7 +289,6 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {/* ACTION BUTTONS WITH ICONS */}
                 <div className="mt-7 space-y-3">
                   <Link to="/delivery" className="block">
                     <button className="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-700/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
@@ -288,7 +305,6 @@ const Cart = () => {
                   </Link>
                 </div>
 
-                {/* TRUST BADGES */}
                 <div className="mt-7 pt-6 border-t border-slate-100 space-y-3">
                   <div className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
                     <MdVerified className="text-emerald-600 w-4 h-4 shrink-0" />

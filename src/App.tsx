@@ -5,6 +5,8 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+
+import { Toaster } from 'react-hot-toast';
 const Home = lazy(() => import("./pages/Home"));
 // const AddToCart = lazy(() => import("./pages/AddToCart"));
 const SignIn = lazy(() => import("./pages/auth/SignIn"));
@@ -101,6 +103,7 @@ function App() {
   return (
     <Suspense fallback={<Loader />}>
       <RouterProvider router={router} />
+      <Toaster/>
     </Suspense>
   );
 }
