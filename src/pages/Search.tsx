@@ -55,6 +55,7 @@ const Search = () => {
   const { data: CategoryData, isLoading } = useQueryProduct(
     `/products/all-category`,
   );
+
   const subCategories = CategoryData?.data || [];
 
   const handleSearch = useCallback(async (searchQuery: string) => {

@@ -51,6 +51,34 @@ export default function Random() {
   const { data, isLoading } = useQueryProduct("/products/all");
   const productData: PRODUCT_CATEGORY_TYPE[] = data?.data || [];
 
+  const renderStatusBadge = (status: AllProductType["stock"]) => {
+      switch (status) {
+        case "in_stock":
+          return (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              In Stock
+            </span>
+          );
+        case "low_stock":
+          return (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-700 border border-amber-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+              Low Stock
+            </span> 
+          );
+        case "out_of_stock":
+          return (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-100 text-rose-700 border border-rose-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+              Out of Stock
+            </span>
+          );
+        default:
+          return null;
+      }
+    };
+  
   return (
     <>
       {isLoading && productData.length === 0 ? (
@@ -208,9 +236,34 @@ export default function Random() {
               </div>
             </div>
 
+            {/* for the subcategory list as a slider  */}
+
+            {/* <div className="mt-4 w-full pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    {subCategories.map((item: string) => {
+                      const isActive = item === category;
+                      return (
+                        <>
+                          <button
+                          onClick={() => categorySearch(item)}
+                            className={`px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
+                              isActive
+                                ? "bg-emerald-700 text-white shadow-xs"
+                                : "bg-slate-100/80 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                            }
+                        
+                        `}
+                           
+                          >
+                            {item}
+                          </button>
+                        </>
+                      );
+                    })}
+                  </div> */}
+
             {productData?.map((productGroup: PRODUCT_CATEGORY_TYPE) => (
               <div
-              id={productGroup.subCategory}
+                id={productGroup.subCategory}
                 key={productGroup.subCategory}
                 className={`${
                   productGroup.products.length <= 0 ? "hidden" : "mb-10"
@@ -249,6 +302,13 @@ export default function Random() {
                                 %
                               </span>
 
+                                  <span className='absolute top-2  left-3'>
+                                     {renderStatusBadge(
+                          product.stock,
+                          // product.stockQuantity,
+                        )}
+                                  </span>
+
                               <Link
                                 to={`/products/${product.category.toLowerCase()}/${product.subCategory}/${
                                   product.slug
@@ -258,7 +318,7 @@ export default function Random() {
                                 <img
                                   src={resolveImage(product?.images[0], "")}
                                   alt={product.name}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  className="w-full h-full object-cover group-hover:sale-105 transition-transform duration-300"
                                 />
                               </Link>
                             </div>
@@ -280,17 +340,21 @@ export default function Random() {
                               </div>
 
                               <div className="mt-3">
-                                <div className="flex items-baseline gap-2">
-                                  <span className="font-mono font-bold text-base text-slate-900">
-                                    ₦{product.price?.toLocaleString()}
+                                <div className="flex justify-between items-center">
+                                  <span className='flex items-baseline gap-2'>
+                                    <span className="font-mono font-bold text-base text-slate-900">
+                                      ₦{product.price?.toLocaleString()}
+                                    </span>
+                                    <span className="font-mono text-xs text-slate-400 line-through">
+                                      ₦
+                                      {(product.price * 1.15).toLocaleString(
+                                        undefined,
+                                        { maximumFractionDigits: 0 },
+                                      )}
+                                    </span>
                                   </span>
-                                  <span className="font-mono text-xs text-slate-400 line-through">
-                                    ₦
-                                    {(product.price * 1.15).toLocaleString(
-                                      undefined,
-                                      { maximumFractionDigits: 0 },
-                                    )}
-                                  </span>
+
+                              
                                 </div>
 
                                 <AddToCart

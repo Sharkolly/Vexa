@@ -43,6 +43,34 @@ const Grid = ({
     return <NoProduct category={searchCategoryOrProduct} />;
   }
 
+  const renderStatusBadge = (status: AllProductType["stock"]) => {
+    switch (status) {
+      case "in_stock":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            In Stock
+          </span>
+        );
+      case "low_stock":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-700 border border-amber-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            Low Stock
+          </span>
+        );
+      case "out_of_stock":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-100 text-rose-700 border border-rose-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+            Out of Stock
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
@@ -64,8 +92,12 @@ const Grid = ({
                     />
                   </Link>
 
-                  <span className="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  <span className="absolute top-3 right-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
                     -25% OFF
+                  </span>
+
+                  <span className="absolute top-2 left-3">
+                    {renderStatusBadge(item.stock)}
                   </span>
                 </div>
 
@@ -112,7 +144,6 @@ const Grid = ({
           );
         })}
       </div>
-
     </div>
   );
 };

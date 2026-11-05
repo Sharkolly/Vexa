@@ -33,6 +33,7 @@ export type AllProductType = {
   brand?: string;
   discount?: number;
   color?: string;
+  stock: "in_stock" | "low_stock" | "out_of_stock";
   deviceSpecifications?: {
     rom?: number;
     ram?: number;
