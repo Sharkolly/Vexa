@@ -247,7 +247,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   return (
     <>
-      <div className="lg:hidden mb-4">
+      <div className="xl:hidden mb-4">
         <button
           type="button"
           onClick={() => setIsMobileOpen(true)}
