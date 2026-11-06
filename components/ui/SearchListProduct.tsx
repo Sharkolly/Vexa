@@ -70,7 +70,7 @@ const List = ({
   };
 
   return (
-    <div className="w-full flex flex-col  gap-5 pb-12">
+    <div className="w-full grid 2xl:grid-cols-2 grid-cols-1  gap-5 pb-12">
       {searchData.map((item: AllProductType) => {
         const productPath = `/products/${item.category?.toLowerCase()}/${item.subCategory}/${item.slug}/${item._id}`;
 
@@ -85,16 +85,15 @@ const List = ({
                 <img
                   src={resolveImage(item?.images[0], "")}
                   alt={item?.name || "Product image"}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                  className="w-full h-full object-cover object-center group-hover:cale-105 transition-transform duration-500 ease-out"
                 />
               </Link>
 
-              {/* Discount Tag */}
-              <span className="absolute top-3 right-3 sm:top-3 sm:left-3 bg-rose-500 text-white text-[10px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-sm">
+              <span className="absolute top-3 right-3 sm:top-3 sm:right-3 bg-rose-500 text-white text-[10px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-sm">
                 -25% OFF
               </span>
  
-              <span className="absolute top-2 left-3">
+              <span className="absolute top-2 left-3 hidde">
                 {renderStatusBadge(item.stock)}
               </span>
             </div>
@@ -118,7 +117,7 @@ const List = ({
                 </Link>
 
                 {/* Description Preview on larger screens */}
-                {/*     {item?.description && (
+                    {/* {item?.description && (
                   <p className="text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 mt-2 hidden leading-relaxed">
                     {item.description}
                   </p>
@@ -137,7 +136,7 @@ const List = ({
                   </p>
                 </div>
 
-                <div className="max-sm:w-full sm:w-[50%]">
+                <div className="max-sm:w-full lg:-[60%]">
                   <AddToCart
                     quantity={item?.quantity}
                     _id={item?._id ?? ""}

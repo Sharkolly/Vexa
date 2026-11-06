@@ -112,7 +112,7 @@ const Nav = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-      <div className="flex items-center justify-between md:px-10 py-3 w-full w-[90%] max-md:w-[94%] max-[440px]:w-[95%] mx-auto">
+      <div className="flex items-center justify-between  py-3 w-[97%] max-md:w-[94%] max-[440px]:w-[95%] mx-auto">
         <Link to="/" className="flex items-center group py-0.5" aria-label="FEXA Home">
           <FexaLogo />
         </Link>
@@ -217,12 +217,12 @@ const Nav = () => {
           {user?.email ? (
             <button
               onClick={logout}
-              className="hidden md:block px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
+              className="hidden lg:block px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
             >
               Logout
             </button>
           ) : (
-            <div className="hidden md:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2">
               <Link to="/login">
                 <Button
                   color="text-white"
@@ -246,7 +246,7 @@ const Nav = () => {
 
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 text-slate-800 hover:text-emerald-700 transition-colors cursor-pointer flex items-center"
+            className="lg:hidden p-2 text-slate-800 hover:text-emerald-700 transition-colors cursor-pointer flex items-center"
             aria-label="Toggle Navigation Menu"
           >
             <GiHamburgerMenu className="text-2xl" />
@@ -255,7 +255,7 @@ const Nav = () => {
       </div>
 
       {menu && (
-        <div className="fixed inset-0 z-50 md:hidden flex justify-end">
+        <div className="fixed inset-0 z-50 lg:hidden flex justify-end">
           <div
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
             onClick={closeMenu}

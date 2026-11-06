@@ -74,6 +74,7 @@ const Search = () => {
 
   const categorySearch =  (selectedCategory: string) => {
     navigate(`/search/category/${selectedCategory}`);
+    setSubCategory(selectedCategory);
     setTimeout(() => setCurrentPage(1), 1);
   };
 
@@ -150,7 +151,7 @@ const Search = () => {
         </div>
       ) : (
         <div className="w-full antialiased">
-          <div className="md:w-full mx-auto max-md:pt-24 pb-20 md:pb-12 max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
+          <div className="md:w-full mx-auto sm:pt-24 pb-20  max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
             <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
               <div className="w-full lg:w-64 shrink-0">
                 <SearchFilter
@@ -163,7 +164,7 @@ const Search = () => {
                 />
               </div>
 
-              <main className="flex-1 min-w-0 w-full md:pt-24 z-20 bg-transparent md:pl-4">
+              <main className="flex-1 min-w-0 w-full  z-20 bg-transparent md:pl-4">
                 <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5 mb-6">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                     <div className="relative flex items-center w-full sm:max-w-md bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 transition-all focus-within:bg-white focus-within:border-emerald-700 focus-within:ring-2 focus-within:ring-emerald-700/20">

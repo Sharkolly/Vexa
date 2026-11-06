@@ -112,7 +112,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     return categories.map((cat) =>
       typeof cat === "string" ? { name: cat } : cat,
     );
-  }, [categories]);
+  }, [categories]); 
+  // const normalizedCategories =  categories.map((cat) =>
+  //     typeof cat === "string" ? { name: cat } : cat,
+  //   );
+  // };
 
   // Construct current state object
   const currentFilterState = useMemo<FilterState>(
@@ -247,7 +251,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   return (
     <>
-      <div className="xl:hidden mb-4">
+      <div className="lg:hidden mb-4 ">  
         <button
           type="button"
           onClick={() => setIsMobileOpen(true)}
@@ -280,13 +284,13 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       {isMobileOpen && (
         <div
           onClick={() => setIsMobileOpen(false)}
-          className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-black/60 z-40 xl:hidden backdrop-blur-xs transition-opacity"
         />
       )}
 
       <aside
         className={`
-          lg:pl-4 md:mt-19 md:pt-5 bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto 
+          lg:pl-4    md:pt-5 bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto 
           lg:flex-shrink-0 lg:fixed  lg:h-[calc(100vh-120px)] 
           ${isMobileOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"}
           
@@ -317,7 +321,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             )}
             <button
               onClick={() => setIsMobileOpen(false)}
-              className="lg:hidden p-1 rounded-md text-gray-500 hover:bg-gray-100"
+              className="xl:hidden p-1 rounded-md text-gray-500 hover:bg-gray-100"
               aria-label="Close sidebar"
             >
               ✕
@@ -442,7 +446,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
-                <span>All Categories</span>
+                {/* <span>All Categories</span> */}
               </button>
 
               {normalizedCategories.map((cat) => {

@@ -43,7 +43,9 @@ const Grid = ({
     return <NoProduct category={searchCategoryOrProduct} />;
   }
 
-  const renderStatusBadge = (status: AllProductType["stock"]) => {
+
+
+  const renderStatusBadge = (status: AllProductType["stock"]) => {    
     switch (status) {
       case "in_stock":
         return (
@@ -92,7 +94,7 @@ const Grid = ({
                     />
                   </Link>
 
-                  <span className="absolute top-3 right-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  <span className="absolute top-3  right-3 bg-rose-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
                     -25% OFF
                   </span>
 
