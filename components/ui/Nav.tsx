@@ -23,7 +23,7 @@ const FexaLogo = ({
 }: {
   isDark?: boolean;
   className?: string;
-}) => (
+}) => ( 
   <svg
     viewBox="0 0 320 90"
     className={`${className} transition-transform group-hover:scale-105`}
