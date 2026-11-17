@@ -12,6 +12,7 @@ import {
   Clock,
   ShieldCheck,
 } from "lucide-react";
+import { format } from 'date-fns';
 import type { AllProductType } from "../../types/product.types";
 import AddToCart from "../../components/ui/AddToCart";
 
@@ -34,12 +35,29 @@ const VENDOR_INFO = {
   bio: "Official distributor of premium mobile devices, audio gear, and gaming accessories in Rivers State. 100% genuine products with warranty.",
 };
 
+type VendorDetailsAndProduct = {
+  vendor: {
+    _id: string;
+    accountName: string;
+    email: string;
+    phoneNumber: string;
+    profileImage: string;
+    businessName: string;
+    category: string;
+    createdAt: string;  
+  businessDescription: string;
+  };
+  product: AllProductType[];
+};
+
 const VendorProduct: React.FC = () => {
   const { id, businessName } = useParams<{ id: string, businessName: string }>();
 
   const { data } = useQueryProduct(`/admin/vendor/${id}/${businessName}`);
 
-  const adminDetailsAndProduct = data?.data || [];
+  console.log(data);
+
+  const adminDetailsAndProduct: VendorDetailsAndProduct | null = data?.data || null;
 
   const resolveImage = (
     img: string | File | null | undefined,
@@ -56,7 +74,18 @@ const VendorProduct: React.FC = () => {
 
   const [sortBy, setSortBy] = useState("popular");
 
-  const currentStoreUrl = `${window.location.origin}/store/${id || VENDOR_INFO.slug}`;
+  const formatMonthYear = (dateInput: string, formatStyle = 'MMMM yyyy') => {
+  if (!dateInput) return ''; 
+
+  try {
+    return format(new Date(dateInput), formatStyle);
+  } catch (error) {
+    console.error('Invalid date passed to formatMonthYear:', error);
+    return '';
+  }
+};
+
+  const currentStoreUrl = `${window.location.origin}/vendor/${id || VENDOR_INFO.slug}/${businessName || VENDOR_INFO.name.replace(/\s+/g, "-").toLowerCase()}`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(currentStoreUrl);
@@ -84,14 +113,14 @@ const VendorProduct: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
               <div className="relative flex-shrink-0">
                 <img
-                  src={VENDOR_INFO.avatar}
+                  src="/images/fexa-dark-logo.svg"
                   alt={VENDOR_INFO.name}
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover ring-4 ring-white shadow-md border border-slate-100"
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover ring-4 ring-white shadow-md border-emerald-700 p-5 border-3 "
                 />
                 {VENDOR_INFO.isVerified && (
                   <div
                     className="absolute -bottom-2 -right-2 bg-emerald-600 text-white p-1.5 rounded-full ring-2 ring-white shadow-sm"
-                    title="Verified Vexa Merchant"
+                    title="Verified Vexa Vendor"
                   >
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
@@ -100,13 +129,13 @@ const VendorProduct: React.FC = () => {
 
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 capitalize ">
                     {adminDetailsAndProduct?.vendor?.businessName}
                   </h1>
                   {VENDOR_INFO.isVerified && (
                     <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-200">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                      Verified Merchant
+                      Verified Vendor
                     </span>
                   )}
                 </div>
@@ -163,26 +192,26 @@ const VendorProduct: React.FC = () => {
                 )}
               </button>
 
-              <a
-                href={`tel:${adminDetailsAndProduct?.vendor?.phoneNumber}`}
+              <Link
+                to={`tel:${adminDetailsAndProduct?.vendor?.phoneNumber}`}
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-5 py-3 rounded-xl font-semibold text-sm shadow-md shadow-emerald-700/20 active:scale-95 transition-all"
               >
                 <PhoneCall className="w-4 h-4" />
-                <span>Contact Merchant</span>
-              </a>
+                <span>Contact Vendor</span>
+              </Link>
             </div>
           </div>
         </div>
 
         {/* --- STORE STATS BAR --- */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 mb-8">
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Total Products</p>
             <p className="text-xl font-bold text-slate-900 mt-0.5">
-              {adminDetailsAndProduct.length}
+              {adminDetailsAndProduct?.product.length} 
             </p>
           </div>
-          <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
+          <div className="bg-white p-4 hidden rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Average Rating</p>
             <p className="text-xl font-bold text-slate-900 mt-0.5">
               {VENDOR_INFO.rating} / 5.0
@@ -191,7 +220,9 @@ const VendorProduct: React.FC = () => {
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">
             <p className="text-xs text-slate-500 font-medium">Member Since</p>
             <p className="text-xl font-bold text-slate-900 mt-0.5">
-              {VENDOR_INFO.joinedDate}
+              {adminDetailsAndProduct?.vendor?.createdAt
+                ? formatMonthYear(adminDetailsAndProduct.vendor.createdAt)
+                : "—"}
             </p>
           </div>
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 text-center shadow-sm">

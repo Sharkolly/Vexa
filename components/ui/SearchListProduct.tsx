@@ -111,7 +111,7 @@ const List = ({
 
                 {/* Product Title */}
                 <Link to={productPath}>
-                  <h3 className="font-bold text-slate-900 text-sm sm:text-lg line-clamp-2 leading-snug group-hover:text-emerald-700 transition-colors">
+                  <h3 className="font-bold text-slate-900 text-sm sm:text-lg line-clamp-2 leading-snug group-hover:text-emerald-700 transition-colors truncate ">
                     {item?.name}
                   </h3>
                 </Link>
@@ -136,7 +136,7 @@ const List = ({
                   </p>
                 </div>
 
-                <div className="max-sm:w-full lg:-[60%]">
+                <div className=" w-full lg:-[60%]">
                   <AddToCart
                     quantity={item?.quantity}
                     _id={item?._id ?? ""}

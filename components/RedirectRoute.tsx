@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-// import Loader from "./Loader";
+import Loader from "./Loader";
 import API from "../api/api";
 
 const RedirectRoute = ({
@@ -37,19 +37,8 @@ const RedirectRoute = ({
 
   if (loading) {
     return (
-      // <div className="fixed top-0 left-0 w-full h-[95vh] bg-white flex justify-center items-center z-[150]">
-      //   <Image
-      //     width={200}
-      //     height={140}
-      //     src="/"
-      //     alt="Loading..."
-      //     className=" w-[100%]"
-      //     unoptimized
-      //   />
-      // </div>
 
-      // <Loader />
-      <div>Loading...</div>
+      <Loader/>
     );
   }
   return <>{children}</>;
