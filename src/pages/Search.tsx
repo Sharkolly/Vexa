@@ -50,7 +50,7 @@ const Search = () => {
   } | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 20;
+  const limit = 15;
 
   const {
     data,
