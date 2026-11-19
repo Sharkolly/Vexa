@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { useProductsByCategory, useQueryProduct } from "../../lib/useQuery";
 import type { AllProductType } from "../../types/product.types";
-import Loader from "../../components/Loader";
+// import Loader from "../../components/Loader";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState, useCallback } from "react";
@@ -18,6 +18,7 @@ import List from "../../components/ui/SearchListProduct";
 import { useNavigate, useParams } from "react-router-dom";
 import SearchNav from "../../components/ui/SearchNav";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import AppLoader from "../../components/AppLoader";
 
 export const PlaceholderCard = () => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -40,11 +41,16 @@ const Search = () => {
 
   const [query, setQuery] = useState("");
   const [subCategory, setSubCategory] = useState(category || "all");
-  const [searchData, setSearchData] = useState<AllProductType[] | null>(null);
+  const [searchData, setSearchData] = useState<{
+    status: string;
+    currentPage: number;
+    totalPages: number;
+    totalProducts: number;
+    data: AllProductType[];
+  } | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
-
-  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const limit = 20;
 
   const {
     data,
@@ -57,22 +63,32 @@ const Search = () => {
   );
 
   const subCategories = CategoryData?.data || [];
+  const [loadingSearch, setLoadingSearch ] = useState(false)
 
-  const handleSearch = useCallback(async (searchQuery: string) => {
-    try {
-      const res = await API(`/products?search=${searchQuery}`);
-      setSearchData(res.data?.data || []);
-      setTotalPages(res.data?.totalPages || 1);
-      setCurrentPage(res.data?.currentPage || 1);
-    } catch (error) {
-      const errorMessage = error as AxiosError<{ message: string }>;
-      console.error(errorMessage.message);
-    }
-  }, []);
+  const handleSearch = useCallback(
+    async (searchQuery: string) => {
+      try {
+        setLoadingSearch(true);
+        const res = await API(
+          `/products?search=${searchQuery.toLowerCase()}&page=${currentPage}&limit=${limit}`,
+        );        
+        setSearchData(res.data || null);
+        setCurrentPage(res.data?.currentPage || 1);
+      } catch (error) {
+        const errorMessage = error as AxiosError<{ message: string }>;
+        console.error(errorMessage.message);
+      }
+      finally {
+        setLoadingSearch(false)
+      }
+    },
+    [query, currentPage],
+  );
 
   const navigate = useNavigate();
 
-  const categorySearch =  (selectedCategory: string) => {
+  const categorySearch = (selectedCategory: string) => {
+    setQuery("");
     navigate(`/search/category/${selectedCategory}`);
     setSubCategory(selectedCategory);
     setTimeout(() => setCurrentPage(1), 1);
@@ -80,14 +96,13 @@ const Search = () => {
 
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
+    setTimeout(() => setCurrentPage(1), 1);
   };
 
   const clearSearch = () => {
     setQuery("");
     categorySearch(subCategory);
   };
-
-  // const navigate
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -100,15 +115,15 @@ const Search = () => {
   }, [query, handleSearch]);
 
   const displayedSearchData = query
-    ? (searchData ?? data?.data ?? [])
-    : (data?.data ?? []);
+    ? (searchData ??
+      data ?? { data: [], currentPage: 1, totalPages: 1, totalProducts: 0 })
+    : (data ?? { data: [], currentPage: 1, totalPages: 1, totalProducts: 0 });
 
   const displayedCurrentPage =
-    (currentPage ?? 1) ? (data?.currentPage ?? 1) : 1;
+    (displayedSearchData.currentPage ?? 1) || (currentPage ?? 1);
 
-  const displayedTotalPages = (totalPages ?? 1) ? (data?.totalPages ?? 1) : 1;
+  const displayedTotalPages = displayedSearchData.totalPages ?? 1;
 
-  if (totalPages < 1) return null;
   const getPages = () => {
     const pages: (number | "...")[] = [];
     if (displayedTotalPages <= 7) {
@@ -143,11 +158,16 @@ const Search = () => {
   };
   const pages = getPages();
 
+  const start =
+    displayedSearchData.totalProducts === 0 ? 0 : (currentPage - 1) * limit + 1;
+
+  const end = Math.min(currentPage * limit, displayedSearchData.totalProducts);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 overflow-x-hidden">
-      {isLoading || isFetching || ProductLoading ? (
+      {isLoading || isFetching || ProductLoading || loadingSearch ? (
         <div className="flex justify-center items-center min-h-[60vh]">
-          <Loader />
+          <AppLoader />
         </div>
       ) : (
         <div className="w-full antialiased">
@@ -165,6 +185,57 @@ const Search = () => {
               </div>
 
               <main className="flex-1 min-w-0 w-full  z-20 bg-transparent md:pl-4">
+                <div className="w-full rounded-xl border border-emerald-100 bg-white mb-7 p-4 sm:p-5 shadow-sm">
+                  {/* Heading */}
+
+                  
+                  <div className="flex items-center justify-between mb-3">
+                   {query &&  <h2 className="text-sm font-semibold text-gray-800">
+                      Search results
+                    </h2>
+
+
+                   }
+                  {query &&   <span className="rounded-full  bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                      FEXA
+                    </span>}
+                  </div>
+
+                  {/* Product count */}
+                  <h1 className="text-2xl sm:text-3xl font-bold text-emerald-600">
+                    {displayedSearchData.totalProducts.toLocaleString()}{" "}
+                    products
+                  </h1>
+
+                {query &&  <p className="mt-1 text-sm text-gray-500">
+                    Results for{" "}
+                    <span className="font-semibold text-gray-800">
+                      "{query}"
+                    </span>
+                  </p>}
+
+                  <div className="my-4 border-t border-gray-100" />
+
+                  {/* Pagination information */}
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-xs sm:text-sm text-gray-500">
+                      Showing{" "}
+                      <span className="font-semibold text-gray-800">
+                        {start}–{end}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-semibold text-gray-800">
+                        {displayedSearchData.totalProducts}
+                      </span>{" "}
+                      products
+                    </p>
+
+                    <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+                      Page {currentPage} of {displayedSearchData.totalPages}
+                    </span>
+                  </div>
+                </div>
+
                 <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5 mb-6">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                     <div className="relative flex items-center w-full sm:max-w-md bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 transition-all focus-within:bg-white focus-within:border-emerald-700 focus-within:ring-2 focus-within:ring-emerald-700/20">
@@ -227,7 +298,7 @@ const Search = () => {
                       return (
                         <>
                           <button
-                          onClick={() => categorySearch(item)}
+                            onClick={() => categorySearch(item)}
                             className={`px-4 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap active:scale-95 cursor-pointer  ${
                               isActive
                                 ? "bg-emerald-700 text-white shadow-xs"
@@ -235,7 +306,6 @@ const Search = () => {
                             }
                         
                         `}
-                           
                           >
                             {item}
                           </button>
@@ -245,7 +315,7 @@ const Search = () => {
                   </div>
                 </div>
 
-                {displayedSearchData && displayedSearchData.length > 3 && (
+                {displayedSearchData && displayedSearchData.data.length > 3 && (
                   <div className="flex flex-col items-center   gap-4 mt-10 mb-8">
                     <div className="flex items-center gap-1.5">
                       <button
@@ -306,74 +376,77 @@ const Search = () => {
                   <Grid
                     isLoading={isLoading}
                     category={subCategory}
-                    searchData={displayedSearchData}
+                    searchData={displayedSearchData?.data}
                     query={query}
                   />
                 ) : (
                   <List
                     isLoading={isLoading}
                     category={subCategory}
-                    searchData={displayedSearchData}
+                    searchData={displayedSearchData?.data}
                     query={query}
                   />
                 )}
 
-                {displayedSearchData && displayedSearchData.length > 0 && (
-                  <div className="flex flex-col items-center gap-4 mt-10 mb-8">
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
-                      >
-                        <FiChevronLeft size={17} />
-                        <span className="hidden sm:inline">Previous</span>
-                      </button>
+                {displayedSearchData.data &&
+                  displayedSearchData.data.length > 0 && (
+                    <div className="flex flex-col items-center gap-4 mt-10 mb-8">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => setCurrentPage(currentPage - 1)}
+                          disabled={currentPage === 1}
+                          className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
+                        >
+                          <FiChevronLeft size={17} />
+                          <span className="hidden sm:inline">Previous</span>
+                        </button>
 
-                      {pages.map((page, index) => {
-                        if (page === "...") {
+                        {pages.map((page, index) => {
+                          if (page === "...") {
+                            return (
+                              <span
+                                key={`ellipsis-${index}`}
+                                className=" flex items-center justify-center w-10 h-10 text-gray-400 text-sm   "
+                              >
+                                ...
+                              </span>
+                            );
+                          }
+                          const isActive = page === currentPage;
                           return (
-                            <span
-                              key={`ellipsis-${index}`}
-                              className=" flex items-center justify-center w-10 h-10 text-gray-400 text-sm   "
+                            <button
+                              key={page}
+                              onClick={() => setCurrentPage(page)}
+                              className={` flex items-center justify-center w-10 h-10 rounded-lg text-sm cursor-pointer font-medium transition-all ${isActive ? "bg-emerald-600 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600"} `}
                             >
-                              ...
-                            </span>
+                              {page}
+                            </button>
                           );
-                        }
-                        const isActive = page === currentPage;
-                        return (
-                          <button
-                            key={page}
-                            onClick={() => setCurrentPage(page)}
-                            className={` flex items-center justify-center w-10 h-10 rounded-lg text-sm cursor-pointer font-medium transition-all ${isActive ? "bg-emerald-600 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600"} `}
-                          >
-                            {page}
-                          </button>
-                        );
-                      })}
+                        })}
 
-                      <button
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                        disabled={currentPage >= displayedTotalPages}
-                        className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
-                      >
-                        <span className="hidden sm:inline">Next</span>
-                        <FiChevronRight size={17} />
-                      </button>
+                        <button
+                          onClick={() => setCurrentPage(currentPage + 1)}
+                          disabled={
+                            currentPage >= displayedSearchData.totalPages
+                          }
+                          className=" flex items-center justify-center gap-1 h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed "
+                        >
+                          <span className="hidden sm:inline">Next</span>
+                          <FiChevronRight size={17} />
+                        </button>
+                      </div>
+                      <p className="text-sm text-gray-500">
+                        Page{" "}
+                        <span className="font-semibold text-gray-800">
+                          {currentPage}{" "}
+                        </span>
+                        of{" "}
+                        <span className="font-semibold text-gray-800">
+                          {displayedSearchData.totalPages}
+                        </span>
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-500">
-                      Page{" "}
-                      <span className="font-semibold text-gray-800">
-                        {currentPage}{" "}
-                      </span>
-                      of{" "}
-                      <span className="font-semibold text-gray-800">
-                        {displayedTotalPages}
-                      </span>
-                    </p>
-                  </div>
-                )}
+                  )}
               </main>
             </div>
           </div>
