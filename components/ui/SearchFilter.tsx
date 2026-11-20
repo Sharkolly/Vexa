@@ -112,7 +112,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     return categories.map((cat) =>
       typeof cat === "string" ? { name: cat } : cat,
     );
-  }, [categories]); 
+  }, [categories]);
   // const normalizedCategories =  categories.map((cat) =>
   //     typeof cat === "string" ? { name: cat } : cat,
   //   );
@@ -251,11 +251,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   return (
     <>
-      <div className="lg:hidden mb-4 ">  
+      <div className="lg:hidden mb-4 ">
         <button
           type="button"
           onClick={() => setIsMobileOpen(true)}
-          className="flex items-center justify-between w-full bg-white border border-gray-300 shadow-sm px-4 py-2.5 rounded-sm  text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-all active:scale-[0.99]"
+          className="flex mt-24 items-center justify-between w-full bg-white border border-gray-300 shadow-sm px-4 py-2.5 rounded-sm  text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-all active:scale-[0.99]"
         >
           <div className="flex items-center gap-2">
             <svg
@@ -290,7 +290,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       <aside
         className={`
-          lg:pl-4    md:pt-5 bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto 
+          lg:pl-4 md:pt-5 bg-white max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:z-50 max-lg:h-full max-lg:w-[310px] max-lg:p-5 max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-300 max-lg:ease-in-out max-lg:overflow-y-auto 
           lg:flex-shrink-0 lg:fixed  lg:h-[calc(100vh-120px)] 
           ${isMobileOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"}
           

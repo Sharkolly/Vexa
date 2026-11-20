@@ -172,7 +172,7 @@ const Search = () => {
       ) : (
         <div className="w-full antialiased">
           <div className="md:w-full mx-auto sm:pt-24 pb-20  max-lg:px-4 sm:pr-4.5 lg:pr-6 ">
-            <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
+            <div className="flex flex-col lg:flex-row items-start gap-3 lg:gap-8">
               <div className="w-full lg:w-64 shrink-0">
                 <SearchFilter
                   categories={subCategories}

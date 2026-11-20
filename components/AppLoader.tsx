@@ -3,13 +3,13 @@ const AppLoader = () => {
     { bg: "bg-emerald-600", shadow: "shadow-emerald-600/40" },
     { bg: "bg-emerald-500", shadow: "shadow-emerald-500/40" },
     { bg: "bg-emerald-400", shadow: "shadow-emerald-400/40" },
-    { bg: "bg-teal-400",    shadow: "shadow-teal-400/60" },
-    { bg: "bg-cyan-400",    shadow: "shadow-cyan-400/50" },
-    { bg: "bg-cyan-400",    shadow: "shadow-cyan-300/40" },
+    { bg: "bg-teal-400",   shadow: "shadow-teal-400/60" },
+    { bg: "bg-cyan-400",   shadow: "shadow-cyan-400/50" },
+    { bg: "bg-cyan-400",   shadow: "shadow-cyan-300/40" },
   ];
 
   return (
-    <div className="flex items-center justify-center space-x-2.5  h-20">
+    <div className="flex items-center justify-center  space-x-2.5  h-screen">
       {dots.map((dot, index) => (
         <span
           key={index}

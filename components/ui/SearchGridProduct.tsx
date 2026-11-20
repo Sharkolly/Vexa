@@ -90,7 +90,7 @@ const Grid = ({
                     <img
                       src={resolveImage(item?.images[0], "")}
                       alt={item?.name || "Product"}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                      className="w-full h-full object-cover opacit  object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                   </Link>
 

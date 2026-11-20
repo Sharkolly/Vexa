@@ -4,8 +4,8 @@ import axios from "axios";
 
 const API = axios.create({
 //  baseURL: API_URL,
-  baseURL: "https://vexa-server.onrender.com/api/",
-  // baseURL: "http://localhost:5001/api/",
+  // baseURL: "https://vexa-server.onrender.com/api/",
+  baseURL: "http://localhost:5001/api/",
   withCredentials: true,
 });
 

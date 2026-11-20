@@ -113,7 +113,7 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-slate-950 text-slate-300 border-t border-slate-800/80 pt-16 pb-12">
-      <div className="w-[90%] max-md:w-[95%] mx-auto px-6">
+      <div className="w-[90%]  max-xl:w-[95%] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-16 border-b border-slate-800/80">
           
           {/* Brand Info */}
