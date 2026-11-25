@@ -82,7 +82,7 @@ const Grid = ({
           return (
             <div
               key={item?._id}
-              className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
+              className={`group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between ${item.stock === "out_of_stock" || item.disable ? "hidden" : ""}`}
             >
               <div>
                 <div className="relative bg-slate-100 aspect-square overflow-hidden">

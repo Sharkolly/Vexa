@@ -34,6 +34,7 @@ export type AllProductType = {
   discount?: number;
   color?: string;
   stock: "in_stock" | "low_stock" | "out_of_stock";
+  disable: boolean;
   deviceSpecifications?: {
     rom?: number;
     ram?: number;

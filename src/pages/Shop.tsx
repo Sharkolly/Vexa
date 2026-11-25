@@ -269,7 +269,7 @@ export default function Random() {
                   productGroup.products.length <= 0 ? "hidden" : "mb-10"
                 }`}
               >
-                <section className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+                <section className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden ">
                   <div className="border-b border-slate-100 p-4 sm:px-6 flex items-center justify-between bg-slate-50/50">
                     <div className="flex items-center gap-3">
                       <div className="w-2.5 h-6 rounded-full bg-emerald-600"></div>
@@ -292,7 +292,7 @@ export default function Random() {
                         return (
                           <div
                             key={product._id}
-                            className="w-[290px] sm:w-[330px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between"
+                            className={`w-[290px] sm:w-[330px] shrink-0 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden group flex flex-col justify-between `}
                           >
                             <div className="relative w-full aspect-square bg-slate-50 overflow-hidden border-b border-slate-100">
                               <span className="absolute top-3 right-3 bg-rose-500 text-white font-bold text-[11px] px-2 py-0.5 rounded-full shadow-xs z-10">

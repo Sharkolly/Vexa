@@ -77,7 +77,7 @@ const List = ({
         return (
           <div
             key={item._id}
-            className="group l  bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5  flex flex-row gap-4 max-[440px]:gap-1.5 sm:gap-6 items-stretch"
+            className={`group l  bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 p-3 sm:p-5  flex flex-row gap-4 max-[440px]:gap-1.5 sm:gap-6 items-stretch ${item.stock === "out_of_stock" || item.disable ? "hidden" : ""}`}
           >
             {/* Left: Product Image (Wider & Taller Frame) */}
             <div className="relative w-48 max-[500px]:w-30 sm:w-64 md:w-72 max-[500px]:h-48 sm:h-64 md:h-68 h-54 shrink-0 rounded-xl overflow-hidden bg-slate-100">
@@ -92,7 +92,7 @@ const List = ({
               <span className="absolute top-3 right-3 sm:top-3 sm:right-3 bg-rose-500 text-white text-[10px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-sm">
                 -25% OFF
               </span>
- 
+
               <span className="absolute top-2 left-3 hidde">
                 {renderStatusBadge(item.stock)}
               </span>
@@ -117,7 +117,7 @@ const List = ({
                 </Link>
 
                 {/* Description Preview on larger screens */}
-                    {/* {item?.description && (
+                {/* {item?.description && (
                   <p className="text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 mt-2 hidden leading-relaxed">
                     {item.description}
                   </p>
