@@ -65,14 +65,6 @@ const CheckoutPage = () => {
     city,
   } = deliveryDetails;
 
-  console.log(    email,
-    address,
-    deliveryFee,
-    fullName,
-    phone,
-    state,
-    totalFee,
-    city,)
 
   useEffect(() => {
     if (
@@ -91,9 +83,9 @@ const CheckoutPage = () => {
       !fullName,
       !phone,
       !state,
-      !totalFee,
+      // !totalFee,
       !city)
-      // window.location.href = "/delivery";
+      window.location.href = "/delivery";
     }
   }, [email, address, deliveryFee, fullName, phone, state, totalFee, city]);
 
