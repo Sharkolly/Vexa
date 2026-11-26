@@ -74,17 +74,9 @@ const CheckoutPage = () => {
       !fullName ||
       !phone ||
       !state ||
-      !totalFee ||
+      // !totalFee ||
       !city
     ) {
-      console.log(    !email,
-      !address,
-      // !deliveryFee,
-      !fullName,
-      !phone,
-      !state,
-      // !totalFee,
-      !city)
       window.location.href = "/delivery";
     }
   }, [email, address, deliveryFee, fullName, phone, state, totalFee, city]);
