@@ -64,29 +64,47 @@ const CheckoutPage = () => {
     totalFee,
     city,
   } = deliveryDetails;
+
+  console.log(    email,
+    address,
+    deliveryFee,
+    fullName,
+    phone,
+    state,
+    totalFee,
+    city,)
+
   useEffect(() => {
     if (
       !email ||
       !address ||
-      !deliveryFee ||
+      // !deliveryFee ||
       !fullName ||
       !phone ||
       !state ||
       !totalFee ||
       !city
     ) {
-      window.location.href = "/delivery";
+      console.log(    !email,
+      !address,
+      // !deliveryFee,
+      !fullName,
+      !phone,
+      !state,
+      !totalFee,
+      !city)
+      // window.location.href = "/delivery";
     }
   }, [email, address, deliveryFee, fullName, phone, state, totalFee, city]);
 
   if (
     !email ||
     !address ||
-    !deliveryFee ||
+    // !deliveryFee ||
     !fullName ||
     !phone ||
     !state ||
-    !totalFee ||
+    // !totalFee ||
     !city
   ) {
     return null;

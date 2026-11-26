@@ -48,7 +48,7 @@ const DeliveryPage = () => {
           totalFee: total?.totalPrice + data.deliveryFee,
         }));
 
-        localStorage.setItem('DeliveryDetails', JSON.stringify(deliveryDetails));
+        // localStorage.setItem('DeliveryDetails', JSON.stringify(deliveryDetails));
 
         setTimeout(() => {
           if (data.duration == "0s")
@@ -57,6 +57,7 @@ const DeliveryPage = () => {
       }
     } catch (error) {
       const errorMessage = error as AxiosError<{ message: string }>;
+      console.log(errorMessage);
       console.log(errorMessage.message);
     } finally {
       setCalculating(false);
@@ -74,7 +75,7 @@ const DeliveryPage = () => {
       [name]: value,
     }));
 
-    localStorage.setItem('DeliveryDetails', JSON.stringify(deliveryDetails));
+    // localStorage.setItem('DeliveryDetails', JSON.stringify(deliveryDetails));
   };
 
   const nigeriaStates = [
@@ -293,14 +294,14 @@ const DeliveryPage = () => {
             <div className="flex justify-between items-center text-base font-bold text-slate-900">
               <span>Total Amount</span>
               <span className="font-mono text-lg text-emerald-700">
-                ₦{(deliveryDetails.totalFee || total?.totalPrice)?.toLocaleString()}
+                ₦{(deliveryDetails?.deliveryFee + total?.totalPrice)?.toLocaleString()}
               </span>
             </div>
           </div>
 
           {/* ACTION BUTTONS */}
           <div className="mt-7 space-y-3">
-            {deliveryDetails.deliveryFee > 0 && (
+            {deliveryDetails.deliveryFee >= 0 && (
               <Link to="/checkout" className="block">
                 <button className="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-700/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                   <IoBagCheckOutline className="w-5 h-5" />
