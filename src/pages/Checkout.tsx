@@ -28,7 +28,7 @@ const CheckoutPage = () => {
   );
 
   const handlePayment = async () => {
-    localStorage.removeItem('DeliveryDetails')
+    localStorage.removeItem("DeliveryDetails");
     try {
       if (CartedProduct.length === 0) {
         alert("Your cart is empty");
@@ -64,7 +64,6 @@ const CheckoutPage = () => {
     totalFee,
     city,
   } = deliveryDetails;
-
 
   useEffect(() => {
     if (
@@ -306,3 +305,6 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+
+
+

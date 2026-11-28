@@ -270,7 +270,7 @@ const DeliveryPage = () => {
 
           <div className="space-y-4 text-sm">
             <div className="flex justify-between items-center text-slate-600 font-medium">
-              <span>Subtotal ({total?.totalItems || 0} items)</span>
+              <span>Subtotal ({total?.totalItems || 0} {total?.totalItems === 1 ? "item" : "items"})</span>
               <span className="font-mono text-slate-900 font-bold">
                 ₦{total?.totalPrice?.toLocaleString() || 0}
               </span>
@@ -313,7 +313,7 @@ const DeliveryPage = () => {
             <button
               disabled={calculating}
               onClick={calcDistance}
-              className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-md shadow-amber-500/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full hidden py-3.5 px-4 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-md shadow-amber-500/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
             >
               <IoBagCheckOutline className="hidden" />
               <span>
